@@ -1,6 +1,10 @@
 import React from 'react';
+import { useTranslation } from '../contexts/TranslationContext';
 
-const KeyFiguresSection = () => (
+const KeyFiguresSection = () => {
+  const { t } = useTranslation();
+  
+  return (
   <section style={{
     position: 'relative',
     width: '1440px',
@@ -37,7 +41,7 @@ const KeyFiguresSection = () => (
       justifyContent: 'center',
       textAlign: 'center',
     }}>
-      Dans les chiffres clés établis
+      {t('keyFigures.title')}
     </h2>
     {/* Stat 1: 2006 */}
     <div style={{ position: 'absolute', left: '11.68px', top: '75.96px', width: '252.19px', height: '126.49px' }}>
@@ -72,7 +76,7 @@ const KeyFiguresSection = () => (
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-      }}>Date de création</div>
+      }}>{t('keyFigures.stats.founded')}</div>
     </div>
     {/* Stat 2: 7000 */}
     <div style={{ position: 'absolute', left: '263.87px', top: '75.96px', width: '252.19px', height: '126.49px' }}>
@@ -107,7 +111,7 @@ const KeyFiguresSection = () => (
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-      }}>Clients</div>
+      }}>{t('keyFigures.stats.clients')}</div>
     </div>
     {/* Stat 3: 92% */}
     <div style={{ position: 'absolute', left: '516.06px', top: '75.96px', width: '252.19px', height: '126.49px' }}>
@@ -142,7 +146,7 @@ const KeyFiguresSection = () => (
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-      }}>93% de nos clients nous recommandent pour un investissement immobilier</div>
+      }}>{t('keyFigures.stats.recommendation')}</div>
     </div>
     {/* Stat 4: 16 millions */}
     <div style={{ position: 'absolute', left: '768.26px', top: '75.96px', width: '252.19px', height: '126.49px' }}>
@@ -177,7 +181,7 @@ const KeyFiguresSection = () => (
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-      }}>Le chiffre d'affaires</div>
+      }}>{t('keyFigures.stats.revenue')}</div>
     </div>
     {/* Stat 5: +18 % */}
     <div style={{ position: 'absolute', left: '1020.45px', top: '75.96px', width: '252.19px', height: '126.49px' }}>
@@ -212,7 +216,7 @@ const KeyFiguresSection = () => (
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-      }}>De croissance en 2019</div>
+      }}>{t('keyFigures.stats.growth')}</div>
     </div>
     {/* Stat 6: 150 */}
     <div style={{ position: 'absolute', left: '1272.65px', top: '75.96px', width: '155.67px', height: '126.49px' }}>
@@ -247,9 +251,10 @@ const KeyFiguresSection = () => (
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-      }}>Collaborateurs partout en France</div>
+      }}>{t('keyFigures.stats.employees')}</div>
     </div>
   </section>
 );
+};
 
 export default KeyFiguresSection; 

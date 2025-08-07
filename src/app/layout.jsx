@@ -1,4 +1,5 @@
 import '../styles/index.css';
+import { TranslationProvider } from '../contexts/TranslationContext';
 
 export const viewport = {
   width: 'device-width',
@@ -22,8 +23,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body>{children}<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fhamzasap1949back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
-</body>
+      <body>
+        <TranslationProvider>
+          {children}
+        </TranslationProvider>
+        <script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fhamzasap1949back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+      </body>
     </html>
   );
 }

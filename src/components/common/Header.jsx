@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Button from '../ui/Button';
 import Link from "next/link";
+import LanguageSwitcher from '../ui/LanguageSwitcher';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,6 +37,7 @@ const Header = () => {
 
           {/* Navigation Links */}
           <div className="flex items-center gap-3 text-xs font-source-sans">
+            <LanguageSwitcher className="mr-2" />
             <span className="text-global-1">Nos agences</span>
             <div className="w-px h-2.5 bg-header-1"></div>
             <span className="text-global-1">Actualités</span>

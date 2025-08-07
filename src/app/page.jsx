@@ -6,6 +6,9 @@ import Button from '../components/ui/Button';
 import Slider from '../components/ui/Slider';
 import PagerIndicator from '../components/ui/PagerIndicator';
 import ExpandableList from '../components/ui/ExpandableList';
+import LanguageSwitcher from '../components/ui/LanguageSwitcher';
+import KeyFiguresSection from '../components/KeyFiguresSection';
+import { useTranslation } from '../contexts/TranslationContext';
 
 const LOCAL_STORAGE_KEY = 'homepageContent';
 
@@ -96,6 +99,7 @@ const defaultSectionOrder = [
 ];
 
 export default function HomePage() {
+  const { t } = useTranslation();
   const [content, setContent] = useState(defaultContent);
   const [sectionOrder, setSectionOrder] = useState(defaultSectionOrder);
 
@@ -159,9 +163,9 @@ export default function HomePage() {
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col gap-3.5">
                       <div className="w-[60px] h-0.5 bg-global-5"></div>
-                      <h2 className="text-xl sm:text-2xl lg:text-2xl font-cairo font-medium uppercase text-global-2 leading-10">{content.introTitle}</h2>
+                      <h2 className="text-xl sm:text-2xl lg:text-2xl font-cairo font-medium uppercase text-global-2 leading-10">{t('intro.title')}</h2>
                     </div>
-                    <p className="text-lg sm:text-xl font-source-sans text-global-1 leading-7">{content.introParagraph}</p>
+                    <p className="text-lg sm:text-xl font-source-sans text-global-1 leading-7">{t('intro.paragraph')}</p>
                   </div>
                 </div>
               </div>
@@ -207,8 +211,8 @@ export default function HomePage() {
             <div className="max-w-[1368px] mx-auto">
               <div className="mb-10">
                 <div className="w-[45px] h-[1.5px] bg-global-5 mb-3 rounded-full"></div>
-                <h2 className="text-[24.75px] font-cairo font-normal uppercase text-global-2 mb-2 tracking-wide leading-[1.2]">{content.expertsTitle}</h2>
-                <p className="text-[20px] font-source-sans text-global-1 leading-[1.3] mt-4 max-w-2xl">{content.expertsDescription}</p>
+                        <h2 className="text-[24.75px] font-cairo font-normal uppercase text-global-2 mb-2 tracking-wide leading-[1.2]">{t('experts.title')}</h2>
+        <p className="text-[20px] font-source-sans text-global-1 leading-[1.3] mt-4 max-w-2xl">{t('experts.description')}</p>
               </div>
               {/* Mobile/tablet: vertical stack, desktop: original grid */}
               <div className="block lg:hidden">
@@ -245,13 +249,13 @@ export default function HomePage() {
                 <div className="bg-slider-1 p-8 rounded-2xl shadow-lg w-full flex flex-col items-center">
                   <img src="/images/img_svg.svg" className="w-8 h-6 mb-6" alt="quote" />
                   <h2 className="text-2xl sm:text-3xl font-cairo font-semibold uppercase text-global-2 text-center leading-tight mb-4 tracking-wide">
-                      {content.testimonialsTitle}
+                      {t('testimonials.title')}
                     </h2>
                   <p className="text-base sm:text-lg font-source-sans text-global-4 text-center leading-7 mb-6 max-w-xl">
-                      {content.testimonialText}
+                      {t('testimonials.text')}
                         </p>
                   <span className="text-sm font-source-sans font-semibold uppercase text-global-4 text-right mb-4">
-                      {content.testimonialAuthor}
+                      {t('testimonials.author')}
                         </span>
                   <div className="flex justify-center items-center gap-2 mt-2">
                       {[...Array(5)].map((_, index) => (
@@ -333,26 +337,9 @@ export default function HomePage() {
         );
       case 'stats':
         return (
-          <section key="stats" className="w-full bg-white py-16">
-          <div className="max-w-[1440px] mx-auto px-4">
-            {/* Divider and Title */}
-            <div className="flex flex-col items-center mb-10">
-              <div className="w-[46.7px] h-[1.56px] bg-[#4EBBBD] mb-3 rounded-full"></div>
-              <h2 className="text-[25.7px] font-cairo font-normal uppercase text-[#112033] text-center tracking-wide mb-2" style={{ letterSpacing: '0.02em' }}>
-                  Dans les chiffres clés établis
-                </h2>
-            </div>
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
-                {content.stats.map((stat, index) => (
-                  <div key={index}>
-                    <div className="text-[40px] font-source-sans font-normal text-[#B99066] leading-[58px]">{stat.value}</div>
-                    <div className="text-[11.7px] font-source-sans font-semibold text-[#000] leading-[18px] mt-2">{stat.label}</div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </section>
+          <section key="stats" className="w-full bg-white py-16 flex justify-center">
+            <KeyFiguresSection />
+          </section>
         );
       case 'investment':
         return (
@@ -365,11 +352,11 @@ export default function HomePage() {
                   <div className="flex flex-col gap-2.5 justify-center items-start flex-1 mt-8.5 px-4 lg:px-4">
                     <div className="w-[52px] h-px bg-global-5"></div>
                     <h2 className="text-lg sm:text-xl font-cairo font-normal uppercase text-global-7 leading-6.5 w-[96%]">
-                        {content.investmentTitle}
+                        {t('investment.title')}
                     </h2>
                   </div>
                   <p className="text-sm sm:text-base font-source-sans text-global-4 leading-5 mt-3.5 w-full">
-                      {content.investmentText}
+                      {t('investment.text')}
                   </p>
                   <Button 
                     variant="primary" 
