@@ -102,6 +102,13 @@ const PartnersCarousel = ({ content }) => {
   const [isAutoPlaying, setIsAutoPlaying] = React.useState(true);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
   
+  // Debug: Log partners when component receives new content
+  React.useEffect(() => {
+    console.log('🔄 PartnersCarousel - Content received:', content);
+    console.log('🔄 PartnersCarousel - Partners array:', content.partners);
+    console.log('🔄 PartnersCarousel - Partners count:', Array.isArray(content.partners) ? content.partners.length : 0);
+  }, [content.partners]);
+  
   // Auto-play functionality
   React.useEffect(() => {
     if (!isAutoPlaying) return;
@@ -131,13 +138,17 @@ const PartnersCarousel = ({ content }) => {
     }, 500);
   };
   
+  const partnersCount = Array.isArray(content.partners) ? content.partners.length : 0;
+  
   const goToPrevious = () => {
-    const newIndex = currentIndex === 0 ? 5 : currentIndex - 1; // Fixed to 6 partners (0-5)
+    if (partnersCount === 0) return;
+    const newIndex = currentIndex === 0 ? partnersCount - 1 : currentIndex - 1;
     goToSlide(newIndex);
   };
   
   const goToNext = () => {
-    const newIndex = (currentIndex + 1) % 6; // Fixed to 6 partners
+    if (partnersCount === 0) return;
+    const newIndex = (currentIndex + 1) % partnersCount;
     goToSlide(newIndex);
   };
   
@@ -185,55 +196,55 @@ const PartnersCarousel = ({ content }) => {
                 className="flex transition-transform duration-1000 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {(Array.isArray(content.partners) ? content.partners : []).map((src, idx) => (
-                  <div 
-                    key={idx} 
-                    className="w-full flex-shrink-0 px-4"
-                  >
-                    <div className="flex justify-center">
-                      <div className="group">
-                        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-[120px] w-[200px] flex items-center justify-center border border-gray-100 hover:border-[#B99066] hover:scale-105 relative">
-                          {src && (src.startsWith('data:image') || src.startsWith('/images/') || src.startsWith('http')) ? (
-                            <img 
-                              src={src} 
-                              alt={`Partenaire ${idx + 1}`} 
-                              className="max-h-[60px] max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
-                              onError={(e) => {
-                                console.error('Image failed to load for partner', idx + 1);
-                                console.error('Image type:', src?.startsWith('data:image') ? 'base64' : 'url');
-                                console.error('Image length:', src?.length || 0);
-                                e.target.style.display = 'none';
-                                // Show fallback text
-                                const parent = e.target.parentNode;
-                                if (!parent.querySelector('.error-fallback')) {
-                                  const fallback = document.createElement('div');
-                                  fallback.className = 'error-fallback text-xs text-gray-500 text-center p-2';
-                                  fallback.textContent = `Image ${idx + 1}`;
-                                  parent.appendChild(fallback);
-                                }
-                              }}
-                              onLoad={() => {
-                                console.log('Image loaded successfully for partner', idx + 1);
-                                // Remove any error fallback
-                                const parent = document.querySelector(`[data-partner-index="${idx}"]`);
-                                if (parent) {
-                                  const fallback = parent.querySelector('.error-fallback');
-                                  if (fallback) fallback.remove();
-                                }
-                              }}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          ) : (
-                            <div className="text-xs text-gray-400 text-center p-2">
-                              Image {idx + 1}
-                            </div>
-                          )}
+                {(Array.isArray(content.partners) && content.partners.length > 0 ? content.partners : []).map((src, idx) => {
+                  const partnerSrc = typeof src === 'string' ? src : (src?.url || src?.image || '');
+                  return (
+                    <div 
+                      key={idx} 
+                      className="w-full flex-shrink-0 px-4"
+                      data-partner-index={idx}
+                    >
+                      <div className="flex justify-center">
+                        <div className="group">
+                          <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-[120px] w-[200px] flex items-center justify-center border border-gray-100 hover:border-[#B99066] hover:scale-105 relative">
+                            {partnerSrc && partnerSrc.trim() !== '' ? (
+                              <img 
+                                src={partnerSrc} 
+                                alt={`Partenaire ${idx + 1}`} 
+                                className="max-h-[60px] max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
+                                onError={(e) => {
+                                  console.error('❌ Image failed to load for partner', idx + 1);
+                                  console.error('   Source:', partnerSrc);
+                                  console.error('   Source type:', typeof partnerSrc);
+                                  console.error('   Source length:', partnerSrc?.length || 0);
+                                  e.target.style.display = 'none';
+                                  // Show fallback text
+                                  const parent = e.target.parentNode;
+                                  if (!parent.querySelector('.error-fallback')) {
+                                    const fallback = document.createElement('div');
+                                    fallback.className = 'error-fallback text-xs text-gray-500 text-center p-2';
+                                    fallback.textContent = `Partenaire ${idx + 1}`;
+                                    parent.appendChild(fallback);
+                                  }
+                                }}
+                                onLoad={() => {
+                                  console.log('✅ Image loaded successfully for partner', idx + 1);
+                                }}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div className="text-xs text-gray-400 text-center p-2">
+                                Partenaire {idx + 1}
+                                {partnerSrc ? ` (${partnerSrc.substring(0, 20)}...)` : ' (no src)'}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -418,6 +429,10 @@ export default function HomePage() {
             // Ensure partners array is properly set from CMS
             if (Array.isArray(data.data.partners)) {
               mergedContent.partners = data.data.partners;
+              console.log('✅ Partners loaded from CMS:', mergedContent.partners);
+              console.log('✅ Partners count:', mergedContent.partners.length);
+            } else {
+              console.warn('⚠️ Partners is not an array:', data.data.partners);
             }
             console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
             setContent(mergedContent);
@@ -429,6 +444,10 @@ export default function HomePage() {
             // Ensure partners array is properly set from CMS
             if (Array.isArray(data.content.partners)) {
               mergedContent.partners = data.content.partners;
+              console.log('✅ Partners loaded from CMS:', mergedContent.partners);
+              console.log('✅ Partners count:', mergedContent.partners.length);
+            } else {
+              console.warn('⚠️ Partners is not an array:', data.content.partners);
             }
             console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
             setContent(mergedContent);
