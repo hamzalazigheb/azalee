@@ -44,9 +44,17 @@ export async function GET(request) {
     // Get all users
     const users = await User.find({}).select('-password').sort({ createdAt: -1 });
 
+    // Ensure _id is converted to string for each user
+    const usersWithStringIds = users.map(user => {
+      const userObj = user.toObject();
+      userObj._id = userObj._id.toString();
+      userObj.id = userObj._id; // Also add 'id' field for convenience
+      return userObj;
+    });
+
     return NextResponse.json({
       success: true,
-      data: users
+      data: usersWithStringIds
     });
 
   } catch (error) {

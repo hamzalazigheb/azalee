@@ -59,8 +59,22 @@ export async function PUT(request, { params }) {
 
     const { email, name, role, password } = await request.json();
 
-    // Find user
-    const user = await User.findById(id);
+    // Find user - try multiple methods to find by ID
+    let user = await User.findById(id);
+    
+    // If not found, try to find by string ID converted to ObjectId
+    if (!user && id && id.length === 24) {
+      try {
+        const mongoose = require('mongoose');
+        const ObjectId = mongoose.Types.ObjectId;
+        if (ObjectId.isValid(id)) {
+          user = await User.findById(new ObjectId(id));
+        }
+      } catch (e) {
+        console.error('Error converting ID to ObjectId:', e);
+      }
+    }
+    
     if (!user) {
       return NextResponse.json(
         { success: false, message: 'User not found' },
@@ -163,7 +177,25 @@ export async function DELETE(request, { params }) {
 
     // Find and delete user
     console.log('DELETE user - Searching for user with ID:', id);
-    const user = await User.findByIdAndDelete(id);
+    console.log('DELETE user - ID length:', id?.length);
+    
+    // Try to find user by ID (MongoDB ObjectId)
+    let user = await User.findById(id);
+    
+    // If not found, try to find by string ID
+    if (!user && id && id.length === 24) {
+      // MongoDB ObjectId is 24 hex characters
+      try {
+        const mongoose = require('mongoose');
+        const ObjectId = mongoose.Types.ObjectId;
+        if (ObjectId.isValid(id)) {
+          user = await User.findById(new ObjectId(id));
+        }
+      } catch (e) {
+        console.error('Error converting ID to ObjectId:', e);
+      }
+    }
+    
     if (!user) {
       console.log('DELETE user - User not found with ID:', id);
       // Try to find the user to see what IDs exist
@@ -175,6 +207,8 @@ export async function DELETE(request, { params }) {
       );
     }
     
+    // Delete the user
+    await User.findByIdAndDelete(user._id);
     console.log('DELETE user - Successfully deleted:', user.email);
 
     return NextResponse.json({
