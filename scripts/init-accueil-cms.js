@@ -1,11 +1,13 @@
 // Script to initialize the homepage (accueil) in CMS
 // Run with: node scripts/init-accueil-cms.js
 
+// Try .env.production first (for EC2), then .env.local (for local dev)
+require('dotenv').config({ path: '.env.production' });
 require('dotenv').config({ path: '.env.local' });
 const mongoose = require('mongoose');
 
-// Connection string
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/azalee_db';
+// Connection string - use MONGODB_URI from env, or default to localhost, or use Docker service name
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://mongo:27017/azalee_db' || 'mongodb://localhost:27017/azalee_db';
 
 // Define PageContent schema inline (CommonJS)
 const PageContentSchema = new mongoose.Schema({
