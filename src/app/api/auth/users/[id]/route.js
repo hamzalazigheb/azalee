@@ -12,7 +12,17 @@ export async function PUT(request, { params }) {
 
     // In Next.js 14, params might be a Promise
     const resolvedParams = await params || params;
-    const { id } = resolvedParams;
+    let { id } = resolvedParams;
+    
+    // Decode the ID if it was encoded
+    if (id) {
+      try {
+        id = decodeURIComponent(id);
+      } catch (e) {
+        // If decoding fails, use the original id
+        console.warn('Failed to decode ID, using original:', id);
+      }
+    }
 
     // Get token from Authorization header
     const authHeader = request.headers.get('authorization');
@@ -93,9 +103,21 @@ export async function DELETE(request, { params }) {
 
     // In Next.js 14, params might be a Promise
     const resolvedParams = await params || params;
-    const { id } = resolvedParams;
+    let { id } = resolvedParams;
+    
+    // Decode the ID if it was encoded
+    if (id) {
+      try {
+        id = decodeURIComponent(id);
+      } catch (e) {
+        // If decoding fails, use the original id
+        console.warn('Failed to decode ID, using original:', id);
+      }
+    }
     
     console.log('DELETE user - ID received:', id);
+    console.log('DELETE user - ID type:', typeof id);
+    console.log('DELETE user - ID length:', id?.length);
     console.log('DELETE user - Params:', resolvedParams);
 
     // Get token from Authorization header
