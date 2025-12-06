@@ -38,7 +38,7 @@ const HeroCarousel = ({ content }) => {
     <section className="relative w-full min-h-[500px] sm:min-h-[600px] py-8 sm:py-12 lg:py-20">
       {/* Dynamic Background Images */}
       <div className="absolute inset-0 overflow-hidden">
-        {(content.heroBackgrounds || []).map((bg, index) => (
+            {((content.hero?.heroBackgrounds || content.heroBackgrounds) || []).map((bg, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -66,21 +66,21 @@ const HeroCarousel = ({ content }) => {
       <div className="relative z-10 max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col items-center lg:items-start justify-center text-center lg:text-left min-h-[500px] sm:min-h-[600px]">
         <div className="max-w-2xl">
           <h1 className="text-white text-lg sm:text-xl md:text-2xl lg:text-4xl font-cairo font-semibold uppercase mb-4 leading-snug">
-            {content.heroTitle}
+            {content.hero?.heroTitle || content.heroTitle}
           </h1>
           <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl mb-8 font-inter leading-relaxed">
-            {content.heroSubtitle}
+            {content.hero?.heroSubtitle || content.heroSubtitle}
           </p>
           <button 
             className="bg-[#B99066] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-sm sm:text-base font-semibold uppercase shadow-lg mb-8 hover:bg-[#A67A5A] transition-colors duration-200 w-full sm:w-auto"
             onClick={() => window.location.href = '/contact'}
           >
-            {content.heroButton1}
+            {content.hero?.heroButton1 || content.heroButton1}
           </button>
           
           {/* Dynamic Navigation Dots */}
           <div className="flex justify-center lg:justify-start items-center gap-2 mb-4">
-            {(content.heroBackgrounds || []).map((_, i) => (
+            {((content.hero?.heroBackgrounds || content.heroBackgrounds) || []).map((_, i) => (
               <button
                 key={i}
                 onClick={() => goToSlide(i)}
@@ -106,14 +106,17 @@ const PartnersCarousel = ({ content }) => {
   React.useEffect(() => {
     if (!isAutoPlaying) return;
     
+    const partnersCount = Array.isArray(content.partners) ? content.partners.length : 0;
+    if (partnersCount === 0) return;
+    
     const interval = setInterval(() => {
       if (!isTransitioning) {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % 6); // Fixed to 6 partners
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % partnersCount);
       }
     }, 5000); // Change every 5 seconds
     
     return () => clearInterval(interval);
-  }, [isAutoPlaying, isTransitioning]);
+  }, [isAutoPlaying, isTransitioning, content.partners]);
   
   // Handle manual navigation
   const goToSlide = (index) => {
@@ -189,22 +192,43 @@ const PartnersCarousel = ({ content }) => {
                   >
                     <div className="flex justify-center">
                       <div className="group">
-                        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-[120px] w-[200px] flex items-center justify-center border border-gray-100 hover:border-[#B99066] hover:scale-105">
-                          <img 
-                            src={src} 
-                            alt={`Partenaire ${idx + 1}`} 
-                            className="max-h-[60px] max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
-                            onError={(e) => {
-                              console.log('Image failed to load:', src);
-                              e.target.style.display = 'none';
-                              // Show fallback text
-                              const fallback = document.createElement('div');
-                              fallback.className = 'text-xs text-gray-500 text-center';
-                              fallback.textContent = `Partner ${idx + 1}`;
-                              e.target.parentNode.appendChild(fallback);
-                            }}
-                            onLoad={() => console.log('Image loaded successfully:', src)}
-                          />
+                        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-[120px] w-[200px] flex items-center justify-center border border-gray-100 hover:border-[#B99066] hover:scale-105 relative">
+                          {src && (src.startsWith('data:image') || src.startsWith('/images/') || src.startsWith('http')) ? (
+                            <img 
+                              src={src} 
+                              alt={`Partenaire ${idx + 1}`} 
+                              className="max-h-[60px] max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
+                              onError={(e) => {
+                                console.error('Image failed to load for partner', idx + 1);
+                                console.error('Image type:', src?.startsWith('data:image') ? 'base64' : 'url');
+                                console.error('Image length:', src?.length || 0);
+                                e.target.style.display = 'none';
+                                // Show fallback text
+                                const parent = e.target.parentNode;
+                                if (!parent.querySelector('.error-fallback')) {
+                                  const fallback = document.createElement('div');
+                                  fallback.className = 'error-fallback text-xs text-gray-500 text-center p-2';
+                                  fallback.textContent = `Image ${idx + 1}`;
+                                  parent.appendChild(fallback);
+                                }
+                              }}
+                              onLoad={() => {
+                                console.log('Image loaded successfully for partner', idx + 1);
+                                // Remove any error fallback
+                                const parent = document.querySelector(`[data-partner-index="${idx}"]`);
+                                if (parent) {
+                                  const fallback = parent.querySelector('.error-fallback');
+                                  if (fallback) fallback.remove();
+                                }
+                              }}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          ) : (
+                            <div className="text-xs text-gray-400 text-center p-2">
+                              Image {idx + 1}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -220,12 +244,12 @@ const PartnersCarousel = ({ content }) => {
               <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full transition-all duration-500"
-                  style={{ width: `${((currentIndex + 1) / 6) * 100}%` }}
+                  style={{ width: `${((currentIndex + 1) / (Array.isArray(content.partners) ? content.partners.length : 1)) * 100}%` }}
                 ></div>
               </div>
             </div>
             <span className="text-sm text-[#253F60] font-inter font-medium">
-              {currentIndex + 1} / 6
+              {currentIndex + 1} / {Array.isArray(content.partners) ? content.partners.length : 0}
             </span>
           </div>
           
@@ -371,18 +395,63 @@ export default function HomePage() {
   const [content, setContent] = useState(defaultContent);
   const [sectionOrder, setSectionOrder] = useState(defaultSectionOrder);
   const [contentSource, setContentSource] = useState('default');
-
-  // Database loading disabled - using static content only
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Use default content only - no database loading
-    console.log('Homepage - Using default content only');
-    setContent(defaultContent);
-    setSectionOrder(defaultSectionOrder);
-    setContentSource('default');
-    
-    // No polling or database loading
-    console.log('Homepage - Database loading disabled - using static content');
+    const fetchContent = async () => {
+      try {
+        setLoading(true);
+        // Add cache-busting parameter to force fresh data
+        const response = await fetch(`/api/cms/content?path=home&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          // Use same pattern as fiscalite and immobilier pages
+          if (data.data) {
+            // Merge CMS content with default content to ensure all fields are present
+            const mergedContent = { ...defaultContent, ...data.data };
+            // Ensure partners array is properly set from CMS
+            if (Array.isArray(data.data.partners)) {
+              mergedContent.partners = data.data.partners;
+            }
+            console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
+            setContent(mergedContent);
+            setSectionOrder(data.data.sectionOrder || defaultSectionOrder);
+            setContentSource('cms');
+          } else if (data.content) {
+            // Merge CMS content with default content
+            const mergedContent = { ...defaultContent, ...data.content };
+            // Ensure partners array is properly set from CMS
+            if (Array.isArray(data.content.partners)) {
+              mergedContent.partners = data.content.partners;
+            }
+            console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
+            setContent(mergedContent);
+            setSectionOrder(data.content.sectionOrder || defaultSectionOrder);
+            setContentSource('cms');
+          } else {
+            // Fallback to default content
+            console.log('Using default content - Partners count:', defaultContent.partners?.length || 0);
+            setContent(defaultContent);
+            setSectionOrder(defaultSectionOrder);
+            setContentSource('default');
+          }
+        } else {
+          console.log('API response not OK, using default content');
+          setContent(defaultContent);
+          setSectionOrder(defaultSectionOrder);
+          setContentSource('default');
+        }
+      } catch (error) {
+        console.error('Error fetching homepage content:', error);
+        setContent(defaultContent);
+        setSectionOrder(defaultSectionOrder);
+        setContentSource('default');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
   }, []);
 
   // Mapping des sections à afficher dynamiquement
@@ -399,9 +468,9 @@ export default function HomePage() {
                   <div className="flex flex-col gap-4 sm:gap-6">
                     <div className="flex flex-col gap-3 sm:gap-3.5">
                       <div className="w-[60px] h-0.5 bg-global-5"></div>
-                      <h2 className="text-lg sm:text-xl lg:text-2xl font-cairo font-medium uppercase text-global-2 leading-tight sm:leading-10">{content.introTitle}</h2>
+                      <h2 className="text-lg sm:text-xl lg:text-2xl font-cairo font-medium uppercase text-global-2 leading-tight sm:leading-10">{content.intro?.introTitle || content.introTitle}</h2>
                     </div>
-                    <p className="text-base sm:text-lg lg:text-xl font-source-sans text-global-1 leading-relaxed sm:leading-7">{content.introParagraph}</p>
+                    <p className="text-base sm:text-lg lg:text-xl font-source-sans text-global-1 leading-relaxed sm:leading-7">{content.intro?.introParagraph || content.introParagraph}</p>
                   </div>
                 </div>
               </div>
@@ -435,7 +504,7 @@ export default function HomePage() {
                 </div>
                 {/* Centered button below grid */}
                 <div className="flex justify-center mt-6">
-                  <button className="bg-[#B99066] text-white px-6 py-3 rounded font-semibold text-sm w-full sm:w-auto">{content.introButton}</button>
+                  <button className="bg-[#B99066] text-white px-6 py-3 rounded font-semibold text-sm w-full sm:w-auto">{content.intro?.introButton || content.introButton}</button>
                 </div>
               </div>
             </div>
@@ -447,7 +516,7 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src="/images/quiss.jpg"
+                src={content.team?.teamImage || content.teamImage || "/images/quiss.jpg"}
                 alt="Équipe Azalée Patrimoine - Vision d'ensemble équipe diversifiée (4 personnes)"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -455,7 +524,7 @@ export default function HomePage() {
                   console.log('Trying fallback to image4.webp');
                   e.target.src = "/images/image4.webp";
                 }}
-                onLoad={() => console.log('Team image loaded successfully:', '/images/quiss.jpg')}
+                onLoad={() => console.log('Team image loaded successfully')}
                 style={{ 
                   minHeight: '400px',
                   backgroundColor: '#f0f0f0'
@@ -471,19 +540,19 @@ export default function HomePage() {
               <div className="text-center mb-12 sm:mb-16">
                 <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#4EBBBD] mb-4 sm:mb-6 rounded-full mx-auto"></div>
                 <h2 className="text-white text-2xl sm:text-3xl lg:text-[42px] font-cairo font-semibold mb-4 sm:mb-6 tracking-wide leading-tight sm:leading-[1.2]">
-                  {content.teamTitle}
+                  {content.team?.teamTitle || content.teamTitle}
                 </h2>
                 <p className="text-white/90 text-lg sm:text-xl lg:text-[24px] font-inter font-medium mb-6 sm:mb-8 max-w-2xl mx-auto">
-                  {content.teamSubtitle}
+                  {content.team?.teamSubtitle || content.teamSubtitle}
                 </p>
                 <p className="text-white/80 text-sm sm:text-base lg:text-[18px] font-inter leading-relaxed sm:leading-[1.6] max-w-4xl mx-auto">
-                  {content.teamDescription}
+                  {content.team?.teamDescription || content.teamDescription}
                 </p>
               </div>
               
               {/* Team Values */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-                {(content.teamValues || []).map((value, index) => (
+                {((content.team?.teamValues || content.teamValues) || []).map((value, index) => (
                   <div key={index} className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-xl border border-white/20 hover:transform hover:scale-105 transition-all duration-300">
                     <h3 className="text-[#112033] font-cairo font-semibold text-base sm:text-lg mb-2 sm:mb-3">{value.title}</h3>
                     <p className="text-[#4A5568] font-inter text-xs sm:text-sm leading-relaxed">{value.desc}</p>
@@ -497,7 +566,7 @@ export default function HomePage() {
                   className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-6 py-3 sm:px-10 sm:py-4 rounded-lg font-inter font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
                   onClick={() => window.location.href = '/notre-approche'}
                 >
-                  Découvrir notre approche
+                  {content.team?.teamButton || content.teamButton || "Découvrir notre approche"}
                 </button>
               </div>
             </div>
@@ -511,8 +580,8 @@ export default function HomePage() {
                 {/* Left: Content */}
                 <div className="order-2 lg:order-1">
                   <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#4EBBBD] mb-4 sm:mb-6 rounded-full"></div>
-                  <h2 className="text-xl sm:text-2xl lg:text-[36px] font-cairo font-semibold text-[#112033] mb-4 sm:mb-6 tracking-wide leading-tight sm:leading-[1.2]">{content.expertsTitle}</h2>
-                  <p className="text-base sm:text-lg lg:text-[20px] font-inter text-[#4A5568] leading-relaxed sm:leading-[1.6] mb-6 sm:mb-8">{content.expertsDescription}</p>
+                  <h2 className="text-xl sm:text-2xl lg:text-[36px] font-cairo font-semibold text-[#112033] mb-4 sm:mb-6 tracking-wide leading-tight sm:leading-[1.2]">{content.experts?.expertsTitle || content.expertsTitle}</h2>
+                  <p className="text-base sm:text-lg lg:text-[20px] font-inter text-[#4A5568] leading-relaxed sm:leading-[1.6] mb-6 sm:mb-8">{content.experts?.expertsDescription || content.expertsDescription}</p>
                   
                   {/* Key Benefits */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
@@ -647,12 +716,12 @@ export default function HomePage() {
             <div className="flex flex-col items-center mb-10">
               <div className="w-[46.7px] h-[1.56px] bg-[#4EBBBD] mb-3 rounded-full"></div>
               <h2 className="text-[25.7px] font-cairo font-normal uppercase text-[#112033] text-center tracking-wide mb-2" style={{ letterSpacing: '0.02em' }}>
-                  Dans les chiffres clés établis
+                  {content.statsTitle || content.stats?.statsTitle || 'Dans les chiffres clés établis'}
                 </h2>
             </div>
             {/* Stats Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-8 text-center">
-              {(content.stats || []).map((stat, index) => (
+              {((content.stats || content.stats) || []).map((stat, index) => (
                 <div key={index}>
                   <div className="text-[40px] font-source-sans font-normal text-[#B99066] leading-[58px]">{stat.value}</div>
                   <div className="text-[11.7px] font-source-sans font-semibold text-[#000] leading-[18px] mt-2">{stat.label}</div>
@@ -674,58 +743,53 @@ export default function HomePage() {
                   <div className="mb-6">
                     <div className="w-[60px] h-[2px] bg-white mb-4"></div>
                     <h2 className="text-white text-xl lg:text-2xl font-cairo font-semibold uppercase leading-tight">
-                      {content.investmentTitle}
+                      {content.investment?.investmentTitle || content.investmentTitle}
                     </h2>
                   </div>
                   
                   {/* Description */}
                   <p className="text-white text-base lg:text-lg font-inter leading-relaxed mb-8">
-                    {content.investmentText}
+                    {content.investment?.investmentText || content.investmentText}
                   </p>
                   
                   {/* CTA Button */}
                   <div className="mb-8">
                     <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-inter font-semibold text-base hover:bg-[#A67A5A] transition-colors duration-200 shadow-lg">
-                      {content.investmentButton}
+                      {content.investment?.investmentButton || content.investmentButton}
                     </button>
                   </div>
                   
                   {/* Expandable Accordion */}
                   <div className="space-y-4">
-                    {/* Expanded Item */}
-                    <div className="bg-white/10 rounded-lg p-4 cursor-pointer hover:bg-white/20 transition-colors duration-200" onClick={() => window.location.href = '/fiscalite'}>
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-white font-cairo font-semibold text-lg">Comprendre la fiscalité avant de défiscaliser</h3>
-                        <svg className="w-5 h-5 text-white transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-                      <p className="text-white/90 text-sm font-inter">
-                        Découvrez les meilleures stratégies d'investissement adaptées à votre profil et vos objectifs financiers.
-                      </p>
-                    </div>
-                    
-                    {/* Collapsed Items */}
-                    {[
-                      { title: "Qui a-t-il dans un bilan patrimonial", url: "/patrimoine" },
-                      { title: "Alléger votre fiscalité", url: "/retraite" }, 
-                      { title: "Comment optimiser son pouvoir d'achat à la retraite", url: "/retraite" },
-                      { title: "Gagner de l'argent grâce à des placements financiers", url: "/placements" },
-                      { title: "Pourquoi l'immobilier est une base pour votre patrimoine ?", url: "/Investissement-immobilier" }
-                    ].map((item, index) => (
-                      <div 
-                        key={index} 
-                        className="bg-white/5 rounded-lg p-4 hover:bg-white/10 transition-colors duration-200 cursor-pointer"
-                        onClick={() => item.url && (window.location.href = item.url)}
-                      >
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-white font-cairo font-medium text-base">{item.title}</h3>
-                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
+                    {((content.investment?.investmentItems || content.investmentItems) || []).map((item, index) => {
+                      const isExpanded = item.expanded === true;
+                      return (
+                        <div 
+                          key={index} 
+                          className={`${isExpanded ? 'bg-white/10' : 'bg-white/5'} rounded-lg p-4 cursor-pointer hover:bg-white/20 transition-colors duration-200`}
+                          onClick={() => item.url && (window.location.href = item.url)}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h3 className={`text-white font-cairo ${isExpanded ? 'font-semibold text-lg' : 'font-medium text-base'}`}>
+                              {item.title}
+                            </h3>
+                            <svg 
+                              className={`w-5 h-5 text-white ${isExpanded ? 'transform rotate-180' : ''}`} 
+                              fill="none" 
+                              stroke="currentColor" 
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                          {isExpanded && item.description && (
+                            <p className="text-white/90 text-sm font-inter mt-3">
+                              {item.description}
+                            </p>
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -733,7 +797,7 @@ export default function HomePage() {
               {/* Right Image */}
               <div className="w-full lg:w-[50%] relative">
                 <img 
-                  src={content.investmentImage2} 
+                  src={content.investment?.investmentImage2 || content.investmentImage2 || '/images/img_image_1220.png'} 
                   className="w-full h-full object-cover" 
                   alt="Financial planning consultation" 
                 />
@@ -754,14 +818,14 @@ export default function HomePage() {
               <div className="flex flex-col justify-start items-start flex-1">
                 <div className="w-[60px] h-0.5 bg-global-5 ml-2"></div>
                 <h2 className="text-2xl sm:text-3xl font-cairo font-normal uppercase text-global-2 leading-10 mt-4 w-[96%]">
-                    {content.finalCtaTitle}
+                    {content.finalCta?.finalCtaTitle || content.finalCtaTitle}
                 </h2>
                 <p className="text-lg sm:text-xl font-source-sans text-global-1 leading-6.5 mt-1.5 mb-3 w-[98%]">
-                    {content.finalCtaText}
+                    {content.finalCta?.finalCtaText || content.finalCtaText}
                 </p>
               </div>
               <img 
-                  src={content.finalCtaImage} 
+                  src={content.finalCta?.finalCtaImage || content.finalCtaImage} 
                 className="w-full lg:w-[34%] h-[490px] object-cover" 
                 alt="Expert consultation" 
               />

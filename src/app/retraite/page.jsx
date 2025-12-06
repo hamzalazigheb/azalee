@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -199,7 +200,7 @@ export default function RetraitePage() {
                   {pageContent.hero?.description1 || "Anticiper sa retraite, c'est protéger son niveau de vie futur tout en optimisant la gestion de son patrimoine. Dans un contexte de réformes successives et d'allongement des carrières, bien préparer sa retraite ne relève plus du confort, mais d'une véritable stratégie patrimoniale."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: pageContent.hero?.description2 || "<strong className=\"text-[#253F60] font-semibold\">Azalée Patrimoine</strong> vous accompagne pour bâtir une stratégie fiscale cohérente, durable et adaptée à votre profil." }} />
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.hero?.description2 || "<strong className=\"text-[#253F60] font-semibold\">Azalée Patrimoine</strong> vous accompagne pour bâtir une stratégie fiscale cohérente, durable et adaptée à votre profil.") }} />
               </div>
               
               <div className="mt-10">
@@ -488,7 +489,7 @@ export default function RetraitePage() {
                 "Et si l'on tient compte d'une <span className=\"font-semibold text-pink-600\">tranche marginale d'imposition</span> à 30%, la perte réelle de revenu disponible s'élève encore à environ 28 000 € nets par an.",
                 "Certes, la retraite s'accompagne souvent d'une réduction des charges courantes — moins de crédits ou d'enfants à charge —, mais de nouvelles dépenses apparaissent :"
               ]).map((paragraph, index) => (
-                <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4 ml-10" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4 ml-10" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
               ))}
               {pageContent.section1.perteRevenus.depenses && (
                 <ul className="list-disc list-inside text-[#4B5563] text-base font-inter space-y-2 ml-10 mb-4">
@@ -580,7 +581,7 @@ export default function RetraitePage() {
               </h3>
               <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border-2 border-[#253F60]/20">
                 {(pageContent.section3.comprendre.paragraphs || []).map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                 ))}
               </div>
             </div>
@@ -715,7 +716,7 @@ export default function RetraitePage() {
                           {etape.items.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-start gap-3">
                               <span className="text-[#B99066] mt-1 font-bold">•</span>
-                              <span dangerouslySetInnerHTML={{ __html: item }} />
+                              <span dangerouslySetInnerHTML={{ __html: processHTMLForRender(item) }} />
                             </li>
                           ))}
                         </ul>
@@ -773,7 +774,7 @@ export default function RetraitePage() {
                     {(pageContent.section4.resultats.items || []).map((item, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <span className="text-[#B99066] mt-1 font-bold text-xl">•</span>
-                        <span dangerouslySetInnerHTML={{ __html: item }} />
+                        <span dangerouslySetInnerHTML={{ __html: processHTMLForRender(item) }} />
                       </li>
                     ))}
                   </ul>
@@ -813,7 +814,7 @@ export default function RetraitePage() {
                   {pageContent.section5.errors.map((error, index) => (
                     <li key={index} className="flex items-start gap-4">
                       <span className="text-red-600 mt-1 font-bold text-xl">•</span>
-                      <span dangerouslySetInnerHTML={{ __html: error }} />
+                      <span dangerouslySetInnerHTML={{ __html: processHTMLForRender(error) }} />
                     </li>
                   ))}
                 </ul>
@@ -1331,7 +1332,7 @@ export default function RetraitePage() {
                   {pageContent.section9.immobilier.h3 || "L'investissement immobilier locatif"}
                 </h3>
                 {pageContent.section9.immobilier.paragraphs && pageContent.section9.immobilier.paragraphs.map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                 ))}
                 {pageContent.section9.immobilier.lien && (
                   <div className="flex items-start gap-3">
@@ -1353,7 +1354,7 @@ export default function RetraitePage() {
                   {pageContent.section9.placements.h3 || "Les placements financiers complémentaires"}
                 </h3>
                 {pageContent.section9.placements.paragraphs && pageContent.section9.placements.paragraphs.map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                 ))}
               </div>
             )}
@@ -1380,7 +1381,7 @@ export default function RetraitePage() {
                 </p>
                 {pageContent.section10.levierPER.exemple && (
                   <div className="bg-[#F5F0E8] border-l-4 border-[#B99066] p-4 rounded mb-4">
-                    <p className="text-[#4B5563] text-base font-inter" dangerouslySetInnerHTML={{ __html: pageContent.section10.levierPER.exemple }} />
+                    <p className="text-[#4B5563] text-base font-inter" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section10.levierPER.exemple) }} />
                   </div>
                 )}
                 {pageContent.section10.levierPER.conclusion && (
@@ -1486,7 +1487,7 @@ export default function RetraitePage() {
                   {pageContent.section11.transmission.h3 || "Anticiper la transmission de son patrimoine retraite"}
                 </h3>
                 {pageContent.section11.transmission.paragraphs && pageContent.section11.transmission.paragraphs.map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                 ))}
                 {pageContent.section11.transmission.intro && (
                   <p className="text-[#4B5563] text-base font-inter leading-relaxed mb-4">
@@ -1520,7 +1521,7 @@ export default function RetraitePage() {
                   {pageContent.section11.prevoyance.h3 || "Protéger sa famille avec la prévoyance"}
                 </h3>
                 {pageContent.section11.prevoyance.paragraphs && pageContent.section11.prevoyance.paragraphs.map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <p key={index} className="text-[#4B5563] text-base font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                 ))}
                 {pageContent.section11.prevoyance.lien && (
                   <Link href={pageContent.section11.prevoyance.lien.url || "/retraite/prevoyance-protection"} className="text-[#B99066] hover:text-[#D4A574] font-inter underline">
@@ -1592,7 +1593,7 @@ export default function RetraitePage() {
                   </ul>
                 )}
                 {pageContent.section12.accompagnement.conclusion && (
-                  <p className="text-[#4B5563] text-base font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: pageContent.section12.accompagnement.conclusion }} />
+                  <p className="text-[#4B5563] text-base font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section12.accompagnement.conclusion) }} />
                 )}
               </div>
             )}
@@ -1672,7 +1673,7 @@ export default function RetraitePage() {
                       {pageContent.section12.strategies.independants.h4 || "Pour les indépendants et professions libérales"}
                     </h4>
                     {pageContent.section12.strategies.independants.text && (
-                      <p className="text-[#4B5563] text-base font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: pageContent.section12.strategies.independants.text }} />
+                      <p className="text-[#4B5563] text-base font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section12.strategies.independants.text) }} />
                     )}
                   </div>
                 )}
@@ -1730,7 +1731,7 @@ export default function RetraitePage() {
                       }`}
                     >
                       <div className="px-6 sm:px-8 pb-6 sm:pb-8">
-                        <p className="text-[#4B5563] text-base font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: faq.answer }} />
+                        <p className="text-[#4B5563] text-base font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(faq.answer) }} />
                       </div>
                     </div>
                   </div>
@@ -1817,7 +1818,7 @@ export default function RetraitePage() {
                       <svg className="w-6 h-6 text-[#253F60] group-hover:text-[#B99066] transition-colors" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
                       </svg>
-                      <h3 className="text-[#253F60] font-cairo font-bold group-hover:text-[#B99066] transition-colors">{category.title}</h3>
+                      <h3 className="text-[#253F60] font-cairo font-bold group-hover:text-[#B99066] transition-colors" dangerouslySetInnerHTML={{ __html: processHTMLForRender(category.title || '') }} />
                     </div>
                     <p className="text-[#4B5563] text-sm font-inter">{category.description}</p>
                   </Link>

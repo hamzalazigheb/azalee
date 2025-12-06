@@ -22,11 +22,46 @@ export default function ContactFormPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState({ type: '', text: '' });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ici vous pouvez ajouter la logique d'envoi du formulaire
-    console.log('Formulaire soumis:', formData);
-    alert('Votre demande a été envoyée avec succès !');
+    setSubmitting(true);
+    setSubmitMessage({ type: '', text: '' });
+
+    try {
+      const response = await fetch('/api/contact/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitMessage({ type: 'success', text: data.message || 'Votre demande a été envoyée avec succès !' });
+        // Reset form
+        setFormData({
+          nom: '',
+          email: '',
+          telephone: '',
+          ville: '',
+          profession: '',
+          patrimoine: '',
+          message: ''
+        });
+      } else {
+        setSubmitMessage({ type: 'error', text: data.message || 'Une erreur est survenue. Veuillez réessayer.' });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage({ type: 'error', text: 'Une erreur est survenue. Veuillez réessayer.' });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -182,11 +217,21 @@ export default function ContactFormPage() {
 
                 {/* CTA */}
                 <div className="text-center">
+                  {submitMessage.text && (
+                    <div className={`mb-4 p-4 rounded-lg ${
+                      submitMessage.type === 'success' 
+                        ? 'bg-green-50 text-green-800 border border-green-200' 
+                        : 'bg-red-50 text-red-800 border border-red-200'
+                    }`}>
+                      {submitMessage.text}
+                    </div>
+                  )}
                   <button
                     type="submit"
-                    className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-12 py-4 rounded-lg font-inter font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                    disabled={submitting}
+                    className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-12 py-4 rounded-lg font-inter font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Envoyer ma demande
+                    {submitting ? 'Envoi en cours...' : 'Envoyer ma demande'}
                   </button>
                   
                   <p className="text-sm text-[#4A5568] mt-4 italic">

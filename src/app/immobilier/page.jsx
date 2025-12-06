@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
+import { processHTMLForRender } from '../../lib/utils/htmlConverter';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 import {
   Chart as ChartJS,
@@ -240,7 +241,7 @@ export default function ImmobilierPage() {
             {/* Mention SCPI */}
             {pageContent.section2?.scpiMention && (
               <div className="bg-gradient-to-r from-[#F9FAFB] to-white rounded-xl p-8 border-2 border-[#E5E7EB] mt-10">
-                <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-center" dangerouslySetInnerHTML={{ __html: `"${pageContent.section2.scpiMention}"` }} />
+                <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-center" dangerouslySetInnerHTML={{ __html: processHTMLForRender(`"${pageContent.section2.scpiMention}"`) }} />
               </div>
             )}
 
@@ -261,7 +262,7 @@ export default function ImmobilierPage() {
                     <circle cx="15" cy="10" r="1" fill="white"/>
                   </svg>
                 </div>
-                <p className="text-lg sm:text-xl lg:text-2xl font-inter text-[#253F60] leading-relaxed font-medium text-left" dangerouslySetInnerHTML={{ __html: pageContent.section2?.azaleeMessage || "Chez Azalée Patrimoine, nous intégrons chaque actif immobilier dans une vision globale — financière, fiscale et humaine — pour bâtir la liberté patrimoniale de demain." }} />
+                <p className="text-lg sm:text-xl lg:text-2xl font-inter text-[#253F60] leading-relaxed font-medium text-left" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section2?.azaleeMessage || "Chez Azalée Patrimoine, nous intégrons chaque actif immobilier dans une vision globale — financière, fiscale et humaine — pour bâtir la liberté patrimoniale de demain.") }} />
               </div>
             </div>
           </div>
@@ -300,10 +301,10 @@ export default function ImmobilierPage() {
               <div className="text-center space-y-4">
                 {Array.isArray(pageContent.section3.intro) ? (
                   pageContent.section3.intro.map((paragraph, index) => (
-                    <p key={index} className="text-lg sm:text-xl lg:text-2xl font-inter text-[#374151] leading-relaxed" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                    <p key={index} className="text-lg sm:text-xl lg:text-2xl font-inter text-[#374151] leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                   ))
                 ) : (
-                  <p className="text-lg sm:text-xl lg:text-2xl font-inter text-[#374151] leading-relaxed" dangerouslySetInnerHTML={{ __html: pageContent.section3.intro }} />
+                  <p className="text-lg sm:text-xl lg:text-2xl font-inter text-[#374151] leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section3.intro) }} />
                 )}
               </div>
             )}
@@ -320,7 +321,7 @@ export default function ImmobilierPage() {
                         <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-3">
                           {advantage.title}
                         </h3>
-                        <p className="text-[#374151] font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: advantage.description }} />
+                        <p className="text-[#374151] font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(advantage.description) }} />
                       </div>
                     </div>
                   </div>
@@ -365,7 +366,7 @@ export default function ImmobilierPage() {
             {/* Citation */}
             {pageContent.section3?.quote && (
               <div className="bg-gradient-to-r from-[#F9FAFB] to-white rounded-xl p-8 border-l-4 border-[#B99066] shadow-md mt-10">
-                <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-center" dangerouslySetInnerHTML={{ __html: pageContent.section3.quote }} />
+                <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-center" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section3.quote) }} />
               </div>
             )}
 
@@ -1505,8 +1506,8 @@ export default function ImmobilierPage() {
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 relative">
                 {/* Étape 1 */}
                 <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-[#E5E7EB] text-center relative z-10 hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 w-full md:w-auto">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:from-[#B99066] group-hover:to-[#253F60] transition-all duration-300">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
@@ -1527,8 +1528,8 @@ export default function ImmobilierPage() {
 
                 {/* Étape 2 */}
                 <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-[#E5E7EB] text-center relative z-10 hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 w-full md:w-auto">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:from-[#B99066] group-hover:to-[#253F60] transition-all duration-300">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
@@ -1549,8 +1550,8 @@ export default function ImmobilierPage() {
 
                 {/* Étape 3 */}
                 <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-[#E5E7EB] text-center relative z-10 hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 w-full md:w-auto">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:from-[#B99066] group-hover:to-[#253F60] transition-all duration-300">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
                   </div>
@@ -1571,8 +1572,8 @@ export default function ImmobilierPage() {
 
                 {/* Étape 4 */}
                 <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-[#E5E7EB] text-center relative z-10 hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 w-full md:w-auto">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:from-[#B99066] group-hover:to-[#253F60] transition-all duration-300">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                   </div>
@@ -1593,8 +1594,8 @@ export default function ImmobilierPage() {
 
                 {/* Étape 5 */}
                 <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-[#E5E7EB] text-center relative z-10 hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 w-full md:w-auto">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:from-[#B99066] group-hover:to-[#253F60] transition-all duration-300">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>

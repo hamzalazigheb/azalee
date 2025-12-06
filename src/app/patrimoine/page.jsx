@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 
 export default function PatrimoinePage() {
   const [content, setContent] = useState({});
@@ -312,7 +313,7 @@ export default function PatrimoinePage() {
                   <h3 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-4">
                     {statut.title}
                   </h3>
-                  <p className="text-lg" dangerouslySetInnerHTML={{ __html: statut.description }} />
+                  <p className="text-lg" dangerouslySetInnerHTML={{ __html: processHTMLForRender(statut.description) }} />
                 </div>
               ))}
             </div>
@@ -329,7 +330,7 @@ export default function PatrimoinePage() {
               {(content.definition?.domaines || []).map((domaine, index) => (
                 <li key={index} className="flex items-start gap-4">
                   <span className="text-[#B99066] text-2xl font-bold mt-1">➤</span>
-                  <span className="text-lg" dangerouslySetInnerHTML={{ __html: domaine }} />
+                  <span className="text-lg" dangerouslySetInnerHTML={{ __html: processHTMLForRender(domaine) }} />
                 </li>
               ))}
             </ul>
@@ -362,23 +363,26 @@ export default function PatrimoinePage() {
             {/* Grille de cartes - Desktop et Mobile */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
               {(content.pourquoiCGP?.points || []).map((point, index) => {
-                // Icônes spécifiques pour chaque point
+                // Icônes spécifiques pour chaque point - Uniformisées w-8 h-8 avec alternance de couleurs
                 const getIcon = (idx) => {
+                  // Alternance de couleurs : index pair = bleu, index impair = or
+                  const iconColor = idx % 2 === 0 ? 'text-[#253F60] group-hover:text-[#B99066]' : 'text-[#B99066] group-hover:text-[#253F60]';
+                  
                   const icons = [
                     // Structuration patrimoniale globale
-                    <svg key={idx} className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg key={idx} className={`w-8 h-8 ${iconColor} transition-colors duration-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>,
                     // Optimisation fiscale et transmission
-                    <svg key={idx} className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg key={idx} className={`w-8 h-8 ${iconColor} transition-colors duration-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>,
                     // Accès à des solutions haut de gamme
-                    <svg key={idx} className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg key={idx} className={`w-8 h-8 ${iconColor} transition-colors duration-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>,
                     // Suivi personnalisé et réactif
-                    <svg key={idx} className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg key={idx} className={`w-8 h-8 ${iconColor} transition-colors duration-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   ];
@@ -399,7 +403,7 @@ export default function PatrimoinePage() {
                     </div>
                     
                     {/* Icône */}
-                    <div className="mb-6 text-[#253F60] group-hover:text-[#B99066] transition-colors duration-300 transform group-hover:scale-110 group-hover:rotate-3">
+                    <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">
                       {getIcon(index)}
                     </div>
                     
@@ -866,7 +870,7 @@ export default function PatrimoinePage() {
                   <svg className="w-7 h-7 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <p className="text-[#4B5563] text-lg sm:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: point }} />
+                  <p className="text-[#4B5563] text-lg sm:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
                 </div>
               ))}
             </div>
@@ -954,7 +958,7 @@ export default function PatrimoinePage() {
                       <h3 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-4">
                         {prof.title}
                       </h3>
-                      <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: prof.description }} />
+                      <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(prof.description) }} />
                     </div>
                   </div>
                 </div>
@@ -979,11 +983,11 @@ export default function PatrimoinePage() {
                   {qa.question}
                 </h3>
                 {typeof qa.answer === 'string' ? (
-                  <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: qa.answer }} />
+                  <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(qa.answer) }} />
                 ) : (
                   <div className="space-y-4">
                     {qa.answer.map((paragraph, i) => (
-                      <p key={i} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                      <p key={i} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                     ))}
                   </div>
                 )}

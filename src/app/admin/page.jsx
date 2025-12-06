@@ -273,7 +273,10 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
             </button>
-            <button className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800">
+            <button 
+              onClick={() => router.push('/admin/users')}
+              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
+            >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -299,6 +302,22 @@ export default function AdminDashboardPage() {
                 <div>
                   <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le Chatbot SARA</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Voir les sessions et leads du chatbot</p>
+                </div>
+              </div>
+            </button>
+            <button 
+              onClick={() => router.push('/admin/contacts')}
+              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Demandes de contact</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Voir et gérer les demandes de contact</p>
                 </div>
               </div>
             </button>

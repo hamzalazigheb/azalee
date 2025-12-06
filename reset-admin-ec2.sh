@@ -10,7 +10,7 @@ cd ~/demo
 git pull
 
 # Copy script to container
-sudo docker cp reset-admin-password.js azalee-backend:/tmp/reset-admin-password.js
+sudo docker cp scripts/reset-admin-password.js azalee-backend:/tmp/reset-admin-password.js
 
 # Run the script inside the container
 sudo docker exec azalee-backend node /tmp/reset-admin-password.js
@@ -19,7 +19,7 @@ echo ""
 echo "✅ Password reset complete!"
 echo "📋 Use these credentials to login:"
 echo "   Email: admin@azalee.com"
-echo "   Password: admin123"
+echo "   Password: akr123@"
 
 
 

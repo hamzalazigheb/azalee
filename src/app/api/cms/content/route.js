@@ -31,9 +31,20 @@ export async function GET(request) {
       );
     }
 
+    // Log partners count for debugging
+    if (page.content && page.content.partners) {
+      console.log(`[CMS API] Partners count for ${path}:`, Array.isArray(page.content.partners) ? page.content.partners.length : 'Not an array');
+    }
+
     return NextResponse.json({
       success: true,
       data: page.content
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
     });
   } catch (error) {
     console.error('Error fetching page content:', error);

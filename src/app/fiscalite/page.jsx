@@ -7,6 +7,7 @@ import VignetteRetraites from "../../components/fiscalite/VignetteRetraites";
 import VignetteProfessionnels from "../../components/fiscalite/VignetteProfessionnels";
 import VignetteInvestisseurImmobilier from "../../components/fiscalite/VignetteInvestisseurImmobilier";
 import VignetteHeritier from "../../components/fiscalite/VignetteHeritier";
+import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 
 export default function FiscalitePage() {
   const [content, setContent] = useState({});
@@ -104,7 +105,7 @@ export default function FiscalitePage() {
                   {pageContent.hero?.leftCard?.description1 || "La fiscalité influence directement la rentabilité de vos investissements et la transmission de votre patrimoine. Comprendre les mécanismes de l'impôt, maîtriser les déductions et utiliser les bons dispositifs vous permet de transformer la fiscalité en levier de croissance."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: pageContent.hero?.leftCard?.description2 || "<strong className=\"text-[#253F60] font-semibold\">Azalée Patrimoine</strong> vous accompagne pour bâtir une stratégie fiscale cohérente, durable et adaptée à votre profil." }} />
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.hero?.leftCard?.description2 || "<strong className=\"text-[#253F60] font-semibold\">Azalée Patrimoine</strong> vous accompagne pour bâtir une stratégie fiscale cohérente, durable et adaptée à votre profil.") }} />
               </div>
               
               <div className="mt-10">
@@ -196,15 +197,15 @@ export default function FiscalitePage() {
                   <div className="mt-2.5 flex-shrink-0 w-4 h-4 bg-[#B99066] rounded-full shadow-sm"></div>
                   {item.subItems ? (
                     <div className="flex-1 pt-0.5">
-                      <p className="text-[#374151] text-base sm:text-lg lg:text-xl font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: item.text }} />
+                      <p className="text-[#374151] text-base sm:text-lg lg:text-xl font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(item.text) }} />
                       <ul className="space-y-3 ml-4 sm:ml-6">
                         {item.subItems.map((subItem, subIndex) => (
-                          <li key={subIndex} className="text-[#374151] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: subItem }} />
+                          <li key={subIndex} className="text-[#374151] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(subItem) }} />
                         ))}
                       </ul>
                     </div>
                   ) : (
-                    <p className="text-[#374151] text-base sm:text-lg lg:text-xl font-inter leading-relaxed pt-0.5" dangerouslySetInnerHTML={{ __html: item.text }} />
+                    <p className="text-[#374151] text-base sm:text-lg lg:text-xl font-inter leading-relaxed pt-0.5" dangerouslySetInnerHTML={{ __html: processHTMLForRender(item.text) }} />
                   )}
                 </li>
               ))}
@@ -343,7 +344,7 @@ export default function FiscalitePage() {
                   "La <strong className=\"text-[#253F60] font-semibold\">décote</strong> vient réduire l'impôt des foyers faiblement imposés. À l'inverse, pour les revenus les plus élevés, des contributions additionnelles peuvent s'appliquer, renforçant l'importance de bien organiser la déclaration et le choix des dispositifs fiscaux adaptés à votre profil.",
                   "Bien comprendre ces fondamentaux permet de saisir le potentiel d'optimisation offert par le système français, de la réduction d'impôt via l'<strong className=\"text-[#253F60] font-semibold\">investissement immobilier (Pinel, Girardin...)</strong> à l'ajustement des frais réels ou à la mise en place de <strong className=\"text-[#253F60] font-semibold\">donations stratégiques</strong>."
                 ]).map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
                 ))}
               </div>
 
@@ -1163,7 +1164,7 @@ export default function FiscalitePage() {
                   </button>
                   {openQuestion === index && (
                     <div className="p-4 sm:p-6 pt-0 bg-white">
-                      <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: faqItem.answer }} />
+                      <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(faqItem.answer) }} />
                     </div>
                   )}
                 </div>

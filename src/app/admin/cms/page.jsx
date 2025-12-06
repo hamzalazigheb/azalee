@@ -1,6 +1,39 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import SortableItem from '../../../components/admin/SortableItem';
+import ImageUpload from '../../../components/admin/CloudinaryUpload';
+import Notification from '../../../components/admin/Notification';
+import TextEditor from '../../../components/admin/TextEditor';
+
+// Helper function to strip HTML tags and show only text
+const stripHTML = (html) => {
+  if (!html || typeof html !== 'string') return html;
+  // Remove HTML tags but keep the text content
+  return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+};
+
+// Helper function to detect if text contains HTML
+const containsHTML = (text) => {
+  if (!text || typeof text !== 'string') return false;
+  return /<[^>]+>/g.test(text);
+};
+
+// Editors removed - using simple textarea for all fields
 
 export default function CMSManagementPage() {
   const router = useRouter();
@@ -10,6 +43,15 @@ export default function CMSManagementPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newPage, setNewPage] = useState({ path: '', title: '', content: {} });
   const [formData, setFormData] = useState({});
+  const [notification, setNotification] = useState({ isOpen: false, message: '', type: 'success' });
+
+  // dnd-kit sensors for drag and drop
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     fetchPages();
@@ -50,13 +92,63 @@ export default function CMSManagementPage() {
   };
 
   const handleInputChange = (section, field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value
+    console.log('handleInputChange:', { section, field, value: typeof value === 'string' ? value.substring(0, 50) : value });
+    
+    // Validate that section is not undefined or empty
+    if (!section || section.trim() === '') {
+      console.error('ERROR: handleInputChange called with invalid section:', section);
+      return;
+    }
+    
+    setFormData(prev => {
+      // Special case: if section is directly an array (e.g., "partners"), replace the entire section
+      if (section === field && Array.isArray(value)) {
+        const newData = {
+          ...prev,
+          [section]: value
+        };
+        console.log('Updated array section:', section, 'with', value.length, 'items');
+        return newData;
       }
-    }));
+      
+      // Handle nested fields with dot notation (e.g., "hero.h1" or "section2.h3_inflation.title")
+      const fieldParts = field.split('.');
+      
+      if (fieldParts.length === 1) {
+        // Simple field - ensure we're updating the correct section
+        const newData = {
+          ...prev,
+          [section]: {
+            ...(prev[section] || {}),
+            [field]: value
+          }
+        };
+        console.log('Updated formData for section:', section, 'field:', field, 'value:', typeof value === 'string' ? value.substring(0, 50) : value);
+        console.log('Section data after update:', newData[section]);
+        return newData;
+      } else {
+        // Nested field - build nested object structure
+        const newSection = { ...prev[section] };
+        let current = newSection;
+        
+        // Navigate/create nested structure
+        for (let i = 0; i < fieldParts.length - 1; i++) {
+          const part = fieldParts[i];
+          if (!current[part] || typeof current[part] !== 'object') {
+            current[part] = {};
+          }
+          current = current[part];
+        }
+        
+        // Set the final value
+        current[fieldParts[fieldParts.length - 1]] = value;
+        
+        return {
+          ...prev,
+          [section]: newSection
+        };
+      }
+    });
   };
 
   const handleArrayChange = (section, field, index, value) => {
@@ -101,6 +193,13 @@ export default function CMSManagementPage() {
     if (!selectedPage) return;
 
     try {
+      console.log('Saving page:', selectedPage.path);
+      console.log('Form data sections:', Object.keys(formData));
+      console.log('Form data hero:', formData.hero);
+      console.log('Form data investment:', formData.investment);
+      console.log('Form data team:', formData.team);
+      console.log('Form data finalCta:', formData.finalCta);
+      
       const response = await fetch('/api/cms/pages', {
         method: 'PUT',
         headers: {
@@ -113,16 +212,19 @@ export default function CMSManagementPage() {
       });
 
       const data = await response.json();
+      console.log('Save response:', data);
+      
       if (data.success) {
-        alert('✅ Page updated successfully!');
+        setNotification({ isOpen: true, message: 'Page mise à jour avec succès !', type: 'success' });
+        // Refresh the page content to show updated data
+        await fetchPageContent(selectedPage.path);
         fetchPages();
-        fetchPageContent(selectedPage.path);
       } else {
-        alert('❌ Error: ' + data.message);
+        setNotification({ isOpen: true, message: 'Erreur : ' + data.message, type: 'error' });
       }
     } catch (error) {
       console.error('Error saving page:', error);
-      alert('❌ Error saving page');
+      setNotification({ isOpen: true, message: 'Erreur lors de la sauvegarde de la page: ' + error.message, type: 'error' });
     }
   };
 
@@ -142,16 +244,16 @@ export default function CMSManagementPage() {
 
       const data = await response.json();
       if (data.success) {
-        alert('✅ Page created successfully!');
+        setNotification({ isOpen: true, message: 'Page créée avec succès !', type: 'success' });
         setShowCreateModal(false);
         setNewPage({ path: '', title: '', content: {} });
         fetchPages();
       } else {
-        alert('❌ Error: ' + data.message);
+        setNotification({ isOpen: true, message: 'Erreur : ' + data.message, type: 'error' });
       }
     } catch (error) {
       console.error('Error creating page:', error);
-      alert('❌ Error creating page');
+      setNotification({ isOpen: true, message: 'Erreur lors de la création de la page', type: 'error' });
     }
   };
 
@@ -165,95 +267,152 @@ export default function CMSManagementPage() {
 
       const data = await response.json();
       if (data.success) {
-        alert('✅ Page deleted successfully!');
+        setNotification({ isOpen: true, message: 'Page supprimée avec succès !', type: 'success' });
         setSelectedPage(null);
         fetchPages();
       } else {
-        alert('❌ Error: ' + data.message);
+        setNotification({ isOpen: true, message: 'Erreur : ' + data.message, type: 'error' });
       }
     } catch (error) {
       console.error('Error deleting page:', error);
-      alert('❌ Error deleting page');
+      setNotification({ isOpen: true, message: 'Erreur lors de la suppression de la page', type: 'error' });
     }
   };
 
   const renderFormField = (section, field, label, type = 'text', isArray = false) => {
-    const value = formData[section]?.[field];
+    const currentPagePath = selectedPage?.path || '';
+    
+    // Handle nested fields with dot notation
+    const getNestedValue = (obj, path) => {
+      const parts = path.split('.');
+      let current = obj;
+      for (const part of parts) {
+        if (current && typeof current === 'object' && part in current) {
+          current = current[part];
+        } else {
+          return undefined;
+        }
+      }
+      return current;
+    };
+    
+    const value = getNestedValue(formData[section], field);
     
     if (isArray && Array.isArray(value)) {
       // Check if array contains objects
       const isObjectArray = value.length > 0 && typeof value[0] === 'object' && value[0] !== null && !Array.isArray(value[0]);
       
       if (isObjectArray) {
-        // Render object array with individual fields for each property
+        // Render object array with drag & drop support
+        const handleDragEnd = (event) => {
+          const { active, over } = event;
+          if (active.id !== over.id) {
+            const oldIndex = value.findIndex((_, idx) => idx.toString() === active.id);
+            const newIndex = value.findIndex((_, idx) => idx.toString() === over.id);
+            const newArray = arrayMove(value, oldIndex, newIndex);
+            setFormData(prev => ({
+              ...prev,
+              [section]: {
+                ...prev[section],
+                [field]: newArray
+              }
+            }));
+          }
+        };
+
         return (
           <div>
             <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
               {label}
             </label>
-            <div className="space-y-4">
-              {value.map((item, index) => (
-                <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">Item {index + 1}</span>
-                    <button
-                      type="button"
-                      onClick={() => removeArrayItem(section, field, index)}
-                      className="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 text-sm font-inter font-semibold"
-                      title="Remove item"
-                    >
-                      ✕ Remove
-                    </button>
-                  </div>
-                  <div className="space-y-3">
-                    {Object.keys(item || {}).map((key) => (
-                      <div key={key}>
-                        <label className="block text-xs font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-1">
-                          {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
-                        </label>
-                        {key.toLowerCase().includes('description') || key.toLowerCase().includes('content') ? (
-                          <textarea
-                            value={item[key] || ''}
-                            onChange={(e) => {
-                              const newArray = [...value];
-                              newArray[index] = { ...newArray[index], [key]: e.target.value };
-                              setFormData(prev => ({
-                                ...prev,
-                                [section]: {
-                                  ...prev[section],
-                                  [field]: newArray
-                                }
-                              }));
-                            }}
-                            rows={3}
-                            className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                            placeholder={`Enter ${key}...`}
-                          />
-                        ) : (
-                          <input
-                            type="text"
-                            value={item[key] || ''}
-                            onChange={(e) => {
-                              const newArray = [...value];
-                              newArray[index] = { ...newArray[index], [key]: e.target.value };
-                              setFormData(prev => ({
-                                ...prev,
-                                [section]: {
-                                  ...prev[section],
-                                  [field]: newArray
-                                }
-                              }));
-                            }}
-                            className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                            placeholder={`Enter ${key}...`}
-                          />
-                        )}
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={value.map((_, index) => index.toString())}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-4">
+                  {value.map((item, index) => (
+                    <SortableItem key={index} id={index.toString()}>
+                      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">Item {index + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => removeArrayItem(section, field, index)}
+                            className="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 text-sm font-inter font-semibold"
+                            title="Remove item"
+                          >
+                            ✕ Remove
+                          </button>
+                        </div>
+                        <div className="space-y-3">
+                          {Object.keys(item || {}).map((key) => {
+                            const fieldValue = item[key] || '';
+                            const isTextField = typeof fieldValue === 'string' && (
+                              fieldValue.includes('<strong') || 
+                              fieldValue.includes('<em') || 
+                              fieldValue.includes('<b') ||
+                              key.toLowerCase().includes('text') ||
+                              key.toLowerCase().includes('description') ||
+                              key.toLowerCase().includes('content') ||
+                              key.toLowerCase().includes('error') ||
+                              key.toLowerCase().includes('title')
+                            );
+
+                            return (
+                              <div key={key}>
+                                <label className="block text-xs font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-1">
+                                  {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
+                                </label>
+                                {isTextField ? (
+                                  <TextEditor
+                                    value={fieldValue}
+                                    onChange={(newValue) => {
+                                      const newArray = [...value];
+                                      newArray[index] = { ...newArray[index], [key]: newValue };
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        [section]: {
+                                          ...prev[section],
+                                          [field]: newArray
+                                        }
+                                      }));
+                                    }}
+                                    placeholder={`Écrivez ${key}...`}
+                                  />
+                                ) : (
+                                  <input
+                                    type="text"
+                                    value={fieldValue}
+                                    onChange={(e) => {
+                                      const newArray = [...value];
+                                      newArray[index] = { ...newArray[index], [key]: e.target.value };
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        [section]: {
+                                          ...prev[section],
+                                          [field]: newArray
+                                        }
+                                      }));
+                                    }}
+                                    className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                                    placeholder={`Entrez ${key}...`}
+                                  />
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                    </SortableItem>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </SortableContext>
+            </DndContext>
             <button
               type="button"
               onClick={() => {
@@ -269,7 +428,7 @@ export default function CMSManagementPage() {
                   }
                 }));
               }}
-                      className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+              className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
             >
               + Add Item
             </button>
@@ -277,37 +436,66 @@ export default function CMSManagementPage() {
         );
       }
       
-      // Render simple string array
+      // Render simple string array with drag & drop
+      const handleDragEnd = (event) => {
+        const { active, over } = event;
+        if (active.id !== over.id) {
+          const oldIndex = value.findIndex((_, idx) => idx.toString() === active.id);
+          const newIndex = value.findIndex((_, idx) => idx.toString() === over.id);
+          const newArray = arrayMove(value, oldIndex, newIndex);
+          setFormData(prev => ({
+            ...prev,
+            [section]: {
+              ...prev[section],
+              [field]: newArray
+            }
+          }));
+        }
+      };
+
       return (
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             {label}
           </label>
-          <div className="space-y-2">
-            {value.map((item, index) => (
-              <div key={index} className="flex gap-2 items-center">
-                <input
-                  type={type}
-                  value={typeof item === 'string' ? item : ''}
-                  onChange={(e) => handleArrayChange(section, field, index, e.target.value)}
-                  className="flex-1 px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                  placeholder={`Item ${index + 1}`}
-                />
-                <button
-                  type="button"
-                  onClick={() => removeArrayItem(section, field, index)}
-                  className="px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 font-inter font-semibold"
-                  title="Remove item"
-                >
-                  ✕
-                </button>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={value.map((_, index) => index.toString())}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="space-y-2">
+                {value.map((item, index) => (
+                  <SortableItem key={index} id={index.toString()}>
+                    <div className="flex gap-2 items-center">
+                      <input
+                        type={type}
+                        value={typeof item === 'string' ? item : ''}
+                        onChange={(e) => handleArrayChange(section, field, index, e.target.value)}
+                        className="flex-1 px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                        placeholder={`Item ${index + 1}`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeArrayItem(section, field, index)}
+                        className="px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 font-inter font-semibold"
+                        title="Remove item"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </SortableItem>
+                ))}
               </div>
-            ))}
-          </div>
+            </SortableContext>
+          </DndContext>
           <button
             type="button"
             onClick={() => addArrayItem(section, field)}
-                      className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+            className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
           >
             + Add Item
           </button>
@@ -315,18 +503,64 @@ export default function CMSManagementPage() {
       );
     }
 
+    // Check if field is an image (but exclude fields that are specifically background images)
+    const isImageField = type === 'image' || 
+      (field.toLowerCase().includes('image') && !field.toLowerCase().includes('background')) || 
+      field.toLowerCase().includes('photo') ||
+      field.toLowerCase().includes('picture') ||
+      (field.toLowerCase().includes('img') && !field.toLowerCase().includes('background')) ||
+      (label.toLowerCase().includes('image') && !label.toLowerCase().includes('background')) ||
+      label.toLowerCase().includes('photo') ||
+      (typeof value === 'string' && (value.startsWith('/images/') || value.startsWith('http') || value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg')));
+    
+    // Check if field is specifically a background image
+    const isBackgroundImage = field.toLowerCase().includes('background') || label.toLowerCase().includes('background');
+
+    // Check if field contains HTML or should use text editor
+    const fieldValue = value || '';
+    const shouldUseTextEditor = typeof fieldValue === 'string' && !isImageField && (
+      fieldValue.includes('<strong') || 
+      fieldValue.includes('<em') || 
+      fieldValue.includes('<b') ||
+      field.toLowerCase().includes('text') ||
+      field.toLowerCase().includes('description') ||
+      field.toLowerCase().includes('content') ||
+      label.toLowerCase().includes('texte') ||
+      label.toLowerCase().includes('description')
+    );
+
     return (
       <div>
         <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
           {label}
         </label>
-        {type === 'textarea' ? (
+        {isImageField ? (
+          <div>
+            <ImageUpload
+              onUploadSuccess={(url) => {
+                console.log('ImageUpload onUploadSuccess - section:', section, 'field:', field, 'url:', url.substring(0, 50));
+                if (!section || section.trim() === '') {
+                  console.error('ERROR: ImageUpload called with invalid section:', section);
+                  return;
+                }
+                handleInputChange(section, field, url);
+              }}
+              initialImageUrl={value || ''}
+            />
+          </div>
+        ) : shouldUseTextEditor ? (
+          <TextEditor
+            value={fieldValue}
+            onChange={(newValue) => handleInputChange(section, field, newValue)}
+            placeholder={`Écrivez ${label.toLowerCase()}...`}
+          />
+        ) : type === 'textarea' ? (
           <textarea
-            value={value || ''}
+            value={fieldValue}
             onChange={(e) => handleInputChange(section, field, e.target.value)}
             rows={4}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent resize-y bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-            placeholder={`Enter ${label.toLowerCase()}...`}
+            placeholder={`Entrez ${label.toLowerCase()}...`}
           />
         ) : (
           <input
@@ -334,7 +568,7 @@ export default function CMSManagementPage() {
             value={value || ''}
             onChange={(e) => handleInputChange(section, field, e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-            placeholder={`Enter ${label.toLowerCase()}...`}
+            placeholder={`Entrez ${label.toLowerCase()}...`}
           />
         )}
       </div>
@@ -342,7 +576,146 @@ export default function CMSManagementPage() {
   };
 
   const renderNestedSection = (sectionKey, sectionData, title) => {
-    if (!sectionData || typeof sectionData !== 'object') return null;
+    if (!sectionData) return null;
+    
+    // Handle case where section is directly an array (e.g., "partners", "stats")
+    if (Array.isArray(sectionData)) {
+      const isImageArray = sectionData.length > 0 && typeof sectionData[0] === 'string' && 
+        (sectionData[0].startsWith('/images/') || sectionData[0].startsWith('http') || sectionData[0].includes('.jpg') || sectionData[0].includes('.png') || sectionData[0].includes('.webp') || sectionData[0].includes('.svg') || sectionKey.toLowerCase().includes('partner'));
+      
+      // Check if it's an array of objects (e.g., "stats" with {value, label})
+      const isObjectArray = sectionData.length > 0 && typeof sectionData[0] === 'object' && sectionData[0] !== null && !Array.isArray(sectionData[0]);
+      
+      return (
+        <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 mb-6 border-2 border-[#253F60]/20 dark:border-gray-700 shadow-lg">
+          <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#B99066]/30 dark:border-gray-700">
+            <div className="w-1 h-8 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
+            <h3 className="text-xl font-cairo font-bold text-[#253F60] dark:text-[#B99066]">{title}</h3>
+          </div>
+          <div className="space-y-4">
+            {isImageArray ? (
+              <>
+                {sectionData.map((imageUrl, index) => (
+                  <div key={index} className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 relative">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newArray = sectionData.filter((_, i) => i !== index);
+                        handleInputChange(sectionKey, sectionKey, newArray);
+                      }}
+                      className="absolute top-2 right-2 z-10 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-xs font-semibold"
+                      title="Supprimer ce partenaire"
+                    >
+                      ✕
+                    </button>
+                    <ImageUpload
+                      onUploadSuccess={(url) => {
+                        console.log('ImageUpload onUploadSuccess - section:', sectionKey, 'url:', url.substring(0, 50));
+                        const newArray = [...sectionData];
+                        newArray[index] = url;
+                        handleInputChange(sectionKey, sectionKey, newArray);
+                      }}
+                      initialImageUrl={imageUrl || ''}
+                    />
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newArray = [...sectionData, ''];
+                    handleInputChange(sectionKey, sectionKey, newArray);
+                  }}
+                  className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+                >
+                  + Ajouter un partenaire
+                </button>
+              </>
+            ) : isObjectArray ? (
+              // Render array of objects (e.g., stats with {value, label})
+              <>
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={(event) => {
+                    const { active, over } = event;
+                    if (active.id !== over.id) {
+                      const oldIndex = sectionData.findIndex((_, idx) => idx.toString() === active.id);
+                      const newIndex = sectionData.findIndex((_, idx) => idx.toString() === over.id);
+                      const newArray = arrayMove(sectionData, oldIndex, newIndex);
+                      handleInputChange(sectionKey, sectionKey, newArray);
+                    }
+                  }}
+                >
+                  <SortableContext
+                    items={sectionData.map((_, index) => index.toString())}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {sectionData.map((item, index) => (
+                      <SortableItem key={index} id={index.toString()}>
+                        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-700 mb-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className="text-md font-medium text-[#253F60] dark:text-[#B99066]">Item {index + 1}</h4>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const newArray = sectionData.filter((_, i) => i !== index);
+                                handleInputChange(sectionKey, sectionKey, newArray);
+                              }}
+                              className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-xs font-semibold"
+                              title="Supprimer cet item"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                          <div className="space-y-3">
+                            {Object.keys(item).map((key) => (
+                              <div key={key}>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                                </label>
+                                <input
+                                  type="text"
+                                  value={item[key] || ''}
+                                  onChange={(e) => {
+                                    const newArray = [...sectionData];
+                                    newArray[index] = { ...newArray[index], [key]: e.target.value };
+                                    handleInputChange(sectionKey, sectionKey, newArray);
+                                  }}
+                                  className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                                  placeholder={`Entrez ${key}...`}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </SortableItem>
+                    ))}
+                  </SortableContext>
+                </DndContext>
+                <button
+                  type="button"
+                  onClick={() => {
+                    // Add new object with same structure as first item
+                    const newItem = sectionData.length > 0 
+                      ? Object.keys(sectionData[0]).reduce((acc, key) => ({ ...acc, [key]: '' }), {})
+                      : { value: '', label: '' };
+                    const newArray = [...sectionData, newItem];
+                    handleInputChange(sectionKey, sectionKey, newArray);
+                  }}
+                  className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+                >
+                  + Ajouter un item
+                </button>
+              </>
+            ) : (
+              <div className="text-gray-500 dark:text-gray-400">Tableau non-image détecté</div>
+            )}
+          </div>
+        </div>
+      );
+    }
+    
+    if (typeof sectionData !== 'object') return null;
 
     return (
       <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 mb-6 border-2 border-[#253F60]/20 dark:border-gray-700 shadow-lg">
@@ -356,9 +729,56 @@ export default function CMSManagementPage() {
             const label = field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1');
             
             if (Array.isArray(value)) {
+              // Check if array contains image URLs
+              const isImageArray = value.length > 0 && typeof value[0] === 'string' && 
+                (value[0].startsWith('/images/') || value[0].startsWith('http') || value[0].includes('.jpg') || value[0].includes('.png') || value[0].includes('.webp') || value[0].includes('.svg') || field.toLowerCase().includes('background') || field.toLowerCase().includes('image') || field.toLowerCase().includes('partner'));
+              
               return (
                 <div key={field} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-                  {renderFormField(sectionKey, field, label, 'text', true)}
+                  {isImageArray ? (
+                    <div>
+                      <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
+                        {label}
+                      </label>
+                      <div className="space-y-4">
+                        {value.map((imageUrl, index) => (
+                          <div key={index} className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 relative">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const newArray = value.filter((_, i) => i !== index);
+                                handleInputChange(sectionKey, field, newArray);
+                              }}
+                              className="absolute top-2 right-2 z-10 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-xs font-semibold"
+                              title="Supprimer cette image"
+                            >
+                              ✕
+                            </button>
+                            <ImageUpload
+                              onUploadSuccess={(url) => {
+                                const newArray = [...value];
+                                newArray[index] = url;
+                                handleInputChange(sectionKey, field, newArray);
+                              }}
+                              initialImageUrl={imageUrl || ''}
+                            />
+                          </div>
+                        ))}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newArray = [...value, ''];
+                            handleInputChange(sectionKey, field, newArray);
+                          }}
+                          className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+                        >
+                          + Ajouter une image
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    renderFormField(sectionKey, field, label, 'text', true)
+                  )}
                 </div>
               );
             } else if (typeof value === 'object' && value !== null) {
@@ -386,10 +806,73 @@ export default function CMSManagementPage() {
                         const subValue = value[subField];
                         const subLabel = subField.charAt(0).toUpperCase() + subField.slice(1).replace(/([A-Z])/g, ' $1');
                         
+                        // Check if sub field is an image (but exclude fields that are specifically background images)
+                        const isSubImageField = (subField.toLowerCase().includes('image') && !subField.toLowerCase().includes('background')) || 
+                          subField.toLowerCase().includes('photo') ||
+                          subField.toLowerCase().includes('picture') ||
+                          (subField.toLowerCase().includes('img') && !subField.toLowerCase().includes('background')) ||
+                          (typeof subValue === 'string' && (subValue.startsWith('/images/') || subValue.startsWith('http') || subValue.includes('.jpg') || subValue.includes('.png') || subValue.includes('.webp') || subValue.includes('.svg')));
+                        
+                        // Check if sub field is specifically a background image
+                        const isSubBackgroundImage = subField.toLowerCase().includes('background');
+                        
                         if (Array.isArray(subValue)) {
+                          // Check if array contains image URLs
+                          const isSubImageArray = subValue.length > 0 && typeof subValue[0] === 'string' && 
+                            (subValue[0].startsWith('/images/') || subValue[0].startsWith('http') || subValue[0].includes('.jpg') || subValue[0].includes('.png') || subValue[0].includes('.webp') || subValue[0].includes('.svg'));
+                          
                           return (
                             <div key={subField}>
-                              {renderFormField(sectionKey, `${field}.${subField}`, subLabel, 'text', true)}
+                              {isSubImageArray ? (
+                                <div>
+                                  <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
+                                    {subLabel}
+                                  </label>
+                                  <div className="space-y-4">
+                                    {subValue.map((imageUrl, index) => (
+                                      <div key={index} className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 relative">
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            const newArray = subValue.filter((_, i) => i !== index);
+                                            handleInputChange(sectionKey, `${field}.${subField}`, newArray);
+                                          }}
+                                          className="absolute top-2 right-2 z-10 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-xs font-semibold"
+                                          title="Supprimer cette image"
+                                        >
+                                          ✕
+                                        </button>
+                                        <ImageUpload
+                                          onUploadSuccess={(url) => {
+                                            const newArray = [...subValue];
+                                            newArray[index] = url;
+                                            handleInputChange(sectionKey, `${field}.${subField}`, newArray);
+                                          }}
+                                          initialImageUrl={imageUrl || ''}
+                                        />
+                                      </div>
+                                    ))}
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        const newArray = [...subValue, ''];
+                                        handleInputChange(sectionKey, `${field}.${subField}`, newArray);
+                                      }}
+                                      className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+                                    >
+                                      + Ajouter une image
+                                    </button>
+                                  </div>
+                                </div>
+                              ) : (
+                                renderFormField(sectionKey, `${field}.${subField}`, subLabel, 'text', true)
+                              )}
+                            </div>
+                          );
+                        } else if (isSubImageField) {
+                          return (
+                            <div key={subField}>
+                              {renderFormField(sectionKey, `${field}.${subField}`, subLabel, 'image')}
                             </div>
                           );
                         } else if (typeof subValue === 'object' && subValue !== null) {
@@ -417,7 +900,7 @@ export default function CMSManagementPage() {
                                       </label>
                                       {typeof nestedValue === 'string' && nestedValue.length > 100 ? (
                                         <textarea
-                                          value={nestedValue || ''}
+                                          value={containsHTML(nestedValue) ? stripHTML(nestedValue) : (nestedValue || '')}
                                           onChange={(e) => {
                                             setFormData(prev => ({
                                               ...prev,
@@ -435,12 +918,12 @@ export default function CMSManagementPage() {
                                           }}
                                           rows={3}
                                           className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y text-sm transition-all font-inter"
-                                          placeholder={nestedLabel}
+                                          placeholder={`${nestedLabel} (texte simple)...`}
                                         />
                                       ) : (
                                         <input
                                           type="text"
-                                          value={nestedValue || ''}
+                                          value={containsHTML(nestedValue) ? stripHTML(nestedValue) : (nestedValue || '')}
                                           onChange={(e) => {
                                             setFormData(prev => ({
                                               ...prev,
@@ -476,7 +959,7 @@ export default function CMSManagementPage() {
                             </label>
                             {typeof subValue === 'string' && subValue.length > 100 ? (
                               <textarea
-                                value={subValue || ''}
+                                value={containsHTML(subValue) ? stripHTML(subValue) : (subValue || '')}
                                 onChange={(e) => {
                                   setFormData(prev => ({
                                     ...prev,
@@ -491,7 +974,7 @@ export default function CMSManagementPage() {
                                 }}
                                 rows={3}
                                 className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter"
-                                placeholder={subLabel}
+                                placeholder={`${subLabel} (texte simple)...`}
                               />
                             ) : (
                               <input
@@ -545,7 +1028,7 @@ export default function CMSManagementPage() {
                           </label>
                           {typeof subValue === 'string' && subValue.length > 100 ? (
                             <textarea
-                              value={subValue || ''}
+                              value={containsHTML(subValue) ? stripHTML(subValue) : (subValue || '')}
                               onChange={(e) => {
                                 setFormData(prev => ({
                                   ...prev,
@@ -560,7 +1043,7 @@ export default function CMSManagementPage() {
                               }}
                               rows={3}
                               className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter"
-                              placeholder={subLabel}
+                              placeholder={`${subLabel} (texte simple)...`}
                             />
                           ) : (
                             <input
@@ -590,9 +1073,16 @@ export default function CMSManagementPage() {
               );
             } else {
               const isLongText = typeof value === 'string' && value.length > 100;
+              const isImageField = field.toLowerCase().includes('image') || 
+                field.toLowerCase().includes('background') ||
+                field.toLowerCase().includes('photo') ||
+                field.toLowerCase().includes('picture') ||
+                field.toLowerCase().includes('img') ||
+                (typeof value === 'string' && (value.startsWith('/images/') || value.startsWith('http') || value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg')));
+              
               return (
                 <div key={field} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-                  {renderFormField(sectionKey, field, label, isLongText ? 'textarea' : 'text')}
+                  {renderFormField(sectionKey, field, label, isImageField ? 'image' : (isLongText ? 'textarea' : 'text'))}
                 </div>
               );
             }
@@ -611,7 +1101,14 @@ export default function CMSManagementPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
+    <>
+      <Notification
+        isOpen={notification.isOpen}
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ ...notification, isOpen: false })}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl p-6 mb-6 text-white dark:text-gray-100">
@@ -823,5 +1320,6 @@ export default function CMSManagementPage() {
         </div>
       )}
     </div>
+    </>
   );
 }
