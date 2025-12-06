@@ -40,6 +40,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/next.config.mjs ./next.config.mjs
+# Copy source code (needed for API routes and dynamic pages)
+COPY --from=builder --chown=nextjs:nodejs /app/src ./src
 
 # Set correct permissions
 RUN chown -R nextjs:nodejs /app
