@@ -107,7 +107,13 @@ export default function PatrimoinePage() {
     // Load content from MongoDB via API
     const loadContent = async () => {
       try {
-        const response = await fetch('/api/cms/content?path=patrimoine');
+        const response = await fetch(`/api/cms/content?path=patrimoine&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         const data = await response.json();
         
         if (data.success && data.data) {

@@ -402,7 +402,13 @@ export default function HomePage() {
       try {
         setLoading(true);
         // Add cache-busting parameter to force fresh data
-        const response = await fetch(`/api/cms/content?path=home&t=${Date.now()}`);
+        const response = await fetch(`/api/cms/content?path=home&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           // Use same pattern as fiscalite and immobilier pages

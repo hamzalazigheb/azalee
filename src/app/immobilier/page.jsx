@@ -45,7 +45,13 @@ export default function ImmobilierPage() {
     const fetchContent = async () => {
       try {
         // Fetch content from CMS API
-        const response = await fetch('/api/cms/content?path=immobilier');
+        const response = await fetch(`/api/cms/content?path=immobilier&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           // API returns { success: true, data: page.content }

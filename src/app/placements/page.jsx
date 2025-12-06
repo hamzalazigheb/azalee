@@ -20,7 +20,13 @@ export default function PlacementsPage() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await fetch('/api/cms/content?path=placements');
+        const response = await fetch(`/api/cms/content?path=placements&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           // API returns { success: true, data: page.content }
