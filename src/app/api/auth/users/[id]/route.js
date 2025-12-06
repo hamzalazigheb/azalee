@@ -10,7 +10,9 @@ export async function PUT(request, { params }) {
   try {
     await connectDB();
 
-    const { id } = params;
+    // In Next.js 14, params might be a Promise
+    const resolvedParams = await params || params;
+    const { id } = resolvedParams;
 
     // Get token from Authorization header
     const authHeader = request.headers.get('authorization');
@@ -35,7 +37,9 @@ export async function PUT(request, { params }) {
     }
 
     // Check if user is admin
-    const admin = await User.findById(decoded.userId);
+    // decoded might have 'id' or 'userId' depending on how token was created
+    const userId = decoded.id || decoded.userId;
+    const admin = await User.findById(userId);
     if (!admin || admin.role !== 'admin') {
       return NextResponse.json(
         { success: false, message: 'Admin access required' },
@@ -87,7 +91,12 @@ export async function DELETE(request, { params }) {
   try {
     await connectDB();
 
-    const { id } = params;
+    // In Next.js 14, params might be a Promise
+    const resolvedParams = await params || params;
+    const { id } = resolvedParams;
+    
+    console.log('DELETE user - ID received:', id);
+    console.log('DELETE user - Params:', resolvedParams);
 
     // Get token from Authorization header
     const authHeader = request.headers.get('authorization');
@@ -112,7 +121,9 @@ export async function DELETE(request, { params }) {
     }
 
     // Check if user is admin
-    const admin = await User.findById(decoded.userId);
+    // decoded might have 'id' or 'userId' depending on how token was created
+    const userId = decoded.id || decoded.userId;
+    const admin = await User.findById(userId);
     if (!admin || admin.role !== 'admin') {
       return NextResponse.json(
         { success: false, message: 'Admin access required' },
@@ -121,7 +132,7 @@ export async function DELETE(request, { params }) {
     }
 
     // Prevent deleting yourself
-    if (decoded.userId === id) {
+    if (userId === id) {
       return NextResponse.json(
         { success: false, message: 'You cannot delete your own account' },
         { status: 400 }
@@ -129,13 +140,20 @@ export async function DELETE(request, { params }) {
     }
 
     // Find and delete user
+    console.log('DELETE user - Searching for user with ID:', id);
     const user = await User.findByIdAndDelete(id);
     if (!user) {
+      console.log('DELETE user - User not found with ID:', id);
+      // Try to find the user to see what IDs exist
+      const allUsers = await User.find({}, '_id email');
+      console.log('DELETE user - Available users:', allUsers.map(u => ({ id: u._id.toString(), email: u.email })));
       return NextResponse.json(
         { success: false, message: 'User not found' },
         { status: 404 }
       );
     }
+    
+    console.log('DELETE user - Successfully deleted:', user.email);
 
     return NextResponse.json({
       success: true,

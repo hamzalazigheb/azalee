@@ -123,12 +123,17 @@ export default function UsersManagementPage() {
 
     try {
       const token = localStorage.getItem('adminToken');
+      console.log('Deleting user with ID:', userId);
+      console.log('User ID type:', typeof userId);
+      
       const response = await fetch(`/api/auth/users/${userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+      
+      console.log('Delete response status:', response.status);
 
       const data = await response.json();
       if (data.success) {
