@@ -63,15 +63,28 @@ echo -e "${YELLOW}4. Exécution du script d'initialisation...${NC}"
 echo -e "${BLUE}   ⏳ Cela peut prendre quelques secondes...${NC}"
 
 # Exécuter dans le container backend ou directement avec node
-if command -v node &> /dev/null; then
-    # Node.js est disponible localement
+if command -v node &> /dev/null && [ -f "package.json" ]; then
+    # Node.js est disponible localement et package.json existe
+    echo -e "${BLUE}   Exécution depuis l'hôte...${NC}"
     node scripts/init-accueil-cms.js
 elif sudo docker ps | grep -q azalee-backend; then
-    # Exécuter dans le container backend
-    sudo docker exec azalee-backend node /app/scripts/init-accueil-cms.js
+    # Copier le script dans le container et l'exécuter
+    echo -e "${BLUE}   Copie du script dans le container...${NC}"
+    sudo docker cp scripts/init-accueil-cms.js azalee-backend:/app/init-accueil-cms.js
+    sudo docker cp .env.production azalee-backend:/app/.env.production 2>/dev/null || true
+    echo -e "${BLUE}   Exécution dans le container...${NC}"
+    sudo docker exec -w /app azalee-backend node init-accueil-cms.js
+elif sudo docker ps | grep -q azalee-frontend; then
+    # Utiliser le container frontend si backend n'existe pas
+    echo -e "${BLUE}   Copie du script dans le container frontend...${NC}"
+    sudo docker cp scripts/init-accueil-cms.js azalee-frontend:/app/init-accueil-cms.js
+    sudo docker cp .env.production azalee-frontend:/app/.env.production 2>/dev/null || true
+    echo -e "${BLUE}   Exécution dans le container frontend...${NC}"
+    sudo docker exec -w /app azalee-frontend node init-accueil-cms.js
 else
-    # Essayer avec docker-compose run
-    sudo docker-compose run --rm backend node /app/scripts/init-accueil-cms.js
+    # Essayer avec docker-compose run en copiant d'abord
+    echo -e "${BLUE}   Création d'un container temporaire...${NC}"
+    sudo docker-compose run --rm -v "$(pwd)/scripts:/scripts" -v "$(pwd)/.env.production:/app/.env.production:ro" backend sh -c "cp /scripts/init-accueil-cms.js /app/ && node /app/init-accueil-cms.js"
 fi
 
 if [ $? -eq 0 ]; then
