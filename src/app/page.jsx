@@ -947,14 +947,6 @@ export default function HomePage() {
       
       
       {sectionOrder.map(renderSection)}
-      {/* Add real Figma hero photo below hero section, responsive only on mobile */}
-      <div className="w-full flex justify-center items-center my-4 sm:my-6 block lg:hidden px-4">
-        <img
-          src="/images/real-hero-photo-7881b2.png"
-          alt="Hero section real photo"
-          className="w-full max-w-xs sm:max-w-md md:max-w-lg rounded-lg object-cover mx-auto"
-        />
-      </div>
       
       <Footer />
     </div>

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Notification from '../../../components/admin/Notification';
 
 export default function ChatbotCMSPage() {
   const [stats, setStats] = useState({
@@ -17,16 +18,96 @@ export default function ChatbotCMSPage() {
   const [rendezVous, setRendezVous] = useState([]);
   const [pdfDemandes, setPdfDemandes] = useState([]);
   const [rdvStats, setRdvStats] = useState({ en_cours: 0, done: 0, canceled: 0 });
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('stats');
+  const [loading, setLoading] = useState(false); // Ne pas bloquer sur le chargement initial
+  const [activeTab, setActiveTab] = useState('content'); // 'content' ou 'sessions'
   const [rdvFilter, setRdvFilter] = useState('all');
+  const [saraContent, setSaraContent] = useState(null);
+  const [contentLoading, setContentLoading] = useState(false);
+  const [contentNotification, setContentNotification] = useState({ isOpen: false, message: '', type: 'success' });
 
   useEffect(() => {
-    fetchStats();
-    fetchSessions();
-    fetchRendezVous();
-    fetchPdfDemandes();
-  }, [rdvFilter]);
+    if (activeTab === 'sessions') {
+      setLoading(true);
+      fetchStats();
+      fetchSessions();
+      fetchRendezVous();
+      fetchPdfDemandes();
+    } else if (activeTab === 'content') {
+      fetchSaraContent();
+    }
+  }, [rdvFilter, activeTab]);
+
+  const fetchSaraContent = async () => {
+    setContentLoading(true);
+    try {
+      const response = await fetch('/api/cms/content?path=sara&t=' + Date.now());
+      const data = await response.json();
+      if (data.success && data.data) {
+        setSaraContent(data.data);
+      } else {
+        // Si la page n'existe pas, initialiser avec un contenu par défaut
+        setSaraContent({
+          welcome: {
+            text: "Bonjour et bienvenue sur azalee-patrimoine.fr ! Je suis votre conseiller patrimonial virtuel. Vous souhaitez optimiser vos finances, investir, ou anticiper l'avenir ? Je peux vous aider à y voir clair.",
+            options: [
+              { text: '💬 Obtenir une réponse rapide à une question patrimoniale', value: 'question' },
+              { text: '📞 Être rappelé(e) par un conseiller', value: 'rappel' },
+              { text: '📅 Prendre un rendez-vous directement', value: 'rdv_direct' }
+            ]
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching Sara content:', error);
+    } finally {
+      setContentLoading(false);
+    }
+  };
+
+  const saveSaraContent = async () => {
+    setContentLoading(true);
+    try {
+      const response = await fetch('/api/cms/pages', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          path: 'sara',
+          title: 'Chatbot Sara',
+          content: saraContent,
+          published: true
+        })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setContentNotification({
+          isOpen: true,
+          message: 'Contenu sauvegardé avec succès !',
+          type: 'success'
+        });
+        setTimeout(() => setContentNotification({ ...contentNotification, isOpen: false }), 3000);
+      } else {
+        setContentNotification({
+          isOpen: true,
+          message: 'Erreur lors de la sauvegarde: ' + (data.message || 'Erreur inconnue'),
+          type: 'error'
+        });
+        setTimeout(() => setContentNotification({ ...contentNotification, isOpen: false }), 3000);
+      }
+    } catch (error) {
+      console.error('Error saving Sara content:', error);
+      setContentNotification({
+        isOpen: true,
+        message: 'Erreur lors de la sauvegarde: ' + error.message,
+        type: 'error'
+      });
+      setTimeout(() => setContentNotification({ ...contentNotification, isOpen: false }), 3000);
+    } finally {
+      setContentLoading(false);
+    }
+  };
 
   const fetchStats = async () => {
     try {
@@ -138,7 +219,7 @@ export default function ChatbotCMSPage() {
     }
   };
 
-  if (loading) {
+  if (loading && activeTab === 'sessions') {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#253F60]"></div>
@@ -159,9 +240,189 @@ export default function ChatbotCMSPage() {
             </div>
             Gestion du Chatbot SARA
           </h1>
-          <p className="text-gray-200">Suivez les interactions et leads générés par le chatbot</p>
+          <p className="text-gray-200">Gérez le contenu du chatbot et suivez les interactions</p>
         </div>
 
+        {/* Tabs */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
+          <div className="flex border-b border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setActiveTab('content')}
+              className={`flex-1 px-6 py-4 text-center font-cairo font-semibold transition-all ${
+                activeTab === 'content'
+                  ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white border-b-2 border-[#B99066]'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+              }`}
+            >
+              📝 Gérer le contenu
+            </button>
+            <button
+              onClick={() => setActiveTab('sessions')}
+              className={`flex-1 px-6 py-4 text-center font-cairo font-semibold transition-all ${
+                activeTab === 'sessions'
+                  ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white border-b-2 border-[#B99066]'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
+              }`}
+            >
+              📊 Sessions et leads
+            </button>
+          </div>
+        </div>
+
+        {/* Content Tab */}
+        {activeTab === 'content' && (
+          <>
+            <Notification
+              isOpen={contentNotification.isOpen}
+              message={contentNotification.message}
+              type={contentNotification.type}
+              onClose={() => setContentNotification({ ...contentNotification, isOpen: false })}
+            />
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-4 rounded-t-xl">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-cairo font-bold text-white">Message de bienvenue</h2>
+                  <button
+                    onClick={saveSaraContent}
+                    disabled={contentLoading}
+                    className="bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-6 py-2 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 font-cairo font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {contentLoading ? 'Enregistrement...' : 'Enregistrer'}
+                  </button>
+                </div>
+              </div>
+              <div className="p-6">
+                {contentLoading && !saraContent ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#253F60]"></div>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
+                        Texte du message de bienvenue
+                      </label>
+                      <textarea
+                        value={saraContent?.welcome?.text || ''}
+                        onChange={(e) => setSaraContent({
+                          ...saraContent,
+                          welcome: {
+                            ...saraContent?.welcome,
+                            text: e.target.value
+                          }
+                        })}
+                        className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 resize-y min-h-[120px]"
+                        placeholder="Entrez le message de bienvenue..."
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066]">
+                          Options du menu
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const currentOptions = saraContent?.welcome?.options || [];
+                            setSaraContent({
+                              ...saraContent,
+                              welcome: {
+                                ...saraContent?.welcome,
+                                options: [...currentOptions, { text: '', value: '' }]
+                              }
+                            });
+                          }}
+                          className="px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 text-sm font-cairo font-semibold"
+                        >
+                          + Ajouter une option
+                        </button>
+                      </div>
+                      <div className="space-y-3">
+                        {(saraContent?.welcome?.options || []).map((option, index) => (
+                          <div key={index} className="flex gap-3 items-start p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <div>
+                                <label className="block text-xs font-cairo font-semibold text-gray-600 dark:text-gray-400 mb-1">
+                                  Texte de l'option
+                                </label>
+                                <input
+                                  type="text"
+                                  value={option.text || ''}
+                                  onChange={(e) => {
+                                    const currentOptions = [...(saraContent?.welcome?.options || [])];
+                                    currentOptions[index] = { ...currentOptions[index], text: e.target.value };
+                                    setSaraContent({
+                                      ...saraContent,
+                                      welcome: {
+                                        ...saraContent?.welcome,
+                                        options: currentOptions
+                                      }
+                                    });
+                                  }}
+                                  className="w-full px-3 py-2 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm"
+                                  placeholder="Ex: 💬 Obtenir une réponse rapide..."
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-xs font-cairo font-semibold text-gray-600 dark:text-gray-400 mb-1">
+                                  Valeur (value)
+                                </label>
+                                <input
+                                  type="text"
+                                  value={option.value || ''}
+                                  onChange={(e) => {
+                                    const currentOptions = [...(saraContent?.welcome?.options || [])];
+                                    currentOptions[index] = { ...currentOptions[index], value: e.target.value };
+                                    setSaraContent({
+                                      ...saraContent,
+                                      welcome: {
+                                        ...saraContent?.welcome,
+                                        options: currentOptions
+                                      }
+                                    });
+                                  }}
+                                  className="w-full px-3 py-2 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm"
+                                  placeholder="Ex: question, rappel, rdv_direct"
+                                />
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const currentOptions = [...(saraContent?.welcome?.options || [])];
+                                currentOptions.splice(index, 1);
+                                setSaraContent({
+                                  ...saraContent,
+                                  welcome: {
+                                    ...saraContent?.welcome,
+                                    options: currentOptions
+                                  }
+                                });
+                              }}
+                              className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-semibold mt-6"
+                              title="Supprimer cette option"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                        {(!saraContent?.welcome?.options || saraContent.welcome.options.length === 0) && (
+                          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                            <p>Aucune option. Cliquez sur "Ajouter une option" pour commencer.</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Sessions Tab */}
+        {activeTab === 'sessions' && (
+          <>
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 border-2 border-[#253F60]/20 dark:border-gray-700">
@@ -594,6 +855,8 @@ export default function ChatbotCMSPage() {
             </div>
           </div>
         </div>
+          </>
+        )}
       </div>
     </div>
   );

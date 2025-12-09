@@ -74,14 +74,29 @@ export default function CMSManagementPage() {
   );
 
   useEffect(() => {
-    fetchPages();
+    const initializeCMS = async () => {
+      setLoading(true);
+      try {
+        // Fetch pages first
+        await fetchPages();
+        
+        // Check if there's a path parameter in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const pathParam = urlParams.get('path');
+        if (pathParam) {
+          await fetchPageContent(pathParam);
+        }
+      } catch (error) {
+        console.error('Error initializing CMS:', error);
+      } finally {
+        // Small delay to ensure smooth transition
+        setTimeout(() => {
+          setLoading(false);
+        }, 300);
+      }
+    };
     
-    // Check if there's a path parameter in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const pathParam = urlParams.get('path');
-    if (pathParam) {
-      fetchPageContent(pathParam);
-    }
+    initializeCMS();
   }, []);
 
   const fetchPages = async () => {
@@ -93,8 +108,7 @@ export default function CMSManagementPage() {
       }
     } catch (error) {
       console.error('Error fetching pages:', error);
-    } finally {
-      setLoading(false);
+      throw error;
     }
   };
 
@@ -511,7 +525,7 @@ export default function CMSManagementPage() {
                             value={itemValue}
                             onChange={(e) => handleArrayChange(section, field, index, e.target.value)}
                             rows={3}
-                            className="flex-1 px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-y"
+                            className="flex-1 px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-y"
                             placeholder={`Écrivez ${label.toLowerCase()} ${index + 1}...`}
                           />
                         )}
@@ -817,10 +831,10 @@ export default function CMSManagementPage() {
     if (typeof sectionData !== 'object') return null;
 
     return (
-      <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 mb-6 border-2 border-[#253F60]/20 dark:border-gray-700 shadow-lg">
-        <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#B99066]/30 dark:border-gray-700">
-          <div className="w-1 h-8 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
-          <h3 className="text-xl font-cairo font-bold text-[#253F60] dark:text-[#B99066]">{title}</h3>
+      <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-4 sm:p-5 lg:p-6 mb-4 sm:mb-5 lg:mb-6 border-2 border-[#253F60]/20 dark:border-gray-700 shadow-lg">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-[#B99066]/30 dark:border-gray-700">
+          <div className="w-1 h-6 sm:h-8 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
+          <h3 className="text-lg sm:text-xl font-cairo font-bold text-[#253F60] dark:text-[#B99066] break-words">{title}</h3>
         </div>
         <div className="space-y-4">
           {Object.keys(sectionData).map((field) => {
@@ -1427,8 +1441,507 @@ export default function CMSManagementPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#253F60] to-[#1a2d47] dark:from-gray-900 dark:to-gray-800">
-        <div className="text-lg text-white font-cairo">Chargement...</div>
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#B99066] dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+        {/* Ultra-professional animated background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Multiple gradient orbs */}
+          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#B99066]/30 rounded-full blur-3xl animate-orb-float-1"></div>
+          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-[#253F60]/30 rounded-full blur-3xl animate-orb-float-2"></div>
+          <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#A67C52]/20 rounded-full blur-3xl animate-orb-float-3"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-[#1a2d47]/25 rounded-full blur-3xl animate-orb-float-4"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#B99066]/15 rounded-full blur-3xl animate-orb-pulse"></div>
+          
+          {/* Animated grid pattern */}
+          <div className="absolute inset-0 opacity-[0.08]">
+            <div className="absolute inset-0" style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)',
+              backgroundSize: '60px 60px',
+              animation: 'grid-move 25s linear infinite'
+            }}></div>
+          </div>
+          
+          {/* Particle effect */}
+          <div className="absolute inset-0">
+            {[...Array(15)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 bg-white/30 rounded-full animate-particle"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${3 + Math.random() * 2}s`
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="relative z-10 flex flex-col items-center justify-center">
+          {/* Ultra-professional logo animation */}
+          <div className="mb-12 relative">
+            {/* Multiple glow rings */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#B99066] via-[#A67C52] to-[#B99066] opacity-25 blur-3xl animate-glow-pulse scale-130"></div>
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#253F60] via-[#1a2d47] to-[#253F60] opacity-20 blur-2xl animate-glow-pulse-2 scale-120"></div>
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#B99066] to-[#253F60] opacity-15 blur-xl animate-glow-pulse-3 scale-115"></div>
+            
+            {/* Animated rotating gradient border */}
+            <div className="absolute inset-0 rounded-3xl animate-border-rotate" style={{
+              background: 'conic-gradient(from 0deg, #B99066, #253F60, #A67C52, #1a2d47, #B99066)',
+              padding: '4px',
+              WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+              WebkitMaskComposite: 'xor',
+              maskComposite: 'exclude'
+            }}>
+              <div className="w-full h-full rounded-3xl bg-transparent"></div>
+            </div>
+            
+            {/* Inner shadow ring */}
+            <div className="absolute inset-2 rounded-3xl border-2 border-white/10 animate-inner-glow"></div>
+            
+            {/* Logo container */}
+            <div className="relative bg-gradient-to-br from-white via-gray-50 to-white rounded-3xl p-10 shadow-[0_20px_60px_rgba(0,0,0,0.3)] w-40 h-40 flex items-center justify-center transform animate-logo-premium">
+              {/* Inner glow */}
+              <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-[#B99066]/10 to-transparent"></div>
+              
+              <img 
+                src="/images/azalee-patrimoine3.png" 
+                alt="Azalée Patrimoine Logo" 
+                className="max-w-full max-h-full object-contain relative z-10 animate-logo-refined drop-shadow-2xl"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  if (e.target.nextSibling) {
+                    e.target.nextSibling.style.display = 'flex';
+                  }
+                }}
+              />
+              <div className="w-full h-full bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-xl flex flex-col items-center justify-center text-white font-cairo font-bold shadow-inner relative z-10 animate-logo-refined hidden">
+                <span className="text-6xl leading-none mb-2 drop-shadow-lg">A</span>
+                <span className="text-sm leading-tight tracking-wider drop-shadow">AZALÉE</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Ultra-professional loading text */}
+          <div className="text-center animate-text-premium-fade">
+            <h2 className="text-4xl font-cairo font-bold text-white mb-4 relative inline-block">
+              <span className="relative">
+                <span className="absolute inset-0 bg-gradient-to-r from-[#B99066] via-white to-[#B99066] blur-xl opacity-50 animate-text-glow"></span>
+                <span className="relative bg-gradient-to-r from-white via-[#B99066] to-white bg-clip-text text-transparent animate-text-gradient-premium" style={{
+                  backgroundSize: '300% auto',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}>
+                  Chargement du CMS
+                </span>
+              </span>
+              <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#B99066] to-transparent animate-underline-premium"></span>
+            </h2>
+            <p className="text-gray-200 font-inter text-lg font-light tracking-wider animate-text-slide-premium mt-2">
+              <span className="inline-block animate-dot-1">.</span>
+              <span className="inline-block animate-dot-2">.</span>
+              <span className="inline-block animate-dot-3">.</span>
+              <span className="ml-2">Préparation de votre espace</span>
+            </p>
+          </div>
+          
+          {/* Ultra-professional spinner */}
+          <div className="mt-12 relative">
+            <div className="w-24 h-24 border-4 border-white/20 rounded-full relative">
+              <div className="absolute inset-0 border-4 border-transparent border-t-[#B99066] rounded-full animate-spin-premium"></div>
+              <div className="absolute inset-2 border-4 border-transparent border-r-[#A67C52] rounded-full animate-spin-premium-reverse"></div>
+              <div className="absolute inset-4 border-4 border-transparent border-b-[#253F60] rounded-full animate-spin-premium"></div>
+            </div>
+            {/* Glow effect */}
+            <div className="absolute inset-0 w-24 h-24 bg-[#B99066]/40 rounded-full blur-2xl animate-glow-premium"></div>
+          </div>
+        </div>
+        
+        <style jsx global>{`
+          @keyframes logo-premium {
+            0%, 100% {
+              transform: translateY(0px) scale(1) rotate(0deg);
+              box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(185, 144, 102, 0.2);
+            }
+            25% {
+              transform: translateY(-10px) scale(1.03) rotate(0.5deg);
+              box-shadow: 0 25px 70px rgba(0,0,0,0.35), 0 0 50px rgba(185, 144, 102, 0.3);
+            }
+            50% {
+              transform: translateY(-15px) scale(1.06) rotate(0deg);
+              box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(185, 144, 102, 0.4);
+            }
+            75% {
+              transform: translateY(-10px) scale(1.03) rotate(-0.5deg);
+              box-shadow: 0 25px 70px rgba(0,0,0,0.35), 0 0 50px rgba(185, 144, 102, 0.3);
+            }
+          }
+          
+          @keyframes logo-refined {
+            0%, 100% {
+              opacity: 1;
+              transform: scale(1);
+              filter: brightness(1);
+            }
+            50% {
+              opacity: 0.98;
+              transform: scale(1.02);
+              filter: brightness(1.05);
+            }
+          }
+          
+          @keyframes orb-float-1 {
+            0%, 100% {
+              transform: translate(0, 0) scale(1);
+              opacity: 0.3;
+            }
+            33% {
+              transform: translate(40px, -40px) scale(1.15);
+              opacity: 0.4;
+            }
+            66% {
+              transform: translate(-30px, 30px) scale(0.95);
+              opacity: 0.25;
+            }
+          }
+          
+          @keyframes orb-float-2 {
+            0%, 100% {
+              transform: translate(0, 0) scale(1);
+              opacity: 0.3;
+            }
+            33% {
+              transform: translate(-40px, 40px) scale(0.9);
+              opacity: 0.25;
+            }
+            66% {
+              transform: translate(30px, -30px) scale(1.15);
+              opacity: 0.4;
+            }
+          }
+          
+          @keyframes orb-float-3 {
+            0%, 100% {
+              transform: translate(0, 0) scale(1);
+              opacity: 0.2;
+            }
+            50% {
+              transform: translate(30px, 30px) scale(1.1);
+              opacity: 0.3;
+            }
+          }
+          
+          @keyframes orb-float-4 {
+            0%, 100% {
+              transform: translate(0, 0) scale(1);
+              opacity: 0.25;
+            }
+            50% {
+              transform: translate(-30px, -30px) scale(0.95);
+              opacity: 0.35;
+            }
+          }
+          
+          @keyframes orb-pulse {
+            0%, 100% {
+              transform: translate(-50%, -50%) scale(1);
+              opacity: 0.15;
+            }
+            50% {
+              transform: translate(-50%, -50%) scale(1.25);
+              opacity: 0.3;
+            }
+          }
+          
+          @keyframes glow-pulse {
+            0%, 100% {
+              opacity: 0.25;
+              transform: scale(1.3);
+            }
+            50% {
+              opacity: 0.4;
+              transform: scale(1.35);
+            }
+          }
+          
+          @keyframes glow-pulse-2 {
+            0%, 100% {
+              opacity: 0.2;
+              transform: scale(1.2);
+            }
+            50% {
+              opacity: 0.3;
+              transform: scale(1.25);
+            }
+          }
+          
+          @keyframes glow-pulse-3 {
+            0%, 100% {
+              opacity: 0.15;
+              transform: scale(1.15);
+            }
+            50% {
+              opacity: 0.25;
+              transform: scale(1.2);
+            }
+          }
+          
+          @keyframes border-rotate {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+          
+          @keyframes inner-glow {
+            0%, 100% {
+              opacity: 0.1;
+            }
+            50% {
+              opacity: 0.2;
+            }
+          }
+          
+          @keyframes text-premium-fade {
+            from {
+              opacity: 0;
+              transform: translateY(30px) scale(0.95);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+          
+          @keyframes text-gradient-premium {
+            0% {
+              background-position: 0% center;
+            }
+            100% {
+              background-position: 300% center;
+            }
+          }
+          
+          @keyframes text-glow {
+            0%, 100% {
+              opacity: 0.5;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 0.7;
+              transform: scale(1.05);
+            }
+          }
+          
+          @keyframes underline-premium {
+            0% {
+              width: 0%;
+              opacity: 0;
+              transform: scaleX(0);
+            }
+            50% {
+              width: 100%;
+              opacity: 1;
+              transform: scaleX(1);
+            }
+            100% {
+              width: 100%;
+              opacity: 0.9;
+              transform: scaleX(1);
+            }
+          }
+          
+          @keyframes text-slide-premium {
+            0% {
+              opacity: 0;
+              transform: translateX(-30px);
+            }
+            100% {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes dot-1 {
+            0%, 20% {
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes dot-2 {
+            0%, 40% {
+              opacity: 0;
+            }
+            60% {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes dot-3 {
+            0%, 60% {
+              opacity: 0;
+            }
+            80% {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes grid-move {
+            0% {
+              transform: translate(0, 0);
+            }
+            100% {
+              transform: translate(60px, 60px);
+            }
+          }
+          
+          @keyframes particle {
+            0%, 100% {
+              opacity: 0;
+              transform: translateY(0) translateX(0);
+            }
+            10% {
+              opacity: 1;
+            }
+            90% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(-100vh) translateX(20px);
+            }
+          }
+          
+          @keyframes spin-premium {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+          
+          @keyframes spin-premium-reverse {
+            from {
+              transform: rotate(360deg);
+            }
+            to {
+              transform: rotate(0deg);
+            }
+          }
+          
+          @keyframes glow-premium {
+            0%, 100% {
+              opacity: 0.4;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 0.6;
+              transform: scale(1.1);
+            }
+          }
+          
+          .animate-logo-premium {
+            animation: logo-premium 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          }
+          
+          .animate-logo-refined {
+            animation: logo-refined 4s ease-in-out infinite;
+          }
+          
+          .animate-orb-float-1 {
+            animation: orb-float-1 10s ease-in-out infinite;
+          }
+          
+          .animate-orb-float-2 {
+            animation: orb-float-2 12s ease-in-out infinite;
+          }
+          
+          .animate-orb-float-3 {
+            animation: orb-float-3 8s ease-in-out infinite;
+          }
+          
+          .animate-orb-float-4 {
+            animation: orb-float-4 9s ease-in-out infinite;
+          }
+          
+          .animate-orb-pulse {
+            animation: orb-pulse 7s ease-in-out infinite;
+          }
+          
+          .animate-glow-pulse {
+            animation: glow-pulse 4s ease-in-out infinite;
+          }
+          
+          .animate-glow-pulse-2 {
+            animation: glow-pulse-2 5s ease-in-out infinite;
+          }
+          
+          .animate-glow-pulse-3 {
+            animation: glow-pulse-3 6s ease-in-out infinite;
+          }
+          
+          .animate-border-rotate {
+            animation: border-rotate 10s linear infinite;
+          }
+          
+          .animate-inner-glow {
+            animation: inner-glow 3s ease-in-out infinite;
+          }
+          
+          .animate-text-premium-fade {
+            animation: text-premium-fade 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          
+          .animate-text-gradient-premium {
+            animation: text-gradient-premium 4s linear infinite;
+          }
+          
+          .animate-text-glow {
+            animation: text-glow 3s ease-in-out infinite;
+          }
+          
+          .animate-underline-premium {
+            animation: underline-premium 2.5s ease-in-out infinite;
+          }
+          
+          .animate-text-slide-premium {
+            animation: text-slide-premium 1s ease-out 0.5s both;
+          }
+          
+          .animate-dot-1 {
+            animation: dot-1 1.5s ease-in-out infinite;
+          }
+          
+          .animate-dot-2 {
+            animation: dot-2 1.5s ease-in-out infinite 0.2s;
+          }
+          
+          .animate-dot-3 {
+            animation: dot-3 1.5s ease-in-out infinite 0.4s;
+          }
+          
+          .animate-spin-premium {
+            animation: spin-premium 1s linear infinite;
+          }
+          
+          .animate-spin-premium-reverse {
+            animation: spin-premium-reverse 1.5s linear infinite;
+          }
+          
+          .animate-glow-premium {
+            animation: glow-premium 2.5s ease-in-out infinite;
+          }
+          
+          .animate-particle {
+            animation: particle linear infinite;
+          }
+        `}</style>
       </div>
     );
   }
@@ -1441,44 +1954,37 @@ export default function CMSManagementPage() {
         type={notification.type}
         onClose={() => setNotification({ ...notification, isOpen: false })}
       />
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-3 sm:p-4 lg:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl p-6 mb-6 text-white dark:text-gray-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-cairo font-bold mb-2 flex items-center gap-3">
-                <svg className="w-8 h-8 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                  <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-                </svg>
-                Content Management System
-              </h1>
-              <p className="text-gray-200 dark:text-gray-300">Gérez tout le contenu de vos pages visuellement</p>
-            </div>
-            <button
-              onClick={() => setShowCreateModal(true)}
-              className="bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-6 py-3 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold"
-            >
-              + Créer une nouvelle page
-            </button>
+        <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl p-4 sm:p-5 lg:p-6 mb-4 sm:mb-5 lg:mb-6 text-white dark:text-gray-100">
+          <div>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-1 sm:mb-2 flex items-center gap-2 sm:gap-3">
+              <svg className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+              </svg>
+              <span className="hidden sm:inline">Content Management System</span>
+              <span className="sm:hidden">CMS</span>
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-200 dark:text-gray-300 hidden sm:block">Gérez tout le contenu de vos pages visuellement</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {/* Pages List */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 order-2 lg:order-1">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
-              <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-4 rounded-t-xl">
-                <h2 className="text-lg font-cairo font-bold text-white flex items-center gap-2">
-                  <svg className="w-5 h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl">
+                <h2 className="text-base sm:text-lg font-cairo font-bold text-white flex items-center gap-2">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                     <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   Pages ({pages.length})
                 </h2>
               </div>
-              <div className="max-h-[600px] overflow-y-auto">
+              <div className="max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] overflow-y-auto">
                 {pages.length === 0 ? (
                   <div className="p-8 text-center">
                     <svg className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1490,18 +1996,18 @@ export default function CMSManagementPage() {
                   pages.map((page) => (
                     <div
                       key={page._id}
-                      className={`p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
+                      className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
                         selectedPage?.path === page.path 
                           ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
                           : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
                       }`}
                       onClick={() => fetchPageContent(page.path)}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="font-cairo font-semibold text-[#253F60] dark:text-[#B99066]">{page.title}</h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter">{page.path}</p>
-                          <div className="flex items-center gap-2 mt-2">
+                      <div className="flex items-start sm:items-center justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">{page.title}</h3>
+                          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">{page.path}</p>
+                          <div className="flex items-center gap-2 mt-2 flex-wrap">
                             <span
                               className={`text-xs px-2 py-1 rounded font-inter ${
                                 page.published
@@ -1521,10 +2027,10 @@ export default function CMSManagementPage() {
                             e.stopPropagation();
                             handleDelete(page.path);
                           }}
-                          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
                           title="Supprimer"
                         >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
                         </button>
@@ -1537,32 +2043,33 @@ export default function CMSManagementPage() {
           </div>
 
           {/* Visual Editor */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 order-1 lg:order-2">
             {selectedPage ? (
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
-                <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-4 rounded-t-xl sticky top-0 z-10">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h2 className="text-xl font-cairo font-bold text-white flex items-center gap-2">
-                        <svg className="w-6 h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl sticky top-0 z-10">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h2 className="text-lg sm:text-xl font-cairo font-bold text-white flex items-center gap-2">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#B99066] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
-                        {selectedPage.title}
+                        <span className="truncate">{selectedPage.title}</span>
                       </h2>
-                      <p className="text-sm text-gray-200 mt-1 font-inter">{selectedPage.path}</p>
+                      <p className="text-xs sm:text-sm text-gray-200 mt-1 font-inter truncate">{selectedPage.path}</p>
                     </div>
                     <button
                       onClick={handleSave}
-                      className="bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-6 py-3 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold flex items-center gap-2"
+                      className="w-full sm:w-auto bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" />
                       </svg>
-                      Enregistrer les modifications
+                      <span className="hidden sm:inline">Enregistrer les modifications</span>
+                      <span className="sm:hidden">Enregistrer</span>
                     </button>
                   </div>
                 </div>
-                <div className="p-6 max-h-[calc(100vh-200px)] overflow-y-auto">
+                <div className="p-3 sm:p-4 lg:p-6 max-h-[calc(100vh-180px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto">
                   {formData && Object.keys(formData).length > 0 ? (
                     Object.keys(formData).map((sectionKey) => {
                       const section = formData[sectionKey];
@@ -1603,48 +2110,49 @@ export default function CMSManagementPage() {
 
       {/* Create Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 border-2 border-[#253F60]/20 dark:border-gray-700">
-            <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 -m-6 mb-6 p-4 rounded-t-xl">
-              <h2 className="text-xl font-cairo font-bold text-white flex items-center gap-2">
-                <svg className="w-6 h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+        <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 sm:p-6 max-w-md w-full border-2 border-[#253F60]/20 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
+            <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 -m-4 sm:-m-6 mb-4 sm:mb-6 p-3 sm:p-4 rounded-t-xl">
+              <h2 className="text-lg sm:text-xl font-cairo font-bold text-white flex items-center gap-2">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                 </svg>
-                Créer une nouvelle page
+                <span className="hidden sm:inline">Créer une nouvelle page</span>
+                <span className="sm:hidden">Nouvelle page</span>
               </h2>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Chemin</label>
+                <label className="block text-xs sm:text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Chemin</label>
                 <input
                   type="text"
                   value={newPage.path}
                   onChange={(e) => setNewPage({ ...newPage, path: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   placeholder="ex: placements/assurance-vie"
                 />
               </div>
               <div>
-                <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Titre</label>
+                <label className="block text-xs sm:text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Titre</label>
                 <input
                   type="text"
                   value={newPage.title}
                   onChange={(e) => setNewPage({ ...newPage, title: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   placeholder="Titre de la page"
                 />
               </div>
             </div>
-            <div className="flex gap-3 mt-6">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4 sm:mt-6">
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="flex-1 px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-cairo font-semibold text-[#253F60] dark:text-gray-200 transition-colors"
+                className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-cairo font-semibold text-[#253F60] dark:text-gray-200 transition-colors"
               >
                 Annuler
               </button>
               <button
                 onClick={handleCreate}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold"
+                className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold"
               >
                 Créer
               </button>

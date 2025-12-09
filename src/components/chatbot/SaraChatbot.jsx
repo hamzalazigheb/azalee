@@ -22,10 +22,24 @@ export default function SaraChatbot() {
   const [pdfStep, setPdfStep] = useState('email'); // email
   const messagesEndRef = useRef(null);
 
+  const [saraContent, setSaraContent] = useState(null);
+
   useEffect(() => {
     // Générer un sessionId au montage
     const newSessionId = generateSessionId();
     setSessionId(newSessionId);
+    
+    // Charger le contenu de Sara depuis le CMS
+    fetch('/api/cms/content?path=sara&t=' + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data) {
+          setSaraContent(data.data);
+        }
+      })
+      .catch(err => {
+        console.error('Error loading Sara content from CMS:', err);
+      });
   }, []);
 
   // Initialiser les messages quand le chatbot s'ouvre
@@ -76,6 +90,20 @@ export default function SaraChatbot() {
   };
 
   const getWelcomeMessage = () => {
+    // Si le contenu CMS est disponible, l'utiliser, sinon utiliser le message par défaut
+    if (saraContent?.welcome) {
+      return {
+        type: 'message',
+        text: saraContent.welcome.text || "Bonjour et bienvenue sur azalee-patrimoine.fr ! Je suis votre conseiller patrimonial virtuel. Vous souhaitez optimiser vos finances, investir, ou anticiper l'avenir ? Je peux vous aider à y voir clair.",
+        options: saraContent.welcome.options || [
+          { text: '💬 Obtenir une réponse rapide à une question patrimoniale', value: 'question' },
+          { text: '📞 Être rappelé(e) par un conseiller', value: 'rappel' },
+          { text: '📅 Prendre un rendez-vous directement', value: 'rdv_direct' }
+        ]
+      };
+    }
+    
+    // Message par défaut (fallback)
     return {
       type: 'message',
       text: "Bonjour et bienvenue sur azalee-patrimoine.fr ! Je suis votre conseiller patrimonial virtuel. Vous souhaitez optimiser vos finances, investir, ou anticiper l'avenir ? Je peux vous aider à y voir clair.",
