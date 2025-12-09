@@ -11,6 +11,8 @@ export default function ContactsPage() {
   const [selectedContact, setSelectedContact] = useState(null);
   const [notes, setNotes] = useState('');
   const [notification, setNotification] = useState({ isOpen: false, message: '', type: 'success' });
+  const [updatingStatus, setUpdatingStatus] = useState({});
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
     // Check authentication
@@ -20,8 +22,12 @@ export default function ContactsPage() {
       return;
     }
 
-    fetchContacts();
-  }, [filter, router]);
+    // Only show loading on initial load, not when filter changes
+    fetchContacts(isInitialLoad);
+    if (isInitialLoad) {
+      setIsInitialLoad(false);
+    }
+  }, [filter, router, isInitialLoad]);
 
   // Check for filter in URL params
   useEffect(() => {
@@ -32,9 +38,12 @@ export default function ContactsPage() {
     }
   }, [filter]);
 
-  const fetchContacts = async () => {
+  const fetchContacts = async (showLoading = true) => {
     try {
-      setLoading(true);
+      // Only show loading spinner on initial load, not when filtering
+      if (showLoading) {
+        setLoading(true);
+      }
       const token = localStorage.getItem('adminToken');
       const status = filter === 'all' ? '' : filter;
       const url = `/api/contact/list${status ? `?status=${status}` : ''}`;
@@ -56,11 +65,33 @@ export default function ContactsPage() {
     } catch (error) {
       console.error('Error fetching contacts:', error);
     } finally {
-      setLoading(false);
+      if (showLoading) {
+        setLoading(false);
+      }
     }
   };
 
   const updateContactStatus = async (id, newStatus) => {
+    // Optimistic update - update UI immediately without flash
+    const previousContacts = [...contacts];
+    const previousSelectedContact = selectedContact;
+    
+    // Update contacts list immediately
+    setContacts(prevContacts =>
+      prevContacts.map(contact =>
+        contact._id === id
+          ? { ...contact, status: newStatus }
+          : contact
+      )
+    );
+    
+    // Update selected contact if it's the one being updated
+    if (selectedContact && selectedContact._id === id) {
+      setSelectedContact({ ...selectedContact, status: newStatus });
+    }
+    
+    setUpdatingStatus(prev => ({ ...prev, [id]: true }));
+
     try {
       const token = localStorage.getItem('adminToken');
       const response = await fetch('/api/contact/update', {
@@ -73,18 +104,39 @@ export default function ContactsPage() {
       });
 
       const data = await response.json();
-      if (data.success) {
-        showNotification('Contact mis à jour avec succès', 'success');
-        fetchContacts();
-        if (selectedContact && selectedContact._id === id) {
-          setSelectedContact({ ...selectedContact, status: newStatus });
+      if (!data.success) {
+        // Revert on error
+        setContacts(previousContacts);
+        if (previousSelectedContact && previousSelectedContact._id === id) {
+          setSelectedContact(previousSelectedContact);
         }
-      } else {
         showNotification('Erreur lors de la mise à jour', 'error');
+      } else {
+        // If filter is active and contact no longer matches, remove it from list smoothly
+        if (filter !== 'all' && newStatus !== filter) {
+          // Remove contact from list after a short delay for smooth transition
+          setTimeout(() => {
+            setContacts(prevContacts => prevContacts.filter(c => c._id !== id));
+            if (selectedContact && selectedContact._id === id) {
+              setSelectedContact(null);
+            }
+          }, 300);
+        }
       }
     } catch (error) {
       console.error('Error updating contact:', error);
+      // Revert on error
+      setContacts(previousContacts);
+      if (previousSelectedContact && previousSelectedContact._id === id) {
+        setSelectedContact(previousSelectedContact);
+      }
       showNotification('Erreur lors de la mise à jour', 'error');
+    } finally {
+      setUpdatingStatus(prev => {
+        const newState = { ...prev };
+        delete newState[id];
+        return newState;
+      });
     }
   };
 
@@ -351,45 +403,54 @@ export default function ContactsPage() {
 
                 {/* Status Actions */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Statut</label>
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    Statut
+                    {updatingStatus[selectedContact._id] && (
+                      <span className="ml-2 text-xs text-gray-500">Mise à jour...</span>
+                    )}
+                  </label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => updateContactStatus(selectedContact._id, 'read')}
+                      disabled={updatingStatus[selectedContact._id]}
                       className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
                         selectedContact.status === 'read'
                           ? 'bg-yellow-500 text-white'
                           : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
-                      }`}
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       Lu
                     </button>
                     <button
                       onClick={() => updateContactStatus(selectedContact._id, 'contacted')}
+                      disabled={updatingStatus[selectedContact._id]}
                       className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
                         selectedContact.status === 'contacted'
                           ? 'bg-green-500 text-white'
                           : 'bg-green-100 text-green-800 hover:bg-green-200'
-                      }`}
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       Contacté
                     </button>
                     <button
                       onClick={() => updateContactStatus(selectedContact._id, 'archived')}
+                      disabled={updatingStatus[selectedContact._id]}
                       className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
                         selectedContact.status === 'archived'
                           ? 'bg-gray-500 text-white'
                           : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                      }`}
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       Archivé
                     </button>
                     <button
                       onClick={() => updateContactStatus(selectedContact._id, 'new')}
+                      disabled={updatingStatus[selectedContact._id]}
                       className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
                         selectedContact.status === 'new'
                           ? 'bg-blue-500 text-white'
                           : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
-                      }`}
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       Nouveau
                     </button>

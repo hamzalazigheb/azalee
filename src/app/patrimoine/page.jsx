@@ -118,7 +118,7 @@ export default function PatrimoinePage() {
         
         if (data.success && data.data) {
           // Merge with default content to ensure all fields exist
-          setContent((prev) => ({ ...defaultContent, ...data.data }));
+          setContent({ ...defaultContent, ...data.data });
         } else {
           // If not found in DB, use default content
           console.log('Content not found in database, using default content');

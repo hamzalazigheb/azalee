@@ -33,6 +33,26 @@ const containsHTML = (text) => {
   return /<[^>]+>/g.test(text);
 };
 
+// Helper function to safely convert value to string for input fields
+const safeStringValue = (value) => {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (typeof value === 'object') {
+    // If it's an object, try to stringify it, but only if it's a simple object
+    try {
+      // Check if it's a simple object (not an array, Date, etc.)
+      if (Array.isArray(value)) return '';
+      if (value instanceof Date) return value.toISOString();
+      // For complex objects, return empty string - they should be rendered differently
+      return '';
+    } catch (e) {
+      return '';
+    }
+  }
+  return '';
+};
+
 // Editors removed - using simple textarea for all fields
 
 export default function CMSManagementPage() {
@@ -84,7 +104,12 @@ export default function CMSManagementPage() {
       const data = await response.json();
       if (data.success) {
         setSelectedPage(data.data);
-        setFormData(data.data.content || {});
+        const content = data.data.content || {};
+        console.log('Fetched content for', path, ':', JSON.stringify(content, null, 2).substring(0, 1000));
+        console.log('Hero keys:', content.hero ? Object.keys(content.hero) : 'no hero');
+        console.log('Hero description1:', content.hero?.description1);
+        console.log('Hero description2:', content.hero?.description2);
+        setFormData(content);
       }
     } catch (error) {
       console.error('Error fetching page content:', error);
@@ -176,17 +201,31 @@ export default function CMSManagementPage() {
   };
 
   const removeArrayItem = (section, field, index) => {
-    setFormData(prev => {
-      const newArray = [...(prev[section]?.[field] || [])];
-      newArray.splice(index, 1);
-      return {
-        ...prev,
-        [section]: {
-          ...prev[section],
-          [field]: newArray
+    // Get current array value - handle nested fields with dot notation
+    const fieldParts = field.split('.');
+    let currentArray = null;
+    
+    if (fieldParts.length === 1) {
+      // Simple field
+      currentArray = formData[section]?.[field] || [];
+    } else {
+      // Nested field - navigate to the nested structure
+      let current = formData[section];
+      for (let i = 0; i < fieldParts.length - 1; i++) {
+        if (current && typeof current === 'object') {
+          current = current[fieldParts[i]];
+        } else {
+          current = null;
+          break;
         }
-      };
-    });
+      }
+      currentArray = current?.[fieldParts[fieldParts.length - 1]] || [];
+    }
+    
+    // Remove item and update using handleInputChange
+    const newArray = [...currentArray];
+    newArray.splice(index, 1);
+    handleInputChange(section, field, newArray);
   };
 
   const handleSave = async () => {
@@ -194,11 +233,6 @@ export default function CMSManagementPage() {
 
     try {
       console.log('Saving page:', selectedPage.path);
-      console.log('Form data sections:', Object.keys(formData));
-      console.log('Form data hero:', formData.hero);
-      console.log('Form data investment:', formData.investment);
-      console.log('Form data team:', formData.team);
-      console.log('Form data finalCta:', formData.finalCta);
       
       const response = await fetch('/api/cms/pages', {
         method: 'PUT',
@@ -374,13 +408,8 @@ export default function CMSManagementPage() {
                                     onChange={(newValue) => {
                                       const newArray = [...value];
                                       newArray[index] = { ...newArray[index], [key]: newValue };
-                                      setFormData(prev => ({
-                                        ...prev,
-                                        [section]: {
-                                          ...prev[section],
-                                          [field]: newArray
-                                        }
-                                      }));
+                                      // Handle nested fields with dot notation
+                                      handleInputChange(section, field, newArray);
                                     }}
                                     placeholder={`Écrivez ${key}...`}
                                   />
@@ -391,13 +420,8 @@ export default function CMSManagementPage() {
                                     onChange={(e) => {
                                       const newArray = [...value];
                                       newArray[index] = { ...newArray[index], [key]: e.target.value };
-                                      setFormData(prev => ({
-                                        ...prev,
-                                        [section]: {
-                                          ...prev[section],
-                                          [field]: newArray
-                                        }
-                                      }));
+                                      // Handle nested fields with dot notation
+                                      handleInputChange(section, field, newArray);
                                     }}
                                     className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                                     placeholder={`Entrez ${key}...`}
@@ -420,13 +444,9 @@ export default function CMSManagementPage() {
                 const newItem = value.length > 0 
                   ? Object.keys(value[0]).reduce((acc, key) => ({ ...acc, [key]: '' }), {})
                   : { title: '', description: '' };
-                setFormData(prev => ({
-                  ...prev,
-                  [section]: {
-                    ...prev[section],
-                    [field]: [...(prev[section]?.[field] || []), newItem]
-                  }
-                }));
+                // Use handleInputChange to properly handle nested fields like "enveloppes.items"
+                const newArray = [...value, newItem];
+                handleInputChange(section, field, newArray);
               }}
               className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
             >
@@ -468,27 +488,45 @@ export default function CMSManagementPage() {
               strategy={verticalListSortingStrategy}
             >
               <div className="space-y-2">
-                {value.map((item, index) => (
-                  <SortableItem key={index} id={index.toString()}>
-                    <div className="flex gap-2 items-center">
-                      <input
-                        type={type}
-                        value={typeof item === 'string' ? item : ''}
-                        onChange={(e) => handleArrayChange(section, field, index, e.target.value)}
-                        className="flex-1 px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                        placeholder={`Item ${index + 1}`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeArrayItem(section, field, index)}
-                        className="px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 font-inter font-semibold"
-                        title="Remove item"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </SortableItem>
-                ))}
+                {value.map((item, index) => {
+                  const itemValue = typeof item === 'string' ? item : '';
+                  const hasHTML = containsHTML(itemValue);
+                  const isParagraphField = field.toLowerCase().includes('paragraph') || label.toLowerCase().includes('paragraph');
+                  
+                  return (
+                    <SortableItem key={index} id={index.toString()}>
+                      <div className="flex gap-2 items-start">
+                        {hasHTML || isParagraphField ? (
+                          <div className="flex-1">
+                            <TextEditor
+                              value={itemValue}
+                              onChange={(newValue) => {
+                                handleArrayChange(section, field, index, newValue);
+                              }}
+                              placeholder={`Écrivez ${label.toLowerCase()} ${index + 1}...`}
+                            />
+                          </div>
+                        ) : (
+                          <textarea
+                            value={itemValue}
+                            onChange={(e) => handleArrayChange(section, field, index, e.target.value)}
+                            rows={3}
+                            className="flex-1 px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-y"
+                            placeholder={`Écrivez ${label.toLowerCase()} ${index + 1}...`}
+                          />
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removeArrayItem(section, field, index)}
+                          className="px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 font-inter font-semibold flex-shrink-0"
+                          title="Supprimer"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </SortableItem>
+                  );
+                })}
               </div>
             </SortableContext>
           </DndContext>
@@ -503,30 +541,52 @@ export default function CMSManagementPage() {
       );
     }
 
-    // Check if field is an image (but exclude fields that are specifically background images)
-    const isImageField = type === 'image' || 
+    // Exclure les champs de lien (link, url, ctaLink, etc.) de la détection d'image
+    const isLinkField = field.toLowerCase().includes('link') || 
+      field.toLowerCase().includes('url') ||
+      field.toLowerCase() === 'href' ||
+      (field.toLowerCase() === 'src' && !field.toLowerCase().includes('image')) ||
+      label.toLowerCase().includes('link') ||
+      label.toLowerCase().includes('url');
+    
+    // Check if field is an image (but exclude fields that are specifically background images and link fields)
+    const isImageField = !isLinkField && (
+      type === 'image' || 
       (field.toLowerCase().includes('image') && !field.toLowerCase().includes('background')) || 
       field.toLowerCase().includes('photo') ||
       field.toLowerCase().includes('picture') ||
       (field.toLowerCase().includes('img') && !field.toLowerCase().includes('background')) ||
       (label.toLowerCase().includes('image') && !label.toLowerCase().includes('background')) ||
       label.toLowerCase().includes('photo') ||
-      (typeof value === 'string' && (value.startsWith('/images/') || value.startsWith('http') || value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg')));
+      (typeof value === 'string' && (
+        value.startsWith('/images/') || 
+        (value.startsWith('http') && (value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg') || value.includes('.gif'))) ||
+        value.includes('.jpg') || 
+        value.includes('.png') || 
+        value.includes('.webp') || 
+        value.includes('.svg')
+      ))
+    );
     
     // Check if field is specifically a background image
     const isBackgroundImage = field.toLowerCase().includes('background') || label.toLowerCase().includes('background');
 
-    // Check if field contains HTML or should use text editor
+    // Check if field contains HTML
     const fieldValue = value || '';
+    const hasHTML = typeof fieldValue === 'string' && containsHTML(fieldValue);
+    
+    // Use TextEditor for fields with HTML or description/text/paragraph fields
+    // This ensures users never see raw HTML tags
     const shouldUseTextEditor = typeof fieldValue === 'string' && !isImageField && (
-      fieldValue.includes('<strong') || 
-      fieldValue.includes('<em') || 
-      fieldValue.includes('<b') ||
+      hasHTML ||
       field.toLowerCase().includes('text') ||
       field.toLowerCase().includes('description') ||
       field.toLowerCase().includes('content') ||
+      field.toLowerCase().includes('paragraph') ||
       label.toLowerCase().includes('texte') ||
-      label.toLowerCase().includes('description')
+      label.toLowerCase().includes('description') ||
+      label.toLowerCase().includes('paragraph') ||
+      label.toLowerCase().includes('paragraphe')
     );
 
     return (
@@ -549,26 +609,65 @@ export default function CMSManagementPage() {
             />
           </div>
         ) : shouldUseTextEditor ? (
-          <TextEditor
-            value={fieldValue}
-            onChange={(newValue) => handleInputChange(section, field, newValue)}
-            placeholder={`Écrivez ${label.toLowerCase()}...`}
-          />
+          typeof fieldValue === 'object' && fieldValue !== null && !Array.isArray(fieldValue) ? (
+            <textarea
+              value={JSON.stringify(fieldValue, null, 2)}
+              onChange={(e) => {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  handleInputChange(section, field, parsed);
+                } catch (err) {
+                  // Invalid JSON, don't update
+                }
+              }}
+              rows={6}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent resize-y bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono text-sm"
+              placeholder={`${label} (JSON)...`}
+            />
+          ) : (
+            <TextEditor
+              value={typeof fieldValue === 'string' ? fieldValue : ''}
+              onChange={(newValue) => handleInputChange(section, field, newValue)}
+              placeholder={`Écrivez ${label.toLowerCase()}...`}
+            />
+          )
         ) : type === 'textarea' ? (
           <textarea
-            value={fieldValue}
-            onChange={(e) => handleInputChange(section, field, e.target.value)}
+            value={typeof fieldValue === 'object' && fieldValue !== null && !Array.isArray(fieldValue) ? JSON.stringify(fieldValue, null, 2) : safeStringValue(fieldValue)}
+            onChange={(e) => {
+              if (typeof fieldValue === 'object' && fieldValue !== null && !Array.isArray(fieldValue)) {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  handleInputChange(section, field, parsed);
+                } catch (err) {
+                  // Invalid JSON, don't update
+                }
+              } else {
+                handleInputChange(section, field, e.target.value);
+              }
+            }}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent resize-y bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-            placeholder={`Entrez ${label.toLowerCase()}...`}
+            className={`w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent resize-y bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${typeof fieldValue === 'object' && fieldValue !== null && !Array.isArray(fieldValue) ? 'font-mono text-sm' : ''}`}
+            placeholder={typeof fieldValue === 'object' && fieldValue !== null && !Array.isArray(fieldValue) ? `${label} (JSON)...` : `Entrez ${label.toLowerCase()}...`}
           />
         ) : (
           <input
             type={type}
-            value={value || ''}
-            onChange={(e) => handleInputChange(section, field, e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-            placeholder={`Entrez ${label.toLowerCase()}...`}
+            value={typeof value === 'object' && value !== null && !Array.isArray(value) ? JSON.stringify(value, null, 2) : safeStringValue(value)}
+            onChange={(e) => {
+              if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                try {
+                  const parsed = JSON.parse(e.target.value);
+                  handleInputChange(section, field, parsed);
+                } catch (err) {
+                  // Invalid JSON, don't update
+                }
+              } else {
+                handleInputChange(section, field, e.target.value);
+              }
+            }}
+            className={`w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#253F60] dark:focus:ring-[#B99066] focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${typeof value === 'object' && value !== null && !Array.isArray(value) ? 'font-mono text-xs' : ''}`}
+            placeholder={typeof value === 'object' && value !== null && !Array.isArray(value) ? `${label} (JSON)...` : `Entrez ${label.toLowerCase()}...`}
           />
         )}
       </div>
@@ -806,12 +905,27 @@ export default function CMSManagementPage() {
                         const subValue = value[subField];
                         const subLabel = subField.charAt(0).toUpperCase() + subField.slice(1).replace(/([A-Z])/g, ' $1');
                         
-                        // Check if sub field is an image (but exclude fields that are specifically background images)
-                        const isSubImageField = (subField.toLowerCase().includes('image') && !subField.toLowerCase().includes('background')) || 
+                        // Exclure les champs de lien (link, url, ctaLink, etc.) de la détection d'image
+                        const isSubLinkField = subField.toLowerCase().includes('link') || 
+                          subField.toLowerCase().includes('url') ||
+                          subField.toLowerCase() === 'href' ||
+                          (subField.toLowerCase() === 'src' && !subField.toLowerCase().includes('image'));
+                        
+                        // Check if sub field is an image (but exclude fields that are specifically background images and link fields)
+                        const isSubImageField = !isSubLinkField && (
+                          (subField.toLowerCase().includes('image') && !subField.toLowerCase().includes('background')) || 
                           subField.toLowerCase().includes('photo') ||
                           subField.toLowerCase().includes('picture') ||
                           (subField.toLowerCase().includes('img') && !subField.toLowerCase().includes('background')) ||
-                          (typeof subValue === 'string' && (subValue.startsWith('/images/') || subValue.startsWith('http') || subValue.includes('.jpg') || subValue.includes('.png') || subValue.includes('.webp') || subValue.includes('.svg')));
+                          (typeof subValue === 'string' && (
+                            subValue.startsWith('/images/') || 
+                            (subValue.startsWith('http') && (subValue.includes('.jpg') || subValue.includes('.png') || subValue.includes('.webp') || subValue.includes('.svg') || subValue.includes('.gif'))) ||
+                            subValue.includes('.jpg') || 
+                            subValue.includes('.png') || 
+                            subValue.includes('.webp') || 
+                            subValue.includes('.svg')
+                          ))
+                        );
                         
                         // Check if sub field is specifically a background image
                         const isSubBackgroundImage = subField.toLowerCase().includes('background');
@@ -898,9 +1012,119 @@ export default function CMSManagementPage() {
                                       <label className="block text-xs font-cairo font-semibold text-[#253F60] mb-1">
                                         {nestedLabel}
                                       </label>
-                                      {typeof nestedValue === 'string' && nestedValue.length > 100 ? (
+                                      {typeof nestedValue === 'object' && nestedValue !== null && !Array.isArray(nestedValue) ? (
+                                        // Render object fields individually for better UX
+                                        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border-2 border-[#253F60]/20 dark:border-gray-600 space-y-3">
+                                          {Object.keys(nestedValue).map((objKey) => {
+                                            const objValue = nestedValue[objKey];
+                                            const objLabel = objKey.charAt(0).toUpperCase() + objKey.slice(1).replace(/([A-Z])/g, ' $1');
+                                            
+                                            return (
+                                              <div key={objKey}>
+                                                <label className="block text-xs font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-1">
+                                                  {objLabel}
+                                                </label>
+                                                {containsHTML(objValue) || objKey.toLowerCase().includes('description') || objKey.toLowerCase().includes('text') ? (
+                                                  <TextEditor
+                                                    value={typeof objValue === 'string' ? objValue : ''}
+                                                    onChange={(newValue) => {
+                                                      setFormData(prev => ({
+                                                        ...prev,
+                                                        [sectionKey]: {
+                                                          ...prev[sectionKey],
+                                                          [field]: {
+                                                            ...prev[sectionKey]?.[field],
+                                                            [subField]: {
+                                                              ...prev[sectionKey]?.[field]?.[subField],
+                                                              [nestedField]: {
+                                                                ...prev[sectionKey]?.[field]?.[subField]?.[nestedField],
+                                                                [objKey]: newValue
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }));
+                                                    }}
+                                                    placeholder={`Écrivez ${objLabel.toLowerCase()}...`}
+                                                  />
+                                                ) : typeof objValue === 'string' && objValue.length > 80 ? (
+                                                  <textarea
+                                                    value={objValue || ''}
+                                                    onChange={(e) => {
+                                                      setFormData(prev => ({
+                                                        ...prev,
+                                                        [sectionKey]: {
+                                                          ...prev[sectionKey],
+                                                          [field]: {
+                                                            ...prev[sectionKey]?.[field],
+                                                            [subField]: {
+                                                              ...prev[sectionKey]?.[field]?.[subField],
+                                                              [nestedField]: {
+                                                                ...prev[sectionKey]?.[field]?.[subField]?.[nestedField],
+                                                                [objKey]: e.target.value
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }));
+                                                    }}
+                                                    rows={3}
+                                                    className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y text-sm transition-all font-inter"
+                                                    placeholder={`${objLabel}...`}
+                                                  />
+                                                ) : (
+                                                  <input
+                                                    type="text"
+                                                    value={safeStringValue(objValue)}
+                                                    onChange={(e) => {
+                                                      setFormData(prev => ({
+                                                        ...prev,
+                                                        [sectionKey]: {
+                                                          ...prev[sectionKey],
+                                                          [field]: {
+                                                            ...prev[sectionKey]?.[field],
+                                                            [subField]: {
+                                                              ...prev[sectionKey]?.[field]?.[subField],
+                                                              [nestedField]: {
+                                                                ...prev[sectionKey]?.[field]?.[subField]?.[nestedField],
+                                                                [objKey]: e.target.value
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }));
+                                                    }}
+                                                    className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] text-sm transition-all font-inter"
+                                                    placeholder={objLabel}
+                                                  />
+                                                )}
+                                              </div>
+                                            );
+                                          })}
+                                        </div>
+                                      ) : containsHTML(nestedValue) || nestedField.toLowerCase().includes('description') || nestedField.toLowerCase().includes('text') || nestedField.toLowerCase().includes('paragraph') ? (
+                                        <TextEditor
+                                          value={typeof nestedValue === 'string' ? nestedValue : ''}
+                                          onChange={(newValue) => {
+                                            setFormData(prev => ({
+                                              ...prev,
+                                              [sectionKey]: {
+                                                ...prev[sectionKey],
+                                                [field]: {
+                                                  ...prev[sectionKey]?.[field],
+                                                  [subField]: {
+                                                    ...prev[sectionKey]?.[field]?.[subField],
+                                                    [nestedField]: newValue
+                                                  }
+                                                }
+                                              }
+                                            }));
+                                          }}
+                                          placeholder={`Écrivez ${nestedLabel.toLowerCase()}...`}
+                                        />
+                                      ) : typeof nestedValue === 'string' && nestedValue.length > 100 ? (
                                         <textarea
-                                          value={containsHTML(nestedValue) ? stripHTML(nestedValue) : (nestedValue || '')}
+                                          value={nestedValue || ''}
                                           onChange={(e) => {
                                             setFormData(prev => ({
                                               ...prev,
@@ -923,7 +1147,7 @@ export default function CMSManagementPage() {
                                       ) : (
                                         <input
                                           type="text"
-                                          value={containsHTML(nestedValue) ? stripHTML(nestedValue) : (nestedValue || '')}
+                                          value={safeStringValue(nestedValue)}
                                           onChange={(e) => {
                                             setFormData(prev => ({
                                               ...prev,
@@ -976,10 +1200,35 @@ export default function CMSManagementPage() {
                                 className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter"
                                 placeholder={`${subLabel} (texte simple)...`}
                               />
+                            ) : typeof subValue === 'object' && subValue !== null && !Array.isArray(subValue) ? (
+                              // Render object as JSON editor
+                              <textarea
+                                value={JSON.stringify(subValue, null, 2)}
+                                onChange={(e) => {
+                                  try {
+                                    const parsed = JSON.parse(e.target.value);
+                                    setFormData(prev => ({
+                                      ...prev,
+                                      [sectionKey]: {
+                                        ...prev[sectionKey],
+                                        [field]: {
+                                          ...prev[sectionKey]?.[field],
+                                          [subField]: parsed
+                                        }
+                                      }
+                                    }));
+                                  } catch (err) {
+                                    // Invalid JSON, don't update
+                                  }
+                                }}
+                                rows={6}
+                                className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter font-mono text-sm"
+                                placeholder={`${subLabel} (JSON)...`}
+                              />
                             ) : (
                               <input
                                 type="text"
-                                value={subValue || ''}
+                                value={safeStringValue(subValue)}
                                 onChange={(e) => {
                                   setFormData(prev => ({
                                     ...prev,
@@ -1026,9 +1275,51 @@ export default function CMSManagementPage() {
                           <label className="block text-sm font-cairo font-semibold text-[#253F60] mb-2">
                             {subLabel}
                           </label>
-                          {typeof subValue === 'string' && subValue.length > 100 ? (
+                          {typeof subValue === 'object' && subValue !== null && !Array.isArray(subValue) ? (
+                            // Render object as JSON editor
                             <textarea
-                              value={containsHTML(subValue) ? stripHTML(subValue) : (subValue || '')}
+                              value={JSON.stringify(subValue, null, 2)}
+                              onChange={(e) => {
+                                try {
+                                  const parsed = JSON.parse(e.target.value);
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    [sectionKey]: {
+                                      ...prev[sectionKey],
+                                      [field]: {
+                                        ...prev[sectionKey]?.[field],
+                                        [subField]: parsed
+                                      }
+                                    }
+                                  }));
+                                } catch (err) {
+                                  // Invalid JSON, don't update
+                                }
+                              }}
+                              rows={6}
+                              className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter font-mono text-sm"
+                              placeholder={`${subLabel} (JSON)...`}
+                            />
+                          ) : containsHTML(subValue) || subField.toLowerCase().includes('description') || subField.toLowerCase().includes('text') || subField.toLowerCase().includes('paragraph') ? (
+                            <TextEditor
+                              value={typeof subValue === 'string' ? subValue : ''}
+                              onChange={(newValue) => {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  [sectionKey]: {
+                                    ...prev[sectionKey],
+                                    [field]: {
+                                      ...prev[sectionKey]?.[field],
+                                      [subField]: newValue
+                                    }
+                                  }
+                                }));
+                              }}
+                              placeholder={`Écrivez ${subLabel.toLowerCase()}...`}
+                            />
+                          ) : typeof subValue === 'string' && subValue.length > 100 ? (
+                            <textarea
+                              value={subValue || ''}
                               onChange={(e) => {
                                 setFormData(prev => ({
                                   ...prev,
@@ -1045,10 +1336,35 @@ export default function CMSManagementPage() {
                               className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter"
                               placeholder={`${subLabel} (texte simple)...`}
                             />
+                          ) : typeof subValue === 'object' && subValue !== null && !Array.isArray(subValue) ? (
+                            // Render object as JSON editor
+                            <textarea
+                              value={JSON.stringify(subValue, null, 2)}
+                              onChange={(e) => {
+                                try {
+                                  const parsed = JSON.parse(e.target.value);
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    [sectionKey]: {
+                                      ...prev[sectionKey],
+                                      [field]: {
+                                        ...prev[sectionKey]?.[field],
+                                        [subField]: parsed
+                                      }
+                                    }
+                                  }));
+                                } catch (err) {
+                                  // Invalid JSON, don't update
+                                }
+                              }}
+                              rows={6}
+                              className="w-full px-4 py-3 border-2 border-[#253F60]/30 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] resize-y transition-all font-inter font-mono text-sm"
+                              placeholder={`${subLabel} (JSON)...`}
+                            />
                           ) : (
                             <input
                               type="text"
-                              value={subValue || ''}
+                              value={safeStringValue(subValue)}
                               onChange={(e) => {
                                 setFormData(prev => ({
                                   ...prev,
@@ -1073,12 +1389,29 @@ export default function CMSManagementPage() {
               );
             } else {
               const isLongText = typeof value === 'string' && value.length > 100;
-              const isImageField = field.toLowerCase().includes('image') || 
+              
+              // Exclure les champs de lien (link, url, ctaLink, etc.) de la détection d'image
+              const isLinkField = field.toLowerCase().includes('link') || 
+                field.toLowerCase().includes('url') ||
+                field.toLowerCase() === 'href' ||
+                field.toLowerCase() === 'src' && !field.toLowerCase().includes('image');
+              
+              // Détecter les champs d'image uniquement si ce n'est PAS un champ de lien
+              const isImageField = !isLinkField && (
+                field.toLowerCase().includes('image') || 
                 field.toLowerCase().includes('background') ||
                 field.toLowerCase().includes('photo') ||
                 field.toLowerCase().includes('picture') ||
                 field.toLowerCase().includes('img') ||
-                (typeof value === 'string' && (value.startsWith('/images/') || value.startsWith('http') || value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg')));
+                (typeof value === 'string' && (
+                  value.startsWith('/images/') || 
+                  (value.startsWith('http') && (value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg') || value.includes('.gif'))) ||
+                  value.includes('.jpg') || 
+                  value.includes('.png') || 
+                  value.includes('.webp') || 
+                  value.includes('.svg')
+                ))
+              );
               
               return (
                 <div key={field} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
