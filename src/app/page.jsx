@@ -424,38 +424,113 @@ export default function HomePage() {
           const data = await response.json();
           // Use same pattern as fiscalite and immobilier pages
           if (data.data) {
-            // Merge CMS content with default content to ensure all fields are present
-            const mergedContent = { ...defaultContent, ...data.data };
+            // Deep merge function to handle nested objects
+            const deepMerge = (target, source) => {
+              const output = { ...target };
+              if (isObject(target) && isObject(source)) {
+                Object.keys(source).forEach(key => {
+                  if (isObject(source[key]) && !Array.isArray(source[key])) {
+                    if (!(key in target) || !isObject(target[key])) {
+                      Object.assign(output, { [key]: source[key] });
+                    } else {
+                      output[key] = deepMerge(target[key], source[key]);
+                    }
+                  } else {
+                    Object.assign(output, { [key]: source[key] });
+                  }
+                });
+              }
+              return output;
+            };
+            
+            const isObject = (item) => {
+              return item && typeof item === 'object' && !Array.isArray(item);
+            };
+            
+            // Deep merge CMS content with default content
+            const mergedContent = deepMerge(defaultContent, data.data);
+            
+            // Handle flat fields that might be in nested structure
+            if (data.data.hero) {
+              // Extract hero fields to root level for backward compatibility
+              if (data.data.hero.heroTitle && !mergedContent.heroTitle) {
+                mergedContent.heroTitle = data.data.hero.heroTitle;
+              }
+              if (data.data.hero.heroSubtitle && !mergedContent.heroSubtitle) {
+                mergedContent.heroSubtitle = data.data.hero.heroSubtitle;
+              }
+              if (data.data.hero.heroButton1 && !mergedContent.heroButton1) {
+                mergedContent.heroButton1 = data.data.hero.heroButton1;
+              }
+              if (data.data.hero.heroBackgrounds && !mergedContent.heroBackgrounds) {
+                mergedContent.heroBackgrounds = data.data.hero.heroBackgrounds;
+              }
+            }
+            
             // Ensure partners array is properly set from CMS
             if (Array.isArray(data.data.partners)) {
               mergedContent.partners = data.data.partners;
-              console.log('✅ Partners loaded from CMS:', mergedContent.partners);
-              console.log('✅ Partners count:', mergedContent.partners.length);
+              console.log('✅ Partners loaded from CMS:', mergedContent.partners.length);
             } else {
               console.warn('⚠️ Partners is not an array:', data.data.partners);
             }
-            console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
+            
+            // Ensure stats array is properly set from CMS
+            if (Array.isArray(data.data.stats)) {
+              mergedContent.stats = data.data.stats;
+              console.log('✅ Stats loaded from CMS:', mergedContent.stats.length);
+            }
+            
+            console.log('✅ CMS content merged successfully');
             setContent(mergedContent);
             setSectionOrder(data.data.sectionOrder || defaultSectionOrder);
             setContentSource('cms');
           } else if (data.content) {
-            // Merge CMS content with default content
-            const mergedContent = { ...defaultContent, ...data.content };
-            // Ensure partners array is properly set from CMS
+            // Same deep merge for alternative format
+            const deepMerge = (target, source) => {
+              const output = { ...target };
+              if (isObject(target) && isObject(source)) {
+                Object.keys(source).forEach(key => {
+                  if (isObject(source[key]) && !Array.isArray(source[key])) {
+                    if (!(key in target) || !isObject(target[key])) {
+                      Object.assign(output, { [key]: source[key] });
+                    } else {
+                      output[key] = deepMerge(target[key], source[key]);
+                    }
+                  } else {
+                    Object.assign(output, { [key]: source[key] });
+                  }
+                });
+              }
+              return output;
+            };
+            
+            const isObject = (item) => {
+              return item && typeof item === 'object' && !Array.isArray(item);
+            };
+            
+            const mergedContent = deepMerge(defaultContent, data.content);
+            
+            // Handle nested hero structure
+            if (data.content.hero) {
+              if (data.content.hero.heroTitle && !mergedContent.heroTitle) {
+                mergedContent.heroTitle = data.content.hero.heroTitle;
+              }
+              if (data.content.hero.heroSubtitle && !mergedContent.heroSubtitle) {
+                mergedContent.heroSubtitle = data.content.hero.heroSubtitle;
+              }
+            }
+            
             if (Array.isArray(data.content.partners)) {
               mergedContent.partners = data.content.partners;
-              console.log('✅ Partners loaded from CMS:', mergedContent.partners);
-              console.log('✅ Partners count:', mergedContent.partners.length);
-            } else {
-              console.warn('⚠️ Partners is not an array:', data.content.partners);
             }
-            console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
+            
             setContent(mergedContent);
             setSectionOrder(data.content.sectionOrder || defaultSectionOrder);
             setContentSource('cms');
           } else {
             // Fallback to default content
-            console.log('Using default content - Partners count:', defaultContent.partners?.length || 0);
+            console.log('Using default content');
             setContent(defaultContent);
             setSectionOrder(defaultSectionOrder);
             setContentSource('default');

@@ -15,7 +15,7 @@ const Header = () => {
 
   const fetchHeaderContent = async () => {
     try {
-      const response = await fetch('/api/cms/content?path=header');
+      const response = await fetch(`/api/cms/content?path=header&t=${Date.now()}`);
       const data = await response.json();
       if (data.success) {
         setHeaderContent(data.data);
