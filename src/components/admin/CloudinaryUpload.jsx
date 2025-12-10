@@ -14,7 +14,27 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
   }, [initialImageUrl]);
 
   const handleUrlChange = (e) => {
-    const url = e.target.value;
+    let url = e.target.value;
+    
+    // Convert Windows file paths to web paths
+    // If user enters: C:\Users\...\public\images\reunion.jpg
+    // Convert to: /images/reunion.jpg
+    if (url.includes('public\\images\\') || url.includes('public/images/')) {
+      const match = url.match(/[\\/]images[\\/]([^\\/]+)$/);
+      if (match) {
+        url = `/images/${match[1]}`;
+        console.log('CloudinaryUpload: Converted file path to web path:', url);
+      }
+    }
+    // Also handle paths that start with the workspace root
+    else if (url.includes('azalee demo') && url.includes('images')) {
+      const match = url.match(/images[\\/]([^\\/]+)$/);
+      if (match) {
+        url = `/images/${match[1]}`;
+        console.log('CloudinaryUpload: Converted workspace path to web path:', url);
+      }
+    }
+    
     setImageUrl(url);
     setPreview(url || null);
     // Call callback immediately when URL changes (even if empty to clear)
@@ -42,7 +62,10 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       return;
     }
 
-    // Convert to base64 data URL
+    // Note: File input doesn't provide full path for security reasons
+    // Users should manually type /images/filename.jpg in the URL field above
+    // For now, convert to base64 (not ideal for large images)
+    // Better approach: Copy file to public/images/ and use /images/filename.jpg
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64Url = reader.result;
@@ -52,6 +75,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       if (onUploadSuccess) {
         console.log('CloudinaryUpload: File converted to base64, calling onUploadSuccess');
         console.log('ImageUpload uniqueId:', uniqueId.current);
+        console.warn('⚠️ Using base64 image - consider using /images/ path instead');
         onUploadSuccess(base64Url);
       }
     };
@@ -73,11 +97,12 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
           type="text"
           value={imageUrl}
           onChange={handleUrlChange}
-          placeholder="https://example.com/image.jpg ou /images/image.jpg"
+          placeholder="/images/reunion.jpg ou https://example.com/image.jpg"
           className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-          Entrez une URL d'image ou utilisez le bouton ci-dessous pour sélectionner un fichier local
+          Pour les images dans public/images/, utilisez: <strong>/images/nom-du-fichier.jpg</strong><br/>
+          (Les chemins Windows seront automatiquement convertis)
         </p>
       </div>
 
@@ -109,6 +134,18 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       {(preview || imageUrl) && (
         <div className="mt-4">
           <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Aperçu:</p>
+          {/* Warning for base64 images */}
+          {imageUrl && imageUrl.startsWith('data:image/') && (
+            <div className="mb-2 p-2 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-400 dark:border-yellow-600 rounded text-xs text-yellow-800 dark:text-yellow-200">
+              ⚠️ Image en base64 détectée. Pour de meilleures performances, utilisez un chemin web comme <code className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">/images/nom-fichier.jpg</code>
+            </div>
+          )}
+          {/* Success message for web paths */}
+          {imageUrl && imageUrl.startsWith('/images/') && (
+            <div className="mb-2 p-2 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-600 rounded text-xs text-green-800 dark:text-green-200">
+              ✅ Chemin web valide détecté
+            </div>
+          )}
           <div className="relative min-h-[128px] flex items-center justify-center">
             {(preview || imageUrl) ? (
               <img 

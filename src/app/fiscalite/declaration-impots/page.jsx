@@ -387,7 +387,7 @@ export default function DeclarationImpotsPage() {
                     </button>
                     <button 
                       className="bg-[#B99066] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200"
-                      onClick={() => window.open('https://calendly.com/contact-azalee-patrimoine', '_blank')}
+                      onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                     >
                       Prendre rendez-vous
                     </button>
@@ -420,7 +420,7 @@ export default function DeclarationImpotsPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button 
                 className="border-2 border-[#B99066] text-[#B99066] px-8 py-4 rounded-lg font-medium hover:bg-[#B99066] hover:text-white transition-colors duration-200 text-lg"
-                onClick={() => window.open('https://calendly.com/contact-azalee-patrimoine', '_blank')}
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               >
                 Prendre rendez-vous
               </button>

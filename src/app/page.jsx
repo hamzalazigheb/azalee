@@ -948,6 +948,106 @@ export default function HomePage() {
       
       {sectionOrder.map(renderSection)}
       
+      {/* Section : Où nous trouver ? - Carte de France */}
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-[#253F60] text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold leading-tight mb-12 sm:mb-16 text-center tracking-tight">
+            Où nous trouver ?
+          </h2>
+          
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* Carte de France à gauche - avec dégradé professionnel */}
+              <div className="relative w-full">
+                <div className="relative w-full rounded-xl overflow-hidden shadow-xl bg-white">
+                  {/* Container avec dégradé appliqué directement sur la forme de la carte */}
+                  <div 
+                    className="relative w-full"
+                    role="img"
+                    aria-label="Carte de France montrant la couverture nationale d'Azalée Patrimoine. Nos conseillers en gestion de patrimoine sont disponibles dans toutes les villes de France. Trouvez un conseiller près de chez vous, partout en France métropolitaine."
+                    title="Azalée Patrimoine - Conseillers en gestion de patrimoine disponibles dans toutes les villes de France"
+                    style={{ 
+                      filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
+                      background: 'linear-gradient(135deg, #253F60 0%, #4a6b8a 30%, #7a8a7a 60%, #B99066 100%)',
+                      WebkitMaskImage: 'url(/images/france.svg)',
+                      WebkitMaskSize: 'contain',
+                      WebkitMaskRepeat: 'no-repeat',
+                      WebkitMaskPosition: 'center',
+                      maskImage: 'url(/images/france.svg)',
+                      maskSize: 'contain',
+                      maskRepeat: 'no-repeat',
+                      maskPosition: 'center',
+                      aspectRatio: '596.41547 / 584.5448',
+                      minHeight: '400px'
+                    }}
+                  />
+                </div>
+              </div>
+              
+              {/* Carte informative à droite */}
+              <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-xl shadow-2xl p-8 sm:p-10 lg:p-12 text-white">
+                <div className="text-center mb-8">
+                  <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                    Disponible en toute la France
+                  </h3>
+                  <p className="text-white/90 text-lg sm:text-xl font-inter leading-relaxed mb-8">
+                    Nos conseillers en gestion de patrimoine sont présents partout en France pour vous accompagner dans votre projet patrimonial, où que vous soyez.
+                  </p>
+                </div>
+                
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center gap-4 bg-white/10 rounded-lg p-4">
+                    <svg className="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-white text-base font-inter">Conseil personnalisé près de chez vous</span>
+                  </div>
+                  <div className="flex items-center gap-4 bg-white/10 rounded-lg p-4">
+                    <svg className="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-white text-base font-inter">Rendez-vous en présentiel ou à distance</span>
+                  </div>
+                  <div className="flex items-center gap-4 bg-white/10 rounded-lg p-4">
+                    <svg className="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-white text-base font-inter">Expertise locale et nationale</span>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <button 
+                    onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-lg hover:bg-white/90 hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    Prendre rendez-vous
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="mt-12 text-center">
+            <a
+              href="https://calendly.com/rdv-azalee-patrimoine/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-10 py-5 rounded-lg shadow-xl font-inter font-bold text-lg sm:text-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            >
+              Rencontrer un conseiller en gestion de patrimoine
+            </a>
+          </div>
+        </div>
+      </section>
+      
       <Footer />
     </div>
   );

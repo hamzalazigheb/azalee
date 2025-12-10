@@ -174,9 +174,14 @@ export default function AssuranceViePage() {
               <p className="text-white text-lg leading-relaxed mb-8">
                 {content.hero.description}
               </p>
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg">
+              <a
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg"
+              >
                 {content.hero.button}
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -499,12 +504,22 @@ export default function AssuranceViePage() {
               <p className="text-sm opacity-90">Audit gratuit de vos contrats d'assurance-vie</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg">
+              <a
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg"
+              >
                 🗓️ {content.cta.primaryButton}
-              </button>
-              <button className="border-2 border-[#253F60] text-[#253F60] px-8 py-4 rounded-lg font-medium hover:bg-[#253F60] hover:text-white transition-colors duration-200 text-lg">
+              </a>
+              <a
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-2 border-[#253F60] text-[#253F60] px-8 py-4 rounded-lg font-medium hover:bg-[#253F60] hover:text-white transition-colors duration-200 text-lg"
+              >
                 📧 {content.cta.secondaryButton}
-              </button>
+              </a>
             </div>
           </div>
         </div>

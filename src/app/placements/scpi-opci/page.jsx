@@ -40,10 +40,24 @@ export default function ScpiOpciPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200 cursor-pointer"
+                >
                   Découvrir nos solutions
                 </button>
-                <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+                <button 
+                  onClick={() => {
+                    setActiveTab("azalee");
+                    setTimeout(() => {
+                      const element = document.getElementById("azalee-section");
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }
+                    }, 300);
+                  }}
+                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200 cursor-pointer"
+                >
                   Marché secondaire
                 </button>
               </div>
@@ -94,7 +108,7 @@ export default function ScpiOpciPage() {
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <button 
               onClick={() => setActiveTab("introduction")}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
                 activeTab === "introduction" 
                   ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
@@ -104,7 +118,7 @@ export default function ScpiOpciPage() {
             </button>
             <button 
               onClick={() => setActiveTab("fiscalite")}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
                 activeTab === "fiscalite" 
                   ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
@@ -114,7 +128,7 @@ export default function ScpiOpciPage() {
             </button>
             <button 
               onClick={() => setActiveTab("avantages")}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
                 activeTab === "avantages" 
                   ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
@@ -124,7 +138,7 @@ export default function ScpiOpciPage() {
             </button>
             <button 
               onClick={() => setActiveTab("inconvenients")}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
                 activeTab === "inconvenients" 
                   ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
@@ -134,7 +148,7 @@ export default function ScpiOpciPage() {
             </button>
             <button 
               onClick={() => setActiveTab("types")}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
                 activeTab === "types" 
                   ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
@@ -144,7 +158,7 @@ export default function ScpiOpciPage() {
             </button>
             <button 
               onClick={() => setActiveTab("azalee")}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
                 activeTab === "azalee" 
                   ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
@@ -377,7 +391,7 @@ export default function ScpiOpciPage() {
           )}
 
           {activeTab === "azalee" && (
-            <div className="space-y-8">
+            <div id="azalee-section" className="space-y-8">
               <div className="text-center mb-8">
                 <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
                   L'action Azalée Patrimoine : retrouver de la liquidité
@@ -643,10 +657,24 @@ export default function ScpiOpciPage() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-cairo font-semibold text-lg hover:bg-gray-100 transition-colors duration-200">
+            <button 
+              onClick={() => {
+                setActiveTab("azalee");
+                setTimeout(() => {
+                  const element = document.getElementById("azalee-section");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }, 300);
+              }}
+              className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-cairo font-semibold text-lg hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+            >
               Découvrir notre marché secondaire
             </button>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-cairo font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-cairo font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200 cursor-pointer"
+            >
               Prendre rendez-vous
             </button>
           </div>

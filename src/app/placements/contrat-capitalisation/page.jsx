@@ -2,16 +2,7 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
-
 export default function ContratCapitalisationPage() {
-  const chartData = [
-    { label: "Fiscalité identique AV", value: "30% PFU" },
-    { label: "Abattement après 8 ans", value: "€4,600" },
-    { label: "Transmission", value: "Continuité" },
-    { label: "Personnes morales", value: "SCI, Holdings" },
-    { label: "Performance sur 5 ans", value: "+18.5%" }
-  ];
 
   return (
     <>
@@ -98,13 +89,6 @@ export default function ContratCapitalisationPage() {
         </div>
       </section>
 
-      {/* Chart Section */}
-      <PlacementChart 
-        title="Caractéristiques du contrat de capitalisation"
-        data={chartData}
-        chartImage="/images/variation-chart-image-944f04.png"
-      />
-
       {/* Points communs avec l'assurance-vie Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +108,7 @@ export default function ContratCapitalisationPage() {
                 <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-[#253F60] font-bold text-xl">1</span>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">1. Supports d'investissement identiques</h3>
+                <h3 className="text-2xl font-semibold mb-2">Supports d'investissement identiques</h3>
               </div>
               <ul className="space-y-3 text-sm">
                 <li>• Fonds en euros sécurisés</li>
@@ -139,7 +123,7 @@ export default function ContratCapitalisationPage() {
                 <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-[#B99066] font-bold text-xl">2</span>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">2. Fiscalité des rachats</h3>
+                <h3 className="text-2xl font-semibold mb-2">Fiscalité des rachats</h3>
               </div>
               <ul className="space-y-3 text-sm">
                 <li>• Imposition uniquement sur les gains</li>
@@ -149,12 +133,12 @@ export default function ContratCapitalisationPage() {
             </div>
 
             {/* Souplesse */}
-            <div className="bg-gradient-to-br from-[#59E2E4] to-[#4EBBBD] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-[#253F60] font-bold text-xl">3</span>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">3. Souplesse</h3>
+                <h3 className="text-2xl font-semibold mb-2">Souplesse</h3>
               </div>
               <ul className="space-y-3 text-sm">
                 <li>• Versements libres ou programmés</li>
@@ -189,7 +173,7 @@ export default function ContratCapitalisationPage() {
                   <span className="text-white font-bold text-lg">1</span>
                 </div>
                 <div>
-                  <h3 className="text-[#112033] text-xl font-semibold">1. Succession</h3>
+                  <h3 className="text-[#112033] text-xl font-semibold">Succession</h3>
                   <p className="text-[#B99066] font-bold">Continuité patrimoniale</p>
                 </div>
               </div>
@@ -215,7 +199,7 @@ export default function ContratCapitalisationPage() {
                   <span className="text-white font-bold text-lg">2</span>
                 </div>
                 <div>
-                  <h3 className="text-[#112033] text-xl font-semibold">2. Clause bénéficiaire</h3>
+                  <h3 className="text-[#112033] text-xl font-semibold">Clause bénéficiaire</h3>
                   <p className="text-[#B99066] font-bold">Transmission classique</p>
                 </div>
               </div>
@@ -241,7 +225,7 @@ export default function ContratCapitalisationPage() {
                   <span className="text-white font-bold text-lg">3</span>
                 </div>
                 <div>
-                  <h3 className="text-[#112033] text-xl font-semibold">3. Souscription par personnes morales</h3>
+                  <h3 className="text-[#112033] text-xl font-semibold">Souscription par personnes morales</h3>
                   <p className="text-[#B99066] font-bold">LA grande différence</p>
                 </div>
               </div>

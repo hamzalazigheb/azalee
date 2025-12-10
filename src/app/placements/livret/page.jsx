@@ -2,16 +2,7 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
-
 export default function LivretPage() {
-  const chartData = [
-    { label: "Taux de rémunération actuel", value: "3.0%" },
-    { label: "Plafond de versement", value: "€22,950" },
-    { label: "Montant moyen détenu", value: "€15,200" },
-    { label: "Frais de gestion", value: "0%" },
-    { label: "Performance annuelle", value: "+3.0%" }
-  ];
 
   return (
     <>
@@ -87,13 +78,6 @@ export default function LivretPage() {
           </div>
         </div>
       </section>
-
-      {/* Chart Section */}
-      <PlacementChart 
-        title="Évolution des taux des livrets"
-        data={chartData}
-        chartImage="/images/variation-chart-image-944f04.png"
-      />
 
       {/* Image Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">

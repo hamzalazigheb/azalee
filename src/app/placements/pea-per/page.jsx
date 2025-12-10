@@ -2,18 +2,8 @@
 import React, { useState } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
-
 export default function PeaPerPage() {
   const [activeTab, setActiveTab] = useState("pea");
-  
-  const chartData = [
-    { label: "Plafond PEA", value: "€150,000" },
-    { label: "Plafond PEA-PME", value: "€225,000" },
-    { label: "Total possible", value: "€375,000" },
-    { label: "Avantage fiscal PER", value: "30%" },
-    { label: "Performance sur 5 ans", value: "+35.8%" }
-  ];
 
   return (
     <>
@@ -104,13 +94,6 @@ export default function PeaPerPage() {
           </div>
         </div>
       </section>
-
-      {/* Chart Section */}
-      <PlacementChart 
-        title="Performance des enveloppes PEA et PER"
-        data={chartData}
-        chartImage="/images/variation-chart-image-944f04.png"
-      />
 
       {/* Navigation Tabs */}
       <section className="w-full bg-white py-8">
@@ -228,7 +211,7 @@ export default function PeaPerPage() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">Plafonds et limites</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -261,7 +244,7 @@ export default function PeaPerPage() {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="bg-gradient-to-br from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
                     <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-[#253F60] font-bold text-xl">1</span>

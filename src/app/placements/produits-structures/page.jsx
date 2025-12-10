@@ -667,7 +667,7 @@ export default function ProduitsStructuresPage() {
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://calendly.com/contact-azalee-patrimoine"
+              href="https://calendly.com/rdv-azalee-patrimoine/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"

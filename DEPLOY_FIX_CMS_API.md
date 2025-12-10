@@ -76,3 +76,4 @@ Après le déploiement, tester :
 - Next.js 14 utilise le système de routing basé sur les dossiers
 - Le rebuild Docker est nécessaire pour que les nouvelles routes soient prises en compte
 
+

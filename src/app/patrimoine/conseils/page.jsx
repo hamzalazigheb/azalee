@@ -2,16 +2,8 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
 
 export default function ConseilsPage() {
-  const chartData = [
-    { label: "Conseils personnalisés", value: "25+" },
-    { label: "Taux de satisfaction", value: "98.3%" },
-    { label: "Économies moyennes", value: "€15,000" },
-    { label: "Durée de conseil", value: "6-12 mois" },
-    { label: "Suivi personnalisé", value: "100%" }
-  ];
 
   return (
     <>
@@ -90,24 +82,26 @@ export default function ConseilsPage() {
         </div>
       </section>
 
-      {/* Chart Section */}
+      {/* Image Section */}
       <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-              Indicateurs de conseils
-            </h2>
-            <p className="text-[#686868] text-lg max-w-3xl mx-auto">
-              Visualisez les paramètres clés de nos conseils patrimoniaux
-            </p>
-          </div>
-          
-          <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-lg">
-            <PlacementChart 
-              title="Indicateurs de conseils"
-              data={chartData}
-              chartImage="/images/variation-chart-image-944f04.png"
-            />
+          <div className="flex justify-center items-center">
+            <div className="relative w-full max-w-5xl">
+              {/* Main image container with consistent styling */}
+              <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
+                {/* Subtle gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#253F60]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                
+                {/* Image */}
+                <div className="relative z-10">
+                  <img
+                    src="/images/balance.webp"
+                    alt="Balance patrimoniale - Conseils Azalée Patrimoine"
+                    className="w-full h-auto rounded-lg object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

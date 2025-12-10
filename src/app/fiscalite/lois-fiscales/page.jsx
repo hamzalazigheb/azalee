@@ -323,7 +323,7 @@ export default function LoisFiscalesPage() {
                   <div className="flex justify-center">
                     <button 
                       className="bg-[#B99066] text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-[#A67C52] transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000"
-                      onClick={() => window.open('https://calendly.com/contact-azalee-patrimoine', '_blank')}
+                      onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                     >
                       Prendre rendez-vous
                     </button>
@@ -398,7 +398,7 @@ export default function LoisFiscalesPage() {
             <div className="flex justify-center">
               <button 
                 className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg shadow-lg"
-                onClick={() => window.open('https://calendly.com/contact-azalee-patrimoine', '_blank')}
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               >
                 Prendre un rendez-vous
               </button>

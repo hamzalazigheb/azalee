@@ -104,15 +104,7 @@ export default function PlacementsPage() {
     hero: {
       h1: "Construire son patrimoine",
       introText: "Construire son patrimoine, c'est bien plus qu'investir. C'est donner du sens à son argent, structurer ses actifs avec méthode et préparer l'avenir de sa famille. Chez Azalée Patrimoine, nous vous accompagnons à chaque étape, en alliant performance, fiscalité optimisée et indépendance pour transformer votre patrimoine en levier de sérénité et de performance sur le long terme.",
-      question: "Que souhaitez-vous faire ?",
-      objectives: [
-        "Faire fructifier votre épargne",
-        "Financer un projet",
-        "Optimiser ma transmission",
-        "Revenus complémentaires",
-        "Réduire ma fiscalité",
-        "Préparer la retraite"
-      ]
+      rightImage: "/images/place.webp"
     },
     section1: {
       h2: "Comprendre les placements patrimoniaux",
@@ -140,7 +132,7 @@ export default function PlacementsPage() {
           "et les placements adaptés à votre horizon de temps."
         ],
         ctas: [
-          { text: "Découvrir mon profil investisseur avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
+          { text: "Découvrir mon profil investisseur avec un conseiller Azalée", link: "https://calendly.com/rdv-azalee-patrimoine/30min" }
         ]
       }
     }
@@ -172,40 +164,22 @@ export default function PlacementsPage() {
               </p>
             </div>
 
-            {/* Right Column: Question Bubble and Objectives Grid */}
-            <div className="lg:col-span-5 flex flex-col justify-center space-y-6 sm:space-y-8">
-              {/* Or Azalée Question Bubble */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="bg-[#B99066] text-white px-8 sm:px-12 py-4 sm:py-5 rounded-full shadow-xl font-inter font-semibold text-base sm:text-lg lg:text-xl whitespace-nowrap">
-                  {pageContent.hero?.question || "Que souhaitez-vous faire ?"}
-              </div>
-            </div>
-            
-              {/* Objectives Grid with Azalée colors */}
-              <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl border-2 border-white/30">
-                <div className="grid grid-cols-2 gap-4 sm:gap-5">
-                  {(pageContent.hero?.objectives || []).map((objective, index) => (
-                    <div
-                      key={index}
-                      className="bg-white rounded-xl p-5 sm:p-6 shadow-lg transition-all duration-300 text-left border-2 border-transparent"
-                    >
-                      <p className="text-[#253F60] text-sm sm:text-base lg:text-lg font-inter font-semibold leading-tight">
-                        {objective}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Bouton Contactez-nous */}
-                <div className="mt-6 text-center">
-                  <a
-                    href="https://calendly.com/contact-azalee-patrimoine"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-bold text-base lg:text-lg transition-all duration-300 hover:shadow-xl transform hover:-translate-y-0.5"
-                  >
-                    Contactez-nous, on s'occupe de tout
-                  </a>
+            {/* Right Column: Image */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <div className="relative w-full">
+                {/* Image container with consistent styling */}
+                <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
+                  {/* Subtle gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#253F60]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  
+                  {/* Image */}
+                  <div className="relative z-10">
+                    <img
+                      src={pageContent.hero?.rightImage || "/images/place.webp"}
+                      alt="Placements patrimoniaux - Conseils Azalée Patrimoine"
+                      className="w-full h-auto rounded-lg object-cover"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -844,7 +818,7 @@ export default function PlacementsPage() {
               {pageContent.section4.ctas.map((cta, index) => (
                 <a
                   key={index}
-                  href={cta.link || 'https://calendly.com/contact-azalee-patrimoine'}
+                  href={cta.link || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${cta.primary ? 'bg-[#253F60] hover:bg-[#1a2d47]' : 'bg-[#B99066] hover:bg-[#A67A5A]'} text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300`}
@@ -856,7 +830,7 @@ export default function PlacementsPage() {
           ) : (
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
@@ -864,7 +838,7 @@ export default function PlacementsPage() {
                 👉 Faire le point sur mes SCPI actuelles
               </a>
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
@@ -1005,7 +979,7 @@ export default function PlacementsPage() {
               {pageContent.section5.ctas.map((cta, index) => (
                 <a
                   key={index}
-                  href={cta.link || 'https://calendly.com/contact-azalee-patrimoine'}
+                  href={cta.link || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${cta.primary ? 'bg-[#253F60] hover:bg-[#1a2d47]' : 'bg-[#B99066] hover:bg-[#A67A5A]'} text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300`}
@@ -1017,7 +991,7 @@ export default function PlacementsPage() {
           ) : (
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
@@ -1025,7 +999,7 @@ export default function PlacementsPage() {
                 👉 Évaluer la pertinence d'un contrat luxembourgeois
               </a>
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
@@ -1211,7 +1185,7 @@ export default function PlacementsPage() {
               {pageContent.section6.ctas.map((cta, index) => (
                 <a
                   key={index}
-                  href={cta.link || 'https://calendly.com/contact-azalee-patrimoine'}
+                  href={cta.link || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${cta.primary ? 'bg-[#253F60] hover:bg-[#1a2d47]' : 'bg-[#B99066] hover:bg-[#A67A5A]'} text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300`}
@@ -1223,7 +1197,7 @@ export default function PlacementsPage() {
           ) : (
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
@@ -1231,7 +1205,7 @@ export default function PlacementsPage() {
                 👉 Faire le point sur ma stratégie de diversification
               </a>
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
@@ -1758,7 +1732,7 @@ export default function PlacementsPage() {
                 👉 Découvrir les meilleures opportunités structurées du moment
               </Link>
               <a
-                href="https://calendly.com/contact-azalee-patrimoine"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"

@@ -2,7 +2,6 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
 
 // Default content
 const defaultContent = {
@@ -32,23 +31,12 @@ const defaultContent = {
       { text: "Prendre rendez-vous", type: "secondary" }
     ]
   },
-  chart: {
-    title: "Indicateurs de solutions alternatives",
-    data: [
-      { label: "Solutions alternatives", value: "3" },
-      { label: "Exonération IFI", value: "75%" },
-      { label: "Ticket minimum", value: "€5,000" },
-      { label: "Rendement moyen", value: "1-3%" },
-      { label: "Avantages fiscaux", value: "Multiples" }
-    ],
-    chartImage: "/images/variation-chart-image-944f04.png"
-  },
   solutions: {
     title: "Les solutions patrimoniales originales",
     solutions: [
       {
         id: "gfa",
-        title: "1. GFA",
+        title: "GFA",
         subtitle: "Groupement Foncier Agricole",
         icon: "1",
         color: "from-[#253F60] to-[#3A5A7A]",
@@ -67,7 +55,7 @@ const defaultContent = {
       },
       {
         id: "gfi",
-        title: "2. GFI",
+        title: "GFI",
         subtitle: "Groupement Forestier d'Investissement",
         icon: "2",
         color: "from-[#B99066] to-[#A67C52]",
@@ -85,8 +73,8 @@ const defaultContent = {
         ticketMinimum: "À partir de 10 000 à 25 000 € selon les projets."
       },
       {
-        id: "gff",
-        title: "3. GFF",
+        id: "gfv",
+        title: "GFV",
         subtitle: "Groupement Foncier Viticole",
         icon: "3",
         color: "from-[#253F60] to-[#B99066]",
@@ -172,24 +160,26 @@ export default function AutrePatrimoinePage() {
         </div>
       </section>
 
-      {/* Chart Section */}
+      {/* Image Section */}
       <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-              {content.chart?.title || "Indicateurs de solutions alternatives"}
-            </h2>
-            <p className="text-[#686868] text-lg max-w-3xl mx-auto">
-              Visualisez les paramètres clés des solutions patrimoniales alternatives
-            </p>
-          </div>
-          
-          <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-lg">
-            <PlacementChart 
-              title={content.chart?.title || "Indicateurs de solutions alternatives"}
-              data={content.chart?.data || defaultContent.chart.data}
-              chartImage={content.chart?.chartImage || "/images/variation-chart-image-944f04.png"}
-            />
+          <div className="flex justify-center items-center">
+            <div className="relative w-full max-w-5xl">
+              {/* Main image container with consistent styling */}
+              <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
+                {/* Subtle gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#253F60]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                
+                {/* Image */}
+                <div className="relative z-10">
+                  <img
+                    src="/images/fleur.webp"
+                    alt="Solutions patrimoniales alternatives - Conseils Azalée Patrimoine"
+                    className="w-full h-auto rounded-lg object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
