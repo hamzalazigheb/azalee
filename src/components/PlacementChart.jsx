@@ -15,10 +15,10 @@ const PlacementChart = ({ title, data, chartImage }) => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch">
           {/* Left: Chart Image */}
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
-            <div className="relative w-full max-w-md lg:max-w-lg aspect-square rounded-lg shadow-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 ring-2 ring-gray-100">
+          <div className="w-full lg:w-1/2 flex items-center justify-center">
+            <div className="relative w-full h-[450px] sm:h-[550px] lg:h-[650px]">
               <Image
                 src={chartImage}
                 alt={`${title} Chart`}
@@ -26,10 +26,10 @@ const PlacementChart = ({ title, data, chartImage }) => {
                 className="object-contain object-center"
                 quality={100}
                 priority={false}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                 style={{
                   imageRendering: 'auto',
-                  filter: 'contrast(1.05) saturate(1.1)',
+                  filter: 'contrast(1.1) saturate(1.15) brightness(1.02)',
                 }}
                 unoptimized={false}
                 onError={(e) => {
@@ -41,8 +41,8 @@ const PlacementChart = ({ title, data, chartImage }) => {
           </div>
 
           {/* Right: Data Table */}
-          <div className="w-full lg:w-1/2">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="w-full lg:w-1/2 flex items-center">
+            <div className="bg-white rounded-xl shadow-xl p-6 sm:p-8 w-full border border-gray-100 h-full flex flex-col justify-center">
               <h3 className="text-[#112033] text-lg sm:text-xl lg:text-2xl font-source-sans font-semibold mb-6">
                 Données actuelles
               </h3>
