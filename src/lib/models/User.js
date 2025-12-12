@@ -59,17 +59,17 @@ UserSchema.methods.toJSON = function() {
 
 // Create default admin user if it doesn't exist
 UserSchema.statics.initializeAdmin = async function() {
-  const adminExists = await this.findOne({ email: 'admin@azalee.com' });
+  const adminExists = await this.findOne({ email: 'contact@azalee-patrimoine.fr' });
   
   if (!adminExists) {
     const admin = new this({
-      email: 'admin@azalee.com',
+      email: 'contact@azalee-patrimoine.fr',
       password: 'admin123', // Will be hashed by pre-save hook
       name: 'Administrator',
       role: 'admin'
     });
     await admin.save();
-    console.log('✅ Default admin user created: admin@azalee.com / admin123');
+    console.log('✅ Default admin user created: contact@azalee-patrimoine.fr / admin123');
   }
 };
 

@@ -11,7 +11,7 @@ export async function GET() {
     await connectDB();
     
     // Check if admin user exists
-    const adminExists = await User.findOne({ email: 'admin@azalee.com' });
+    const adminExists = await User.findOne({ email: 'contact@azalee-patrimoine.fr' });
     
     if (adminExists) {
       return NextResponse.json({
@@ -22,7 +22,7 @@ export async function GET() {
 
     // Create default admin user
     const admin = new User({
-      email: 'admin@azalee.com',
+      email: 'contact@azalee-patrimoine.fr',
       password: 'admin123', // Will be hashed by pre-save hook
       name: 'Administrator',
       role: 'admin'
@@ -34,7 +34,7 @@ export async function GET() {
       success: true,
       message: 'Default admin user created successfully',
       credentials: {
-        email: 'admin@azalee.com',
+        email: 'contact@azalee-patrimoine.fr',
         password: 'admin123'
       }
     });

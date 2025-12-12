@@ -43,7 +43,7 @@ async function resetAdminPassword() {
     await mongoose.connect(MONGODB_URI);
     console.log('✅ Connected to MongoDB\n');
 
-    const adminEmail = 'admin@azalee.com';
+    const adminEmail = 'contact@azalee-patrimoine.fr';
     const newPassword = 'akr123@';
 
     // Find admin user

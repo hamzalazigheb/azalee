@@ -14,7 +14,7 @@ export async function POST(request) {
     await new Promise(resolve => setTimeout(resolve, 100));
 
     // Initialize admin user if it doesn't exist
-    const adminExists = await User.findOne({ email: 'admin@azalee.com' });
+    const adminExists = await User.findOne({ email: 'contact@azalee-patrimoine.fr' });
     if (!adminExists) {
       try {
         // Hash password manually before creating user to avoid hook issues
@@ -23,13 +23,13 @@ export async function POST(request) {
         const hashedPassword = await bcrypt.hash('admin123', salt);
         
         const admin = new User({
-          email: 'admin@azalee.com',
+          email: 'contact@azalee-patrimoine.fr',
           password: hashedPassword, // Already hashed
           name: 'Administrator',
           role: 'admin'
         });
         await admin.save();
-        console.log('✅ Default admin user created: admin@azalee.com / admin123');
+        console.log('✅ Default admin user created: contact@azalee-patrimoine.fr / admin123');
       } catch (error) {
         console.error('❌ Error creating admin user:', error.message);
         // Continue anyway - user might already exist or there was an error
