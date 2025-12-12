@@ -30,6 +30,7 @@ export default function RetraitePage() {
   const [openQuestion, setOpenQuestion] = useState(null);
   const [content, setContent] = useState({});
   const [loading, setLoading] = useState(true);
+  const [contentUpdated, setContentUpdated] = useState(false);
   
   // Fonction pour remplacer "gratuit" par "offert" dans les textes (même depuis la base de données)
   const replaceGratuit = (text) => {
@@ -74,9 +75,16 @@ export default function RetraitePage() {
     fetchContent();
 
     // Listen for CMS content updates
-    const handleCMSUpdate = () => {
-      console.log('CMS content updated, refreshing page content...');
-      fetchContent();
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path;
+      // Only refresh if this page was updated, or if no path is specified (global update)
+      if (!updatedPath || updatedPath === 'retraite') {
+        console.log('CMS content updated, refreshing page content...');
+        setContentUpdated(true);
+        fetchContent();
+        // Hide the update notification after 3 seconds
+        setTimeout(() => setContentUpdated(false), 3000);
+      }
     };
 
     window.addEventListener('cmsContentUpdated', handleCMSUpdate);
