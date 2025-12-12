@@ -19,13 +19,19 @@ sudo apt install -y nginx
 echo "📦 Installing Certbot..."
 sudo apt install -y certbot python3-certbot-nginx
 
-# Stop Nginx temporarily for initial certificate generation
-echo "⏸️  Stopping Nginx..."
+# Stop Nginx and Docker containers to free port 80
+echo "⏸️  Stopping Nginx and Docker containers..."
 sudo systemctl stop nginx
+cd ~/demo 2>/dev/null || cd /home/ubuntu/demo 2>/dev/null || pwd
+sudo docker-compose down 2>/dev/null || echo "Docker containers already stopped"
 
 # Generate SSL certificate
 echo "🔐 Generating SSL certificate..."
 sudo certbot certonly --standalone -d $DOMAIN -d www.$DOMAIN --email $EMAIL --agree-tos --non-interactive
+
+# Restart Docker containers
+echo "🔄 Restarting Docker containers..."
+sudo docker-compose up -d
 
 # Copy Nginx configuration
 echo "📝 Setting up Nginx configuration..."
