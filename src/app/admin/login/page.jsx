@@ -749,7 +749,7 @@ export default function AdminLoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="appearance-none block w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#253F60] focus:border-[#253F60] transition-all duration-200 bg-gray-50 hover:bg-white"
-                    placeholder="admin@azalee.com"
+                    placeholder="Entrez votre adresse email"
                   />
                 </div>
               </div>
