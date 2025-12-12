@@ -72,6 +72,24 @@ export default function RetraitePage() {
     };
 
     fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = () => {
+      console.log('CMS content updated, refreshing page content...');
+      fetchContent();
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 30 seconds
+    const pollInterval = setInterval(() => {
+      fetchContent();
+    }, 30000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   useEffect(() => {
