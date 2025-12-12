@@ -73,7 +73,7 @@ const HeroCarousel = ({ content }) => {
           </p>
           <button 
             className="bg-[#B99066] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-sm sm:text-base font-semibold uppercase shadow-lg mb-8 hover:bg-[#A67A5A] transition-colors duration-200 w-full sm:w-auto"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
           >
             {content.hero?.heroButton1 || content.heroButton1}
           </button>
@@ -151,42 +151,65 @@ const PartnersCarousel = ({ content }) => {
     const newIndex = (currentIndex + 1) % partnersCount;
     goToSlide(newIndex);
   };
+
+  // Helper function to get partner data
+  const getPartnerData = (partner) => {
+    if (typeof partner === 'string') {
+      return { image: partner, url: null };
+    }
+    return {
+      image: partner?.image || partner?.url || '',
+      url: partner?.website || partner?.url || null,
+      name: partner?.name || null
+    };
+  };
+
+  // Handle partner click
+  const handlePartnerClick = (partner) => {
+    const partnerData = getPartnerData(partner);
+    if (partnerData.url) {
+      // Open in new tab
+      window.open(partnerData.url, '_blank', 'noopener,noreferrer');
+    }
+  };
   
   return (
-    <section className="w-full py-16 bg-gradient-to-br from-[#F8FAFB] to-[#F1F5F9]">
+    <section className="w-full py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#F8FAFB] via-white to-[#F1F5F9]">
       <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-          <h2 className="text-2xl lg:text-3xl font-cairo font-semibold text-[#253F60] mb-2">Nos partenaires de confiance</h2>
-          <p className="text-[#4B5563] font-inter">Des partenaires reconnus pour vous accompagner dans vos projets</p>
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] via-[#253F60] to-[#B99066] mb-6 rounded-full mx-auto"></div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold text-[#253F60] mb-3 tracking-tight">Nos partenaires de confiance</h2>
+          <p className="text-base sm:text-lg text-[#4B5563] font-inter max-w-2xl mx-auto">Des partenaires reconnus pour vous accompagner dans vos projets</p>
         </div>
         
         {/* Dynamic Carousel */}
         <div className="relative">
           {/* Top Separator */}
-          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60] to-transparent mb-8"></div>
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60]/30 to-transparent mb-10"></div>
           
           {/* Carousel Container */}
-          <div className="relative overflow-hidden rounded-2xl bg-white/50 backdrop-blur-sm p-8">
+          <div className="relative overflow-hidden rounded-3xl bg-white/80 backdrop-blur-md p-8 sm:p-10 lg:p-12 shadow-xl border border-gray-100">
             {/* Navigation Arrows */}
             <button
               onClick={goToPrevious}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-[#253F60] hover:text-white transition-all duration-300 disabled:opacity-50"
+              className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#253F60] hover:scale-110 transition-all duration-300 disabled:opacity-50 group border border-gray-200"
               disabled={isTransitioning}
+              aria-label="Partenaire précédent"
             >
-              <svg className="w-5 h-5 text-[#253F60] hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg className="w-6 h-6 text-[#253F60] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             
             <button
               onClick={goToNext}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-[#253F60] hover:text-white transition-all duration-300 disabled:opacity-50"
+              className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#253F60] hover:scale-110 transition-all duration-300 disabled:opacity-50 group border border-gray-200"
               disabled={isTransitioning}
+              aria-label="Partenaire suivant"
             >
-              <svg className="w-5 h-5 text-[#253F60] hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg className="w-6 h-6 text-[#253F60] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
             </button>
             
@@ -196,34 +219,60 @@ const PartnersCarousel = ({ content }) => {
                 className="flex transition-transform duration-1000 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {(Array.isArray(content.partners) && content.partners.length > 0 ? content.partners : []).map((src, idx) => {
-                  const partnerSrc = typeof src === 'string' ? src : (src?.url || src?.image || '');
+                {(Array.isArray(content.partners) && content.partners.length > 0 ? content.partners : []).map((partner, idx) => {
+                  const partnerData = getPartnerData(partner);
+                  const partnerSrc = partnerData.image;
+                  const partnerUrl = partnerData.url;
+                  const partnerName = partnerData.name || `Partenaire ${idx + 1}`;
+                  
                   return (
                     <div 
                       key={idx} 
-                      className="w-full flex-shrink-0 px-4"
+                      className="w-full flex-shrink-0 px-4 sm:px-6"
                       data-partner-index={idx}
                     >
                       <div className="flex justify-center">
-                        <div className="group">
-                          <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-[120px] w-[200px] flex items-center justify-center border border-gray-100 hover:border-[#B99066] hover:scale-105 relative">
+                        <div 
+                          className={`group relative ${partnerUrl ? 'cursor-pointer' : ''}`}
+                          onClick={() => partnerUrl && handlePartnerClick(partner)}
+                          role={partnerUrl ? 'button' : undefined}
+                          tabIndex={partnerUrl ? 0 : undefined}
+                          onKeyDown={(e) => {
+                            if (partnerUrl && (e.key === 'Enter' || e.key === ' ')) {
+                              e.preventDefault();
+                              handlePartnerClick(partner);
+                            }
+                          }}
+                          aria-label={partnerUrl ? `Visiter le site de ${partnerName}` : undefined}
+                        >
+                          <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 sm:p-10 h-[160px] sm:h-[180px] w-[280px] sm:w-[320px] flex items-center justify-center border-2 border-gray-100 hover:border-[#B99066] hover:scale-105 relative overflow-hidden">
+                            {/* Decorative gradient overlay on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            
+                            {/* External link icon indicator */}
+                            {partnerUrl && (
+                              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <svg className="w-5 h-5 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                              </div>
+                            )}
+                            
                             {partnerSrc && partnerSrc.trim() !== '' ? (
                               <img 
                                 src={partnerSrc} 
-                                alt={`Partenaire ${idx + 1}`} 
-                                className="max-h-[60px] max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
+                                alt={partnerName} 
+                                className="max-h-[80px] sm:max-h-[100px] max-w-[240px] sm:max-w-[280px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 relative z-10" 
                                 onError={(e) => {
                                   console.error('❌ Image failed to load for partner', idx + 1);
                                   console.error('   Source:', partnerSrc);
-                                  console.error('   Source type:', typeof partnerSrc);
-                                  console.error('   Source length:', partnerSrc?.length || 0);
                                   e.target.style.display = 'none';
                                   // Show fallback text
                                   const parent = e.target.parentNode;
                                   if (!parent.querySelector('.error-fallback')) {
                                     const fallback = document.createElement('div');
-                                    fallback.className = 'error-fallback text-xs text-gray-500 text-center p-2';
-                                    fallback.textContent = `Partenaire ${idx + 1}`;
+                                    fallback.className = 'error-fallback text-sm text-gray-500 text-center p-2 relative z-10';
+                                    fallback.textContent = partnerName;
                                     parent.appendChild(fallback);
                                   }
                                 }}
@@ -234,9 +283,8 @@ const PartnersCarousel = ({ content }) => {
                                 decoding="async"
                               />
                             ) : (
-                              <div className="text-xs text-gray-400 text-center p-2">
-                                Partenaire {idx + 1}
-                                {partnerSrc ? ` (${partnerSrc.substring(0, 20)}...)` : ' (no src)'}
+                              <div className="text-sm text-gray-400 text-center p-2 relative z-10">
+                                {partnerName}
                               </div>
                             )}
                           </div>
@@ -250,53 +298,69 @@ const PartnersCarousel = ({ content }) => {
           </div>
           
           {/* Progress Bar */}
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <div className="flex-1 max-w-xs">
-              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <div className="flex-1 max-w-md">
+              <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
                 <div 
-                  className="h-full bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-[#253F60] via-[#B99066] to-[#253F60] rounded-full transition-all duration-500 shadow-sm"
                   style={{ width: `${((currentIndex + 1) / (Array.isArray(content.partners) ? content.partners.length : 1)) * 100}%` }}
                 ></div>
               </div>
             </div>
-            <span className="text-sm text-[#253F60] font-inter font-medium">
+            <span className="text-sm sm:text-base text-[#253F60] font-inter font-semibold min-w-[60px] text-center">
               {currentIndex + 1} / {Array.isArray(content.partners) ? content.partners.length : 0}
             </span>
           </div>
           
           {/* Dots Indicator */}
-          <div className="flex justify-center items-center gap-3 mt-6">
+          <div className="flex justify-center items-center gap-3 mt-8">
             {(Array.isArray(content.partners) ? content.partners : []).map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => goToSlide(idx)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   idx === currentIndex 
-                    ? 'bg-[#B99066] scale-125 shadow-lg' 
-                    : 'bg-gray-300 hover:bg-[#253F60]'
+                    ? 'bg-[#B99066] scale-125 shadow-lg ring-2 ring-[#B99066]/30' 
+                    : 'bg-gray-300 hover:bg-[#253F60] hover:scale-110'
                 }`}
                 disabled={isTransitioning}
+                aria-label={`Aller au partenaire ${idx + 1}`}
               />
             ))}
           </div>
           
           {/* Bottom Separator */}
-          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60] to-transparent mt-8"></div>
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60]/30 to-transparent mt-10"></div>
         </div>
         
         {/* Partner Categories */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <h3 className="font-cairo font-semibold text-[#253F60] mb-2">Assurance</h3>
-            <p className="text-sm text-[#4B5563] font-inter">Solutions d'assurance-vie et de capitalisation</p>
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="text-center p-6 rounded-xl bg-white/50 backdrop-blur-sm border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#253F60]/80 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 className="font-cairo font-semibold text-[#253F60] mb-2 text-lg">Assurance</h3>
+            <p className="text-sm text-[#4B5563] font-inter leading-relaxed">Solutions d'assurance-vie et de capitalisation</p>
           </div>
-          <div className="text-center">
-            <h3 className="font-cairo font-semibold text-[#253F60] mb-2">Gestion d'actifs</h3>
-            <p className="text-sm text-[#4B5563] font-inter">Expertise en gestion patrimoniale</p>
+          <div className="text-center p-6 rounded-xl bg-white/50 backdrop-blur-sm border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 className="font-cairo font-semibold text-[#253F60] mb-2 text-lg">Gestion d'actifs</h3>
+            <p className="text-sm text-[#4B5563] font-inter leading-relaxed">Expertise en gestion patrimoniale</p>
           </div>
-          <div className="text-center">
-            <h3 className="font-cairo font-semibold text-[#253F60] mb-2">Services financiers</h3>
-            <p className="text-sm text-[#4B5563] font-inter">Conseil et accompagnement personnalisé</p>
+          <div className="text-center p-6 rounded-xl bg-white/50 backdrop-blur-sm border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#4EBBBD] to-[#3A9A9C] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="font-cairo font-semibold text-[#253F60] mb-2 text-lg">Services financiers</h3>
+            <p className="text-sm text-[#4B5563] font-inter leading-relaxed">Conseil et accompagnement personnalisé</p>
           </div>
         </div>
       </div>
@@ -357,7 +421,7 @@ const defaultContent = {
     { value: '5', label: 'Implementations en France (Paris / Nantes / La Rochelle / Salon de Provence / Nice)' },
   ],
   investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
-  investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n👉 Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
+  investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
   investmentButton: 'Vous avez des questions, nous avons des réponses',
   investmentImage1: '/images/img_image_1222.png',
   investmentImage2: '/images/img_image_1220.png',
@@ -369,12 +433,12 @@ const defaultContent = {
     { title: 'La loi Pinel', image: '/images/img_image_1225.png', text: 'Vous souhaitez investir dans l\'immobilier neuf ou rénové tout en allégeant votre fiscalité ? Le dispositif Pinel vous permet de bénéficier d\'une réduction d\'impôt calculée en fonction de votre durée d\'engagement locatif (6, 9 ou 12 ans). Pour en profiter, certaines conditions doivent être respectées : des loyers plafonnés et des locataires répondant à des critères de ressources, selon la zone géographique du logement.', link: 'En savoir plus sur la loi Pinel →' },
   ],
   partners: [
-    '/images/selencia.svg',
-    '/images/cardif-logo.svg', 
-    '/images/SL-Logo-svg.svg',
-    '/images/vieplus.svg',
-    '/images/intencial-1.png',
-    '/images/img_header_logo.png'
+    { image: '/images/selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
+    { image: '/images/cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
+    { image: '/images/SL-Logo-svg.svg', website: '#', name: 'SL' },
+    { image: '/images/vieplus.svg', website: '#', name: 'Vie Plus' },
+    { image: '/images/intencial-1.png', website: '#', name: 'Intencial' },
+    { image: '/images/img_header_logo.png', website: '#', name: 'Partenaire' }
   ],
   finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
   finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Prenez rendez-vous avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
@@ -664,7 +728,7 @@ export default function HomePage() {
               <div className="text-center mt-8 sm:mt-12">
                 <button 
                   className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-6 py-3 sm:px-10 sm:py-4 rounded-lg font-inter font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
-                  onClick={() => window.location.href = '/notre-approche'}
+                  onClick={() => window.open('/notre-approche', '_self')}
                 >
                   {content.team?.teamButton || content.teamButton || "Découvrir notre approche"}
                 </button>
@@ -867,7 +931,7 @@ export default function HomePage() {
                         <div 
                           key={index} 
                           className={`${isExpanded ? 'bg-white/10' : 'bg-white/5'} rounded-lg p-4 cursor-pointer hover:bg-white/20 transition-colors duration-200`}
-                          onClick={() => item.url && (window.location.href = item.url)}
+                          onClick={() => item.url && window.open(item.url, item.url.startsWith('http') ? '_blank' : '_self')}
                         >
                           <div className="flex items-center justify-between">
                             <h3 className={`text-white font-cairo ${isExpanded ? 'font-semibold text-lg' : 'font-medium text-base'}`}>
@@ -994,7 +1058,7 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <h3 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                    Disponible en toute la France
+                    Disponible partout en France
                   </h3>
                   <p className="text-white/90 text-lg sm:text-xl font-inter leading-relaxed mb-8">
                     Nos conseillers en gestion de patrimoine sont présents partout en France pour vous accompagner dans votre projet patrimonial, où que vous soyez.

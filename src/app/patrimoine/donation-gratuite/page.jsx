@@ -545,8 +545,7 @@ export default function DonationGratuitePage() {
       <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#253F60] text-3xl">🚀</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
               La vision Azalée Patrimoine
             </h2>
             <p className="text-[#686868] text-lg max-w-4xl mx-auto">

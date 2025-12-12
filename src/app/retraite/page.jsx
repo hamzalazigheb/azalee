@@ -505,8 +505,7 @@ export default function RetraitePage() {
                 </ul>
               )}
               {pageContent.section1.perteRevenus.conclusion && (
-                <div className="flex items-start gap-4 mt-6">
-                  <span className="text-2xl">👉</span>
+                <div className="mt-6">
                   <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed font-semibold">
                     {pageContent.section1.perteRevenus.conclusion}
                   </p>
@@ -907,8 +906,11 @@ export default function RetraitePage() {
                         href={pageContent.section6.pret.link.url || "https://calendly.com/rdv-azalee-patrimoine/30min"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block text-[#B99066] font-inter font-semibold text-base hover:text-[#A67C52] transition-colors underline decoration-wavy"
+                        className="inline-flex items-center gap-3 bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-6 py-3 rounded-lg font-inter font-semibold hover:from-[#A67A5A] hover:to-[#B99066] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-4"
                       >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
                         {pageContent.section6.pret.link.text || "Échangez avec un conseiller Azalée Patrimoine dès aujourd'hui."}
                       </a>
                     )}
@@ -969,8 +971,10 @@ export default function RetraitePage() {
               {pageContent.section7.leviers && pageContent.section7.leviers.length > 0 && (
                 <ul className="space-y-4 mb-6">
                   {pageContent.section7.leviers.map((levier, index) => (
-                    <li key={index} className="flex items-start gap-4">
-                      <span className="text-2xl">👉</span>
+                    <li key={index} className="flex items-start gap-3">
+                      <svg className="w-5 h-5 text-[#B99066] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                       <span className="text-[#4B5563] text-base sm:text-lg font-inter">{levier}</span>
                     </li>
                   ))}
@@ -1194,9 +1198,8 @@ export default function RetraitePage() {
                       href={lien.url}
                       target={lien.url.startsWith('http') ? '_blank' : undefined}
                       rel={lien.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="flex items-center gap-2 text-[#B99066] font-inter font-semibold hover:text-[#D4A574] transition-colors"
+                      className="flex items-center gap-2 text-[#B99066] font-inter font-semibold hover:text-[#A67A5A] transition-colors"
                     >
-                      <span className="text-2xl">👉</span>
                       {lien.text}
                     </a>
                   ))}
@@ -1642,7 +1645,6 @@ export default function RetraitePage() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-white font-inter font-semibold hover:text-[#B99066] transition-colors underline"
                       >
-                        <span className="text-2xl">👉</span>
                         <strong>{pageContent.section12.diagnostic.cta.link.text || "Prendre rendez-vous avec un conseiller Azalée Patrimoine"}</strong>
                       </a>
                     )}
@@ -1806,58 +1808,6 @@ export default function RetraitePage() {
         </div>
       </section>
 
-
-      {/* Section 15: En savoir plus */}
-      {pageContent.section15 && (
-        <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-          <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-              {pageContent.section15.h2 || "En savoir plus"}
-            </h2>
-
-            {/* Liens vers catégories */}
-            {pageContent.section15.categories && pageContent.section15.categories.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                {pageContent.section15.categories.map((category, index) => (
-                  <Link key={index} href={category.link || "#"} className="bg-white rounded-xl shadow-lg p-6 border-2 border-[#253F60]/20 hover:border-[#B99066] transition-all group">
-                    <div className="flex items-center gap-3 mb-3">
-                      <svg className="w-6 h-6 text-[#253F60] group-hover:text-[#B99066] transition-colors" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
-                      </svg>
-                      <h3 className="text-[#253F60] font-cairo font-bold group-hover:text-[#B99066] transition-colors" dangerouslySetInnerHTML={{ __html: processHTMLForRender(category.title || '') }} />
-                    </div>
-                    <p className="text-[#4B5563] text-sm font-inter">{category.description}</p>
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {/* Liens vers sous-pages */}
-            {pageContent.section15.articles && pageContent.section15.articles.length > 0 && (
-              <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-                <h3 className="text-[#253F60] text-xl font-cairo font-bold mb-6">
-                  Articles et guides
-                </h3>
-                <div className="space-y-4">
-                  {pageContent.section15.articles.map((article, index) => (
-                    article.link ? (
-                      <Link key={index} href={article.link} className="block text-[#B99066] hover:text-[#D4A574] font-inter transition-colors">
-                        <h4 className="font-cairo font-bold mb-1">{article.title}</h4>
-                        <p className="text-sm text-[#6B7280]">{article.description}</p>
-                      </Link>
-                    ) : (
-                      <div key={index} className="block text-[#253F60] font-inter">
-                        <h4 className="font-cairo font-bold mb-1">{article.title}</h4>
-                        <p className="text-sm text-[#6B7280]">{article.description}</p>
-                      </div>
-                    )
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
 
       {/* CTA Final */}
       {pageContent.ctaFinal && (

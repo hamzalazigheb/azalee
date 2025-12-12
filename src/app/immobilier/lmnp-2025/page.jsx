@@ -195,7 +195,7 @@ export default function LMNP2025Page() {
                 </table>
               </div>
               <p className="text-base font-inter text-[#374151]">
-                👉 La rentabilité baisse légèrement, mais reste supérieure à la location nue, qui affiche rarement plus de 3,5 % net.
+ La rentabilité baisse légèrement, mais reste supérieure à la location nue, qui affiche rarement plus de 3,5 % net.
               </p>
             </div>
 
@@ -296,13 +296,13 @@ export default function LMNP2025Page() {
                   onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                   className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
                 >
-                  👉 Demandez une simulation personnalisée de votre projet LMNP
+ Demandez une simulation personnalisée de votre projet LMNP
                 </button>
                 <button 
                   onClick={() => alert('Téléchargement du guide')}
                   className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
                 >
-                  👉 Téléchargez le guide "Investir dans le meublé en 2025"
+ Téléchargez le guide "Investir dans le meublé en 2025"
                 </button>
               </div>
             </div>

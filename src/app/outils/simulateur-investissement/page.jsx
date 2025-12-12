@@ -168,7 +168,7 @@ export default function SimulateurInvestissementPage() {
         <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#4EBBBD] border-t-transparent mx-auto mb-6"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#253F60] border-t-transparent mx-auto mb-6"></div>
             <p className="text-gray-600 text-lg">Chargement de l'outil de simulation...</p>
           </div>
         </div>
@@ -211,15 +211,15 @@ export default function SimulateurInvestissementPage() {
           <div className="bg-white rounded-2xl shadow-2xl p-10 border border-gray-100">
             {/* Header */}
             <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] rounded-2xl mb-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-2xl mb-6">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-cairo font-semibold text-[#253F60] mb-4">
                 {content.interface.titrePrincipal}
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-xl text-[#686868] max-w-2xl mx-auto">
                 {content.interface.sousTitre}
               </p>
             </div>
@@ -281,7 +281,7 @@ export default function SimulateurInvestissementPage() {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
                 onClick={handleCalculate}
-                className="px-10 py-4 bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] text-white font-bold rounded-xl hover:from-[#A67A5A] hover:to-[#8E6A4E] transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
+                className="px-10 py-4 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white font-inter font-semibold rounded-xl hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
               >
                 {content.interface.boutonCalculer}
               </button>
@@ -295,7 +295,7 @@ export default function SimulateurInvestissementPage() {
                   });
                   setResults(null);
                 }}
-                className="px-10 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 text-lg"
+                className="px-10 py-4 border-2 border-[#253F60] text-[#253F60] font-inter font-semibold rounded-xl hover:bg-[#253F60] hover:text-white transition-all duration-200 text-lg"
               >
                 {content.interface.boutonReset}
               </button>
@@ -310,55 +310,55 @@ export default function SimulateurInvestissementPage() {
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
             {/* Results Header */}
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-cairo font-semibold text-[#253F60] mb-4">
                 {content.resultats.titre}
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-[#686868] max-w-3xl mx-auto">
                 {content.resultats.description}
               </p>
             </div>
 
             {/* Key Metrics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
+              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-2xl p-8 border border-[#253F60] shadow-lg">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-700 mb-2">
+                  <div className="text-3xl font-bold text-white mb-2">
                     {formatCurrency(results.finalAmount)}
                   </div>
-                  <div className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
+                  <div className="text-sm font-semibold text-white/90 uppercase tracking-wide">
                     {content.resultats.sections.montantFinal}
                   </div>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
+              <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-2xl p-8 border border-[#B99066] shadow-lg">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-700 mb-2">
+                  <div className="text-3xl font-bold text-white mb-2">
                     {formatCurrency(results.totalInvested)}
                   </div>
-                  <div className="text-sm font-semibold text-green-600 uppercase tracking-wide">
+                  <div className="text-sm font-semibold text-white/90 uppercase tracking-wide">
                     {content.resultats.sections.totalInvesti}
                   </div>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
+              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-2xl p-8 border border-[#253F60] shadow-lg">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-700 mb-2">
+                  <div className="text-3xl font-bold text-white mb-2">
                     {formatCurrency(results.totalGrowth)}
                   </div>
-                  <div className="text-sm font-semibold text-purple-600 uppercase tracking-wide">
+                  <div className="text-sm font-semibold text-white/90 uppercase tracking-wide">
                     {content.resultats.sections.plusValue}
                   </div>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
+              <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-2xl p-8 border border-[#B99066] shadow-lg">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-700 mb-2">
+                  <div className="text-3xl font-bold text-white mb-2">
                     {formatPercentage((results.totalGrowth / results.totalInvested) * 100)}
                   </div>
-                  <div className="text-sm font-semibold text-orange-600 uppercase tracking-wide">
+                  <div className="text-sm font-semibold text-white/90 uppercase tracking-wide">
                     {content.resultats.sections.rendementTotal}
                   </div>
                 </div>
@@ -369,9 +369,11 @@ export default function SimulateurInvestissementPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
               {/* Investment Timeline */}
               <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                  <div className="w-8 h-8 bg-[#253F60] rounded-lg mr-3 flex items-center justify-center">
-                    <span className="text-white text-lg font-bold">1</span>
+                <h3 className="text-2xl font-cairo font-semibold text-[#253F60] mb-6 flex items-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg mr-3 flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
                   </div>
                   Évolution temporelle
                 </h3>
@@ -395,9 +397,11 @@ export default function SimulateurInvestissementPage() {
 
               {/* Investment Summary */}
               <div className="bg-[#253F60] rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6 flex items-center">
-                  <div className="w-8 h-8 bg-[#B99066] rounded-lg mr-3 flex items-center justify-center">
-                    <span className="text-white text-lg font-bold">2</span>
+                <h3 className="text-2xl font-cairo font-semibold mb-6 flex items-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg mr-3 flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
                   </div>
                   Résumé de l'investissement
                 </h3>
@@ -412,7 +416,7 @@ export default function SimulateurInvestissementPage() {
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-gray-600">
                     <span className="text-gray-300">Rendement annuel</span>
-                    <span className="font-bold text-xl text-[#4EBBBD]">{formData.rendementAnnuel}%</span>
+                    <span className="font-bold text-xl text-[#B99066]">{formData.rendementAnnuel}%</span>
                   </div>
                   <div className="flex justify-between items-center py-3">
                     <span className="text-gray-300">Durée</span>
@@ -424,15 +428,15 @@ export default function SimulateurInvestissementPage() {
 
             {/* Performance Overview */}
             <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-[#B99066] rounded-lg mr-3 flex items-center justify-center">
+              <h3 className="text-2xl font-cairo font-semibold text-[#253F60] mb-6 flex items-center">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg mr-3 flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
                 Aperçu de la performance
               </h3>
-              <div className="bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] rounded-xl p-8 text-white">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-xl p-8 text-white">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                   <div>
                     <div className="text-4xl font-bold mb-2">{formatPercentage((results.totalGrowth / results.totalInvested) * 100)}</div>
@@ -451,9 +455,9 @@ export default function SimulateurInvestissementPage() {
             </div>
 
             {/* Information Section */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg mr-3 flex items-center justify-center">
+            <div className="bg-gradient-to-r from-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB]">
+              <h3 className="text-2xl font-cairo font-semibold text-[#253F60] mb-6 flex items-center">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg mr-3 flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -463,8 +467,8 @@ export default function SimulateurInvestissementPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {content.informations.contenu.map((info, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-700 leading-relaxed">{info}</p>
+                    <div className="w-2 h-2 bg-[#B99066] rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-[#686868] leading-relaxed">{info}</p>
                   </div>
                 ))}
               </div>

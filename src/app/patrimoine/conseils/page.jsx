@@ -25,37 +25,21 @@ export default function ConseilsPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8">
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">1</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Construit</h3>
                 <p className="text-[#686868] text-sm">Stratégie d'accumulation</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">2</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Protégé</h3>
                 <p className="text-[#686868] text-sm">Sécurité et assurance</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">3</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Optimisé fiscalement</h3>
                 <p className="text-[#686868] text-sm">Réduction des impôts</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">4</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Transmis</h3>
                 <p className="text-[#686868] text-sm">Dans les meilleures conditions</p>
               </div>
@@ -75,7 +59,10 @@ export default function ConseilsPage() {
             >
               Prendre rendez-vous
             </button>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+            >
               Consulter nos experts
             </button>
           </div>
@@ -107,10 +94,13 @@ export default function ConseilsPage() {
       </section>
 
       {/* Les piliers d'une stratégie patrimoniale réussie Section */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Les piliers d'une stratégie patrimoniale réussie
             </h2>
             <p className="text-[#686868] text-lg max-w-3xl mx-auto">
@@ -118,95 +108,99 @@ export default function ConseilsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Pilier 1: L'immobilier */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">1</span>
+            <div className="group relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                  <h3 className="text-2xl sm:text-3xl font-cairo font-bold">L'immobilier</h3>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">L'immobilier</h3>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <ul className="space-y-2 text-sm">
-                  <li>• Résidence principale, secondaire, locatif</li>
-                  <li>• Location nue, meublée (LMNP/LMP), nue-propriété</li>
-                  <li>• SCPI/OPCI/SCI pour diversifier</li>
-                </ul>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
-                  <p className="text-xs">
-                    Azalée évalue la rentabilité <strong>nette d'impôts</strong>, la fiscalité (revenus fonciers vs BIC), et le mode de détention le plus pertinent (individuel, SCI, démembrement).
-                  </p>
+                <div className="space-y-4">
+                  <ul className="space-y-2 text-sm">
+                    <li>• Résidence principale, secondaire, locatif</li>
+                    <li>• Location nue, meublée (LMNP/LMP), nue-propriété</li>
+                    <li>• SCPI/OPCI/SCI pour diversifier</li>
+                  </ul>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
+                    <p className="text-xs">
+                      Azalée évalue la rentabilité <strong>nette d'impôts</strong>, la fiscalité (revenus fonciers vs BIC), et le mode de détention le plus pertinent (individuel, SCI, démembrement).
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Pilier 2: L'assurance-vie */}
-            <div className="bg-gradient-to-br from-[#B99066] to-[#A67C52] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
+            <div className="group relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#253F60]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#253F60]/10 rounded-tr-full"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#253F60] to-[#1a2d47] rounded-full"></div>
+                  <h3 className="text-2xl sm:text-3xl font-cairo font-bold">L'assurance-vie</h3>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">L'assurance-vie</h3>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <ul className="space-y-2 text-sm">
-                  <li>• <strong>Placement préféré des Français</strong>, souple et polyvalent</li>
-                  <li>• Atout majeur pour la <strong>transmission</strong> (abattements jusqu'à 152 500 € par bénéficiaire avant 70 ans)</li>
-                  <li>• Diversification possible (fonds euros, UC, SCPI, produits structurés, ETF)</li>
-                </ul>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
-                  <p className="text-xs">
-                    Azalée optimise la <strong>répartition fonds euros / UC</strong>, adapte la <strong>clause bénéficiaire</strong> et veille à la <strong>liquidité</strong>.
-                  </p>
+                <div className="space-y-4">
+                  <ul className="space-y-2 text-sm">
+                    <li>• <strong>Placement préféré des Français</strong>, souple et polyvalent</li>
+                    <li>• Atout majeur pour la <strong>transmission</strong> (abattements jusqu'à 152 500 € par bénéficiaire avant 70 ans)</li>
+                    <li>• Diversification possible (fonds euros, UC, SCPI, produits structurés, ETF)</li>
+                  </ul>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
+                    <p className="text-xs">
+                      Azalée optimise la <strong>répartition fonds euros / UC</strong>, adapte la <strong>clause bénéficiaire</strong> et veille à la <strong>liquidité</strong>.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Pilier 3: Les produits financiers */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">3</span>
+            <div className="group relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                  <h3 className="text-2xl sm:text-3xl font-cairo font-bold">Les produits financiers</h3>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">Les produits financiers</h3>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <ul className="space-y-2 text-sm">
-                  <li>• <strong>PEA / CTO</strong> : actions, ETF, produits structurés</li>
-                  <li>• <strong>PER</strong> : optimisation fiscale à l'entrée, rente ou capital à la sortie</li>
-                  <li>• Allocation dynamique ou sécurisée selon l'âge et le profil de risque</li>
-                </ul>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
-                  <p className="text-xs">
-                    Azalée bâtit des portefeuilles équilibrés, en intégrant les cycles économiques, les taux et les besoins de liquidité.
-                  </p>
+                <div className="space-y-4">
+                  <ul className="space-y-2 text-sm">
+                    <li>• <strong>PEA / CTO</strong> : actions, ETF, produits structurés</li>
+                    <li>• <strong>PER</strong> : optimisation fiscale à l'entrée, rente ou capital à la sortie</li>
+                    <li>• Allocation dynamique ou sécurisée selon l'âge et le profil de risque</li>
+                  </ul>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
+                    <p className="text-xs">
+                      Azalée bâtit des portefeuilles équilibrés, en intégrant les cycles économiques, les taux et les besoins de liquidité.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Pilier 4: La transmission et la fiscalité */}
-            <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">4</span>
+            <div className="group relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#253F60]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#253F60]/10 rounded-tr-full"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#253F60] to-[#1a2d47] rounded-full"></div>
+                  <h3 className="text-2xl sm:text-3xl font-cairo font-bold">La transmission et la fiscalité</h3>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">La transmission et la fiscalité</h3>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <ul className="space-y-2 text-sm">
-                  <li>• Anticiper les droits de succession</li>
-                  <li>• Organiser des donations progressives</li>
-                  <li>• Recourir au démembrement ou à l'assurance-vie pour optimiser</li>
-                </ul>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
-                  <p className="text-xs">
-                    Azalée travaille <strong>en équipe avec notaires et experts-comptables</strong> pour fluidifier la transmission et réduire les coûts.
-                  </p>
+                <div className="space-y-4">
+                  <ul className="space-y-2 text-sm">
+                    <li>• Anticiper les droits de succession</li>
+                    <li>• Organiser des donations progressives</li>
+                    <li>• Recourir au démembrement ou à l'assurance-vie pour optimiser</li>
+                  </ul>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
+                    <p className="text-xs">
+                      Azalée travaille <strong>en équipe avec notaires et experts-comptables</strong> pour fluidifier la transmission et réduire les coûts.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -215,10 +209,13 @@ export default function ConseilsPage() {
       </section>
 
       {/* Exemple concret d'arbitrage patrimonial Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Exemple concret d'arbitrage patrimonial
             </h2>
             <p className="text-[#686868] text-lg max-w-4xl mx-auto">
@@ -235,14 +232,12 @@ export default function ConseilsPage() {
               
               <div className="space-y-4 mb-6">
                 <div className="flex items-center gap-4 p-4 bg-red-50 rounded-lg">
-                  <span className="text-red-600 text-xl">1</span>
                   <div>
                     <p className="text-red-800 font-medium text-sm">3 appartements locatifs</p>
                     <p className="text-red-700 text-xs">Taxés à l'IR (revenus fonciers lourds)</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
-                  <span className="text-orange-600 text-xl">2</span>
                   <div>
                     <p className="text-orange-800 font-medium text-sm">Assurance-vie peu diversifiée</p>
                     <p className="text-orange-700 text-xs">Manque d'optimisation</p>
@@ -268,28 +263,24 @@ export default function ConseilsPage() {
               
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">1</span>
                   <div>
                     <p className="text-green-800 font-medium text-sm">Passage d'un appartement en <strong>LMNP</strong></p>
                     <p className="text-green-700 text-xs">Pour alléger la fiscalité</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">2</span>
                   <div>
                     <p className="text-green-800 font-medium text-sm">Intégration de <strong>SCPI internationales</strong> via assurance-vie</p>
                     <p className="text-green-700 text-xs">Pour diversifier</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">3</span>
                   <div>
                     <p className="text-green-800 font-medium text-sm">Ouverture d'un <strong>PER</strong> avec versements déductibles</p>
                     <p className="text-green-700 text-xs">Pour réduire l'IR</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">4</span>
                   <div>
                     <p className="text-green-800 font-medium text-sm">Mise en place d'une <strong>donation de nue-propriété</strong></p>
                     <p className="text-green-700 text-xs">Pour anticiper la transmission</p>
@@ -341,8 +332,7 @@ export default function ConseilsPage() {
       <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#253F60] text-3xl">🚀</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
               La valeur ajoutée Azalée Patrimoine
             </h2>
             <p className="text-[#686868] text-lg max-w-4xl mx-auto">
@@ -352,9 +342,6 @@ export default function ConseilsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Stratégie globale
               </h3>
@@ -364,9 +351,6 @@ export default function ConseilsPage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Éviter les incohérences
               </h3>
@@ -376,9 +360,6 @@ export default function ConseilsPage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Suivi régulier
               </h3>

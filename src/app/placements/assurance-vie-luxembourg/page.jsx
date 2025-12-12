@@ -14,7 +14,7 @@ const defaultContent = {
     image: "/images/assurance-vie-luxembourg-hero.jpg"
   },
   fonctionnement: {
-    title: "📌 Fonctionnement et spécificités",
+    title: "Fonctionnement et spécificités",
     description: "L'assurance-vie luxembourgeoise est proche de l'assurance-vie française :",
     points: [
       "Elle permet d'investir sur des fonds en euros (capital garanti) et des unités de compte (actions, obligations, ETF, SCPI, private equity, produits structurés…)",
@@ -24,7 +24,7 @@ const defaultContent = {
     difference: "La grande différence tient à son régime fiscal et juridique : elle est conçue pour s'adapter à la résidence fiscale du souscripteur, même en cas de mobilité internationale."
   },
   neutralite: {
-    title: "🌍 L'atout majeur : la neutralité fiscale pour les expatriés",
+    title: "L'atout majeur : la neutralité fiscale pour les expatriés",
     description: "Contrairement à l'assurance-vie française, dont la fiscalité est liée au droit français, l'assurance-vie luxembourgeoise s'adapte au pays de résidence fiscale du souscripteur.",
     points: [
       "Tant que vous êtes résident fiscal français, elle suit les règles fiscales françaises (PFU, abattements après 8 ans)",
@@ -38,7 +38,7 @@ const defaultContent = {
     }
   },
   souplesse: {
-    title: "💶 Souplesse d'investissement : multi-devises et fonds dédiés",
+    title: "Souplesse d'investissement : multi-devises et fonds dédiés",
     description: "Autre atout majeur : la souplesse des supports disponibles.",
     avantages: [
       "Multi-devises : possibilité d'investir en euros, dollars, francs suisses, livres sterling… Un avantage clé pour les personnes ayant des revenus ou des projets dans plusieurs zones monétaires",
@@ -48,7 +48,7 @@ const defaultContent = {
     exemple: "Exemple : un expatrié au Qatar percevant ses revenus en dollars peut loger ses placements en USD pour éviter le risque de change, tout en gardant une gestion financière personnalisée."
   },
   avantages: {
-    title: "✅ Les avantages de l'assurance-vie luxembourgeoise",
+    title: "Les avantages de l'assurance-vie luxembourgeoise",
     points: [
       "Neutralité fiscale : le contrat s'adapte à votre pays de résidence fiscale actuel",
       "Souplesse d'investissement : accès à une gamme d'actifs bien plus large, avec une gestion sur mesure possible",
@@ -58,7 +58,7 @@ const defaultContent = {
     ]
   },
   inconvenients: {
-    title: "⚠️ Les inconvénients et points de vigilance",
+    title: "Les inconvénients et points de vigilance",
     points: [
       "Ticket d'entrée élevé : la plupart des assureurs exigent un investissement minimum de 250 000 €, parfois 500 000 €",
       "Complexité administrative : gestion plus lourde en raison des réglementations transfrontalières",
@@ -67,7 +67,7 @@ const defaultContent = {
     ]
   },
   transmission: {
-    title: "⚖️ Assurance-vie luxembourgeoise et transmission",
+    title: "Assurance-vie luxembourgeoise et transmission",
     description: "Comme en France, le contrat permet de désigner librement des bénéficiaires. L'intérêt est renforcé pour les familles vivant à l'étranger ou ayant des héritiers non-résidents.",
     points: [
       "La fiscalité applicable dépendra de la résidence fiscale du défunt et des bénéficiaires",
@@ -76,7 +76,7 @@ const defaultContent = {
     exemple: "Exemple : un résident français désigne ses enfants installés aux États-Unis et en Espagne comme bénéficiaires. À son décès, la fiscalité appliquée sera analysée au regard des conventions fiscales internationales."
   },
   exemple: {
-    title: "💡 Exemple concret",
+    title: "Exemple concret",
     description: "Madame X, cadre dirigeante, souscrit une assurance-vie luxembourgeoise en 2025 avec 500 000 €. En 2030, elle est expatriée à Singapour pour son travail.",
     points: [
       "Son contrat continue sans rupture, fiscalisé selon la législation singapourienne",
@@ -85,7 +85,7 @@ const defaultContent = {
     ]
   },
   conseil: {
-    title: "🎯 Conseil Azalée Patrimoine",
+    title: "Conseil Azalée Patrimoine",
     description: "L'assurance-vie luxembourgeoise est un produit d'exception, mais elle ne convient pas à tout le monde. Elle s'adresse principalement aux :",
     cibles: [
       "Expatriés ou futurs expatriés, qui bénéficient de sa neutralité fiscale",
@@ -101,7 +101,7 @@ const defaultContent = {
     conclusion: "L'assurance-vie luxembourgeoise n'est pas seulement un produit \"sécurisé\", c'est surtout un outil patrimonial international, pensé pour ceux dont la vie ne se limite pas à un seul pays."
   },
   cta: {
-    title: "📩 Contactez un conseiller Azalée Patrimoine",
+    title: "Contactez un conseiller Azalée Patrimoine",
     subtitle: "pour savoir si l'assurance-vie luxembourgeoise peut s'intégrer à votre stratégie patrimoniale et anticiper vos projets d'expatriation",
     email: "contact@azalee-patrimoine.fr",
     primaryButton: "Demander une étude gratuite",
@@ -300,7 +300,7 @@ export default function AssuranceVieLuxembourgPage() {
           </div>
 
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.fonctionnement.difference}</p>
+                <p className="text-lg font-medium">{content.fonctionnement.difference}</p>
               </div>
             </div>
           </section>
@@ -358,7 +358,7 @@ export default function AssuranceVieLuxembourgPage() {
                 <h3 className="text-[#253F60] text-lg font-semibold mb-4">{content.neutralite.exemple.titre}</h3>
                 <p className="text-[#374151] text-sm mb-4">{content.neutralite.exemple.description}</p>
                 <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-4 text-white">
-                  <p className="text-sm font-medium">👉 {content.neutralite.exemple.conclusion}</p>
+                  <p className="text-sm font-medium">{content.neutralite.exemple.conclusion}</p>
               </div>
             </div>
           </div>
@@ -388,7 +388,7 @@ export default function AssuranceVieLuxembourgPage() {
           </div>
 
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.transmission.exemple}</p>
+                <p className="text-lg font-medium">{content.transmission.exemple}</p>
               </div>
             </div>
           </section>
@@ -421,7 +421,7 @@ export default function AssuranceVieLuxembourgPage() {
           </div>
 
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.souplesse.exemple}</p>
+                <p className="text-lg font-medium">{content.souplesse.exemple}</p>
               </div>
             </div>
           </section>
@@ -465,7 +465,7 @@ export default function AssuranceVieLuxembourgPage() {
               {content.avantages.points.map((point, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg p-6">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#59E2E4] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                       {index + 1}
                 </div>
                     <p className="text-[#374151] text-sm font-medium">{point}</p>
@@ -481,7 +481,7 @@ export default function AssuranceVieLuxembourgPage() {
       {activeTab === "conseil" && (
         <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+            <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
               {content.conseil.title}
             </h2>
             <p className="text-[#374151] text-lg text-center mb-8 max-w-3xl mx-auto">
@@ -489,7 +489,7 @@ export default function AssuranceVieLuxembourgPage() {
             </p>
             
             <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-              <h3 className="text-[#005C69] text-lg font-semibold mb-6 text-center">
+              <h3 className="text-[#253F60] text-lg font-semibold mb-6 text-center">
                 Elle s'adresse principalement aux :
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -507,7 +507,7 @@ export default function AssuranceVieLuxembourgPage() {
               </div>
             
             <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-              <h3 className="text-[#005C69] text-lg font-semibold mb-6 text-center">
+              <h3 className="text-[#253F60] text-lg font-semibold mb-6 text-center">
                 {content.conseil.accompagnement}
               </h3>
               <div className="space-y-4">
@@ -525,7 +525,7 @@ export default function AssuranceVieLuxembourgPage() {
           </div>
 
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">👉 {content.conseil.conclusion}</p>
+              <p className="text-lg font-medium">{content.conseil.conclusion}</p>
             </div>
           </div>
         </section>
@@ -535,22 +535,29 @@ export default function AssuranceVieLuxembourgPage() {
       <section className="py-16 bg-gradient-to-r from-[#F2F2F2] to-[#E5E5E5]">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">
-            <h2 className="text-[#005C69] text-2xl lg:text-3xl font-semibold mb-4">
+            <h2 className="text-[#253F60] text-2xl lg:text-3xl font-semibold mb-4">
               {content.cta.title}
             </h2>
             <p className="text-[#374151] text-lg mb-8 max-w-3xl mx-auto">
               {content.cta.subtitle}
             </p>
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-6 text-white mb-8">
-              <h3 className="text-xl font-semibold mb-3">📧 {content.cta.email}</h3>
+              <h3 className="text-xl font-semibold mb-3">
+                <a 
+                  href={`mailto:${content.cta.email}`}
+                  className="hover:text-[#B99066] transition-colors duration-200 underline decoration-2 underline-offset-4"
+                >
+                  {content.cta.email}
+                </a>
+              </h3>
               <p className="text-sm opacity-90">Stratégie patrimoniale internationale</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 text-lg">
-                🗓️ {content.cta.primaryButton}
+                {content.cta.primaryButton}
               </button>
               <button className="border-2 border-[#B99066] text-[#B99066] px-8 py-4 rounded-lg font-medium hover:bg-[#B99066] hover:text-white transition-colors duration-200 text-lg">
-                📧 {content.cta.secondaryButton}
+                {content.cta.secondaryButton}
               </button>
             </div>
           </div>

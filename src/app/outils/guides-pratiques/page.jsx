@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../../components/common/Header';
 import Footer from '../../../components/common/Footer';
+import SectionHeader from '../../../components/common/SectionHeader';
 
 export default function GuidesPratiquesPage() {
   const [cmsContent, setCmsContent] = useState(null);
@@ -130,21 +131,21 @@ export default function GuidesPratiquesPage() {
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
-      case 'Débutant': return 'bg-green-100 text-green-800';
-      case 'Intermédiaire': return 'bg-yellow-100 text-yellow-800';
-      case 'Avancé': return 'bg-red-100 text-red-800';
+      case 'Débutant': return 'bg-[#253F60]/10 text-[#253F60]';
+      case 'Intermédiaire': return 'bg-[#B99066]/10 text-[#B99066]';
+      case 'Avancé': return 'bg-[#253F60]/20 text-[#253F60]';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen bg-gradient-to-br from-[#F9FAFB] to-white">
         <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#4EBBBD] border-t-transparent mx-auto mb-6"></div>
-            <p className="text-gray-600 text-lg">Chargement des guides...</p>
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#253F60] border-t-transparent mx-auto mb-6"></div>
+            <p className="text-[#686868] text-lg">Chargement des guides...</p>
           </div>
         </div>
       </div>
@@ -152,28 +153,27 @@ export default function GuidesPratiquesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-[#F9FAFB] to-white">
       <Header />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#112033] via-[#19515e] to-[#4EBBBD] text-white py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066] rounded-full opacity-10 transform translate-x-48 -translate-y-48"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#b99066] rounded-full opacity-10 transform -translate-x-32 translate-y-32"></div>
+      <section className="relative bg-gradient-to-r from-[#253F60] to-[#B99066] text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full transform translate-x-48 -translate-y-48"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full transform -translate-x-32 translate-y-32"></div>
         
         <div className="relative max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
               <span className="w-2 h-2 bg-[#B99066] rounded-full mr-2"></span>
               Guides pratiques
             </div>
-            <h1 className="text-5xl font-bold mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
               {content.hero.title}
             </h1>
-            <p className="text-2xl font-light mb-8 text-gray-100">
+            <p className="text-xl sm:text-2xl font-light mb-8 text-white/90">
               {content.hero.subtitle}
             </p>
-            <p className="text-lg text-gray-200 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-white/80 max-w-4xl mx-auto leading-relaxed">
               {content.hero.description}
             </p>
           </div>
@@ -183,21 +183,21 @@ export default function GuidesPratiquesPage() {
       {/* Featured Guide */}
       <section className="py-16 -mt-10">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] rounded-2xl p-8 text-white shadow-2xl">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">{content.featured.title}</h2>
+          <div className="bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 text-white shadow-2xl">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+              <h2 className="text-2xl font-cairo font-bold">{content.featured.title}</h2>
               <div className="flex items-center gap-2">
-                <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">
                   {content.featured.guide.readTime}
                 </span>
-                <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                <span className={`px-3 py-1 rounded-full text-sm ${getDifficultyColor(content.featured.guide.difficulty)}`}>
                   {content.featured.guide.difficulty}
                 </span>
               </div>
             </div>
-            <h3 className="text-3xl font-bold mb-4">{content.featured.guide.title}</h3>
-            <p className="text-lg opacity-90 mb-6">{content.featured.guide.description}</p>
-            <button className="px-8 py-3 bg-white text-[#4EBBBD] font-bold rounded-xl hover:bg-gray-100 transition-colors">
+            <h3 className="text-2xl sm:text-3xl font-cairo font-bold mb-4">{content.featured.guide.title}</h3>
+            <p className="text-lg text-white/90 mb-6">{content.featured.guide.description}</p>
+            <button className="px-8 py-3 bg-[#B99066] text-white font-semibold rounded-xl hover:bg-[#A67A5A] transition-colors">
               Lire le guide →
             </button>
           </div>
@@ -226,26 +226,28 @@ export default function GuidesPratiquesPage() {
       </section>
 
       {/* Partners Grid */}
-      <section className="py-16">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Nos partenaires
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              👉 Ces supports présentent de façon claire les caractéristiques, frais et avantages des produits disponibles.
-            </p>
-          </div>
+          <SectionHeader 
+            title="Nos partenaires"
+            subtitle="Ces supports présentent de façon claire les caractéristiques, frais et avantages des produits disponibles."
+          />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPartners.map((partner) => (
-              <div key={partner.id} className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                <div className="p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {filteredPartners.map((partner, index) => (
+              <div key={partner.id} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${
+                index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 
+                index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 
+                'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'
+              }`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-tr-full"></div>
+                <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
                     <div className={`w-16 h-16 rounded-xl flex items-center justify-center ${
                       partner.logoType === 'svg' 
-                        ? 'bg-white border-2 border-gray-200 shadow-sm' 
-                        : 'bg-gradient-to-r from-[#4EBBBD] to-[#59E2E4]'
+                        ? 'bg-white/20 backdrop-blur-sm border-2 border-white/30 shadow-lg' 
+                        : `bg-gradient-to-br ${index % 3 === 0 || index % 3 === 2 ? 'from-[#B99066] to-[#A67A5A]' : 'from-[#253F60] to-[#1a2d47]'}`
                     }`}>
                       {partner.logoType === 'svg' ? (
                         <img 
@@ -258,24 +260,26 @@ export default function GuidesPratiquesPage() {
                       )}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      <h3 className="text-xl font-cairo font-bold mb-1">
                         {partner.name}
                       </h3>
-                      <span className="px-3 py-1 bg-[#B99066] bg-opacity-10 text-[#4EBBBD] rounded-full text-sm font-medium">
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        index % 3 === 0 || index % 3 === 2 ? 'bg-[#B99066]/30 text-white' : 'bg-[#253F60]/30 text-white'
+                      }`}>
                         {content.categories[partner.category]}
                       </span>
                     </div>
                   </div>
                   
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-white/90 mb-6">
                     {partner.description}
                   </p>
                   
                   <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Produits disponibles :</h4>
+                    <h4 className="text-sm font-cairo font-semibold mb-3 text-white">Produits disponibles :</h4>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {partner.products.map((product, index) => (
-                        <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
+                      {partner.products.map((product, productIndex) => (
+                        <span key={productIndex} className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white rounded text-xs">
                           {product}
                         </span>
                       ))}
@@ -283,18 +287,22 @@ export default function GuidesPratiquesPage() {
                   </div>
                   
                   <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Contenu des guides :</h4>
+                    <h4 className="text-sm font-cairo font-semibold mb-3 text-white">Contenu des guides :</h4>
                     <ul className="space-y-1">
-                      {partner.features.map((feature, index) => (
-                        <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                          <div className="w-1.5 h-1.5 bg-[#B99066] rounded-full"></div>
+                      {partner.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center gap-2 text-sm text-white/90">
+                          <div className={`w-1.5 h-1.5 ${index % 3 === 0 || index % 3 === 2 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full`}></div>
                           {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
                   
-                  <button className="w-full px-6 py-3 bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] text-white font-semibold rounded-xl hover:from-[#3DA8AA] hover:to-[#2C9597] transition-all duration-200">
+                  <button className={`w-full px-6 py-3 font-semibold rounded-xl transition-all duration-200 ${
+                    index % 3 === 0 || index % 3 === 2 
+                      ? 'bg-[#B99066] hover:bg-[#A67A5A] text-white' 
+                      : 'bg-[#253F60] hover:bg-[#1a2d47] text-white'
+                  }`}>
                     Consulter les guides
                   </button>
                 </div>
@@ -305,24 +313,25 @@ export default function GuidesPratiquesPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 bg-white">
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {content.benefits.title}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Découvrez pourquoi nos guides partenaires sont essentiels pour vos décisions d'investissement
-            </p>
-          </div>
+          <SectionHeader 
+            title={content.benefits.title}
+            subtitle="Découvrez pourquoi nos guides partenaires sont essentiels pour vos décisions d'investissement"
+          />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {content.benefits.benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-4 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
-                <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white font-bold text-sm">{index + 1}</span>
+              <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${
+                index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+              }`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className={`w-8 h-8 ${index % 2 === 0 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center flex-shrink-0 mt-1`}>
+                    <span className="text-white font-bold text-sm">{index + 1}</span>
+                  </div>
+                  <p className="text-white font-cairo font-medium">{benefit}</p>
                 </div>
-                <p className="text-gray-700 font-medium">{benefit}</p>
               </div>
             ))}
           </div>
@@ -330,23 +339,29 @@ export default function GuidesPratiquesPage() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-gradient-to-r from-[#112033] to-[#19515e]">
+      <section className="w-full bg-gradient-to-br from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Restez informé des nouveaux guides partenaires
-          </h2>
-          <p className="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">
-            Recevez les dernières documentations de nos partenaires et nos analyses comparatives directement dans votre boîte mail
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Votre adresse email"
-              className="flex-1 px-6 py-3 rounded-xl border-0 focus:ring-4 focus:ring-[#4EBBBD] focus:ring-opacity-20"
-            />
-            <button className="px-8 py-3 bg-[#B99066] text-white font-bold rounded-xl hover:bg-[#A67A5A] transition-colors">
-              S'abonner
-            </button>
+          <div className="relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            <div className="relative z-10">
+              <h2 className="text-2xl sm:text-3xl font-cairo font-bold text-white mb-4">
+                Restez informé des nouveaux guides partenaires
+              </h2>
+              <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+                Recevez les dernières documentations de nos partenaires et nos analyses comparatives directement dans votre boîte mail
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Votre adresse email"
+                  className="flex-1 px-6 py-3 rounded-xl border-0 focus:ring-4 focus:ring-[#B99066] focus:ring-opacity-30 text-[#253F60]"
+                />
+                <button className="px-8 py-3 bg-[#B99066] text-white font-semibold rounded-xl hover:bg-[#A67A5A] transition-colors shadow-lg">
+                  S'abonner
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>

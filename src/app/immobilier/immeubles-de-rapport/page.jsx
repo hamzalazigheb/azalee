@@ -72,10 +72,16 @@ export default function ImmeublesDeRapportPage() {
                 Acheter un <strong>immeuble de rapport</strong> consiste à acquérir un immeuble entier, composé de plusieurs appartements, pour le louer. C'est l'une des stratégies les plus rentables… mais aussi l'une des plus exigeantes.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#A67A5A] transition-all duration-200 shadow-lg hover:shadow-xl">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#A67A5A] transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
                   Calculer la rentabilité
                 </button>
-                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#253F60] transition-all duration-200">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#253F60] transition-all duration-200"
+                >
                   Consulter un expert
                 </button>
               </div>
@@ -86,7 +92,7 @@ export default function ImmeublesDeRapportPage() {
               <h3 className="text-2xl font-bold mb-4">{content.rightCardTitle}</h3>
               <p className="text-white/90 mb-6">{content.rightCardSubtitle}</p>
               
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 {content.rightCardBenefits.map((benefit, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
@@ -96,10 +102,16 @@ export default function ImmeublesDeRapportPage() {
               </div>
               
               <div className="flex flex-col gap-3">
-                <button className="w-full bg-[#B99066] text-white py-3 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="w-full bg-[#B99066] text-white py-3 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors"
+                >
                   {content.rightCardButton1}
                 </button>
-                <button className="w-full border border-white text-white py-3 rounded-lg font-semibold hover:bg-white hover:text-[#253F60] transition-colors">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="w-full border border-white text-white py-3 rounded-lg font-semibold hover:bg-white hover:text-[#253F60] transition-colors"
+                >
                   {content.rightCardButton2}
                 </button>
               </div>
@@ -108,306 +120,371 @@ export default function ImmeublesDeRapportPage() {
         </div>
       </section>
 
-      {/* Main Content - Different Layout Structure */}
-      <main className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          
-          {/* Left Sidebar - New Layout Element */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8 space-y-6">
-              {/* L'essentiel Card */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-                <h2 className="text-xl font-bold text-[#112033] mb-4 flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-[#B99066]"></div>
+      {/* L'essentiel Section - Under Hero */}
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 overflow-hidden">
+            {/* Decorative element */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
+            
+            <div className="relative z-10">
+              <div className="text-center mb-8 sm:mb-12">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
                   {content.essentielTitle}
                 </h2>
-                <ul className="space-y-3">
-                  {content.essentielItems.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3 text-[#686868]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#B99066] mt-2 flex-shrink-0"></div>
-                      <span className="text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  Les points clés à retenir sur les immeubles de rapport
+                </p>
               </div>
-
-              {/* Sommaire Card */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-                <h2 className="text-xl font-bold text-[#112033] mb-4 flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-[#B99066]"></div>
-                  {content.sommaireTitle}
-                </h2>
-                <nav className="space-y-2">
-                  {content.sommaireItems.map((item, index) => (
-                    <a key={index} href={`#section-${index + 1}`} className="block text-sm text-[#B99066] hover:text-[#A67C52] transition-colors py-1">
-                      {item}
-                    </a>
-                  ))}
-                </nav>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {content.essentielItems.map((item, index) => (
+                  <div 
+                    key={index} 
+                    className="group relative flex items-start gap-3 text-[#686868] bg-white rounded-xl p-6 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-[#B99066] mt-2 flex-shrink-0 group-hover:scale-150 transition-transform duration-300"></div>
+                    <span className="text-sm sm:text-base font-inter leading-relaxed">{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
+      {/* Main Content - Different Layout Structure */}
+      <main className="w-full">
+        <div className="max-w-[1368px] mx-auto">
           {/* Main Content Area - Different Structure */}
-          <div className="lg:col-span-2 space-y-12">
+          <div className="space-y-0">
             
             {/* Les avantages des immeubles de rapport Section */}
-            <section id="section-1" className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#253F60] rounded-xl flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">1</span>
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-[#112033]">Les avantages des immeubles de rapport</h2>
-                  <div className="w-16 h-1 bg-[#B99066] rounded-full mt-2"></div>
-                </div>
-              </div>
-              
-              <div className="space-y-8">
-                {/* Rentabilité supérieure */}
-                <div className="bg-[#253F60] rounded-xl p-6 text-white">
-                  <h3 className="text-xl font-semibold mb-4">Rentabilité supérieure</h3>
-                  <p className="text-lg mb-4">
-                    Souvent entre <strong>7 et 10 % brut</strong>, contre 4 à 5 % pour un appartement isolé.
+            <section id="section-1" className="bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+              <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header Section */}
+                <div className="text-center mb-12 sm:mb-16">
+                  <div className="inline-block mb-4">
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                    Les avantages des immeubles de rapport
+                  </h2>
+                  <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                    Découvrez les bénéfices de cette stratégie d'investissement
                   </p>
-                  <div className="bg-[#B99066] rounded-lg p-4">
-                    <p className="text-sm text-white">
-                      <strong>Exemple :</strong> un immeuble de 6 appartements acheté 400 000 €, loués 500 € chacun = 36 000 €/an de loyers, soit <strong>9 % brut</strong>.
-                    </p>
-                  </div>
                 </div>
-
-                {/* Autres avantages */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-[#F2F2F2] rounded-xl p-6 border border-gray-100">
-                    <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-xl font-bold">2</span>
+              
+                <div className="space-y-8 sm:space-y-10">
+                  {/* Rentabilité supérieure */}
+                  <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 text-white shadow-xl overflow-hidden">
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/20 rounded-bl-full"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#B99066]/10 rounded-tr-full"></div>
+                    
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                        <h3 className="text-2xl sm:text-3xl font-cairo font-bold">Rentabilité supérieure</h3>
+                      </div>
+                      <p className="text-lg sm:text-xl mb-6 leading-relaxed">
+                        Souvent entre <strong>7 et 10 % brut</strong>, contre 4 à 5 % pour un appartement isolé.
+                      </p>
+                      <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 border-l-4 border-white">
+                        <p className="text-base sm:text-lg text-white leading-relaxed">
+                          <strong>Exemple :</strong> un immeuble de 6 appartements acheté 400 000 €, loués 500 € chacun = 36 000 €/an de loyers, soit <strong>9 % brut</strong>.
+                        </p>
+                      </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#112033] mb-3">Mutualisation des risques</h3>
-                    <p className="text-[#686868] text-sm">
-                      Un locataire part ? Les 5 autres continuent à payer leur loyer.
-                    </p>
                   </div>
 
-                  <div className="bg-[#F2F2F2] rounded-xl p-6 border border-gray-100">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-xl font-bold">3</span>
+                  {/* Autres avantages */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                    <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                      <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-4 text-center">Mutualisation des risques</h3>
+                      <p className="text-[#686868] text-base leading-relaxed text-center">
+                        Un locataire part ? Les 5 autres continuent à payer leur loyer.
+                      </p>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#112033] mb-3">Travaux optimisés</h3>
-                    <p className="text-[#686868] text-sm">
-                      Rénover la toiture, la façade ou le chauffage profite à tout l'immeuble, avec une économie d'échelle.
-                    </p>
-                  </div>
 
-                  <div className="bg-[#F2F2F2] rounded-xl p-6 border border-gray-100">
-                    <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-xl font-bold">4</span>
+                    <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                      <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-4 text-center">Travaux optimisés</h3>
+                      <p className="text-[#686868] text-base leading-relaxed text-center">
+                        Rénover la toiture, la façade ou le chauffage profite à tout l'immeuble, avec une économie d'échelle.
+                      </p>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#112033] mb-3">Maîtrise totale</h3>
-                    <p className="text-[#686868] text-sm">
-                      Vous êtes le seul propriétaire, donc pas de syndic de copropriété. Vous décidez des travaux, des loyers et de la stratégie de valorisation.
-                    </p>
+
+                    <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                      <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-4 text-center">Maîtrise totale</h3>
+                      <p className="text-[#686868] text-base leading-relaxed text-center">
+                        Vous êtes le seul propriétaire, donc pas de syndic de copropriété. Vous décidez des travaux, des loyers et de la stratégie de valorisation.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
 
             {/* Les risques et contraintes Section */}
-            <section className="bg-[#F2F2F2] rounded-2xl p-8">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-[#253F60] rounded-xl flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">2</span>
+            <section className="bg-white py-16 sm:py-20 lg:py-24">
+              <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header Section */}
+                <div className="text-center mb-12 sm:mb-16">
+                  <div className="inline-block mb-4">
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                    Les risques et contraintes à ne pas sous-estimer
+                  </h2>
+                  <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                    Points de vigilance essentiels à connaître avant d'investir
+                  </p>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-[#112033]">Les risques et contraintes à ne pas sous-estimer</h2>
-                  <div className="w-16 h-1 bg-[#B99066] rounded-full mt-2"></div>
-                </div>
-              </div>
               
-              <div className="space-y-8">
-                {/* Concentration du risque technique */}
-                <div className="bg-[#253F60] rounded-xl p-6 text-white">
-                  <h3 className="text-xl font-semibold mb-4">Concentration du risque technique</h3>
-                  <p className="text-lg">
-                    Si le chauffage collectif tombe en panne, ce sont <strong>tous les locataires</strong> qui sont impactés, et les réparations peuvent coûter cher.
-                  </p>
-                </div>
-
-                {/* Gestion chronophage */}
-                <div className="bg-white rounded-xl p-6 border border-gray-100">
-                  <h3 className="text-xl font-semibold text-[#112033] mb-4">Gestion chronophage</h3>
-                  <p className="text-[#686868] mb-4">
-                    Pour obtenir une rentabilité supérieure à 8 %, il faut <strong>gérer soi-même</strong> les entrées, sorties, relances de loyers et petits travaux.
-                  </p>
-                  <div className="bg-[#B99066] p-4 rounded-lg">
-                    <p className="text-white text-sm">
-                      Au début, c'est l'euphorie : vous touchez 6 loyers par mois. Mais rapidement, si vous avez un travail à côté, les appels de locataires pour une fuite, un dégât des eaux ou un impayé peuvent transformer ce qui semblait être une "machine à cash" en une <strong>seconde activité stressante</strong>.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Autres contraintes */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-white rounded-xl p-6 border border-gray-100">
-                    <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-xl font-bold">5</span>
+                <div className="space-y-8 sm:space-y-10">
+                  {/* Concentration du risque technique */}
+                  <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 text-white shadow-xl overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/20 rounded-bl-full"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                        <h3 className="text-2xl sm:text-3xl font-cairo font-bold">Concentration du risque technique</h3>
+                      </div>
+                      <p className="text-lg sm:text-xl leading-relaxed">
+                        Si le chauffage collectif tombe en panne, ce sont <strong>tous les locataires</strong> qui sont impactés, et les réparations peuvent coûter cher.
+                      </p>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#112033] mb-3">Vacance locative multipliée</h3>
-                    <p className="text-[#686868] text-sm">
-                      Un appartement vide = une partie de vos loyers disparaît, mais vos charges (assurances, taxe foncière, travaux) restent pleines.
-                    </p>
                   </div>
 
-                  <div className="bg-white rounded-xl p-6 border border-gray-100">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-xl font-bold">6</span>
+                  {/* Gestion chronophage */}
+                  <div className="relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 sm:p-10 border-2 border-[#E5E7EB] shadow-lg overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/5 rounded-bl-full"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-1 h-8 bg-[#253F60] rounded-full"></div>
+                        <h3 className="text-2xl sm:text-3xl font-cairo font-bold text-[#253F60]">Gestion chronophage</h3>
+                      </div>
+                      <p className="text-lg sm:text-xl text-[#686868] mb-6 leading-relaxed">
+                        Pour obtenir une rentabilité supérieure à 8 %, il faut <strong>gérer soi-même</strong> les entrées, sorties, relances de loyers et petits travaux.
+                      </p>
+                      <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 sm:p-8 border-l-4 border-[#253F60]">
+                        <p className="text-white text-base sm:text-lg leading-relaxed">
+                          Au début, c'est l'euphorie : vous touchez 6 loyers par mois. Mais rapidement, si vous avez un travail à côté, les appels de locataires pour une fuite, un dégât des eaux ou un impayé peuvent transformer ce qui semblait être une "machine à cash" en une <strong>seconde activité stressante</strong>.
+                        </p>
+                      </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#112033] mb-3">Banques plus exigeantes</h3>
-                    <p className="text-[#686868] text-sm">
-                      Un financement d'immeuble de rapport est parfois vu comme plus risqué qu'un simple appartement. Cela peut nécessiter un apport plus important ou des garanties solides.
-                    </p>
+                  </div>
+
+                  {/* Autres contraintes */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                    <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                      <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-4 text-center">Vacance locative multipliée</h3>
+                      <p className="text-[#686868] text-base leading-relaxed text-center">
+                        Un appartement vide = une partie de vos loyers disparaît, mais vos charges (assurances, taxe foncière, travaux) restent pleines.
+                      </p>
+                    </div>
+
+                    <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                      <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-4 text-center">Banques plus exigeantes</h3>
+                      <p className="text-[#686868] text-base leading-relaxed text-center">
+                        Un financement d'immeuble de rapport est parfois vu comme plus risqué qu'un simple appartement. Cela peut nécessiter un apport plus important ou des garanties solides.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
 
             {/* Exemple concret Section */}
-            <section className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-[#253F60] rounded-xl flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">3</span>
+            <section className="bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+              <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header Section */}
+                <div className="text-center mb-12 sm:mb-16">
+                  <div className="inline-block mb-4">
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                    Exemple concret
+                  </h2>
+                  <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                    Un cas pratique pour mieux comprendre la rentabilité réelle
+                  </p>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-[#112033]">Exemple concret</h2>
-                  <div className="w-16 h-1 bg-[#B99066] rounded-full mt-2"></div>
-                </div>
-              </div>
               
-              <div className="bg-[#253F60] rounded-xl p-8 text-white">
-                <h3 className="text-xl font-semibold mb-6">
-                  Un investisseur achète un immeuble de <strong>5 appartements à 300 000 €</strong>
-                </h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <div className="bg-[#B99066] rounded-lg p-4">
-                      <h4 className="font-semibold mb-2 text-white">Données de base</h4>
-                      <div className="space-y-2 text-sm text-white">
-                        <div className="flex justify-between">
-                          <span>Loyers mensuels :</span>
-                          <span className="font-bold">2 000 €</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Rentabilité brute :</span>
-                          <span className="font-bold">8 %</span>
-                        </div>
-                      </div>
+                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 text-white shadow-2xl overflow-hidden">
+                  {/* Decorative elements */}
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="w-1 h-10 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                      <h3 className="text-2xl sm:text-3xl font-cairo font-bold">
+                        Un investisseur achète un immeuble de <strong>5 appartements à 300 000 €</strong>
+                      </h3>
                     </div>
                     
-                    <div className="bg-[#B99066] rounded-lg p-4">
-                      <h4 className="font-semibold mb-2 text-white">Gestion à prévoir</h4>
-                      <div className="space-y-2 text-sm text-white">
-                        <div className="flex justify-between">
-                          <span>5 baux différents</span>
-                          <span className="text-yellow-300">✓</span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                      <div className="space-y-4 sm:space-y-6">
+                        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/30 shadow-lg">
+                          <h4 className="font-cairo font-bold text-lg sm:text-xl mb-4 text-white">Données de base</h4>
+                          <div className="space-y-3 text-base sm:text-lg text-white">
+                            <div className="flex justify-between items-center">
+                              <span>Loyers mensuels :</span>
+                              <span className="font-bold text-[#B99066]">2 000 €</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span>Rentabilité brute :</span>
+                              <span className="font-bold text-[#B99066]">8 %</span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Charges chauffage collectif :</span>
-                          <span className="font-bold">6 000 €/an</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Vacance locative :</span>
-                          <span className="font-bold">2 mois/an</span>
+                        
+                        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/30 shadow-lg">
+                          <h4 className="font-cairo font-bold text-lg sm:text-xl mb-4 text-white">Gestion à prévoir</h4>
+                          <div className="space-y-3 text-base sm:text-lg text-white">
+                            <div className="flex justify-between items-center">
+                              <span>5 baux différents</span>
+                              <svg className="w-5 h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span>Charges chauffage collectif :</span>
+                              <span className="font-bold">6 000 €/an</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span>Vacance locative :</span>
+                              <span className="font-bold">2 mois/an</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                      
+                      <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-8 sm:p-10 text-center border-2 border-white/50 shadow-xl">
+                        <h4 className="font-cairo font-bold text-xl sm:text-2xl mb-6 text-white">Résultat réel</h4>
+                        <p className="text-base sm:text-lg mb-6 text-white leading-relaxed">
+                          La rentabilité <strong>nette</strong> réelle tombe autour de
+                        </p>
+                        <div className="text-5xl sm:text-6xl font-bold text-white mb-4">5,5 %</div>
+                        <p className="text-sm sm:text-base text-white/90 leading-relaxed">
+                          après déduction des frais de gestion, charges et aléas
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="bg-[#B99066] rounded-lg p-6 text-center">
-                    <h4 className="font-semibold mb-4 text-white">Résultat réel</h4>
-                    <p className="text-sm mb-4 text-white">
-                      La rentabilité <strong>nette</strong> réelle tombe autour de
-                    </p>
-                    <div className="text-3xl font-bold text-yellow-300 mb-2">5,5 %</div>
-                    <p className="text-xs text-white">
-                      après déduction des frais de gestion, charges et aléas
-                    </p>
                   </div>
                 </div>
               </div>
             </section>
 
             {/* Conseil Azalée Patrimoine Section */}
-            <section className="bg-white rounded-2xl p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold mb-4 text-[#112033]">
-                  Notre conseil Azalée Patrimoine
-                </h2>
-              </div>
-              
-              <div className="bg-[#253F60] rounded-xl p-6 mb-8">
-                <p className="text-lg mb-6 text-white">
-                  Les immeubles de rapport sont une excellente stratégie pour les investisseurs <strong>aguerris</strong>, qui ont :
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-[#B99066] rounded-lg p-4 text-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-[#253F60] text-xl font-bold">7</span>
-                    </div>
-                    <h3 className="font-semibold mb-2 text-white">Du temps</h3>
-                    <p className="text-sm text-white">Pour gérer eux-mêmes</p>
+            <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+              <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header Section */}
+                <div className="text-center mb-12 sm:mb-16">
+                  <div className="inline-block mb-4">
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
                   </div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                    Notre conseil Azalée Patrimoine
+                  </h2>
+                  <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                    Expertise et accompagnement personnalisé pour votre projet
+                  </p>
+                </div>
+              
+                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 shadow-2xl overflow-hidden">
+                  {/* Decorative elements */}
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
                   
-                  <div className="bg-[#B99066] rounded-lg p-4 text-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-[#253F60] text-xl font-bold">8</span>
+                  <div className="relative z-10">
+                    <p className="text-xl sm:text-2xl mb-8 sm:mb-10 text-white leading-relaxed font-light">
+                      Les immeubles de rapport sont une excellente stratégie pour les investisseurs <strong>aguerris</strong>, qui ont :
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                      <div className="group bg-white/10 backdrop-blur-md rounded-xl p-8 text-center border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                        <h3 className="font-cairo font-bold text-xl sm:text-2xl mb-3 text-white">Du temps</h3>
+                        <p className="text-base sm:text-lg text-white/90">Pour gérer eux-mêmes</p>
+                      </div>
+                      
+                      <div className="group bg-white/10 backdrop-blur-md rounded-xl p-8 text-center border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                        <h3 className="font-cairo font-bold text-xl sm:text-2xl mb-3 text-white">La capacité de déléguer</h3>
+                        <p className="text-base sm:text-lg text-white/90">À une agence de gestion locative, en acceptant une rentabilité légèrement réduite</p>
+                      </div>
                     </div>
-                    <h3 className="font-semibold mb-2 text-white">La capacité de déléguer</h3>
-                    <p className="text-sm text-white">À une agence de gestion locative, en acceptant une rentabilité légèrement réduite</p>
                   </div>
                 </div>
               </div>
             </section>
 
             {/* CTA Section */}
-            <section className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-2xl p-8 text-center text-white">
-              <h2 className="text-3xl font-bold mb-4">Prêt à investir dans un immeuble de rapport ?</h2>
-              <p className="text-xl text-white/80 mb-8">Nos experts vous accompagnent pour évaluer la faisabilité et la rentabilité de votre projet</p>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-6 mb-8 max-w-4xl mx-auto">
-                <h3 className="text-xl font-semibold mb-4">
-                  Chez <strong>Azalée Patrimoine</strong>, nous vous apportons :
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                  <div className="bg-[#B99066] rounded-lg p-4">
-                    <p className="text-white">
-                      Une <strong>analyse de rentabilité</strong> précise
+            <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+              <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-10 sm:p-12 lg:p-16 text-center text-white shadow-2xl overflow-hidden">
+                  {/* Decorative elements */}
+                  <div className="absolute top-0 left-0 w-40 h-40 bg-[#B99066]/20 rounded-br-full"></div>
+                  <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-tl-full"></div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#B99066]/5 rounded-full"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="inline-block mb-6">
+                      <div className="w-20 h-1 bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-full mx-auto"></div>
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 sm:mb-8">
+                      Prêt à investir dans un immeuble de rapport ?
+                    </h2>
+                    <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+                      Nos experts vous accompagnent pour évaluer la faisabilité et la rentabilité de votre projet
                     </p>
-                  </div>
-                  <div className="bg-[#B99066] rounded-lg p-4">
-                    <p className="text-white">
-                      Un <strong>accompagnement dans la gestion</strong>
-                    </p>
-                  </div>
-                  <div className="bg-[#B99066] rounded-lg p-4">
-                    <p className="text-white">
-                      Des <strong>solutions de financement</strong> adaptées
-                    </p>
+                    
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 sm:p-10 mb-8 sm:mb-12 max-w-4xl mx-auto border border-white/20 shadow-lg">
+                      <h3 className="text-xl sm:text-2xl font-cairo font-bold mb-6 sm:mb-8">
+                        Chez <strong>Azalée Patrimoine</strong>, nous vous apportons :
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                        <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                          <p className="text-white text-base sm:text-lg font-medium">
+                            Une <strong>analyse de rentabilité</strong> précise
+                          </p>
+                        </div>
+                        <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                          <p className="text-white text-base sm:text-lg font-medium">
+                            Un <strong>accompagnement dans la gestion</strong>
+                          </p>
+                        </div>
+                        <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                          <p className="text-white text-base sm:text-lg font-medium">
+                            Des <strong>solutions de financement</strong> adaptées
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                      <button 
+                        onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                        className="group bg-white text-[#253F60] px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg hover:bg-[#F9FAFB] transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 min-w-[200px]"
+                      >
+                        Calculer la rentabilité
+                      </button>
+                      <button 
+                        onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                        className="group border-2 border-white text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-[#253F60] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]"
+                      >
+                        Prendre rendez-vous
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#A67C52] transition-colors shadow-lg">
-                  Calculer la rentabilité
-                </button>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#A67C52] transition-colors"
-                >
-                  Prendre rendez-vous
-                </button>
               </div>
             </section>
           </div>

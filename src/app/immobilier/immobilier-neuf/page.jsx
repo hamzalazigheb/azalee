@@ -91,25 +91,6 @@ export default function ImmobilierNeufPage() {
             </nav>
           </div>
 
-          {/* Section VEFA */}
-          <div className="bg-white rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12 border border-gray-200">
-            <h2 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              VEFA (Vente en l'État Futur d'Achèvement)
-            </h2>
-            <div className="text-center mb-8">
-              <p className="text-[#374151] text-base sm:text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-6">
-                La VEFA vous permet d'acquérir un bien immobilier neuf avant sa construction finale. 
-                Un investissement stratégique avec des avantages fiscaux et financiers significatifs.
-              </p>
-              <a 
-                href="/immobilier/vefa" 
-                className="inline-block bg-[#B99066] text-white px-8 py-4 rounded-lg font-inter font-semibold hover:bg-[#A67A5A] transition-colors duration-200"
-              >
-                Découvrir la VEFA
-              </a>
-            </div>
-          </div>
-
           {/* Dispositifs Fiscaux */}
           <div className="mb-8 sm:mb-12">
             <h2 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">

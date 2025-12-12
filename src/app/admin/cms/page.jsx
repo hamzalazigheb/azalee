@@ -123,6 +123,20 @@ export default function CMSManagementPage() {
         console.log('Hero keys:', content.hero ? Object.keys(content.hero) : 'no hero');
         console.log('Hero description1:', content.hero?.description1);
         console.log('Hero description2:', content.hero?.description2);
+        
+        // Convert partners from string array to object array if needed
+        if (content.partners && Array.isArray(content.partners) && content.partners.length > 0) {
+          if (typeof content.partners[0] === 'string') {
+            console.log('Converting partners from strings to objects');
+            content.partners = content.partners.map((item) => {
+              if (typeof item === 'string') {
+                return { image: item, website: '', name: '' };
+              }
+              return item;
+            });
+          }
+        }
+        
         setFormData(content);
       }
     } catch (error) {
@@ -267,6 +281,13 @@ export default function CMSManagementPage() {
         // Refresh the page content to show updated data
         await fetchPageContent(selectedPage.path);
         fetchPages();
+        
+        // Dispatch custom event to notify other pages that content was updated
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('cmsContentUpdated', {
+            detail: { path: selectedPage.path }
+          }));
+        }
       } else {
         setNotification({ isOpen: true, message: 'Erreur : ' + data.message, type: 'error' });
       }
@@ -693,10 +714,13 @@ export default function CMSManagementPage() {
     
     // Handle case where section is directly an array (e.g., "partners", "stats")
     if (Array.isArray(sectionData)) {
+      // Special handling for partners - they should be objects with image and website
+      const isPartnersSection = sectionKey.toLowerCase() === 'partners';
+      
       const isImageArray = sectionData.length > 0 && typeof sectionData[0] === 'string' && 
         (sectionData[0].startsWith('/images/') || sectionData[0].startsWith('http') || sectionData[0].includes('.jpg') || sectionData[0].includes('.png') || sectionData[0].includes('.webp') || sectionData[0].includes('.svg') || sectionKey.toLowerCase().includes('partner'));
       
-      // Check if it's an array of objects (e.g., "stats" with {value, label})
+      // Check if it's an array of objects (e.g., "stats" with {value, label} or "partners" with {image, website})
       const isObjectArray = sectionData.length > 0 && typeof sectionData[0] === 'object' && sectionData[0] !== null && !Array.isArray(sectionData[0]);
       
       return (
@@ -706,7 +730,107 @@ export default function CMSManagementPage() {
             <h3 className="text-xl font-cairo font-bold text-[#253F60] dark:text-[#B99066]">{title}</h3>
           </div>
           <div className="space-y-4">
-            {isImageArray ? (
+            {isPartnersSection && (isObjectArray || isImageArray) ? (
+              // Special rendering for partners with image and website fields
+              <>
+                {sectionData.map((partner, index) => {
+                  // Handle both string and object formats
+                  const partnerObj = typeof partner === 'string' 
+                    ? { image: partner, website: '', name: '' }
+                    : { 
+                        image: partner?.image || partner?.url || '', 
+                        website: partner?.website || partner?.url || '', 
+                        name: partner?.name || '' 
+                      };
+                  
+                  return (
+                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-5 border-2 border-gray-200 dark:border-gray-700 shadow-sm">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="text-md font-medium text-[#253F60] dark:text-[#B99066]">Partenaire {index + 1}</h4>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newArray = sectionData.filter((_, i) => i !== index);
+                            handleInputChange(sectionKey, sectionKey, newArray);
+                          }}
+                          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-xs font-semibold"
+                          title="Supprimer ce partenaire"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <div className="space-y-4">
+                        {/* Image Upload */}
+                        <div>
+                          <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
+                            Logo du partenaire
+                          </label>
+                          <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                            <ImageUpload
+                              onUploadSuccess={(url) => {
+                                const newArray = [...sectionData];
+                                newArray[index] = { ...partnerObj, image: url };
+                                handleInputChange(sectionKey, sectionKey, newArray);
+                              }}
+                              initialImageUrl={partnerObj.image || ''}
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Website URL */}
+                        <div>
+                          <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
+                            Site web du partenaire (URL)
+                          </label>
+                          <input
+                            type="url"
+                            value={partnerObj.website || ''}
+                            onChange={(e) => {
+                              const newArray = [...sectionData];
+                              newArray[index] = { ...partnerObj, website: e.target.value };
+                              handleInputChange(sectionKey, sectionKey, newArray);
+                            }}
+                            className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                            placeholder="https://www.exemple.fr"
+                          />
+                          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                            Laissez vide ou mettez "#" si le partenaire n'a pas de site web
+                          </p>
+                        </div>
+                        
+                        {/* Partner Name (optional) */}
+                        <div>
+                          <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
+                            Nom du partenaire (optionnel)
+                          </label>
+                          <input
+                            type="text"
+                            value={partnerObj.name || ''}
+                            onChange={(e) => {
+                              const newArray = [...sectionData];
+                              newArray[index] = { ...partnerObj, name: e.target.value };
+                              handleInputChange(sectionKey, sectionKey, newArray);
+                            }}
+                            className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                            placeholder="Nom du partenaire"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newArray = [...sectionData, { image: '', website: '', name: '' }];
+                    handleInputChange(sectionKey, sectionKey, newArray);
+                  }}
+                  className="mt-2 px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm font-cairo font-semibold"
+                >
+                  + Ajouter un partenaire
+                </button>
+              </>
+            ) : isImageArray ? (
               <>
                 {sectionData.map((imageUrl, index) => (
                   <div key={index} className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 relative">

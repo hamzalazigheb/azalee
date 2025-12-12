@@ -459,7 +459,7 @@ const fiscaliteContent = {
     links: [
       {
         text: "Qui sommes-nous ?",
-        link: "/patrimoine"
+        link: "/notre-approche"
       },
       {
         text: "Gestion de patrimoine",

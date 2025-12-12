@@ -32,23 +32,14 @@ export default function TransmissionPage() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
               <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-xl font-bold">1</span>
-                </div>
                 <h3 className="text-white font-semibold mb-2">Juridiques</h3>
                 <p className="text-white text-sm">Notaire, régime matrimonial, clauses bénéficiaires</p>
               </div>
               <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-xl font-bold">2</span>
-                </div>
                 <h3 className="text-white font-semibold mb-2">Fiscaux</h3>
                 <p className="text-white text-sm">Droits de donation et succession, abattements, pactes fiscaux</p>
               </div>
               <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-xl font-bold">3</span>
-                </div>
                 <h3 className="text-white font-semibold mb-2">Stratégiques</h3>
                 <p className="text-white text-sm">Protection de la famille, continuité du patrimoine, valorisation d'entreprise</p>
               </div>
@@ -86,62 +77,35 @@ export default function TransmissionPage() {
       />
 
       {/* Pourquoi anticiper sa transmission Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Pourquoi anticiper sa transmission ?
             </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+              Les avantages d'une planification anticipée
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#253F60]">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {[
+              { num: 1, title: "Réduire les droits", desc: "Abattements renouvelables tous les 15 ans" },
+              { num: 2, title: "Éviter les blocages", desc: "Liquidité pour payer les droits" },
+              { num: 3, title: "Protéger la famille", desc: "Sécurité financière des proches" },
+              { num: 4, title: "Optimiser fiscalement", desc: "Stratégies de démembrement" }
+            ].map((item, index) => (
+            <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 4 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 4 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : index % 4 === 2 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+              <div className="relative z-10 text-center">
+                <h3 className="text-white text-xl font-cairo font-bold mb-2">{item.title}</h3>
+                <p className="text-white/90 text-base leading-relaxed">{item.desc}</p>
               </div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-3">
-                Réduire les droits de succession
-              </h3>
-              <p className="text-[#686868] text-sm">
-                Grâce aux abattements renouvelables tous les 15 ans.
-              </p>
             </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#B99066]">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-3">
-                Sécuriser les proches
-              </h3>
-              <p className="text-[#686868] text-sm">
-                Protéger le conjoint, éviter les conflits familiaux.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#253F60]">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-3">
-                Pérennité d'entreprise
-              </h3>
-              <p className="text-[#686868] text-sm">
-                Assurer la continuité d'une entreprise familiale.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#B99066]">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">4</span>
-              </div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-3">
-                Éviter les blocages
-              </h3>
-              <p className="text-[#686868] text-sm">
-                Empêcher la vente forcée de biens "dans l'urgence" pour payer les droits.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -159,9 +123,6 @@ export default function TransmissionPage() {
             {/* Assurance-vie */}
             <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">1</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">L'assurance-vie : un incontournable</h3>
               </div>
               <div className="space-y-4">
@@ -184,9 +145,6 @@ export default function TransmissionPage() {
             {/* Démembrement de propriété */}
             <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Le démembrement de propriété</h3>
               </div>
               <div className="space-y-4">
@@ -201,9 +159,6 @@ export default function TransmissionPage() {
             {/* Pacte Dutreil */}
             <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">3</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Le pacte Dutreil (transmission d'entreprise)</h3>
               </div>
               <div className="space-y-4">
@@ -226,9 +181,6 @@ export default function TransmissionPage() {
             {/* Donations échelonnées */}
             <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">4</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Les donations échelonnées</h3>
               </div>
               <div className="space-y-4">
@@ -265,9 +217,6 @@ export default function TransmissionPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#253F60]">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Le notaire
               </h3>
@@ -277,9 +226,6 @@ export default function TransmissionPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#B99066]">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 L'expert-comptable
               </h3>
@@ -289,9 +235,6 @@ export default function TransmissionPage() {
             </div>
 
             <div className="bg-white rounded-lg shadow-lg p-8 text-center border-l-4 border-[#253F60]">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Le conseiller patrimonial
               </h3>
@@ -400,9 +343,6 @@ export default function TransmissionPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Anticiper et organiser</h3>
               <p className="text-[#686868] text-sm">
                 Nous anticipons et organisons votre transmission pour éviter les blocages et réduire les coûts.
@@ -410,9 +350,6 @@ export default function TransmissionPage() {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Travail en synergie</h3>
               <p className="text-[#686868] text-sm">
                 Nous travaillons en synergie avec vos notaires et experts-comptables pour une approche coordonnée.
@@ -420,9 +357,6 @@ export default function TransmissionPage() {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Solutions concrètes</h3>
               <p className="text-[#686868] text-sm">
                 Nous vous proposons des solutions concrètes pour réduire vos droits de succession et protéger vos proches.

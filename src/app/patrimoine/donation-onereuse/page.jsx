@@ -58,10 +58,6 @@ export default function DonationOnereusePage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">1</span>
-                  </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Avec charges</h3>
                   <p className="text-[#686868] text-sm mb-2">Obligations pour le bénéficiaire</p>
                   <p className="text-[#B99066] text-xl font-bold">Contrôle</p>
@@ -70,10 +66,6 @@ export default function DonationOnereusePage() {
 
                 <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">2</span>
-                  </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Nue-propriété</h3>
                   <p className="text-[#686868] text-sm mb-2">Conservation de l'usufruit</p>
                   <p className="text-[#B99066] text-xl font-bold">Loyers</p>
@@ -82,10 +74,6 @@ export default function DonationOnereusePage() {
                 
                 <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">3</span>
-                  </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Optimisation fiscale</h3>
                   <p className="text-[#686868] text-sm mb-2">Démembrement</p>
                   <p className="text-[#B99066] text-xl font-bold">60-90%</p>
@@ -94,10 +82,6 @@ export default function DonationOnereusePage() {
                 
                 <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">4</span>
-                  </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Transmission progressive</h3>
                   <p className="text-[#686868] text-sm mb-2">Anticipation</p>
                   <p className="text-[#B99066] text-xl font-bold">Sécurisée</p>
@@ -148,9 +132,6 @@ export default function DonationOnereusePage() {
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">1</span>
-                </div>
                 <div>
                   <h3 className="text-[#112033] text-xl font-semibold">Donation avec charges</h3>
                   <p className="text-[#B99066] font-bold">Obligations pour le bénéficiaire</p>
@@ -175,9 +156,6 @@ export default function DonationOnereusePage() {
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 bg-[#B99066] rounded-lg flex items-center justify-center">
-                  <span className="text-white text-xl font-bold">2</span>
-                </div>
                 <div>
                   <h3 className="text-[#112033] text-xl font-semibold">Donation de la nue-propriété avec conservation de l'usufruit</h3>
                   <p className="text-[#B99066] font-bold">Démembrement de propriété</p>
@@ -382,10 +360,6 @@ export default function DonationOnereusePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <span className="text-white text-2xl font-bold relative z-10">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3 relative z-10">
                 Transmission progressive
               </h3>
@@ -396,10 +370,6 @@ export default function DonationOnereusePage() {
 
             <div className="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <span className="text-white text-2xl font-bold relative z-10">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3 relative z-10">
                 Optimisation fiscale
               </h3>
@@ -410,10 +380,6 @@ export default function DonationOnereusePage() {
 
             <div className="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <span className="text-white text-2xl font-bold relative z-10">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3 relative z-10">
                 Maîtrise du bien
               </h3>
@@ -424,10 +390,6 @@ export default function DonationOnereusePage() {
 
             <div className="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <span className="text-white text-2xl font-bold relative z-10">4</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3 relative z-10">
                 Sécurise la transmission
               </h3>
@@ -443,8 +405,7 @@ export default function DonationOnereusePage() {
       <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#253F60] text-3xl">🚀</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
               La vision Azalée Patrimoine
             </h2>
             <p className="text-[#686868] text-lg max-w-4xl mx-auto">
@@ -454,9 +415,6 @@ export default function DonationOnereusePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Déterminer la bonne forme</h3>
               <p className="text-[#686868] text-sm">
                 Gratuite, avec charges, nue-propriété : nous choisissons la forme la plus adaptée à votre situation.
@@ -464,9 +422,6 @@ export default function DonationOnereusePage() {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Chiffrer précisément</h3>
               <p className="text-[#686868] text-sm">
                 Impact fiscal par tranches et par abattements pour optimiser votre stratégie.
@@ -474,9 +429,6 @@ export default function DonationOnereusePage() {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Optimiser le transfert</h3>
               <p className="text-[#686868] text-sm">
                 Avec vos notaires et experts-comptables pour une approche coordonnée.
@@ -484,9 +436,6 @@ export default function DonationOnereusePage() {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">4</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">Stratégie globale</h3>
               <p className="text-[#686868] text-sm">
                 Assurance-vie, immobilier, transmission d'entreprise : vision patrimoniale complète.

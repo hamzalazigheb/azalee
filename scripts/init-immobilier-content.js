@@ -125,7 +125,7 @@ const immobilierContent = {
     quote: "💬 \"Avec les SCPI, vous profitez du potentiel de l'immobilier professionnel, sans les soucis de la location.\"",
     chartTitle: "Rendement moyen des SCPI vs immobilier locatif direct",
     chartNote: "Note Azalée : Les rendements varient selon le type de SCPI, la localisation du bien locatif et la fiscalité appliquée. L'effet de levier du crédit peut significativement améliorer la rentabilité de l'immobilier direct.",
-    ctaButton: "👉 Comparez les meilleures SCPI du moment avec un conseiller Azalée",
+    ctaButton: " Comparez les meilleures SCPI du moment avec un conseiller Azalée",
     ctaLink: "https://calendly.com/rdv-azalee-patrimoine/30min"
   },
   section5: {
@@ -175,7 +175,7 @@ const immobilierContent = {
       ]
     },
     quote: "💬 \"L'argent de la banque travaille pour vous : c'est la magie du levier patrimonial.\"",
-    ctaButton: "👉 Simuler mon financement immobilier",
+    ctaButton: " Simuler mon financement immobilier",
     ctaLink: "https://calendly.com/rdv-azalee-patrimoine/30min"
   },
   section8: {
@@ -214,9 +214,15 @@ const immobilierContent = {
     h2: "Avis et retours d'expérience",
     testimonials: [
       {
+        name: "Julien R.",
+        role: "42 ans, dirigeant à Nantes",
+        text: "J'ai investi avec Azalée dans une SCPI Comète : <strong>transparence, rendement au rendez-vous</strong>, et un accompagnement complet sur la fiscalité.",
+        rating: 5
+      },
+      {
         name: "Isabelle L.",
         role: "Cadre supérieure à Paris",
-        text: "J'étais hésitante à cause des frais d'entrée, mais l'équipe m'a montré la rentabilité réelle nette d'impôt : convaincue !",
+        text: "J'étais hésitante à cause des frais d'entrée, mais l'équipe m'a montré la <strong>rentabilité réelle nette d'impôt</strong> : convaincue !",
         rating: 5
       }
     ],
@@ -226,7 +232,7 @@ const immobilierContent = {
       label: "Note moyenne",
       source: "(avis clients Azalée)"
     },
-    ctaButton: "👉 Demandez un comparatif SCPI personnalisé",
+    ctaButton: " Demandez un comparatif SCPI personnalisé",
     ctaLink: "https://calendly.com/rdv-azalee-patrimoine/30min"
   },
   section11: {
@@ -253,7 +259,7 @@ const immobilierContent = {
         link: "https://tally.so"
       }
     ],
-    ctaButton: "👉 Accéder à nos outils immobiliers",
+    ctaButton: " Accéder à nos outils immobiliers",
     ctaLink: "/outils"
   },
   section12: {
@@ -392,11 +398,11 @@ const immobilierContent = {
       },
       {
         question: "Quels sont les risques d'un investissement en SCPI ?",
-        answer: "Comme tout placement, les SCPI comportent des risques : la valeur des parts peut fluctuer, les loyers ne sont pas garantis, et la liquidité peut être limitée en cas de forte demande de revente. 👉 C'est pourquoi Azalée Patrimoine sélectionne des SCPI solides, diversifiées et bien capitalisées."
+        answer: "Comme tout placement, les SCPI comportent des risques : la valeur des parts peut fluctuer, les loyers ne sont pas garantis, et la liquidité peut être limitée en cas de forte demande de revente.  C'est pourquoi Azalée Patrimoine sélectionne des SCPI solides, diversifiées et bien capitalisées."
       },
       {
         question: "SCPI, LMNP, Pinel… que choisir ?",
-        answer: "Tout dépend de vos objectifs : • Réduire vos impôts 👉 LMNP ou Pinel • Générer un revenu complémentaire 👉 SCPI de rendement • Transmettre un bien 👉 SCI ou démembrement. Nos conseillers peuvent modéliser votre situation et définir la stratégie la plus pertinente."
+        answer: "Tout dépend de vos objectifs : • Réduire vos impôts  LMNP ou Pinel • Générer un revenu complémentaire  SCPI de rendement • Transmettre un bien  SCI ou démembrement. Nos conseillers peuvent modéliser votre situation et définir la stratégie la plus pertinente."
       },
       {
         question: "Peut-on financer un investissement en SCPI à crédit ?",
@@ -498,6 +504,29 @@ async function initImmobilierContent() {
       
       // Merge existing content with new content (preserving existing values)
       const mergedContent = deepMerge(existing.content || {}, immobilierContent);
+      
+      // Force update testimonials array in section10 to ensure both testimonials are present
+      if (immobilierContent.section10 && immobilierContent.section10.testimonials) {
+        if (!mergedContent.section10) {
+          mergedContent.section10 = {};
+        }
+        // Check if we need to add missing testimonials
+        const existingTestimonials = mergedContent.section10.testimonials || [];
+        const newTestimonials = immobilierContent.section10.testimonials;
+        
+        // Merge testimonials: keep existing ones and add new ones that don't exist
+        const testimonialNames = new Set(existingTestimonials.map(t => t.name));
+        const missingTestimonials = newTestimonials.filter(t => !testimonialNames.has(t.name));
+        
+        if (missingTestimonials.length > 0) {
+          mergedContent.section10.testimonials = [...existingTestimonials, ...missingTestimonials];
+          console.log(`   ✅ Added ${missingTestimonials.length} missing testimonial(s) to section10`);
+        } else if (existingTestimonials.length < newTestimonials.length) {
+          // If we have fewer testimonials than expected, replace with the full list
+          mergedContent.section10.testimonials = [...newTestimonials];
+          console.log(`   ✅ Updated testimonials array to include all ${newTestimonials.length} testimonials`);
+        }
+      }
       
       existing.content = mergedContent;
       existing.lastModified = new Date();

@@ -339,7 +339,7 @@ export default function PlanRetraitePage() {
 
             <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white">
               <div className="flex items-start gap-4">
-                <span className="text-3xl">👉</span>
+                <span className="text-3xl"></span>
                 <div>
                   <h3 className="font-cairo font-bold mb-3 text-lg">Un audit retraite Azalée</h3>
                   <p className="font-inter leading-relaxed text-white/90">
@@ -461,7 +461,7 @@ export default function PlanRetraitePage() {
               Prendre rendez-vous avec un conseiller Azalée
           </h2>
             <p className="text-[#4B5563] text-base sm:text-lg font-inter mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-              👉 Vous souhaitez savoir quel plan d'épargne retraite correspond à votre profil ?
+ Vous souhaitez savoir quel plan d'épargne retraite correspond à votre profil ?
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
               <a
@@ -470,7 +470,7 @@ export default function PlanRetraitePage() {
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full sm:w-auto"
               >
-                👉 Prendre rendez-vous avec un conseiller Azalée Patrimoine
+ Prendre rendez-vous avec un conseiller Azalée Patrimoine
               </a>
             </div>
             <div className="border-t border-gray-200 pt-6 mt-6">

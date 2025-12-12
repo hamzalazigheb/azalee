@@ -83,260 +83,334 @@ export default function InvestissementLocatifPage() {
       </section>
 
       {/* Content Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Pourquoi investir dans l'immobilier locatif */}
-          <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Pourquoi investir dans l'immobilier locatif ?
-            </h2>
-            <div className="space-y-8">
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-4">1. Génération de revenus réguliers</h3>
-                <p className="text-[#686868] text-sm font-inter">
-                  L'un des premiers atouts de l'investissement locatif est la <strong>génération de revenus réguliers</strong>. Les loyers perçus peuvent financer une partie ou la totalité des mensualités de crédit, tout en offrant un revenu complémentaire à long terme.
-                </p>
+          <div className="mb-12 sm:mb-16">
+            <div className="text-center mb-8 sm:mb-12">
+              <div className="inline-block mb-4">
+                <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
               </div>
-              
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-4">2. Effet de levier du crédit immobilier</h3>
-                <p className="text-[#686868] text-sm font-inter">
-                  De plus, grâce à l'<strong>effet de levier du crédit immobilier</strong>, vous investissez avec peu d'apport personnel : ce sont vos locataires, associés aux avantages fiscaux, qui remboursent une grande partie du prêt.
-                </p>
-              </div>
-              
-              <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg p-6 text-white">
-                <h3 className="text-xl font-semibold mb-4">Exemple simple</h3>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                  <p className="text-sm">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                Pourquoi investir dans l'immobilier locatif ?
+              </h2>
+              <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                Découvrez les bénéfices de cette stratégie d'investissement patrimonial
+              </p>
+            </div>
+            
+            <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 shadow-xl overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/20 rounded-bl-full"></div>
+              <div className="relative z-10 space-y-6 sm:space-y-8">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <h3 className="text-white text-xl sm:text-2xl font-cairo font-bold">Génération de revenus réguliers</h3>
+                  </div>
+                  <p className="text-white text-base sm:text-lg leading-relaxed">
+                    L'un des premiers atouts de l'investissement locatif est la <strong>génération de revenus réguliers</strong>. Les loyers perçus peuvent financer une partie ou la totalité des mensualités de crédit, tout en offrant un revenu complémentaire à long terme.
+                  </p>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <h3 className="text-white text-xl sm:text-2xl font-cairo font-bold">Effet de levier du crédit immobilier</h3>
+                  </div>
+                  <p className="text-white text-base sm:text-lg leading-relaxed">
+                    De plus, grâce à l'<strong>effet de levier du crédit immobilier</strong>, vous investissez avec peu d'apport personnel : ce sont vos locataires, associés aux avantages fiscaux, qui remboursent une grande partie du prêt.
+                  </p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 sm:p-8 border-l-4 border-white">
+                  <h3 className="text-white text-xl sm:text-2xl font-cairo font-bold mb-4">Exemple simple</h3>
+                  <p className="text-white text-base sm:text-lg leading-relaxed">
                     Vous achetez un bien à <strong>200 000 €</strong> financé par un prêt de <strong>180 000 €</strong>. Avec un loyer de <strong>900 €/mois</strong> et une mensualité de crédit de <strong>1 000 €</strong>, votre effort d'épargne n'est que de <strong>100 €/mois</strong>. En contrepartie, vous construisez un patrimoine qui prendra de la valeur au fil des années.
                   </p>
                 </div>
-              </div>
-              
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-4">3. Stratégie de valorisation patrimoniale</h3>
-                <p className="text-[#686868] text-sm font-inter">
-                  Enfin, l'investissement locatif est une stratégie de <strong>valorisation patrimoniale</strong> : à mesure que le capital de votre emprunt diminue, la valeur de votre bien augmente, surtout si vous avez choisi un emplacement porteur.
-                </p>
+                
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <h3 className="text-white text-xl sm:text-2xl font-cairo font-bold">Stratégie de valorisation patrimoniale</h3>
+                  </div>
+                  <p className="text-white text-base sm:text-lg leading-relaxed">
+                    Enfin, l'investissement locatif est une stratégie de <strong>valorisation patrimoniale</strong> : à mesure que le capital de votre emprunt diminue, la valeur de votre bien augmente, surtout si vous avez choisi un emplacement porteur.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Les avantages de l'investissement locatif */}
-          <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Les avantages de l'investissement locatif
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">1</span>
+          <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
                 </div>
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-2">Revenus complémentaires</h3>
-                <p className="text-[#686868] text-sm font-inter">Loyer mensuel qui constitue une source de revenus stable et prévisible</p>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  Les avantages de l'investissement locatif
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  Découvrez les bénéfices de cette stratégie d'investissement
+                </p>
               </div>
-              
-              <div className="text-center bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">2</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <div className="group text-center bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4">Revenus complémentaires</h3>
+                  <p className="text-[#686868] text-base font-inter leading-relaxed">Loyer mensuel qui constitue une source de revenus stable et prévisible</p>
                 </div>
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-2">Effet de levier du crédit</h3>
-                <p className="text-[#686868] text-sm font-inter">Possibilité de se constituer un patrimoine important sans immobiliser trop de capital</p>
-              </div>
-              
-              <div className="text-center bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">3</span>
+                
+                <div className="group text-center bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4">Effet de levier du crédit</h3>
+                  <p className="text-[#686868] text-base font-inter leading-relaxed">Possibilité de se constituer un patrimoine important sans immobiliser trop de capital</p>
                 </div>
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-2">Patrimoine tangible</h3>
-                <p className="text-[#686868] text-sm font-inter">L'immobilier reste un actif concret, sécurisant et transmissible à vos héritiers</p>
-              </div>
-              
-              <div className="text-center bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">4</span>
+                
+                <div className="group text-center bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4">Patrimoine tangible</h3>
+                  <p className="text-[#686868] text-base font-inter leading-relaxed">L'immobilier reste un actif concret, sécurisant et transmissible à vos héritiers</p>
                 </div>
-                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-2">Optimisation fiscale</h3>
-                <p className="text-[#686868] text-sm font-inter">Régime réel, déficit foncier, ou statut LMNP qui permet d'amortir la valeur du bien</p>
+                
+                <div className="group text-center bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4">Optimisation fiscale</h3>
+                  <p className="text-[#686868] text-base font-inter leading-relaxed">Régime réel, déficit foncier, ou statut LMNP qui permet d'amortir la valeur du bien</p>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
 
           {/* Les inconvénients et risques */}
-          <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Les inconvénients et risques à anticiper
-            </h2>
-            <div className="space-y-6">
-              <p className="text-[#686868] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
-                Comme tout placement, l'investissement locatif présente aussi des contraintes :
-              </p>
+          <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  Les inconvénients et risques à anticiper
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  Points de vigilance essentiels à connaître avant d'investir
+                </p>
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl">1</span>
-                  </div>
-                  <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-4 text-center">Risque de vacance locative</h3>
-                  <p className="text-[#686868] text-sm font-inter">
-                    Si le bien est mal situé ou si le marché est saturé.
-                  </p>
-                </div>
+              <div className="relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 sm:p-10 lg:p-12 shadow-lg border-2 border-[#E5E7EB] overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/5 rounded-bl-full"></div>
+                <p className="text-[#686868] text-lg sm:text-xl font-inter leading-relaxed mb-8 text-center">
+                  Comme tout placement, l'investissement locatif présente aussi des contraintes :
+                </p>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl">2</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                  <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                    <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4 text-center">Risque de vacance locative</h3>
+                    <p className="text-[#686868] text-base font-inter leading-relaxed text-center">
+                      Si le bien est mal situé ou si le marché est saturé.
+                    </p>
                   </div>
-                  <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-4 text-center">Gestion chronophage</h3>
-                  <p className="text-[#686868] text-sm font-inter">
-                    Rechercher des locataires, gérer les entrées et sorties, suivre les réparations ou les impayés peut vite devenir une seconde activité.
-                  </p>
-                </div>
-                
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl">3</span>
+                  
+                  <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                    <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4 text-center">Gestion chronophage</h3>
+                    <p className="text-[#686868] text-base font-inter leading-relaxed text-center">
+                      Rechercher des locataires, gérer les entrées et sorties, suivre les réparations ou les impayés peut vite devenir une seconde activité.
+                    </p>
                   </div>
-                  <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-4 text-center">Impayés de loyers</h3>
-                  <p className="text-[#686868] text-sm font-inter">
-                    Qui impactent la trésorerie si vous n'avez pas souscrit une assurance loyers impayés (GLI).
-                  </p>
-                </div>
-                
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl">4</span>
+                  
+                  <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                    <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4 text-center">Impayés de loyers</h3>
+                    <p className="text-[#686868] text-base font-inter leading-relaxed text-center">
+                      Qui impactent la trésorerie si vous n'avez pas souscrit une assurance loyers impayés (GLI).
+                    </p>
                   </div>
-                  <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-4 text-center">Rentabilité très variable</h3>
-                  <p className="text-[#686868] text-sm font-inter">
-                    Selon l'emplacement : investir dans un studio étudiant à Lyon n'a pas le même rendement qu'une maison familiale en zone rurale.
-                  </p>
+                  
+                  <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                    <h3 className="text-[#253F60] font-cairo font-bold text-xl mb-4 text-center">Rentabilité très variable</h3>
+                    <p className="text-[#686868] text-base font-inter leading-relaxed text-center">
+                      Selon l'emplacement : investir dans un studio étudiant à Lyon n'a pas le même rendement qu'une maison familiale en zone rurale.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
 
           {/* Exemple concret */}
-          <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Exemple concret
-            </h2>
-            <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 text-white">
-              <h3 className="text-xl font-semibold mb-6">
-                Un appartement acheté 180 000 € loué 800 €/mois, avec une mensualité de crédit de 950 €/mois
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <h4 className="font-semibold mb-2">Loyer mensuel</h4>
-                  <p className="text-lg font-bold">800 €</p>
+          <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
                 </div>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <h4 className="font-semibold mb-2">Mensualité crédit</h4>
-                  <p className="text-lg font-bold">950 €</p>
-                </div>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <h4 className="font-semibold mb-2">Effort d'épargne</h4>
-                  <p className="text-lg font-bold">150 €/mois</p>
-                </div>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <h4 className="font-semibold mb-2">Résultat après 20 ans</h4>
-                <p className="text-sm">
-                  Le bien est totalement remboursé et valorisé à <strong>220 000 €</strong> : vous avez créé un patrimoine net, tout en investissant peu chaque mois.
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  Exemple concret
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  Un cas pratique pour mieux comprendre la rentabilité réelle
                 </p>
               </div>
+              
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 text-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="w-1 h-10 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <h3 className="text-2xl sm:text-3xl font-cairo font-bold">
+                      Un appartement acheté 180 000 € loué 800 €/mois, avec une mensualité de crédit de 950 €/mois
+                    </h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/30 shadow-lg text-center">
+                      <h4 className="font-cairo font-bold text-lg sm:text-xl mb-4 text-white">Loyer mensuel</h4>
+                      <p className="text-3xl sm:text-4xl font-bold text-[#B99066]">800 €</p>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/30 shadow-lg text-center">
+                      <h4 className="font-cairo font-bold text-lg sm:text-xl mb-4 text-white">Mensualité crédit</h4>
+                      <p className="text-3xl sm:text-4xl font-bold text-[#B99066]">950 €</p>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/30 shadow-lg text-center">
+                      <h4 className="font-cairo font-bold text-lg sm:text-xl mb-4 text-white">Effort d'épargne</h4>
+                      <p className="text-3xl sm:text-4xl font-bold text-[#B99066]">150 €/mois</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 sm:p-8 border-l-4 border-white shadow-lg">
+                    <h4 className="font-cairo font-bold text-xl sm:text-2xl mb-4 text-white">Résultat après 20 ans</h4>
+                    <p className="text-base sm:text-lg text-white leading-relaxed">
+                      Le bien est totalement remboursé et valorisé à <strong>220 000 €</strong> : vous avez créé un patrimoine net, tout en investissant peu chaque mois.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
 
           {/* Conseil Azalée Patrimoine */}
-          <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12 text-white">
-              <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-                Conseil Azalée Patrimoine
-              </h2>
-            <div className="space-y-6">
-              <p className="text-lg text-center">
-                Chez <strong>Azalée Patrimoine</strong>, nous savons que la réussite d'un investissement locatif dépend à <strong>80 % de l'emplacement et du type de logement</strong>.
-              </p>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-6">
-                <p className="text-sm text-center mb-4">
-                  Un bien mal choisi peut rapidement devenir une source de stress et de perte financière : vacance locative, loyers trop bas, travaux mal anticipés…
+          <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  Conseil Azalée Patrimoine
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  Expertise et accompagnement personnalisé pour votre projet
                 </p>
               </div>
               
-              <p className="text-lg text-center">
-                Notre rôle est de vous aider à :
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-[#253F60] text-xl">1</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">Sélectionner le bon bien</h3>
-                  <p className="text-sm">(ville, quartier, typologie)</p>
-                </div>
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 text-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
                 
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-[#253F60] text-xl">2</span>
+                <div className="relative z-10 space-y-8 sm:space-y-10">
+                  <p className="text-xl sm:text-2xl text-center leading-relaxed font-light">
+                    Chez <strong>Azalée Patrimoine</strong>, nous savons que la réussite d'un investissement locatif dépend à <strong>80 % de l'emplacement et du type de logement</strong>.
+                  </p>
+                  
+                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-white/20">
+                    <p className="text-base sm:text-lg text-center leading-relaxed">
+                      Un bien mal choisi peut rapidement devenir une source de stress et de perte financière : vacance locative, loyers trop bas, travaux mal anticipés…
+                    </p>
                   </div>
-                  <h3 className="font-semibold mb-2">Optimiser le financement</h3>
-                  <p className="text-sm">Pour maximiser l'effet de levier du crédit</p>
-                </div>
-                
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-[#253F60] text-xl">3</span>
+                  
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <h3 className="text-xl sm:text-2xl font-cairo font-bold">Notre rôle est de vous aider à :</h3>
                   </div>
-                  <h3 className="font-semibold mb-2">Réduire la fiscalité</h3>
-                  <p className="text-sm">Grâce aux dispositifs adaptés (LMNP, déficit foncier, Pinel)</p>
-                </div>
-                
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-[#253F60] text-xl">4</span>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <div className="group bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                      <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-[#253F60] text-2xl font-bold">1</span>
+                      </div>
+                      <h3 className="font-cairo font-bold text-xl mb-3">Sélectionner le bon bien</h3>
+                      <p className="text-base text-white/90">(ville, quartier, typologie)</p>
+                    </div>
+                    
+                    <div className="group bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                      <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-[#253F60] text-2xl font-bold">2</span>
+                      </div>
+                      <h3 className="font-cairo font-bold text-xl mb-3">Optimiser le financement</h3>
+                      <p className="text-base text-white/90">Pour maximiser l'effet de levier du crédit</p>
+                    </div>
+                    
+                    <div className="group bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                      <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-[#253F60] text-2xl font-bold">3</span>
+                      </div>
+                      <h3 className="font-cairo font-bold text-xl mb-3">Réduire la fiscalité</h3>
+                      <p className="text-base text-white/90">Grâce aux dispositifs adaptés (LMNP, déficit foncier, Pinel)</p>
+                    </div>
+                    
+                    <div className="group bg-white/10 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center border-2 border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                      <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-[#253F60] text-2xl font-bold">4</span>
+                      </div>
+                      <h3 className="font-cairo font-bold text-xl mb-3">Anticiper la gestion</h3>
+                      <p className="text-base text-white/90">Pour éviter que cet investissement ne devienne une charge mentale</p>
+                    </div>
                   </div>
-                  <h3 className="font-semibold mb-2">Anticiper la gestion</h3>
-                  <p className="text-sm">Pour éviter que cet investissement ne devienne une charge mentale</p>
+                  
+                  <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 sm:p-8 border-l-4 border-white">
+                    <p className="text-base sm:text-lg text-center leading-relaxed font-medium">
+                      L'investissement locatif peut être une formidable machine à créer de la richesse, à condition d'être bien accompagné.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <p className="text-sm">
-                  L'investissement locatif peut être une formidable machine à créer de la richesse, à condition d'être bien accompagné.
-                </p>
               </div>
             </div>
-          </div>
+          </section>
 
           {/* CTA Final */}
-          <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-8 sm:p-10 lg:p-12 text-center">
-            <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-4 sm:mb-6">
-              Prêt à vous lancer dans l'investissement locatif ?
-            </h2>
-            <p className="text-white text-base sm:text-lg font-inter mb-6 sm:mb-8 max-w-2xl mx-auto">
-              Nos experts Azalée Patrimoine vous accompagnent pour construire une stratégie locative adaptée à votre profil, vos objectifs et votre fiscalité.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                className="bg-white text-[#253F60] px-8 py-4 rounded-lg font-inter font-semibold hover:bg-gray-100 transition-colors duration-200"
-              >
-                Calculer ma rentabilité
-              </button>
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold hover:bg-white hover:text-[#253F60] transition-colors duration-200"
-              >
-                Prendre rendez-vous
-              </button>
+          <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-10 sm:p-12 lg:p-16 text-center text-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 left-0 w-40 h-40 bg-[#B99066]/20 rounded-br-full"></div>
+                <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-tl-full"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#B99066]/5 rounded-full"></div>
+                
+                <div className="relative z-10">
+                  <div className="inline-block mb-6">
+                    <div className="w-20 h-1 bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-full mx-auto"></div>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 sm:mb-8">
+                    Prêt à vous lancer dans l'investissement locatif ?
+                  </h2>
+                  <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Nos experts Azalée Patrimoine vous accompagnent pour construire une stratégie locative adaptée à votre profil, vos objectifs et votre fiscalité.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                    <button 
+                      onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                      className="group bg-white text-[#253F60] px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg hover:bg-[#F9FAFB] transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 min-w-[200px]"
+                    >
+                      Calculer ma rentabilité
+                    </button>
+                    <button 
+                      onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                      className="group border-2 border-white text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-[#253F60] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]"
+                    >
+                      Prendre rendez-vous
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
       </section>
       

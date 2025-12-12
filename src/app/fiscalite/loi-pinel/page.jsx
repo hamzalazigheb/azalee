@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function LoiPinelPage() {
   const [content, setContent] = useState({});
@@ -91,21 +92,19 @@ export default function LoiPinelPage() {
       </section>
 
       {/* Overview Section */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#253F60] mb-3 sm:mb-4">
-              {content.overview?.title || defaultContent.overview.title}
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-[#686868] max-w-3xl mx-auto mb-6 sm:mb-8">
-              {content.overview?.description || defaultContent.overview.description}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <SectionHeader 
+            title={content.overview?.title || defaultContent.overview.title}
+            subtitle={content.overview?.description || defaultContent.overview.description}
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {(content.overview?.keyPoints || defaultContent.overview.keyPoints).map((point, index) => (
-              <div key={index} className="bg-white p-4 sm:p-6 rounded-xl text-center border border-[#253F60]">
-                <div className="text-sm sm:text-base lg:text-lg font-semibold text-[#253F60]">{point}</div>
+              <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 4 === 0 || index % 4 === 2 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="relative z-10 text-center">
+                  <p className="text-base sm:text-lg font-semibold">{point}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -113,22 +112,23 @@ export default function LoiPinelPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#253F60] mb-3 sm:mb-4">
-              {content.benefits?.title || defaultContent.benefits.title}
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <SectionHeader 
+            title={content.benefits?.title || defaultContent.benefits.title}
+            subtitle="Les avantages fiscaux de la loi Pinel"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {(content.benefits?.benefits || defaultContent.benefits.benefits).map((benefit, index) => (
-              <div key={index} className="bg-white p-4 sm:p-6 rounded-xl shadow-lg text-center border border-[#B99066]">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#B99066] mb-3 sm:mb-4">
-                  {benefit.percentage || benefit.amount || benefit.duration}
+              <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'}`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="relative z-10 text-center">
+                  <div className="text-4xl sm:text-5xl font-bold mb-4">
+                    {benefit.percentage || benefit.amount || benefit.duration}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-white/90 text-sm">{benefit.description}</p>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-[#253F60] mb-2 sm:mb-3">{benefit.title}</h3>
-                <p className="text-sm sm:text-base text-[#686868]">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -136,23 +136,23 @@ export default function LoiPinelPage() {
       </section>
 
       {/* Conditions Section */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#253F60] mb-3 sm:mb-4">
-              {content.conditions?.title || defaultContent.conditions.title}
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-[#686868] max-w-3xl mx-auto mb-6 sm:mb-8">
-              {content.conditions?.description || defaultContent.conditions.description}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+          <SectionHeader 
+            title={content.conditions?.title || defaultContent.conditions.title}
+            subtitle={content.conditions?.description || defaultContent.conditions.description}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {(content.conditions?.points || defaultContent.conditions.points).map((point, index) => (
-              <div key={index} className="bg-[#253F60] p-4 sm:p-6 rounded-xl">
-                <div className="flex items-start">
-                  <div className="text-white mr-3 mt-1">✓</div>
-                  <div className="text-sm sm:text-base lg:text-lg font-semibold text-white">{point}</div>
+              <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className={`w-8 h-8 ${index % 2 === 0 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center flex-shrink-0`}>
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="text-base sm:text-lg font-semibold">{point}</div>
                 </div>
               </div>
             ))}
@@ -161,20 +161,27 @@ export default function LoiPinelPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 bg-gradient-to-r from-[#253F60] to-[#B99066]">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
-            {content.cta?.title || defaultContent.cta.title}
-          </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto">
-            {content.cta?.description || defaultContent.cta.description}
-          </p>
-          <button 
-            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-            className="bg-[#B99066] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors text-sm sm:text-base"
-          >
-            Prendre rendez-vous
-          </button>
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-2xl p-8 sm:p-10 lg:p-12 text-center shadow-2xl overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                {content.cta?.title || defaultContent.cta.title}
+              </h2>
+              <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                {content.cta?.description || defaultContent.cta.description}
+              </p>
+              <button 
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                {content.cta?.buttonText || defaultContent.cta.buttonText || "Prendre rendez-vous"}
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -36,7 +36,7 @@ const defaultContent = {
     conclusion: "Contrairement à l'assurance-vie ou au PEA, il n'existe aucun mécanisme de capitalisation différée : les gains sont fiscalisés immédiatement."
   },
   avantages: {
-    title: "✅ Les avantages du CTO",
+    title: "Les avantages du CTO",
     points: [
       "Aucune limite de versement : liberté totale d'investissement",
       "Accès illimité aux marchés financiers : actions, obligations, ETF, produits structurés, fonds spécialisés",
@@ -46,7 +46,7 @@ const defaultContent = {
     ]
   },
   inconvenients: {
-    title: "⚠️ Les inconvénients du CTO",
+    title: "Les inconvénients du CTO",
     points: [
       "Fiscalité lourde : 30% sur chaque gain (hors option pour le barème progressif)",
       "Pas de cadre successoral avantageux (contrairement à l'assurance-vie ou au contrat de capitalisation)",
@@ -55,7 +55,7 @@ const defaultContent = {
     ]
   },
   speculation: {
-    title: "🚀 Spéculation avec un CTO : pour les investisseurs avertis",
+    title: "Spéculation avec un CTO : pour les investisseurs avertis",
     description: "L'un des grands intérêts du CTO est d'offrir la possibilité d'accéder à des produits de spéculation :",
     produits: [
       "Options (stratégies de couverture ou de levier)",
@@ -98,7 +98,7 @@ const defaultContent = {
     conclusion: "Pour la plupart des clients, le CTO est donc un complément stratégique, tandis que pour les investisseurs avertis, il peut devenir un terrain de jeu pour la spéculation et l'innovation financière."
   },
   faq: {
-    title: "1️⃣ FAQ – Compte-Titres Ordinaire (CTO)",
+    title: "FAQ – Compte-Titres Ordinaire (CTO)",
     questions: [
       {
         question: "Quelle est la fiscalité d'un CTO en France ?",
@@ -152,7 +152,7 @@ const defaultContent = {
     ]
   },
   cta: {
-    title: "📩 Contactez un conseiller Azalée Patrimoine",
+    title: "Contactez un conseiller Azalée Patrimoine",
     subtitle: "pour optimiser votre stratégie d'investissement avec un CTO",
     email: "contact@azalee-patrimoine.fr",
     primaryButton: "Demander une étude gratuite",
@@ -502,57 +502,92 @@ export default function CompteTitresPage() {
       {/* Definition Section */}
       {activeTab === "definition" && (
         <div className="space-y-12">
-          <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
+          <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
-                {content.definition.title}
-              </h2>
-              <p className="text-[#374151] text-lg text-center mb-8 max-w-3xl mx-auto">
-                {content.definition.description}
-              </p>
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  {content.definition.title}
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  {content.definition.description}
+                </p>
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
                 {content.definition.contenus.map((contenu, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-lg p-6">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
-                      </div>
-                      <p className="text-[#374151] text-sm font-medium">{contenu}</p>
+                  <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'}`}>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                    <div className="relative z-10">
+                      <p className="text-white text-base font-inter leading-relaxed">{contenu}</p>
                     </div>
                   </div>
                 ))}
             </div>
 
-              <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.definition.conclusion}</p>
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 text-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+                <div className="relative z-10 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <p className="text-xl sm:text-2xl font-cairo font-bold"> {content.definition.conclusion}</p>
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
           {/* Avantages et Inconvénients */}
-          <section className="py-12 bg-white">
+          <section className="py-16 sm:py-20 lg:py-24 bg-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-8">
-                  <h3 className="text-[#005C69] text-xl font-semibold mb-6">{content.avantages.title}</h3>
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  Avantages et Inconvénients
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#253F60] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-8 bg-[#253F60] rounded-full"></div>
+                    <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold">{content.avantages.title.replace(/✅\s*/, '')}</h3>
+                  </div>
                   <ul className="space-y-4">
                     {content.avantages.points.map((point, index) => (
-                      <li key={index} className="text-[#005C69] text-sm flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
-                        {point}
+                      <li key={index} className="text-[#253F60] text-base flex items-start gap-3 leading-relaxed">
+                        <div className="w-6 h-6 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span>{point}</span>
                       </li>
                     ))}
                   </ul>
-            </div>
+                </div>
 
-                <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-8">
-                  <h3 className="text-[#005C69] text-xl font-semibold mb-6">{content.inconvenients.title}</h3>
+                <div className="group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] hover:border-[#B99066] transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-8 bg-[#B99066] rounded-full"></div>
+                    <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold">{content.inconvenients.title.replace(/⚠️\s*/, '')}</h3>
+                  </div>
                   <ul className="space-y-4">
                     {content.inconvenients.points.map((point, index) => (
-                      <li key={index} className="text-[#005C69] text-sm flex items-start gap-3">
-                        <span className="w-2 h-2 bg-[#B99066] rounded-full mt-2 flex-shrink-0"></span>
-                        {point}
+                      <li key={index} className="text-[#253F60] text-base flex items-start gap-3 leading-relaxed">
+                        <div className="w-6 h-6 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </div>
+                        <span>{point}</span>
                       </li>
                     ))}
                   </ul>
@@ -562,23 +597,26 @@ export default function CompteTitresPage() {
           </section>
 
           {/* Utilisation */}
-          <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
+          <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB]">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
-                {content.utilisation.title}
-              </h2>
-              <p className="text-[#374151] text-lg text-center mb-8 max-w-3xl mx-auto">
-                {content.utilisation.description}
-              </p>
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  {content.utilisation.title}
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  {content.utilisation.description}
+                </p>
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {content.utilisation.cas.map((cas, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-lg p-6">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
-                      </div>
-                      <p className="text-[#005C69] text-sm font-medium">{cas}</p>
+                  <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                    <div className="relative z-10 flex items-start gap-4">
+                      <p className="text-white text-base font-inter leading-relaxed">{cas}</p>
                     </div>
                   </div>
                 ))}
@@ -592,7 +630,7 @@ export default function CompteTitresPage() {
       {activeTab === "fiscalite" && (
         <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+            <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
               {content.fiscalite.title}
             </h2>
             <p className="text-[#374151] text-lg text-center mb-8 max-w-3xl mx-auto">
@@ -603,17 +641,14 @@ export default function CompteTitresPage() {
               {content.fiscalite.points.map((point, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg p-6">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#59E2E4] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                      {index + 1}
-                    </div>
-                    <p className="text-[#005C69] text-sm font-medium">{point}</p>
+                    <p className="text-[#253F60] text-sm font-medium">{point}</p>
                   </div>
                 </div>
               ))}
             </div>
             
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">👉 {content.fiscalite.conclusion}</p>
+              <p className="text-lg font-medium"> {content.fiscalite.conclusion}</p>
             </div>
           </div>
         </section>
@@ -624,7 +659,7 @@ export default function CompteTitresPage() {
         <div className="space-y-12">
           <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+              <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
                 {content.avantages.title}
               </h2>
               
@@ -635,7 +670,7 @@ export default function CompteTitresPage() {
                       <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                         {index + 1}
                       </div>
-                      <p className="text-[#005C69] text-sm font-medium">{point}</p>
+                      <p className="text-[#253F60] text-sm font-medium">{point}</p>
                     </div>
                   </div>
                 ))}
@@ -645,7 +680,7 @@ export default function CompteTitresPage() {
 
           <section className="py-12 bg-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+              <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
                 {content.inconvenients.title}
               </h2>
               
@@ -653,10 +688,7 @@ export default function CompteTitresPage() {
                 {content.inconvenients.points.map((point, index) => (
                   <div key={index} className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl shadow-lg p-6">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-[#B99066] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
-                      </div>
-                      <p className="text-[#005C69] text-sm font-medium">{point}</p>
+                      <p className="text-[#253F60] text-sm font-medium">{point}</p>
                     </div>
                   </div>
                 ))}
@@ -667,7 +699,7 @@ export default function CompteTitresPage() {
           {/* Comparaison CTO vs Assurance-vie */}
           <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+              <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
                 {content.comparaison.title}
               </h2>
               
@@ -684,9 +716,9 @@ export default function CompteTitresPage() {
                     <tbody>
                       {content.comparaison.tableau.map((row, index) => (
                         <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                          <td className="px-6 py-4 font-medium text-[#005C69]">{row.critere}</td>
-                          <td className="px-6 py-4 text-[#005C69]">{row.cto}</td>
-                          <td className="px-6 py-4 text-[#005C69]">{row.assurance}</td>
+                          <td className="px-6 py-4 font-medium text-[#253F60]">{row.critere}</td>
+                          <td className="px-6 py-4 text-[#253F60]">{row.cto}</td>
+                          <td className="px-6 py-4 text-[#253F60]">{row.assurance}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -695,7 +727,7 @@ export default function CompteTitresPage() {
             </div>
 
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center mt-8">
-                <p className="text-lg font-medium">👉 {content.comparaison.conclusion}</p>
+                <p className="text-lg font-medium"> {content.comparaison.conclusion}</p>
               </div>
             </div>
           </section>
@@ -707,7 +739,7 @@ export default function CompteTitresPage() {
         <div className="space-y-12">
           <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+              <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
                 {content.speculation.title}
               </h2>
               <p className="text-[#374151] text-lg text-center mb-8 max-w-3xl mx-auto">
@@ -721,7 +753,7 @@ export default function CompteTitresPage() {
                       <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                         {index + 1}
                       </div>
-                      <p className="text-[#005C69] text-sm font-medium">{produit}</p>
+                      <p className="text-[#253F60] text-sm font-medium">{produit}</p>
                     </div>
                   </div>
                 ))}
@@ -732,11 +764,11 @@ export default function CompteTitresPage() {
               </div>
               
               <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-                <h3 className="text-[#005C69] text-lg font-semibold mb-4">{content.speculation.profil}</h3>
+                <h3 className="text-[#253F60] text-lg font-semibold mb-4">{content.speculation.profil}</h3>
                 <ul className="space-y-3">
                   {content.speculation.conditions.map((condition, index) => (
-                    <li key={index} className="text-[#005C69] text-sm flex items-start gap-3">
-                      <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
+                    <li key={index} className="text-[#253F60] text-sm flex items-start gap-3">
+                      <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                       {condition}
                     </li>
                   ))}
@@ -744,7 +776,7 @@ export default function CompteTitresPage() {
             </div>
 
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.speculation.conclusion}</p>
+                <p className="text-lg font-medium"> {content.speculation.conclusion}</p>
               </div>
             </div>
           </section>
@@ -752,7 +784,7 @@ export default function CompteTitresPage() {
           {/* Conseil Azalée */}
           <section className="py-12 bg-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+              <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
                 {content.conseil.title}
               </h2>
               <p className="text-[#374151] text-lg text-center mb-8 max-w-3xl mx-auto">
@@ -760,13 +792,13 @@ export default function CompteTitresPage() {
               </p>
               
               <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-8 mb-8">
-                <p className="text-[#005C69] text-lg font-medium mb-6 text-center">
+                <p className="text-[#253F60] text-lg font-medium mb-6 text-center">
                   {content.conseil.strategie}
               </p>
             </div>
 
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.conseil.conclusion}</p>
+                <p className="text-lg font-medium"> {content.conseil.conclusion}</p>
               </div>
             </div>
           </section>
@@ -777,24 +809,24 @@ export default function CompteTitresPage() {
       {activeTab === "faq" && (
         <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-[#005C69] text-2xl font-semibold text-center mb-8">
+            <h2 className="text-[#253F60] text-2xl font-semibold text-center mb-8">
               {content.faq.title}
             </h2>
             <div className="space-y-6">
               {content.faq.questions.map((faq, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg p-6">
-                  <h3 className="text-[#005C69] text-lg font-semibold mb-4">{faq.question}</h3>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-4">{faq.question}</h3>
                   <p className="text-[#374151] text-sm mb-4">{faq.answer}</p>
                   
                   {faq.precision && (
                     <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-4 text-white mb-4">
-                      <p className="text-sm font-medium">👉 {faq.precision}</p>
+                      <p className="text-sm font-medium"> {faq.precision}</p>
                     </div>
                   )}
                   
                   {faq.exemple && (
                     <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-4 mb-4">
-                      <p className="text-[#005C69] text-sm font-medium">{faq.exemple}</p>
+                      <p className="text-[#253F60] text-sm font-medium">{faq.exemple}</p>
                     </div>
                   )}
                   
@@ -802,8 +834,8 @@ export default function CompteTitresPage() {
                     <div className="mb-4">
                       <ul className="space-y-2">
                         {faq.points.map((point, idx) => (
-                          <li key={idx} className="text-[#005C69] text-sm flex items-start gap-2">
-                            <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
+                          <li key={idx} className="text-[#253F60] text-sm flex items-start gap-2">
+                            <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                             {point}
                           </li>
                         ))}
@@ -813,11 +845,11 @@ export default function CompteTitresPage() {
                   
                   {faq.produits && (
                     <div className="mb-4">
-                      <h4 className="text-[#005C69] text-sm font-semibold mb-2">Produits spéculatifs accessibles :</h4>
+                      <h4 className="text-[#253F60] text-sm font-semibold mb-2">Produits spéculatifs accessibles :</h4>
                       <ul className="space-y-2">
                         {faq.produits.map((produit, idx) => (
-                          <li key={idx} className="text-[#005C69] text-sm flex items-start gap-2">
-                            <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
+                          <li key={idx} className="text-[#253F60] text-sm flex items-start gap-2">
+                            <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                             {produit}
                           </li>
                         ))}
@@ -827,10 +859,10 @@ export default function CompteTitresPage() {
                   
                   {faq.risques && (
                     <div className="mb-4">
-                      <h4 className="text-[#005C69] text-sm font-semibold mb-2">Risques :</h4>
+                      <h4 className="text-[#253F60] text-sm font-semibold mb-2">Risques :</h4>
                       <ul className="space-y-2">
                         {faq.risques.map((risque, idx) => (
-                          <li key={idx} className="text-[#005C69] text-sm flex items-start gap-2">
+                          <li key={idx} className="text-[#253F60] text-sm flex items-start gap-2">
                             <span className="w-2 h-2 bg-[#B99066] rounded-full mt-2 flex-shrink-0"></span>
                             {risque}
                           </li>
@@ -841,19 +873,19 @@ export default function CompteTitresPage() {
                   
                   {faq.profil && (
                     <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-4 mb-4">
-                      <p className="text-[#005C69] text-sm font-medium">{faq.profil}</p>
+                      <p className="text-[#253F60] text-sm font-medium">{faq.profil}</p>
                     </div>
                   )}
                   
                   {faq.transmission && (
                     <div className="mb-4">
-                      <p className="text-[#005C69] text-sm">{faq.transmission}</p>
+                      <p className="text-[#253F60] text-sm">{faq.transmission}</p>
                     </div>
                   )}
                   
                   {faq.donation && (
                     <div className="mb-4">
-                      <p className="text-[#005C69] text-sm">{faq.donation}</p>
+                      <p className="text-[#253F60] text-sm">{faq.donation}</p>
                     </div>
                   )}
                   
@@ -861,8 +893,8 @@ export default function CompteTitresPage() {
                     <div className="mb-4">
                       <ul className="space-y-2">
                         {faq.strategies.map((strategie, idx) => (
-                          <li key={idx} className="text-[#005C69] text-sm flex items-start gap-2">
-                            <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
+                          <li key={idx} className="text-[#253F60] text-sm flex items-start gap-2">
+                            <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                             {strategie}
                           </li>
                         ))}
@@ -872,13 +904,13 @@ export default function CompteTitresPage() {
                   
                   {faq.avantage && (
                     <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-4 text-white">
-                      <p className="text-sm font-medium">👉 {faq.avantage}</p>
+                      <p className="text-sm font-medium"> {faq.avantage}</p>
                     </div>
                   )}
                   
                   {faq.conclusion && (
                     <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-4 text-white">
-                      <p className="text-sm font-medium">👉 {faq.conclusion}</p>
+                      <p className="text-sm font-medium"> {faq.conclusion}</p>
                     </div>
                   )}
                 </div>
@@ -887,17 +919,14 @@ export default function CompteTitresPage() {
             
             {/* Articles SEO */}
             <div className="mt-12">
-              <h3 className="text-[#005C69] text-xl font-semibold text-center mb-8">
+              <h3 className="text-[#253F60] text-xl font-semibold text-center mb-8">
                 Articles complémentaires
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-[#59E2E4]">
+                <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-[#253F60]">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#59E2E4] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                      📄
-                    </div>
                     <div>
-                      <h4 className="text-[#005C69] text-lg font-semibold mb-2">
+                      <h4 className="text-[#253F60] text-lg font-semibold mb-2">
                         CTO à bas coûts : le vrai prix caché du trading low-cost
                       </h4>
                       <p className="text-[#374151] text-sm mb-4">
@@ -905,7 +934,7 @@ export default function CompteTitresPage() {
                       </p>
                       <button 
                         onClick={() => setShowArticleModal(true)}
-                        className="text-[#59E2E4] font-semibold text-sm hover:underline"
+                        className="text-[#253F60] font-semibold text-sm hover:underline"
                       >
                         Lire l'article →
                       </button>
@@ -915,11 +944,8 @@ export default function CompteTitresPage() {
                 
                 <div className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-[#B99066]">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-[#B99066] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                      ❓
-                    </div>
                     <div>
-                      <h4 className="text-[#005C69] text-lg font-semibold mb-2">
+                      <h4 className="text-[#253F60] text-lg font-semibold mb-2">
                         FAQ SEO – CTO à bas coûts et trading low-cost
                       </h4>
                       <p className="text-[#374151] text-sm mb-4">
@@ -943,14 +969,14 @@ export default function CompteTitresPage() {
       <section className="py-16 bg-gradient-to-r from-[#F2F2F2] to-[#E5E5E5]">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">
-            <h2 className="text-[#005C69] text-2xl lg:text-3xl font-semibold mb-4">
+            <h2 className="text-[#253F60] text-2xl lg:text-3xl font-semibold mb-4">
               {content.cta.title}
           </h2>
             <p className="text-[#374151] text-lg mb-8 max-w-3xl mx-auto">
               {content.cta.subtitle}
             </p>
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-6 text-white mb-8">
-              <h3 className="text-xl font-semibold mb-3">📧 {content.cta.email}</h3>
+              <h3 className="text-xl font-semibold mb-3">{content.cta.email}</h3>
               <p className="text-sm opacity-90">Optimisation de votre stratégie d'investissement</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -958,13 +984,13 @@ export default function CompteTitresPage() {
                 onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                 className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 text-lg"
               >
-                🗓️ {content.cta.primaryButton}
+                {content.cta.primaryButton}
               </button>
               <button 
                 onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                 className="border-2 border-[#253F60] text-[#253F60] px-8 py-4 rounded-lg font-medium hover:bg-[#253F60] hover:text-white transition-colors duration-200 text-lg"
               >
-                📧 {content.cta.secondaryButton}
+                {content.cta.secondaryButton}
           </button>
             </div>
           </div>
@@ -976,7 +1002,7 @@ export default function CompteTitresPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-4xl max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
-              <h2 className="text-[#005C69] text-2xl font-semibold">
+              <h2 className="text-[#253F60] text-2xl font-semibold">
                 {articleContent.title}
               </h2>
               <button 
@@ -990,7 +1016,7 @@ export default function CompteTitresPage() {
             <div className="p-6 space-y-8">
               {articleContent.sections.map((section, index) => (
                 <div key={index} className="space-y-4">
-                  <h3 className="text-[#005C69] text-xl font-semibold">
+                  <h3 className="text-[#253F60] text-xl font-semibold">
                     {section.title}
                   </h3>
                   
@@ -1002,7 +1028,7 @@ export default function CompteTitresPage() {
                   
                   {section.highlight && (
                     <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-4 text-white">
-                      <p className="text-sm font-medium">👉 {section.highlight}</p>
+                      <p className="text-sm font-medium"> {section.highlight}</p>
                     </div>
                   )}
                   
@@ -1016,7 +1042,7 @@ export default function CompteTitresPage() {
                     <div className="space-y-6">
                       {section.subsections.map((subsection, subIndex) => (
                         <div key={subIndex} className="bg-gray-50 rounded-lg p-4">
-                          <h4 className="text-[#005C69] text-lg font-semibold mb-3">
+                          <h4 className="text-[#253F60] text-lg font-semibold mb-3">
                             {subsection.title}
                           </h4>
                           
@@ -1036,7 +1062,7 @@ export default function CompteTitresPage() {
                           
                           {subsection.highlight && (
                             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-3 mb-3 text-white">
-                              <p className="text-sm font-medium">👉 {subsection.highlight}</p>
+                              <p className="text-sm font-medium"> {subsection.highlight}</p>
                             </div>
                           )}
                           
@@ -1044,7 +1070,7 @@ export default function CompteTitresPage() {
                             <ul className="space-y-2 mb-3">
                               {subsection.points.map((point, pointIndex) => (
                                 <li key={pointIndex} className="text-[#374151] text-sm flex items-start gap-2">
-                                  <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
+                                  <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                                   {point}
                                 </li>
                               ))}
@@ -1078,7 +1104,7 @@ export default function CompteTitresPage() {
                           
                           {subsection.note && (
                             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-3 text-white">
-                              <p className="text-sm font-medium">👉 {subsection.note}</p>
+                              <p className="text-sm font-medium"> {subsection.note}</p>
                             </div>
                           )}
                           
@@ -1096,7 +1122,7 @@ export default function CompteTitresPage() {
                     <div className="space-y-4">
                       {section.impacts.map((impact, impactIndex) => (
                         <div key={impactIndex} className="bg-gray-50 rounded-lg p-4">
-                          <h4 className="text-[#005C69] text-lg font-semibold mb-2">
+                          <h4 className="text-[#253F60] text-lg font-semibold mb-2">
                             {impact.title}
                           </h4>
                           <p className="text-[#374151] text-sm leading-relaxed">
@@ -1121,7 +1147,7 @@ export default function CompteTitresPage() {
                           <tbody>
                             {section.comparison.map((row, rowIndex) => (
                               <tr key={rowIndex} className={rowIndex % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                                <td className="px-4 py-3 font-medium text-[#005C69]">{row.critere}</td>
+                                <td className="px-4 py-3 font-medium text-[#253F60]">{row.critere}</td>
                                 <td className="px-4 py-3 text-[#374151]">{row.lowcost}</td>
                                 <td className="px-4 py-3 text-[#374151]">{row.patrimonial}</td>
                               </tr>
@@ -1142,7 +1168,7 @@ export default function CompteTitresPage() {
                     <ul className="space-y-2">
                       {section.points.map((point, pointIndex) => (
                         <li key={pointIndex} className="text-[#374151] text-sm flex items-start gap-2">
-                          <span className="w-2 h-2 bg-[#59E2E4] rounded-full mt-2 flex-shrink-0"></span>
+                          <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                           {point}
                         </li>
                       ))}
@@ -1159,7 +1185,7 @@ export default function CompteTitresPage() {
                     <div className="space-y-2">
                       {section.conclusions.map((conclusion, conclIndex) => (
                         <div key={conclIndex} className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-3 text-white">
-                          <p className="text-sm font-medium">👉 {conclusion}</p>
+                          <p className="text-sm font-medium"> {conclusion}</p>
                         </div>
                       ))}
                     </div>
@@ -1180,7 +1206,7 @@ export default function CompteTitresPage() {
                   {section.wrongQuestion && (
                     <div className="bg-red-50 border-l-4 border-red-400 p-3">
                       <p className="text-red-700 text-sm font-medium">
-                        ❌ {section.wrongQuestion}
+                        {section.wrongQuestion}
                       </p>
                     </div>
                   )}
@@ -1188,14 +1214,14 @@ export default function CompteTitresPage() {
                   {section.rightQuestion && (
                     <div className="bg-green-50 border-l-4 border-green-400 p-3">
                       <p className="text-green-700 text-sm font-medium">
-                        ✅ {section.rightQuestion}
+                        {section.rightQuestion}
                       </p>
                     </div>
                   )}
                   
                   {section.finalNote && (
                     <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-4 text-white">
-                      <p className="text-sm font-medium">👉 {section.finalNote}</p>
+                      <p className="text-sm font-medium"> {section.finalNote}</p>
                     </div>
                   )}
                 </div>
@@ -1219,7 +1245,7 @@ export default function CompteTitresPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
-              <h2 className="text-[#005C69] text-2xl font-semibold">
+              <h2 className="text-[#253F60] text-2xl font-semibold">
                 {faqContent.title}
           </h2>
               <button 
@@ -1234,11 +1260,8 @@ export default function CompteTitresPage() {
               {faqContent.questions.map((faq, index) => (
                 <div key={index} className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-[#B99066] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                      ❓
-                    </div>
                     <div className="flex-1">
-                      <h3 className="text-[#005C69] text-lg font-semibold mb-3">
+                      <h3 className="text-[#253F60] text-lg font-semibold mb-3">
                         {faq.question}
                       </h3>
                       <p className="text-[#374151] text-sm leading-relaxed">
@@ -1259,7 +1282,7 @@ export default function CompteTitresPage() {
                 </p>
                 <button 
                   onClick={() => setShowFaqModal(false)}
-                  className="bg-white text-[#005C69] px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200"
+                  className="bg-white text-[#253F60] px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200"
                 >
                   Demander un conseil
                 </button>

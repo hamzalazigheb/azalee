@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function AutreFiscalitePage() {
   const [content, setContent] = useState({});
@@ -78,40 +79,57 @@ export default function AutreFiscalitePage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative w-full bg-gradient-to-br from-[#E8F5E8] via-[#D7E8FF] to-[#FFEFD5] py-16 sm:py-20 lg:py-24">
+      <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div>
-              <h1 className="text-[#112033] text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-6">
+              <h1 className="text-2xl sm:text-3xl lg:text-6xl font-cairo font-bold text-white mb-4 sm:mb-6">
                 {content.hero?.title || defaultContent.hero.title}
               </h1>
-              <p className="text-[#686868] text-lg leading-relaxed mb-8">
+              <p className="text-sm sm:text-base lg:text-lg text-white mb-6 sm:mb-8 leading-relaxed">
                 {content.hero?.subtitle || defaultContent.hero.subtitle}
               </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-[#B99066] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-inter font-semibold hover:bg-[#A67A5A] transition-colors text-sm sm:text-base shadow-lg"
+                >
+                  {content.hero?.button || defaultContent.hero.button}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Sujets Section */}
-      <section className="py-12 bg-white">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-            {content.sujets?.title || defaultContent.sujets.title}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <SectionHeader 
+            title={content.sujets?.title || defaultContent.sujets.title}
+            subtitle="Découvrez les différents aspects de la fiscalité française"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {(content.sujets?.items || defaultContent.sujets.items).map((sujet, index) => (
-              <div key={index} className="bg-gradient-to-br from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-6 shadow-lg">
-                <h3 className="text-[#112033] text-lg font-semibold mb-3">{sujet.nom}</h3>
-                <p className="text-[#686868] text-sm mb-4">{sujet.description}</p>
-                <ul className="space-y-2">
-                  {(sujet.details || []).map((detail, idx) => (
-                    <li key={idx} className="text-[#112033] text-sm flex items-center gap-2">
-                      <span className="w-2 h-2 bg-[#4EBBBD] rounded-full"></span>
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
+              <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 4 === 0 || index % 4 === 2 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-tr-full"></div>
+                <div className="relative z-10">
+                  <h3 className="text-white text-2xl font-cairo font-bold mb-3">{sujet.nom}</h3>
+                  <p className="text-white/90 text-base mb-6 leading-relaxed">{sujet.description}</p>
+                  <ul className="space-y-3">
+                    {(sujet.details || []).map((detail, idx) => (
+                      <li key={idx} className="text-white/95 text-sm flex items-start gap-3">
+                        <div className={`w-5 h-5 ${index % 4 === 0 || index % 4 === 2 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
@@ -119,24 +137,38 @@ export default function AutreFiscalitePage() {
       </section>
 
       {/* Optimisations Section */}
-      <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-            {content.optimisations?.title || defaultContent.optimisations.title}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <SectionHeader 
+            title={content.optimisations?.title || defaultContent.optimisations.title}
+            subtitle="Stratégies pour optimiser votre situation fiscale"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {(content.optimisations?.items || defaultContent.optimisations.items).map((optimisation, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-[#112033] text-lg font-semibold mb-3">{optimisation.strategie}</h3>
-                <p className="text-[#686868] text-sm mb-4">{optimisation.description}</p>
-                <ul className="space-y-2">
-                  {(optimisation.avantages || []).map((avantage, idx) => (
-                    <li key={idx} className="text-[#112033] text-sm flex items-center gap-2">
-                      <span className="w-2 h-2 bg-[#4EBBBD] rounded-full"></span>
-                      {avantage}
-                    </li>
-                  ))}
-                </ul>
+              <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'}`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-tr-full"></div>
+                <div className="relative z-10">
+                  <div className="text-center mb-6">
+                    <div className={`w-16 h-16 ${index % 3 === 0 || index % 3 === 2 ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <span className="text-white text-2xl font-bold">{index + 1}</span>
+                    </div>
+                    <h3 className="text-white text-xl font-cairo font-bold mb-2">{optimisation.strategie}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed">{optimisation.description}</p>
+                  </div>
+                  <ul className="space-y-3">
+                    {(optimisation.avantages || []).map((avantage, idx) => (
+                      <li key={idx} className="text-white/95 text-sm flex items-start gap-3">
+                        <div className={`w-5 h-5 ${index % 3 === 0 || index % 3 === 2 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span>{avantage}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
@@ -144,22 +176,33 @@ export default function AutreFiscalitePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[#F2F2F2] to-[#E5E5E5]">
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">
-            <h2 className="text-[#112033] text-2xl lg:text-3xl font-semibold mb-4">
-              {content.cta?.title || defaultContent.cta.title}
-            </h2>
-            <p className="text-[#686868] text-lg mb-8 max-w-3xl mx-auto">
-              {content.cta?.subtitle || defaultContent.cta.subtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-[#4EBBBD] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#3DA8AA] transition-colors duration-200 text-lg">
-                lien manquant
-              </button>
-              <button className="border-2 border-[#4EBBBD] text-[#4EBBBD] px-8 py-4 rounded-lg font-medium hover:bg-[#4EBBBD] hover:text-white transition-colors duration-200 text-lg">
-                lien manquant
-              </button>
+          <div className="relative bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-2xl p-8 sm:p-10 lg:p-12 text-center shadow-2xl overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                {content.cta?.title || defaultContent.cta.title}
+              </h2>
+              <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                {content.cta?.subtitle || defaultContent.cta.subtitle}
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  {content.cta?.primaryButton || defaultContent.cta.primaryButton}
+                </button>
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-white/20 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  {content.cta?.secondaryButton || defaultContent.cta.secondaryButton}
+                </button>
+              </div>
             </div>
           </div>
         </div>

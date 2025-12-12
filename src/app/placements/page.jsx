@@ -606,209 +606,352 @@ export default function PlacementsPage() {
             )}
           </div>
               
-          {/* H3 - Taux et immobilier */}
+          {/* H3 - Taux et immobilier - FAQ Style */}
           {pageContent.section4?.h3_taux && (
-            <div className="mb-12">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-6">
-                {pageContent.section4.h3_taux.title || "Quand les taux montent, la valeur de l'immobilier baisse : pourquoi ?"}
-              </h3>
-              
-              <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                {pageContent.section4.h3_taux.explanation && (
-                  <p dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_taux.explanation) }} />
-                )}
-                {Array.isArray(pageContent.section4.h3_taux.points) && (
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    {pageContent.section4.h3_taux.points.map((point, index) => (
-                      <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
-                    ))}
-                  </ul>
-                )}
-                {pageContent.section4.h3_taux.conclusion && (
-                  <p dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_taux.conclusion) }} />
-                )}
-                {pageContent.section4.h3_taux.note && (
-                  <p className="font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_taux.note) }} />
+            <div className="mb-12 max-w-5xl mx-auto">
+              <div className="bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:border-[#B99066] transition-all duration-300">
+                <button
+                  onClick={() => toggleSection('scpi_taux')}
+                  className="w-full p-6 sm:p-8 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold pr-4">
+                    {pageContent.section4.h3_taux.title || "Quand les taux montent, la valeur de l'immobilier baisse : pourquoi ?"}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-[#B99066] flex-shrink-0 transform transition-transform duration-300 ${
+                      openSections['scpi_taux'] ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openSections['scpi_taux'] && (
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
+                    <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
+                      {pageContent.section4.h3_taux.explanation && (
+                        <p dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_taux.explanation) }} />
+                      )}
+                      {Array.isArray(pageContent.section4.h3_taux.points) && (
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                          {pageContent.section4.h3_taux.points.map((point, index) => (
+                            <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
+                          ))}
+                        </ul>
+                      )}
+                      {Array.isArray(pageContent.section4.h3_taux.paragraphs) && (
+                        <div className="space-y-2 mt-4">
+                          {pageContent.section4.h3_taux.paragraphs.map((paragraph, index) => (
+                            <p key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
+                          ))}
+                        </div>
+                      )}
+                      {pageContent.section4.h3_taux.conclusion && (
+                        <p dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_taux.conclusion) }} />
+                      )}
+                      {pageContent.section4.h3_taux.note && (
+                        <p className="font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_taux.note) }} />
+                      )}
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
           )}
 
-          {/* H3 - Réglementation */}
+          {/* H3 - Réglementation - FAQ Style */}
           {pageContent.section4?.h3_reglementation && (
-            <div className="mb-12">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-6">
-                {pageContent.section4.h3_reglementation.title || "L'impact de la réglementation sur les valorisations depuis 2022"}
-              </h3>
-              
-              <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                {pageContent.section4.h3_reglementation.intro && (
-                  <p dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.intro) }} />
-                )}
-                {pageContent.section4.h3_reglementation.subtitle && (
-                  <p className="font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.subtitle) }} />
-                )}
-                {Array.isArray(pageContent.section4.h3_reglementation.points) && (
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    {pageContent.section4.h3_reglementation.points.map((point, index) => (
-                      <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
-                    ))}
-                  </ul>
-                )}
-                {pageContent.section4.h3_reglementation.highlight && (
-                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 rounded-lg p-6 border-l-4 border-[#B99066] mt-4">
-                    {pageContent.section4.h3_reglementation.highlight.title && (
-                      <p className="font-semibold text-[#253F60]" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.highlight.title) }} />
-                    )}
-                    {pageContent.section4.h3_reglementation.highlight.text && (
-                      <p className="mt-2" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.highlight.text) }} />
-                    )}
+            <div className="mb-12 max-w-5xl mx-auto">
+              <div className="bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:border-[#B99066] transition-all duration-300">
+                <button
+                  onClick={() => toggleSection('scpi_reglementation')}
+                  className="w-full p-6 sm:p-8 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold pr-4">
+                    {pageContent.section4.h3_reglementation.title || "L'impact de la réglementation sur les valorisations depuis 2022"}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-[#B99066] flex-shrink-0 transform transition-transform duration-300 ${
+                      openSections['scpi_reglementation'] ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openSections['scpi_reglementation'] && (
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
+                    <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
+                      {pageContent.section4.h3_reglementation.intro && (
+                        <p dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.intro) }} />
+                      )}
+                      {pageContent.section4.h3_reglementation.subtitle && (
+                        <p className="font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.subtitle) }} />
+                      )}
+                      {Array.isArray(pageContent.section4.h3_reglementation.points) && (
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                          {pageContent.section4.h3_reglementation.points.map((point, index) => (
+                            <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
+                          ))}
+                        </ul>
+                      )}
+                      {pageContent.section4.h3_reglementation.highlight && (
+                        <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 rounded-lg p-6 border-l-4 border-[#B99066] mt-4">
+                          {pageContent.section4.h3_reglementation.highlight.title && (
+                            <p className="font-semibold text-[#253F60]" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.highlight.title) }} />
+                          )}
+                          {pageContent.section4.h3_reglementation.highlight.text && (
+                            <p className="mt-2" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_reglementation.highlight.text) }} />
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           )}
 
-          {/* H3 - Revente gré à gré */}
+          {/* H3 - Revente gré à gré - FAQ Style */}
           {pageContent.section4?.h3_revente && (
-            <div className="mb-12">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-6">
-                {pageContent.section4.h3_revente.title || "Revente de gré à gré : une solution alternative en période d'illiquidité"}
-              </h3>
-              
-              <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                {Array.isArray(pageContent.section4.h3_revente.paragraphs) ? (
-                  pageContent.section4.h3_revente.paragraphs.map((paragraph, index) => (
-                    <p key={index} className={index === 2 ? "font-semibold mt-4" : ""} dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
-                  ))
-                ) : (
-                  <>
-                    <p>
-                      Depuis 2023, de nombreux épargnants se heurtent à un ralentissement du marché secondaire des SCPI, avec des délais de vente allongés.
-                    </p>
-                    <p>Dans ce contexte, la vente de gré à gré revient sur le devant de la scène.</p>
-                    <p>Ce mécanisme consiste à vendre directement ses parts à un autre investisseur, sans passer par le carnet d'ordres officiel de la société de gestion.</p>
-                    <p className="font-semibold mt-4">Elle présente plusieurs avantages :</p>
-                  </>
-                )}
-                {Array.isArray(pageContent.section4.h3_revente.advantages) && (
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    {pageContent.section4.h3_revente.advantages.map((advantage, index) => (
-                      <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(advantage) }} />
-                    ))}
-                  </ul>
-                )}
-                {pageContent.section4.h3_revente.note && (
-                  <p className="mt-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_revente.note) }} />
-                )}
-                {pageContent.section4.h3_revente.highlight && (
-                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 rounded-lg p-6 border-l-4 border-[#B99066] mt-4">
-                    <p className="font-semibold text-[#253F60]" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_revente.highlight) }} />
+            <div className="mb-12 max-w-5xl mx-auto">
+              <div className="bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:border-[#B99066] transition-all duration-300">
+                <button
+                  onClick={() => toggleSection('scpi_revente')}
+                  className="w-full p-6 sm:p-8 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold pr-4">
+                    {pageContent.section4.h3_revente.title || "Revente de gré à gré : une solution alternative en période d'illiquidité"}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-[#B99066] flex-shrink-0 transform transition-transform duration-300 ${
+                      openSections['scpi_revente'] ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openSections['scpi_revente'] && (
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
+                    <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
+                      {Array.isArray(pageContent.section4.h3_revente.paragraphs) ? (
+                        pageContent.section4.h3_revente.paragraphs.map((paragraph, index) => (
+                          <p key={index} className={index === 2 ? "font-semibold mt-4" : ""} dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
+                        ))
+                      ) : (
+                        <>
+                          <p>
+                            Depuis 2023, de nombreux épargnants se heurtent à un ralentissement du marché secondaire des SCPI, avec des délais de vente allongés.
+                          </p>
+                          <p>Dans ce contexte, la vente de gré à gré revient sur le devant de la scène.</p>
+                          <p>Ce mécanisme consiste à vendre directement ses parts à un autre investisseur, sans passer par le carnet d'ordres officiel de la société de gestion.</p>
+                          <p className="font-semibold mt-4">Elle présente plusieurs avantages :</p>
+                        </>
+                      )}
+                      {Array.isArray(pageContent.section4.h3_revente.advantages) && (
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                          {pageContent.section4.h3_revente.advantages.map((advantage, index) => (
+                            <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(advantage) }} />
+                          ))}
+                        </ul>
+                      )}
+                      {pageContent.section4.h3_revente.note && (
+                        <p className="mt-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_revente.note) }} />
+                      )}
+                      {pageContent.section4.h3_revente.highlight && (
+                        <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 rounded-lg p-6 border-l-4 border-[#B99066] mt-4">
+                          <p className="font-semibold text-[#253F60]" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.h3_revente.highlight) }} />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
             </div>
           )}
 
-          {/* H3 - Réinvestir en 2025 */}
+          {/* H3 - Réinvestir en 2025 - FAQ Style */}
           {pageContent.section4?.h3_reinvestir && (
-            <div className="mb-12">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-6">
-                {pageContent.section4.h3_reinvestir.title || "Faut-il revenir sur les SCPI en 2025 ?"}
-              </h3>
-              
-              <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                {Array.isArray(pageContent.section4.h3_reinvestir.paragraphs) ? (
-                  pageContent.section4.h3_reinvestir.paragraphs.map((paragraph, index) => (
-                    <p key={index} className={index === 2 ? "font-semibold" : ""} dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
-                  ))
-                ) : (
-                  <>
-                    <p>
-                      Après plusieurs trimestres d'ajustement, le marché montre des signes de stabilisation.
-                    </p>
-                    <p>
-                      Les taux semblent proches de leur pic, et certaines SCPI commencent déjà à retrouver des opportunités d'achat à prix décoté.
-                    </p>
-                    <p className="font-semibold">
-                      C'est donc une période propice pour réinvestir avec discernement, en privilégiant :
-                    </p>
-                  </>
-                )}
-                {Array.isArray(pageContent.section4.h3_reinvestir.points) && (
-                  <ul className="list-disc list-inside space-y-2 ml-4">
-                    {pageContent.section4.h3_reinvestir.points.map((point, index) => (
-                      <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
-                    ))}
-                  </ul>
+            <div className="mb-12 max-w-5xl mx-auto">
+              <div className="bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:border-[#B99066] transition-all duration-300">
+                <button
+                  onClick={() => toggleSection('scpi_reinvestir')}
+                  className="w-full p-6 sm:p-8 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold pr-4">
+                    {pageContent.section4.h3_reinvestir.title || "Faut-il revenir sur les SCPI en 2025 ?"}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-[#B99066] flex-shrink-0 transform transition-transform duration-300 ${
+                      openSections['scpi_reinvestir'] ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openSections['scpi_reinvestir'] && (
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
+                    <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
+                      {Array.isArray(pageContent.section4.h3_reinvestir.paragraphs) ? (
+                        pageContent.section4.h3_reinvestir.paragraphs.map((paragraph, index) => (
+                          <p key={index} className={index === 2 ? "font-semibold" : ""} dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
+                        ))
+                      ) : (
+                        <>
+                          <p>
+                            Après plusieurs trimestres d'ajustement, le marché montre des signes de stabilisation.
+                          </p>
+                          <p>
+                            Les taux semblent proches de leur pic, et certaines SCPI commencent déjà à retrouver des opportunités d'achat à prix décoté.
+                          </p>
+                          <p className="font-semibold">
+                            C'est donc une période propice pour réinvestir avec discernement, en privilégiant :
+                          </p>
+                        </>
+                      )}
+                      {Array.isArray(pageContent.section4.h3_reinvestir.strategy?.points) && (
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                          {pageContent.section4.h3_reinvestir.strategy.points.map((point, index) => (
+                            <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
+                          ))}
+                        </ul>
+                      )}
+                      {Array.isArray(pageContent.section4.h3_reinvestir.points) && (
+                        <ul className="list-disc list-inside space-y-2 ml-4">
+                          {pageContent.section4.h3_reinvestir.points.map((point, index) => (
+                            <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
           )}
             
-          {/* Encadré pédagogique - Cycle SCPI */}
+          {/* Encadré pédagogique - Cycle SCPI - FAQ Style */}
           {pageContent.section4?.cycle && (
-            <div className="mb-12 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-xl p-8 text-white">
-              {pageContent.section4.cycle.title && (
-                <h3 className="text-2xl font-bold mb-6" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.cycle.title) }} />
-              )}
-              <div className="space-y-4 text-lg">
-                {pageContent.section4.cycle.subtitle && (
-                  <p className="font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.cycle.subtitle) }} />
-                )}
-                {Array.isArray(pageContent.section4.cycle.points) ? (
-                  pageContent.section4.cycle.points.map((point, index) => (
-                    <p key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
-                  ))
-                ) : (
-                  <>
-                    <p>Les SCPI ne sont pas des placements à court terme.</p>
-                    <p>Elles suivent un cycle immobilier de 7 à 10 ans, avec des phases d'expansion, de correction et de stabilisation.</p>
-                  </>
-                )}
-                {Array.isArray(pageContent.section4.cycle.indicators) && (
-                  <div className="mt-4 space-y-2">
-                    {pageContent.section4.cycle.indicators.map((indicator, index) => (
-                      <p key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(indicator) }} />
-                    ))}
+            <div className="mb-12 max-w-5xl mx-auto">
+              <div className="bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:border-[#B99066] transition-all duration-300">
+                <button
+                  onClick={() => toggleSection('scpi_cycle')}
+                  className="w-full p-6 sm:p-8 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold pr-4">
+                    {pageContent.section4.cycle.title || "Comprendre le cycle SCPI"}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-[#B99066] flex-shrink-0 transform transition-transform duration-300 ${
+                      openSections['scpi_cycle'] ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openSections['scpi_cycle'] && (
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
+                    <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-xl p-6 sm:p-8 text-white">
+                      <div className="space-y-4 text-lg">
+                        {pageContent.section4.cycle.subtitle && (
+                          <p className="font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.cycle.subtitle) }} />
+                        )}
+                        {pageContent.section4.cycle.remember && (
+                          <p className="font-semibold text-xl mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.cycle.remember) }} />
+                        )}
+                        {Array.isArray(pageContent.section4.cycle.points) ? (
+                          pageContent.section4.cycle.points.map((point, index) => (
+                            <p key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
+                          ))
+                        ) : (
+                          <>
+                            <p>Les SCPI ne sont pas des placements à court terme.</p>
+                            <p>Elles suivent un cycle immobilier de 7 à 10 ans, avec des phases d'expansion, de correction et de stabilisation.</p>
+                          </>
+                        )}
+                        {Array.isArray(pageContent.section4.cycle.indicators) && (
+                          <div className="mt-4 space-y-2">
+                            {pageContent.section4.cycle.indicators.map((indicator, index) => (
+                              <p key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(indicator) }} />
+                            ))}
+                          </div>
+                        )}
+                        {pageContent.section4.cycle.criteria && (
+                          <>
+                            <p className="mt-4 font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.cycle.criteria.title) }} />
+                            {Array.isArray(pageContent.section4.cycle.criteria.items) && (
+                              <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
+                                {pageContent.section4.cycle.criteria.items.map((item, index) => (
+                                  <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(item) }} />
+                                ))}
+                              </ul>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                )}
-                {pageContent.section4.cycle.criteria && (
-                  <>
-                    <p className="mt-4 font-semibold" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.cycle.criteria.title) }} />
-                    {Array.isArray(pageContent.section4.cycle.criteria.items) && (
-                      <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
-                        {pageContent.section4.cycle.criteria.items.map((item, index) => (
-                          <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(item) }} />
-                        ))}
-                      </ul>
-                    )}
-                  </>
                 )}
               </div>
             </div>
           )}
               
-          {/* Conclusion */}
+          {/* Conclusion - FAQ Style */}
           {pageContent.section4?.conclusion && (
-            <div className="mb-8">
-              {pageContent.section4.conclusion.title && (
-                <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section4.conclusion.title) }} />
-              )}
-              {Array.isArray(pageContent.section4.conclusion.paragraphs) ? (
-                pageContent.section4.conclusion.paragraphs.map((paragraph, index) => (
-                  <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mt-2" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
-                ))
-              ) : (
-                <>
-                  <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                    Les SCPI ne sont pas en déclin, elles se réinventent dans un nouveau cycle économique.
-                  </p>
-                  <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mt-2">
-                    Réinvestir aujourd'hui, c'est profiter de prix ajustés et de rendements potentiellement plus élevés, à condition d'être accompagné par un conseiller indépendant capable de décoder le marché.
-                  </p>
-                </>
-              )}
+            <div className="mb-8 max-w-5xl mx-auto">
+              <div className="bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:border-[#B99066] transition-all duration-300">
+                <button
+                  onClick={() => toggleSection('scpi_conclusion')}
+                  className="w-full p-6 sm:p-8 flex items-center justify-between text-left focus:outline-none"
+                >
+                  <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold pr-4">
+                    {pageContent.section4.conclusion.title || "Conclusion"}
+                  </h3>
+                  <svg
+                    className={`w-6 h-6 text-[#B99066] flex-shrink-0 transform transition-transform duration-300 ${
+                      openSections['scpi_conclusion'] ? 'rotate-180' : ''
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openSections['scpi_conclusion'] && (
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
+                    <div className="space-y-4 text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
+                      {Array.isArray(pageContent.section4.conclusion.paragraphs) ? (
+                        pageContent.section4.conclusion.paragraphs.map((paragraph, index) => (
+                          <p key={index} className="mt-2" dangerouslySetInnerHTML={{ __html: processHTMLForRender(paragraph) }} />
+                        ))
+                      ) : (
+                        <>
+                          <p>
+                            Les SCPI ne sont pas en déclin, elles se réinventent dans un nouveau cycle économique.
+                          </p>
+                          <p className="mt-2">
+                            Réinvestir aujourd'hui, c'est profiter de prix ajustés et de rendements potentiellement plus élevés, à condition d'être accompagné par un conseiller indépendant capable de décoder le marché.
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -835,7 +978,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Faire le point sur mes SCPI actuelles
+ Faire le point sur mes SCPI actuelles
               </a>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -843,7 +986,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Identifier les opportunités 2025 avec un conseiller Azalée
+ Identifier les opportunités 2025 avec un conseiller Azalée
               </a>
             </div>
           )}
@@ -996,7 +1139,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Évaluer la pertinence d'un contrat luxembourgeois
+ Évaluer la pertinence d'un contrat luxembourgeois
               </a>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -1004,7 +1147,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Comparer avec un contrat français haut de gamme
+ Comparer avec un contrat français haut de gamme
               </a>
             </div>
           )}
@@ -1126,7 +1269,7 @@ export default function PlacementsPage() {
                       Le cuivre, considéré comme le "métal de la transition énergétique", attire aussi les investisseurs thématiques.
                     </p>
                     <p className="font-semibold">
-                      👉 Ces métaux peuvent compléter une stratégie de diversification, mais ils n'ont pas le même rôle que l'or : ce sont des actifs de croissance, pas de protection.
+ Ces métaux peuvent compléter une stratégie de diversification, mais ils n'ont pas le même rôle que l'or : ce sont des actifs de croissance, pas de protection.
                     </p>
                   </>
                 )}
@@ -1202,7 +1345,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Faire le point sur ma stratégie de diversification
+ Faire le point sur ma stratégie de diversification
               </a>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -1210,7 +1353,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Déterminer la part optimale d'or dans mon portefeuille
+ Déterminer la part optimale d'or dans mon portefeuille
               </a>
             </div>
           )}
@@ -1294,7 +1437,7 @@ export default function PlacementsPage() {
                       </div>
                     ) : (
                       <div className="bg-gradient-to-r from-gray-50 to-white p-8 rounded-xl border-l-4 border-[#B99066] shadow-md hover:shadow-lg transition-shadow duration-300 mt-4">
-                        <p className="font-semibold text-[#253F60]">👉 Résultat : des contrats capables d'offrir un rendement cible défini à l'avance, tout en limitant les pertes grâce à des mécanismes de protection.</p>
+                        <p className="font-semibold text-[#253F60]"> Résultat : des contrats capables d'offrir un rendement cible défini à l'avance, tout en limitant les pertes grâce à des mécanismes de protection.</p>
                       </div>
                     )}
                     {pageContent.section7?.mi_chemin?.conclusion ? (
@@ -1504,9 +1647,25 @@ export default function PlacementsPage() {
                     )}
                     {Array.isArray(pageContent.section7?.clients?.points) ? (
                       <ul className="list-disc list-inside space-y-2 ml-4">
-                        {pageContent.section7.clients.points.map((point, index) => (
-                          <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(point) }} />
-                        ))}
+                        {pageContent.section7.clients.points
+                          .filter(point => point !== null && point !== undefined)
+                          .map((point, index) => {
+                            // Handle both string and object formats
+                            let pointText = '';
+                            if (typeof point === 'string') {
+                              pointText = point;
+                            } else if (typeof point === 'object') {
+                              pointText = point?.text || point?.content || point?.label || point?.value || '';
+                            }
+                            // Skip if empty or invalid
+                            if (!pointText || pointText.trim() === '') {
+                              return null;
+                            }
+                            return (
+                              <li key={index} dangerouslySetInnerHTML={{ __html: processHTMLForRender(pointText) }} />
+                            );
+                          })
+                          .filter(Boolean)}
                       </ul>
                     ) : (
                       <ul className="list-disc list-inside space-y-2 ml-4">
@@ -1589,7 +1748,7 @@ export default function PlacementsPage() {
               {openSections['consensus'] && (
                 <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
                   <div className="space-y-6 text-[#4B5563] text-lg sm:text-xl font-inter leading-relaxed">
-                    {Array.isArray(pageContent.section7?.consensus?.table) ? (
+                    {Array.isArray(pageContent.section7?.consensus?.table) && pageContent.section7.consensus.table.length > 0 ? (
                       <div className="overflow-x-auto">
                         <table className="w-full bg-white rounded-lg shadow-lg border-collapse">
                           <thead>
@@ -1599,12 +1758,18 @@ export default function PlacementsPage() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-200">
-                            {pageContent.section7.consensus.table.map((row, index) => (
-                              <tr key={index} className={index % 2 === 1 ? "bg-gray-50" : ""}>
-                                <td className="p-4 font-semibold text-[#253F60]">{row.actor}</td>
-                                <td className="p-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(row.benefit) }} />
-                              </tr>
-                            ))}
+                            {pageContent.section7.consensus.table
+                              .filter(row => row && (row.actor || row.acteur) && (row.benefit || row.gain || row.benefice))
+                              .map((row, index) => {
+                                const actor = row.actor || row.acteur || '';
+                                const benefit = row.benefit || row.gain || row.benefice || '';
+                                return (
+                                  <tr key={index} className={index % 2 === 1 ? "bg-gray-50" : ""}>
+                                    <td className="p-4 font-semibold text-[#253F60]">{actor}</td>
+                                    <td className="p-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(benefit) }} />
+                                  </tr>
+                                );
+                              })}
                           </tbody>
                         </table>
                       </div>
@@ -1729,7 +1894,7 @@ export default function PlacementsPage() {
                 href="/placements/produits-structures"
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Découvrir les meilleures opportunités structurées du moment
+ Découvrir les meilleures opportunités structurées du moment
               </Link>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -1737,7 +1902,7 @@ export default function PlacementsPage() {
                 rel="noopener noreferrer"
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
               >
-                👉 Faire le point sur vos placements sécurisés avec un conseiller Azalée
+ Faire le point sur vos placements sécurisés avec un conseiller Azalée
               </a>
             </div>
           )}

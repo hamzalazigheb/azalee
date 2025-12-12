@@ -1,10 +1,48 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 
 export default function BilanPage() {
+  const [patrimoine, setPatrimoine] = useState("");
+  const [situationFamiliale, setSituationFamiliale] = useState("Célibataire");
+  const [age, setAge] = useState("");
+  const [economiesPotentielles, setEconomiesPotentielles] = useState(null);
+  const [calculEffectue, setCalculEffectue] = useState(false);
+
+  const calculerEconomies = () => {
+    if (!patrimoine || !age) {
+      alert("Veuillez remplir tous les champs obligatoires");
+      return;
+    }
+
+    const patrimoineValue = parseFloat(patrimoine.replace(/[^\d.]/g, "")) || 0;
+    const ageValue = parseInt(age) || 0;
+
+    // Calcul basé sur des règles simplifiées
+    let tauxOptimisation = 0.05; // 5% de base
+
+    // Ajustements selon la situation familiale
+    if (situationFamiliale === "Marié(e) avec enfants") {
+      tauxOptimisation = 0.08; // 8% pour famille avec enfants
+    } else if (situationFamiliale === "Marié(e) sans enfants") {
+      tauxOptimisation = 0.06; // 6% pour couple sans enfants
+    }
+
+    // Ajustement selon l'âge (plus on est jeune, plus on peut optimiser)
+    if (ageValue < 40) {
+      tauxOptimisation += 0.02; // +2% si moins de 40 ans
+    } else if (ageValue > 60) {
+      tauxOptimisation -= 0.01; // -1% si plus de 60 ans
+    }
+
+    // Calcul des économies potentielles
+    const economieAnnuelle = patrimoineValue * tauxOptimisation;
+    
+    setEconomiesPotentielles(Math.round(economieAnnuelle));
+    setCalculEffectue(true);
+  };
   const chartData = [
     { label: "Patrimoine moyen analysé", value: "€1,250,000" },
     { label: "Optimisations identifiées", value: "8-12" },
@@ -79,7 +117,10 @@ export default function BilanPage() {
             >
               Réaliser mon bilan
             </button>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+            >
               Télécharger l'exemple
             </button>
           </div>
@@ -88,13 +129,16 @@ export default function BilanPage() {
 
 
       {/* Pourquoi réaliser un bilan patrimonial Section */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Pourquoi réaliser un bilan patrimonial ?
             </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Un <strong>bilan patrimonial</strong> est l'équivalent d'une radiographie complète de votre situation financière, fiscale et familiale.
             </p>
           </div>
@@ -177,8 +221,10 @@ export default function BilanPage() {
                     Valeur de votre patrimoine
                   </label>
                   <input 
-                    type="number" 
+                    type="text" 
                     placeholder="€1,250,000"
+                    value={patrimoine}
+                    onChange={(e) => setPatrimoine(e.target.value)}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent"
                   />
                 </div>
@@ -187,7 +233,11 @@ export default function BilanPage() {
                   <label className="block text-[#686868] text-sm font-medium mb-2">
                     Situation familiale
                   </label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent">
+                  <select 
+                    value={situationFamiliale}
+                    onChange={(e) => setSituationFamiliale(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent"
+                  >
                     <option>Célibataire</option>
                     <option>Marié(e) sans enfants</option>
                     <option>Marié(e) avec enfants</option>
@@ -202,20 +252,39 @@ export default function BilanPage() {
                   <input 
                     type="number" 
                     placeholder="45"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    min="18"
+                    max="100"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent"
                   />
                 </div>
 
-                <button className="w-full bg-[#253F60] text-white py-3 rounded-lg font-medium hover:bg-[#1A2F4A] transition-colors duration-200">
+                <button 
+                  onClick={calculerEconomies}
+                  className="w-full bg-[#253F60] text-white py-3 rounded-lg font-medium hover:bg-[#1A2F4A] transition-colors duration-200"
+                >
                   Estimer mes économies
                 </button>
 
-                <div className="bg-[#F0F9FF] rounded-lg p-4 text-center">
-                  <p className="text-[#686868] text-sm">
-                    <strong>Économies potentielles :</strong><br />
-                    <span className="text-[#253F60] text-xl font-bold">€85,000</span> par an
-                  </p>
-                </div>
+                {calculEffectue && economiesPotentielles !== null ? (
+                  <div className="bg-[#F0F9FF] rounded-lg p-4 text-center border-2 border-[#253F60]">
+                    <p className="text-[#686868] text-sm mb-2">
+                      <strong>Économies potentielles :</strong>
+                    </p>
+                    <p className="text-[#253F60] text-2xl font-bold">
+                      €{economiesPotentielles.toLocaleString('fr-FR')}
+                    </p>
+                    <p className="text-[#686868] text-xs mt-2">par an</p>
+                  </div>
+                ) : (
+                  <div className="bg-[#F0F9FF] rounded-lg p-4 text-center opacity-50">
+                    <p className="text-[#686868] text-sm">
+                      <strong>Économies potentielles :</strong><br />
+                      <span className="text-[#253F60] text-xl font-bold">Remplissez le formulaire</span>
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -364,15 +433,15 @@ export default function BilanPage() {
               </div>
               <div className="space-y-4 relative z-10">
                 <div className="flex items-center gap-3">
-                  <span className="text-yellow-300 text-xl">2</span>
+                  <span className="text-green-300 text-xl">✓</span>
                   <p className="text-sm">Le bilan est facturé <strong>2 500 € HT</strong></p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-yellow-300 text-xl">⏱️</span>
+                  <span className="text-green-300 text-xl">✓</span>
                   <p className="text-sm">Environ <strong>10 heures de travail d'expert</strong></p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-yellow-300 text-xl">📊</span>
+                  <span className="text-green-300 text-xl">✓</span>
                   <p className="text-sm">Collecte des données, analyses, simulations, recommandations</p>
                 </div>
               </div>
@@ -390,15 +459,15 @@ export default function BilanPage() {
               </div>
               <div className="space-y-4 relative z-10">
                 <div className="flex items-center gap-3">
-                  <span className="text-blue-300 text-xl">3</span>
+                  <span className="text-green-300 text-xl">✓</span>
                   <p className="text-sm">Offre premium à <strong>1 800 € HT/an</strong></p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-blue-300 text-xl">👨‍👩‍👧‍👦</span>
+                  <span className="text-green-300 text-xl">✓</span>
                   <p className="text-sm">Suivi patrimonial personnalisé pour l'ensemble des <strong>branches familiales</strong></p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-blue-300 text-xl">🤝</span>
+                  <span className="text-green-300 text-xl">✓</span>
                   <p className="text-sm">Parents, enfants, grands-parents</p>
                 </div>
               </div>

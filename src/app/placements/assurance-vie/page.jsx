@@ -14,7 +14,7 @@ const defaultContent = {
     image: "/images/assurance-vie-hero.jpg"
   },
   enveloppe: {
-    title: "📌 L'assurance-vie comme enveloppe fiscale",
+    title: "L'assurance-vie comme enveloppe fiscale",
     description: "Une assurance-vie n'est pas un placement en soi mais une enveloppe qui peut contenir :",
     contenus: [
       "un fonds en euros sécurisé (capital garanti)",
@@ -23,7 +23,7 @@ const defaultContent = {
     particularite: "La particularité est que cette enveloppe bénéficie d'un régime fiscal spécifique, plus favorable que celui des autres placements financiers."
   },
   fiscalite: {
-    title: "📊 La fiscalité des rachats (retraits)",
+    title: "La fiscalité des rachats (retraits)",
     description: "Lorsque vous retirez de l'argent de votre contrat, seule la part des gains (intérêts, plus-values) est imposée. La fiscalité dépend de deux critères :",
     criteres: [
       "La durée du contrat (moins ou plus de 8 ans)",
@@ -46,7 +46,7 @@ const defaultContent = {
     abattement: "Dans tous les cas : abattement annuel de 4 600€ (9 200€ pour un couple) sur les produits après 8 ans."
   },
   transmission: {
-    title: "👵 Versements avant et après 70 ans : un impact majeur en transmission",
+    title: "Versements avant et après 70 ans : un impact majeur en transmission",
     description: "La fiscalité successorale de l'assurance-vie dépend de l'âge de l'assuré au moment des versements :",
     avant70: {
       title: "Avant 70 ans (article 990 I du CGI)",
@@ -59,7 +59,7 @@ const defaultContent = {
     attention: "Mais attention : les produits (intérêts, plus-values) générés restent exonérés."
   },
   clause: {
-    title: "📜 La clause bénéficiaire : souplesse et liberté",
+    title: "La clause bénéficiaire : souplesse et liberté",
     description: "L'un des atouts majeurs de l'assurance-vie est la clause bénéficiaire : l'épargnant choisit librement qui recevra le capital à son décès.",
     avantages: [
       "Cela peut être le conjoint, les enfants, mais aussi un tiers (ami, concubin, association, etc.)",
@@ -68,7 +68,7 @@ const defaultContent = {
     exemple: "Exemple : une personne désigne son concubin comme bénéficiaire, alors que les enfants n'ont pas encore de droits sur ce capital. Cela en fait un outil puissant dans les familles recomposées."
   },
   jurisprudence: {
-    title: "⚖️ Jurisprudence : primes manifestement exagérées et contentieux familiaux",
+    title: "Jurisprudence : primes manifestement exagérées et contentieux familiaux",
     description: "La liberté offerte par l'assurance-vie peut générer des conflits familiaux. Les héritiers écartés contestent parfois le contrat en invoquant le caractère \"manifestement exagéré\" des primes versées.",
     points: [
       "La jurisprudence apprécie au cas par cas : âge du souscripteur, importance des primes par rapport à son patrimoine global, utilité économique du contrat",
@@ -78,7 +78,7 @@ const defaultContent = {
     resultat: "Résultat : l'assurance-vie n'est pas \"hors succession absolue\", mais elle reste largement protectrice."
   },
   exemple: {
-    title: "💡 Exemple concret",
+    title: "Exemple concret",
     description: "Madame X, 68 ans, verse 200 000€ sur une assurance-vie en 2000. Elle désigne son neveu comme bénéficiaire.",
     points: [
       "Fiscalité : ces versements, faits avant ses 70 ans, bénéficient de l'abattement de 152 500€ pour son neveu",
@@ -87,7 +87,7 @@ const defaultContent = {
     ]
   },
   conseil: {
-    title: "🎯 Conseil Azalée Patrimoine",
+    title: "Conseil Azalée Patrimoine",
     description: "L'assurance-vie est un outil polyvalent : épargne, investissement, optimisation fiscale, transmission. Mais ses subtilités (dates de versements, âge du souscripteur, rédaction de la clause bénéficiaire) en font un produit technique.",
     accompagnement: "Chez Azalée Patrimoine, nous accompagnons nos clients à :",
     services: [
@@ -99,7 +99,7 @@ const defaultContent = {
     conclusion: "L'assurance-vie reste l'outil n°1 de la stratégie patrimoniale. Bien utilisée, elle combine rendement, souplesse et protection successorale."
   },
   cta: {
-    title: "📩 Contactez un conseiller Azalée Patrimoine",
+    title: "Contactez un conseiller Azalée Patrimoine",
     subtitle: "pour auditer vos contrats d'assurance-vie et sécuriser votre transmission familiale",
     email: "contact@azalee-patrimoine.fr",
     primaryButton: "Demander un audit gratuit",
@@ -248,60 +248,87 @@ export default function AssuranceViePage() {
       {/* Enveloppe Section */}
       {activeTab === "enveloppe" && (
         <div className="space-y-12">
-          <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
+          <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-                {content.enveloppe.title}
-              </h2>
-              <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-                {content.enveloppe.description}
-              </p>
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  {content.enveloppe.title}
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  {content.enveloppe.description}
+                </p>
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
                 {content.enveloppe.contenus.map((contenu, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-lg p-6">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
+                  <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                    <div className="relative z-10 flex items-start gap-4">
+                      <div className={`w-12 h-12 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <span className="text-white text-xl font-bold">{index + 1}</span>
                       </div>
-                      <p className="text-[#112033] text-sm font-medium">{contenu}</p>
+                      <p className="text-white text-base font-inter leading-relaxed">{contenu}</p>
                     </div>
                   </div>
                 ))}
               </div>
               
-              <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">{content.enveloppe.particularite}</p>
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 text-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+                <div className="relative z-10 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <p className="text-xl sm:text-2xl font-cairo font-bold">{content.enveloppe.particularite}</p>
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
           {/* Clause Section */}
-          <section className="py-12 bg-white">
+          <section className="py-16 sm:py-20 lg:py-24 bg-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-                {content.clause.title}
-              </h2>
-              <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-                {content.clause.description}
-              </p>
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  {content.clause.title}
+                </h2>
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                  {content.clause.description}
+                </p>
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
                 {content.clause.avantages.map((avantage, index) => (
-                  <div key={index} className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-6">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
+                  <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                    <div className="relative z-10 flex items-start gap-4">
+                      <div className={`w-12 h-12 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <span className="text-white text-xl font-bold">{index + 1}</span>
                       </div>
-                      <p className="text-[#112033] text-sm font-medium">{avantage}</p>
+                      <p className="text-white text-base font-inter leading-relaxed">{avantage}</p>
                     </div>
                   </div>
                 ))}
               </div>
               
-              <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white">
-                <h3 className="text-lg font-semibold mb-4">Exemple concret</h3>
-                <p className="text-sm">{content.clause.exemple}</p>
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 text-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                    <h3 className="text-xl sm:text-2xl font-cairo font-bold">Exemple concret</h3>
+                  </div>
+                  <p className="text-base sm:text-lg leading-relaxed">{content.clause.exemple}</p>
+                </div>
               </div>
             </div>
           </section>
@@ -338,7 +365,7 @@ export default function AssuranceViePage() {
                 <ul className="space-y-2">
                   {content.fiscalite.avant2017.options.map((option, index) => (
                     <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
-                      <span className="w-2 h-2 bg-[#4EBBBD] rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                       {option}
                     </li>
                   ))}
@@ -350,7 +377,7 @@ export default function AssuranceViePage() {
                 <ul className="space-y-2">
                   {content.fiscalite.depuis2017.options.map((option, index) => (
                     <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
-                      <span className="w-2 h-2 bg-[#4EBBBD] rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                       {option}
                     </li>
                   ))}
@@ -359,7 +386,7 @@ export default function AssuranceViePage() {
             </div>
             
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">👉 {content.fiscalite.abattement}</p>
+              <p className="text-lg font-medium">{content.fiscalite.abattement}</p>
             </div>
           </div>
         </section>
@@ -389,7 +416,7 @@ export default function AssuranceViePage() {
             </div>
             
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">👉 {content.transmission.attention}</p>
+              <p className="text-lg font-medium">{content.transmission.attention}</p>
             </div>
           </div>
         </section>
@@ -421,7 +448,7 @@ export default function AssuranceViePage() {
               </div>
               
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">👉 {content.jurisprudence.resultat}</p>
+                <p className="text-lg font-medium">{content.jurisprudence.resultat}</p>
               </div>
             </div>
           </section>
@@ -483,7 +510,7 @@ export default function AssuranceViePage() {
             </div>
             
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">👉 {content.conseil.conclusion}</p>
+              <p className="text-lg font-medium">{content.conseil.conclusion}</p>
             </div>
           </div>
         </section>
@@ -500,7 +527,14 @@ export default function AssuranceViePage() {
               {content.cta.subtitle}
             </p>
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-6 text-white mb-8">
-              <h3 className="text-xl font-semibold mb-3">📧 {content.cta.email}</h3>
+              <h3 className="text-xl font-semibold mb-3">
+                <a 
+                  href={`mailto:${content.cta.email}`}
+                  className="hover:text-[#B99066] transition-colors duration-200 underline decoration-2 underline-offset-4"
+                >
+                  {content.cta.email}
+                </a>
+              </h3>
               <p className="text-sm opacity-90">Audit gratuit de vos contrats d'assurance-vie</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -510,7 +544,7 @@ export default function AssuranceViePage() {
                 rel="noopener noreferrer"
                 className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg"
               >
-                🗓️ {content.cta.primaryButton}
+                {content.cta.primaryButton}
               </a>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -518,7 +552,7 @@ export default function AssuranceViePage() {
                 rel="noopener noreferrer"
                 className="border-2 border-[#253F60] text-[#253F60] px-8 py-4 rounded-lg font-medium hover:bg-[#253F60] hover:text-white transition-colors duration-200 text-lg"
               >
-                📧 {content.cta.secondaryButton}
+                {content.cta.secondaryButton}
               </a>
             </div>
           </div>

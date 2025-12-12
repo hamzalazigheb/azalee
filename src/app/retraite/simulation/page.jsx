@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function SimulateurRetraitePage() {
   return (
@@ -52,7 +53,7 @@ export default function SimulateurRetraitePage() {
       </section>
 
       {/* Section 2: Pourquoi utiliser un simulateur retraite ? */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Pourquoi utiliser un simulateur retraite ?
@@ -126,17 +127,14 @@ export default function SimulateurRetraitePage() {
             </div>
 
             {/* Note importante */}
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-xl">
-              <div className="flex items-start gap-4">
-                <span className="text-2xl">💡</span>
-                <div>
-                  <p className="text-[#4B5563] text-base font-inter leading-relaxed mb-3">
-                    <strong className="text-[#253F60]">En moyenne, un salarié cadre perd entre 30 et 40 % de ses revenus à la retraite.</strong>
-                  </p>
-                  <p className="text-[#4B5563] text-sm font-inter leading-relaxed">
-                    Ce taux de remplacement chute souvent davantage pour les professions libérales, les dirigeants d'entreprise ou les fonctionnaires aux carrières incomplètes.
-                  </p>
-                </div>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-6 rounded-xl">
+              <div>
+                <p className="text-[#4B5563] text-base font-inter leading-relaxed mb-3">
+                  <strong className="text-[#253F60]">En moyenne, un salarié cadre perd entre 30 et 40 % de ses revenus à la retraite.</strong>
+                </p>
+                <p className="text-[#4B5563] text-sm font-inter leading-relaxed">
+                  Ce taux de remplacement chute souvent davantage pour les professions libérales, les dirigeants d'entreprise ou les fonctionnaires aux carrières incomplètes.
+                </p>
               </div>
             </div>
           </div>
@@ -232,20 +230,17 @@ export default function SimulateurRetraitePage() {
               </div>
             </div>
 
-            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded">
-              <div className="flex items-start gap-3">
-                <span className="text-green-600">🌿</span>
-                <p className="text-[#4B5563] text-sm font-inter">
-                  Chez <strong className="text-[#253F60]">Azalée Patrimoine</strong>, nous croisons les résultats de ces simulateurs avec une analyse patrimoniale complète pour déterminer vos besoins de revenus complémentaires.
-                </p>
-              </div>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+              <p className="text-[#4B5563] text-sm font-inter">
+                Chez <strong className="text-[#253F60]">Azalée Patrimoine</strong>, nous croisons les résultats de ces simulateurs avec une analyse patrimoniale complète pour déterminer vos besoins de revenus complémentaires.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section 4: Comprendre votre taux de remplacement */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Comprendre votre taux de remplacement
@@ -295,13 +290,10 @@ export default function SimulateurRetraitePage() {
               </table>
             </div>
 
-            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded mt-8">
-              <div className="flex items-start gap-3">
-                <span className="text-green-600">🌿</span>
-                <p className="text-[#4B5563] text-sm font-inter">
-                  Pour obtenir une "bonne retraite", il est donc essentiel d'évaluer le manque à gagner et de compenser cette différence grâce à l'<Link href="/retraite/independance-financiere" className="text-[#253F60] hover:text-[#B99066] font-bold underline">épargne individuelle</Link>.
-                </p>
-              </div>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded mt-8">
+              <p className="text-[#4B5563] text-sm font-inter">
+                Pour obtenir une "bonne retraite", il est donc essentiel d'évaluer le manque à gagner et de compenser cette différence grâce à l'<Link href="/retraite/independance-financiere" className="text-[#253F60] hover:text-[#B99066] font-bold underline">épargne individuelle</Link>.
+              </p>
             </div>
           </div>
         </div>
@@ -335,17 +327,12 @@ export default function SimulateurRetraitePage() {
                   {/* Cadre salarié */}
                   <tr className="hover:bg-[#F9FAFB] transition-colors">
                     <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center">
-                          <span className="text-white text-lg">💼</span>
-                        </div>
-                        <span className="font-cairo font-bold text-[#253F60]">Cadre salarié</span>
-                      </div>
+                      <span className="font-cairo font-bold text-[#253F60]">Cadre salarié</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">4 000 € nets / mois</td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">2 200 € nets / mois</td>
                     <td className="px-4 py-4">
-                      <span className="bg-[#B99066] text-white font-bold px-3 py-1 rounded-full text-sm">55%</span>
+                      <span className="bg-[#253F60] text-white font-bold px-3 py-1 rounded-full text-sm">55%</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] text-xs font-inter">
                       Retraite de base + complémentaire Arrco-Agirc. Nécessite un PER pour maintenir le niveau de vie.
@@ -354,17 +341,12 @@ export default function SimulateurRetraitePage() {
                   {/* Fonctionnaire */}
                   <tr className="hover:bg-[#F9FAFB] transition-colors">
                     <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center">
-                          <span className="text-white text-lg">🏛️</span>
-                        </div>
-                        <span className="font-cairo font-bold text-[#253F60]">Fonctionnaire</span>
-                      </div>
+                      <span className="font-cairo font-bold text-[#253F60]">Fonctionnaire</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">3 000 € bruts / mois</td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">2 100 € bruts / mois</td>
                     <td className="px-4 py-4">
-                      <span className="bg-green-600 text-white font-bold px-3 py-1 rounded-full text-sm">70%</span>
+                      <span className="bg-[#B99066] text-white font-bold px-3 py-1 rounded-full text-sm">70%</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] text-xs font-inter">
                       Pension calculée sur le dernier traitement, hors primes. Un plan Préfon Retraite peut combler l'écart.
@@ -373,17 +355,12 @@ export default function SimulateurRetraitePage() {
                   {/* Indépendant / Profession libérale */}
                   <tr className="hover:bg-[#F9FAFB] transition-colors">
                     <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center">
-                          <span className="text-white text-lg">🔧</span>
-                        </div>
-                        <span className="font-cairo font-bold text-[#253F60]">Indépendant / Profession libérale</span>
-                      </div>
+                      <span className="font-cairo font-bold text-[#253F60]">Indépendant / Profession libérale</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">5 000 € nets / mois</td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">2 000 € nets / mois</td>
                     <td className="px-4 py-4">
-                      <span className="bg-red-500 text-white font-bold px-3 py-1 rounded-full text-sm">40%</span>
+                      <span className="bg-[#253F60] text-white font-bold px-3 py-1 rounded-full text-sm">40%</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] text-xs font-inter">
                       Retraite Madelin ou PER à privilégier pour compenser le faible régime de base.
@@ -392,17 +369,12 @@ export default function SimulateurRetraitePage() {
                   {/* Militaire */}
                   <tr className="hover:bg-[#F9FAFB] transition-colors">
                     <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center">
-                          <span className="text-white text-lg">🛡️</span>
-                        </div>
-                        <span className="font-cairo font-bold text-[#253F60]">Militaire</span>
-                      </div>
+                      <span className="font-cairo font-bold text-[#253F60]">Militaire</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">3 500 € nets / mois</td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">2 700 € nets / mois</td>
                     <td className="px-4 py-4">
-                      <span className="bg-green-600 text-white font-bold px-3 py-1 rounded-full text-sm">75%</span>
+                      <span className="bg-[#B99066] text-white font-bold px-3 py-1 rounded-full text-sm">75%</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] text-xs font-inter">
                       Bonifications avantageuses, mais départ anticipé à compléter par un PER ou immobilier locatif.
@@ -411,12 +383,7 @@ export default function SimulateurRetraitePage() {
                   {/* Ministre / Haut fonctionnaire */}
                   <tr className="hover:bg-[#F9FAFB] transition-colors">
                     <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center">
-                          <span className="text-white text-lg">🏛️</span>
-                        </div>
-                        <span className="font-cairo font-bold text-[#253F60]">Ministre / Haut fonctionnaire</span>
-                      </div>
+                      <span className="font-cairo font-bold text-[#253F60]">Ministre / Haut fonctionnaire</span>
                     </td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">10 000 € nets / mois</td>
                     <td className="px-4 py-4 text-[#4B5563] font-inter font-semibold">6 500 € nets / mois</td>
@@ -433,7 +400,7 @@ export default function SimulateurRetraitePage() {
 
             {/* Lecture Azalée Patrimoine */}
             <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-xl p-6 mt-8 text-white">
-              <h3 className="font-cairo font-bold mb-4 text-lg">📊 Lecture Azalée Patrimoine</h3>
+              <h3 className="font-cairo font-bold mb-4 text-lg">Lecture Azalée Patrimoine</h3>
               <p className="font-inter leading-relaxed text-white/90 text-sm">
                 Le taux de remplacement dépend du statut, du niveau de revenu et de la durée de cotisation. Pour obtenir une bonne retraite, il faut compléter les régimes obligatoires par une épargne retraite adaptée (PER, Préfon, PERCO, contrat Madelin).
               </p>
@@ -441,7 +408,7 @@ export default function SimulateurRetraitePage() {
 
             {/* Notre conseil */}
             <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 mt-6 text-white text-center">
-              <h3 className="font-cairo font-bold mb-4 text-lg">💡 Notre conseil</h3>
+              <h3 className="font-cairo font-bold mb-4 text-lg">Notre conseil</h3>
               <p className="font-inter leading-relaxed mb-4 text-white/90">
                 Simulez votre retraite, estimez votre manque à gagner et construisez votre plan avec un conseiller Azalée.
               </p>
@@ -451,7 +418,7 @@ export default function SimulateurRetraitePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-white text-[#253F60] px-6 py-3 rounded-lg font-inter font-bold hover:bg-[#F9FAFB] transition-colors"
               >
-                📞 Prendre rendez-vous avec un conseiller Azalée Patrimoine
+                Prendre rendez-vous avec un conseiller Azalée Patrimoine
               </a>
             </div>
           </div>
@@ -481,7 +448,7 @@ export default function SimulateurRetraitePage() {
                 Vous pouvez également transférer vos anciens contrats (PERCO, Madelin, PERP).
               </p>
               <Link href="/placements/per" className="text-[#B99066] hover:text-[#D4A574] font-inter font-bold underline transition-colors">
-                🔗 Découvrir le PER individuel
+                Découvrir le PER individuel
               </Link>
             </div>
 
@@ -497,7 +464,7 @@ export default function SimulateurRetraitePage() {
                 Ces dispositifs permettent d'améliorer une pension qui peut parfois être limitée, notamment en cas de carrière hachée ou de congés parentaux.
               </p>
               <Link href="/retraite/plan-retraite" className="text-[#B99066] hover:text-[#D4A574] font-inter font-bold underline transition-colors">
-                📎 En savoir plus sur la retraite des fonctionnaires
+                En savoir plus sur la retraite des fonctionnaires
               </Link>
             </div>
 
@@ -536,13 +503,10 @@ export default function SimulateurRetraitePage() {
                   <span className="text-[#4B5563] text-base font-inter">Chômage et cotisation retraite si la transition est différée.</span>
                 </li>
               </ul>
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl">💡</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    Une bonne stratégie consiste souvent à réinvestir tout ou partie de ces sommes dans un plan d'épargne retraite, afin de réduire la fiscalité et d'augmenter vos revenus futurs.
-                  </p>
-                </div>
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+                <p className="text-[#4B5563] text-sm font-inter">
+                  Une bonne stratégie consiste souvent à réinvestir tout ou partie de ces sommes dans un plan d'épargne retraite, afin de réduire la fiscalité et d'augmenter vos revenus futurs.
+                </p>
               </div>
             </div>
           </div>
@@ -550,7 +514,7 @@ export default function SimulateurRetraitePage() {
       </section>
 
       {/* Section 6: Anticiper la fiscalité à la retraite */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Anticiper la fiscalité à la retraite
@@ -619,7 +583,7 @@ export default function SimulateurRetraitePage() {
 
             <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-8 text-white text-center">
               <p className="text-xl sm:text-2xl font-cairo font-bold italic">
-                🌸 Notre mission : transformer vos revenus en patrimoine et votre patrimoine en liberté.
+                Notre mission : transformer vos revenus en patrimoine et votre patrimoine en liberté.
               </p>
             </div>
           </div>
@@ -634,7 +598,7 @@ export default function SimulateurRetraitePage() {
               Simulez votre retraite avec un expert
             </h2>
             <p className="text-[#4B5563] text-base sm:text-lg font-inter mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-              📄 Vous souhaitez connaître votre <strong className="text-[#253F60]">pension estimée, le manque à gagner à compenser ou le montant optimal à verser sur votre PER ?</strong>
+              Vous souhaitez connaître votre <strong className="text-[#253F60]">pension estimée, le manque à gagner à compenser ou le montant optimal à verser sur votre PER ?</strong>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
               <a
@@ -643,7 +607,7 @@ export default function SimulateurRetraitePage() {
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full sm:w-auto"
               >
-                📅 Prenez rendez-vous avec un conseiller Azalée Patrimoine
+                Prenez rendez-vous avec un conseiller Azalée Patrimoine
               </a>
             </div>
             <div className="border-t border-gray-200 pt-6 mt-6">
@@ -651,7 +615,7 @@ export default function SimulateurRetraitePage() {
                 href="mailto:contact@azalee-patrimoine.fr"
                 className="text-[#253F60] hover:text-[#B99066] font-inter font-semibold text-base sm:text-lg transition-colors"
               >
-                📧 contact@azalee-patrimoine.fr
+                contact@azalee-patrimoine.fr
               </a>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-200">

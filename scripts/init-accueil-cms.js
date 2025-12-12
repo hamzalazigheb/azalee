@@ -97,7 +97,7 @@ const accueilContent = {
     ],
     investment: {
       investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
-      investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n👉 Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
+      investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
       investmentButton: 'Vous avez des questions, nous avons des réponses',
       investmentImage1: '/images/img_image_1222.png',
       investmentImage2: '/images/img_image_1220.png',
@@ -141,12 +141,12 @@ const accueilContent = {
       ]
     },
     partners: [
-      '/images/selencia.svg',
-      '/images/cardif-logo.svg',
-      '/images/SL-Logo-svg.svg',
-      '/images/vieplus.svg',
-      '/images/intencial-1.png',
-      '/images/img_header_logo.png'
+      { image: '/images/selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
+      { image: '/images/cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
+      { image: '/images/SL-Logo-svg.svg', website: '#', name: 'SL' },
+      { image: '/images/vieplus.svg', website: '#', name: 'Vie Plus' },
+      { image: '/images/intencial-1.png', website: '#', name: 'Intencial' },
+      { image: '/images/img_header_logo.png', website: '#', name: 'Partenaire' }
     ],
     finalCta: {
       finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',

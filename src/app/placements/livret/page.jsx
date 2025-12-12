@@ -22,7 +22,7 @@ export default function LivretPage() {
               </p>
               <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
                 <p className="text-white text-sm font-inter">
-                  👉 Mais derrière cette sécurité se cache une réalité : leur <strong>rendement réel est très faible</strong>, et ils ne permettent pas de protéger efficacement son patrimoine face à l'<strong>inflation</strong>.
+ Mais derrière cette sécurité se cache une réalité : leur <strong>rendement réel est très faible</strong>, et ils ne permettent pas de protéger efficacement son patrimoine face à l'<strong>inflation</strong>.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -315,8 +315,7 @@ export default function LivretPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Avantages */}
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-green-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8 flex items-center gap-3">
-                <span className="text-green-500 text-3xl">✅</span>
+              <h3 className="text-[#112033] text-xl font-semibold mb-8">
                 Les avantages
               </h3>
               
@@ -381,8 +380,7 @@ export default function LivretPage() {
 
             {/* Limites */}
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-red-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8 flex items-center gap-3">
-                <span className="text-red-500 text-3xl">⚠️</span>
+              <h3 className="text-[#112033] text-xl font-semibold mb-8">
                 Les limites
               </h3>
               
@@ -482,12 +480,11 @@ export default function LivretPage() {
             </div>
             
             <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
-              <h4 className="text-[#112033] text-lg font-semibold mb-3 flex items-center gap-2">
-                <span className="text-red-500 text-xl">⚠️</span>
+              <h4 className="text-[#112033] text-lg font-semibold mb-3">
                 Résultat dramatique
               </h4>
               <p className="text-[#686868] mb-2">
-                ➡️ Après 10 ans :
+                Après 10 ans :
               </p>
               <ul className="text-[#686868] space-y-1 ml-4">
                 <li>• Capital sur Livret A : <strong>134 392 €</strong></li>
@@ -495,7 +492,7 @@ export default function LivretPage() {
               </ul>
               <div className="mt-4 bg-red-100 p-4 rounded-lg">
                 <p className="text-[#112033] font-semibold text-center">
-                  👉 Résultat : vous perdez <strong>près de 10 % de pouvoir d'achat</strong>, malgré un placement "sécurisé".
+ Résultat : vous perdez <strong>près de 10 % de pouvoir d'achat</strong>, malgré un placement "sécurisé".
                 </p>
               </div>
             </div>
@@ -521,16 +518,12 @@ export default function LivretPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Utiles pour */}
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-green-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-6 flex items-center gap-3">
-                <span className="text-green-500 text-2xl">✅</span>
+              <h3 className="text-[#112033] text-xl font-semibold mb-6">
                 Les livrets réglementés sont utiles pour :
               </h3>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">1</span>
-                  </div>
                   <div>
                     <h4 className="text-[#112033] font-semibold mb-2">
                       Constituer une épargne de précaution
@@ -542,9 +535,6 @@ export default function LivretPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">2</span>
-                  </div>
                   <div>
                     <h4 className="text-[#112033] font-semibold mb-2">
                       Sécuriser un fonds disponible
@@ -556,9 +546,6 @@ export default function LivretPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">3</span>
-                  </div>
                   <div>
                     <h4 className="text-[#112033] font-semibold mb-2">
                       Bénéficier d'une petite rémunération
@@ -639,7 +626,7 @@ export default function LivretPage() {
             
             <div className="bg-[#E8F4F8] border-l-4 border-[#253F60] p-6 rounded-r-lg mb-8">
               <p className="text-[#112033] text-lg font-semibold text-center">
-                👉 Mais en tant que placement à long terme, ils sont insuffisants. L'inflation érode le pouvoir d'achat du capital, et un épargnant qui se contente de livrets voit sa richesse <strong>fondre en valeur réelle</strong>.
+ Mais en tant que placement à long terme, ils sont insuffisants. L'inflation érode le pouvoir d'achat du capital, et un épargnant qui se contente de livrets voit sa richesse <strong>fondre en valeur réelle</strong>.
               </p>
             </div>
 

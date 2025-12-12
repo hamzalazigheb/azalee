@@ -141,7 +141,7 @@ export default function InvestissementImmobilierRentablePage() {
                       Exemple : Transition Europe, Comète ou Sofidynamic figurent parmi les SCPI les plus performantes et transparentes.
                     </p>
                     <p className="mt-2 text-sm font-inter text-[#B99066] font-semibold">
-                      👉 Idéal pour les épargnants souhaitant un investissement immobilier rentable et passif.
+ Idéal pour les épargnants souhaitant un investissement immobilier rentable et passif.
                     </p>
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export default function InvestissementImmobilierRentablePage() {
                   La rentabilité d'un placement immobilier dépend avant tout de la cohérence entre les leviers : Immobilier locatif pour créer du capital. SCPI pour la régularité du revenu. Assurance vie immobilière pour la fiscalité et la transmission. Crédit pour accélérer la constitution du patrimoine.
                 </p>
                 <div className="bg-white rounded-xl p-6 border-2 border-[#E5E7EB] shadow-lg">
-                  <p className="text-base font-inter text-[#253F60] font-semibold mb-2">👉 Exemple concret :</p>
+                  <p className="text-base font-inter text-[#253F60] font-semibold mb-2"> Exemple concret :</p>
                   <p className="text-base font-inter text-[#374151]">
                     Un couple investit 150 000 € en SCPI via assurance vie + 200 000 € en LMNP à crédit. Résultat : revenus réguliers, fiscalité optimisée et valorisation patrimoniale à long terme.
                   </p>
@@ -325,13 +325,13 @@ export default function InvestissementImmobilierRentablePage() {
                   onClick={() => alert('Téléchargement du guide')}
                   className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
                 >
-                  👉 Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
+ Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
                 </button>
                 <button 
                   onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                   className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
                 >
-                  👉 Prenez rendez-vous avec un conseiller Azalée Patrimoine
+ Prenez rendez-vous avec un conseiller Azalée Patrimoine
                 </button>
               </div>
             </div>

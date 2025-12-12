@@ -1356,7 +1356,7 @@ export default function PatrimoinePage() {
                     </svg>
                   </div>
                   <h3 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                    {content.localisation?.cardTitle || "Disponible en toute la France"}
+                    {content.localisation?.cardTitle || "Disponible partout en France"}
                   </h3>
                   <p className="text-white/90 text-lg sm:text-xl font-inter leading-relaxed mb-8">
                     {content.localisation?.cardDescription || "Nos conseillers en gestion de patrimoine sont présents partout en France pour vous accompagner dans votre projet patrimonial, où que vous soyez."}

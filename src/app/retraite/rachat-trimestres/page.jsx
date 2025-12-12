@@ -66,11 +66,19 @@ export default function RachatTrimestresPage() {
       </section>
 
       {/* Section 2: Pourquoi envisager un rachat ? */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Pourquoi envisager un rachat ?
-          </h2>
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+              Pourquoi envisager un rachat ?
+            </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+              Les situations qui justifient cette démarche
+            </p>
+          </div>
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20 mb-8">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -143,10 +151,10 @@ export default function RachatTrimestresPage() {
               </div>
             </div>
 
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-xl">
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-6 rounded-xl">
               <div className="flex items-start gap-4">
-                <svg className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                <svg className="w-6 h-6 text-[#B99066] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
                 <div>
                   <h3 className="text-[#253F60] font-cairo font-bold mb-2">Important : Simulation obligatoire</h3>
@@ -175,7 +183,9 @@ export default function RachatTrimestresPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white text-center">
                 <div className="w-16 h-16 bg-[#B99066]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">📅</span>
+                  <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
                 </div>
                 <h3 className="font-cairo font-bold mb-2">Votre âge</h3>
                 <p className="text-sm font-inter text-white/90">
@@ -185,7 +195,9 @@ export default function RachatTrimestresPage() {
 
               <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white text-center">
                 <div className="w-16 h-16 bg-[#B99066]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">💰</span>
+                  <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
                 <h3 className="font-cairo font-bold mb-2">Vos revenus</h3>
                 <p className="text-sm font-inter text-white/90">
@@ -195,7 +207,10 @@ export default function RachatTrimestresPage() {
 
               <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white text-center">
                 <div className="w-16 h-16 bg-[#B99066]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">⚙️</span>
+                  <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
                 </div>
                 <h3 className="font-cairo font-bold mb-2">L'option choisie</h3>
                 <p className="text-sm font-inter text-white/90">
@@ -297,7 +312,7 @@ export default function RachatTrimestresPage() {
                   <p className="text-xs text-[#6B7280]">Coût approximatif pour 1 trimestre</p>
                 </div>
               </div>
-              <div className="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+              <div className="mt-6 bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
                 <p className="text-sm text-[#4B5563] font-inter italic">
                   Ces montants peuvent paraître élevés, d'où l'importance de la simulation.
                 </p>
@@ -308,20 +323,20 @@ export default function RachatTrimestresPage() {
       </section>
 
       {/* Section 4: Rentabilité & fiscalité */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Rentabilité & fiscalité
           </h2>
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20 mb-8">
-            <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-xl mb-6">
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-6 rounded-xl mb-6">
               <p className="text-[#4B5563] text-base font-inter leading-relaxed">
                 Le montant versé pour un rachat de trimestres est <strong className="text-[#253F60]">déductible de vos revenus imposables sans plafond spécifique</strong> (dans la limite de l'intérêt fiscal) : cela en fait une opportunité pour les contribuables ayant une tranche d'imposition élevée.
               </p>
             </div>
 
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-xl">
+            <div className="bg-[#F9FAFB] border-l-4 border-[#253F60] p-6 rounded-xl">
               <h3 className="text-[#253F60] font-cairo font-bold mb-4">Toutefois :</h3>
               <ul className="space-y-4 text-[#4B5563] text-base font-inter">
                 <li className="flex items-start gap-3">
@@ -399,15 +414,15 @@ export default function RachatTrimestresPage() {
                 </div>
               </div>
 
-              <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-xl">
+              <div className="bg-[#F9FAFB] border-l-4 border-[#253F60] p-6 rounded-xl">
                 <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  <svg className="w-6 h-6 text-[#253F60] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                   <div>
-                    <h3 className="text-red-600 font-cairo font-bold mb-2">Opération irréversible</h3>
+                    <h3 className="text-[#253F60] font-cairo font-bold mb-2">Opération irréversible</h3>
                     <p className="text-[#4B5563] text-base font-inter leading-relaxed">
-                      Une fois le paiement effectué, l'opération est <strong className="text-red-600">irréversible</strong>. Il est donc essentiel de bien réfléchir et de simuler avant de s'engager.
+                      Une fois le paiement effectué, l'opération est <strong className="text-[#253F60]">irréversible</strong>. Il est donc essentiel de bien réfléchir et de simuler avant de s'engager.
                     </p>
                   </div>
                 </div>
@@ -418,7 +433,7 @@ export default function RachatTrimestresPage() {
       </section>
 
       {/* Section 6: À quel moment envisager un rachat ? */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             À quel moment envisager un rachat ?
@@ -434,7 +449,7 @@ export default function RachatTrimestresPage() {
               <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#B99066]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">1️⃣</span>
+                    <span className="text-white font-cairo font-bold text-xl">1</span>
                   </div>
                   <div>
                     <h3 className="font-cairo font-bold mb-3 text-lg">Si vous manquez plusieurs trimestres et êtes jeune</h3>
@@ -446,10 +461,10 @@ export default function RachatTrimestresPage() {
               </div>
 
               {/* Règle 2 */}
-              <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white">
+              <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-white">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">2️⃣</span>
+                    <span className="text-white font-cairo font-bold text-xl">2</span>
                   </div>
                   <div>
                     <h3 className="font-cairo font-bold mb-3 text-lg">Si vous prévoyez un départ anticipé</h3>
@@ -463,8 +478,8 @@ export default function RachatTrimestresPage() {
               {/* Règle 3 */}
               <div className="bg-[#F9FAFB] rounded-xl p-6 border-2 border-[#E5E7EB]">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">3️⃣</span>
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-cairo font-bold text-xl">3</span>
                   </div>
                   <div>
                     <h3 className="text-[#253F60] font-cairo font-bold mb-3 text-lg">Si vous êtes proche de l'âge légal</h3>
@@ -479,7 +494,7 @@ export default function RachatTrimestresPage() {
               <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#B99066]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">4️⃣</span>
+                    <span className="text-white font-cairo font-bold text-xl">4</span>
                   </div>
                   <div>
                     <h3 className="font-cairo font-bold mb-3 text-lg">En cas de changement professionnel</h3>
@@ -549,7 +564,7 @@ export default function RachatTrimestresPage() {
       </section>
 
       {/* Section 8: En résumé */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             En résumé
@@ -585,12 +600,17 @@ export default function RachatTrimestresPage() {
               Dans une stratégie globale de retraite (comme celle que vous construisez avec Azalée Patrimoine), il peut intervenir comme un complément intéressant — mais toujours comme élément intégré à un plan patrimonial plus large (placements, fiscalité, revenus passifs…).
             </p>
 
-            <div className="mt-8 bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-center">
+            <div className="mt-8 bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-center">
               <p className="text-white text-base sm:text-lg font-inter mb-4">
-                👉 Pour un bilan complet de votre situation et une simulation personnalisée,{' '}
-                <Link href="/contact" className="text-white font-bold underline hover:text-[#253F60] transition-colors">
+                Pour un bilan complet de votre situation et une simulation personnalisée,{' '}
+                <a 
+                  href="https://calendly.com/rdv-azalee-patrimoine/30min" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white font-bold underline hover:text-[#253F60] transition-colors"
+                >
                   contactez-nous
-                </Link>
+                </a>
                 .
               </p>
             </div>
@@ -639,9 +659,9 @@ export default function RachatTrimestresPage() {
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4">
                 Ce décalage devient encore plus flagrant lorsque l'on aborde la question de la réversion : en cas de décès du conjoint le mieux rémunéré, la pension reversée n'est ni automatique ni intégrale, et son montant dépend du régime d'affiliation, des ressources et de la situation maritale.
               </p>
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded mt-6">
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded mt-6">
                 <p className="text-[#4B5563] text-base font-inter">
-                  👉 Ce déséquilibre peut donc fragiliser la sécurité financière du conjoint survivant.
+                  Ce déséquilibre peut donc fragiliser la sécurité financière du conjoint survivant.
                 </p>
               </div>
             </div>
@@ -770,9 +790,9 @@ export default function RachatTrimestresPage() {
                   </div>
                 </div>
               </div>
-              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+              <div className="bg-[#F9FAFB] border-l-4 border-[#253F60] p-4 rounded">
                 <p className="text-[#4B5563] text-base font-inter">
-                  ➡️ Ce choix permet de corriger le déséquilibre de pension entre les deux époux, tout en optimisant la fiscalité du couple dès aujourd'hui.
+                  Ce choix permet de corriger le déséquilibre de pension entre les deux époux, tout en optimisant la fiscalité du couple dès aujourd'hui.
                 </p>
               </div>
             </div>
@@ -840,22 +860,22 @@ export default function RachatTrimestresPage() {
               </ul>
               <div className="bg-[#B99066]/20 rounded-xl p-6 mt-6 border border-[#B99066]/30">
                 <p className="text-white font-cairo font-bold text-lg italic text-center">
-                  💬 Notre mission : transformer vos revenus en patrimoine, et votre patrimoine en liberté — pour vous deux.
+                  Notre mission : transformer vos revenus en patrimoine, et votre patrimoine en liberté — pour vous deux.
                 </p>
               </div>
             </div>
           </div>
 
           {/* CTA Prendre rendez-vous */}
-          <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl shadow-2xl p-8 sm:p-10 text-center">
+          <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl shadow-2xl p-8 sm:p-10 text-center">
             <h3 className="text-white text-2xl sm:text-3xl font-cairo font-bold mb-4">
-              📞 Prendre rendez-vous
+              Prendre rendez-vous
             </h3>
             <p className="text-white/90 text-base sm:text-lg font-inter mb-6">
-              🎯 Vous souhaitez évaluer le niveau de retraite futur de votre couple et optimiser vos versements PER ?
+              Vous souhaitez évaluer le niveau de retraite futur de votre couple et optimiser vos versements PER ?
             </p>
             <p className="text-white text-lg sm:text-xl font-inter font-bold mb-6">
-              👉 Prenez rendez-vous avec un conseiller Azalée Patrimoine
+              Prenez rendez-vous avec un conseiller Azalée Patrimoine
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a
@@ -870,7 +890,7 @@ export default function RachatTrimestresPage() {
                 href="mailto:contact@azalee-patrimoine.fr"
                 className="bg-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:bg-[#1a2d47] w-full sm:w-auto"
               >
-                📧 contact@azalee-patrimoine.fr
+                contact@azalee-patrimoine.fr
               </a>
             </div>
           </div>

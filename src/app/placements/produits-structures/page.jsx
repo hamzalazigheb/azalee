@@ -210,7 +210,7 @@ export default function ProduitsStructuresPage() {
                 </div>
               </div>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mt-4">
-                <span className="font-semibold">👉 Objectif :</span> générer des revenus réguliers avec protection conditionnelle du capital.
+                <span className="font-semibold"> Objectif :</span> générer des revenus réguliers avec protection conditionnelle du capital.
               </p>
             </div>
 
@@ -225,7 +225,7 @@ export default function ProduitsStructuresPage() {
                 <li>Mais un rendement cumulé si la condition est respectée à une date donnée.</li>
               </ul>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                <span className="font-semibold">👉 Objectif :</span> viser un rendement optimisé pour un horizon défini, sans distribution intermédiaire.
+                <span className="font-semibold"> Objectif :</span> viser un rendement optimisé pour un horizon défini, sans distribution intermédiaire.
               </p>
             </div>
 
@@ -240,7 +240,7 @@ export default function ProduitsStructuresPage() {
                 <p className="text-[#4B5563] text-sm">Si après 2 ans, l'indice EuroStoxx 50 est supérieur à son niveau initial, le produit est remboursé avec un gain de +12 %.</p>
               </div>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                <span className="font-semibold">👉 Objectif :</span> verrouiller le gain dès qu'une performance cible est atteinte, sans attendre la maturité.
+                <span className="font-semibold"> Objectif :</span> verrouiller le gain dès qu'une performance cible est atteinte, sans attendre la maturité.
               </p>
             </div>
 
@@ -262,7 +262,7 @@ export default function ProduitsStructuresPage() {
                 <li>ou des rendements croissants si les taux montent / baissent selon le scénario.</li>
               </ul>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                <span className="font-semibold">👉 Objectif :</span> profiter des cycles de taux d'intérêt sans passer par le marché actions.
+                <span className="font-semibold"> Objectif :</span> profiter des cycles de taux d'intérêt sans passer par le marché actions.
               </p>
             </div>
           </div>
@@ -672,7 +672,7 @@ export default function ProduitsStructuresPage() {
               rel="noopener noreferrer"
               className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
             >
-              👉 Prendre rendez-vous avec un conseiller Azalée
+ Prendre rendez-vous avec un conseiller Azalée
             </a>
             <Link
               href="/placements"

@@ -118,11 +118,11 @@ export default function NosCourtiersPage() {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">👉</span>
+                    <span className="text-[#4EBBBD] text-xl"></span>
                     <span><strong className="text-[#112033]">Pas de frais cachés.</strong></span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">👉</span>
+                    <span className="text-[#4EBBBD] text-xl"></span>
                     <span><strong className="text-[#112033]">Une totale visibilité</strong> sur notre valeur ajoutée.</span>
                   </div>
                 </div>

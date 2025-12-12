@@ -6,28 +6,28 @@ import Footer from '../../../components/common/Footer';
 export default function CalculatriceImpotsPage() {
   const [activeTab, setActiveTab] = useState('revenus');
   const [revenus, setRevenus] = useState({
-    salaires: 0,
-    pensions: 0,
-    fonciers: 0,
-    capitaux: 0
+    salaires: '',
+    pensions: '',
+    fonciers: '',
+    capitaux: ''
   });
   const [charges, setCharges] = useState({
-    per: 0,
-    pensionsAlimentaires: 0,
-    csg: 0,
-    fraisAccueil: 0
+    per: '',
+    pensionsAlimentaires: '',
+    csg: '',
+    fraisAccueil: ''
   });
   const [reductions, setReductions] = useState({
-    dons: 0,
-    investissements: 0
+    dons: '',
+    investissements: ''
   });
   const [patrimoine, setPatrimoine] = useState({
-    biensImmo: 0,
-    partsSCI: 0,
-    partsSCPI: 0,
-    partsOPCI: 0,
-    usufruits: 0,
-    dettes: 0
+    biensImmo: '',
+    partsSCI: '',
+    partsSCPI: '',
+    partsOPCI: '',
+    usufruits: '',
+    dettes: ''
   });
   const [partsFiscales, setPartsFiscales] = useState(1);
   const [resultats, setResultats] = useState({
@@ -41,10 +41,30 @@ export default function CalculatriceImpotsPage() {
   const [showResults, setShowResults] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
+  // Helper function to handle number input and replace zero
+  const handleNumberChange = (value, setter, state, key) => {
+    // If the field is empty or the value is empty, allow it
+    if (value === '') {
+      setter({ ...state, [key]: '' });
+      return;
+    }
+    
+    // Remove leading zeros (except if the value is just "0")
+    let cleanValue = value;
+    if (cleanValue.startsWith('0') && cleanValue.length > 1 && cleanValue !== '0') {
+      cleanValue = cleanValue.replace(/^0+/, '') || '0';
+    }
+    
+    const numValue = Number(cleanValue);
+    if (!isNaN(numValue) && numValue >= 0) {
+      setter({ ...state, [key]: numValue });
+    }
+  };
+
   const calculateTax = () => {
-    const revenuBrut = Object.values(revenus).reduce((sum, val) => sum + val, 0);
-    const totalCharges = Object.values(charges).reduce((sum, val) => sum + val, 0);
-    const totalReductions = Object.values(reductions).reduce((sum, val) => sum + val, 0);
+    const revenuBrut = Object.values(revenus).reduce((sum, val) => sum + (val || 0), 0);
+    const totalCharges = Object.values(charges).reduce((sum, val) => sum + (val || 0), 0);
+    const totalReductions = Object.values(reductions).reduce((sum, val) => sum + (val || 0), 0);
     const revenuNet = revenuBrut - totalCharges;
     const quotientFamilial = revenuNet / partsFiscales;
     
@@ -63,8 +83,8 @@ export default function CalculatriceImpotsPage() {
     const tauxEffectif = revenuBrut > 0 ? (impotFinal / revenuBrut) * 100 : 0;
     
     // Calcul IFI
-    const patrimoineBrut = Object.values(patrimoine).reduce((sum, val) => sum + val, 0);
-    const patrimoineNet = patrimoineBrut - patrimoine.dettes;
+    const patrimoineBrut = Object.values(patrimoine).reduce((sum, val) => sum + (val || 0), 0);
+    const patrimoineNet = patrimoineBrut - (patrimoine.dettes || 0);
     let ifi = 0;
     
     if (patrimoineNet > 1300000) {
@@ -203,7 +223,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={revenus.salaires}
-                              onChange={(e) => setRevenus({...revenus, salaires: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setRevenus, revenus, 'salaires')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60]"
                               placeholder="Ex: 45000"
                             />
@@ -219,7 +239,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={revenus.pensions}
-                              onChange={(e) => setRevenus({...revenus, pensions: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setRevenus, revenus, 'pensions')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60]"
                               placeholder="Ex: 25000"
                             />
@@ -235,7 +255,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={revenus.fonciers}
-                              onChange={(e) => setRevenus({...revenus, fonciers: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setRevenus, revenus, 'fonciers')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60]"
                               placeholder="Ex: 12000"
                             />
@@ -251,7 +271,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={revenus.capitaux}
-                              onChange={(e) => setRevenus({...revenus, capitaux: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setRevenus, revenus, 'capitaux')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60]"
                               placeholder="Ex: 5000"
                             />
@@ -273,7 +293,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={charges.per}
-                              onChange={(e) => setCharges({...charges, per: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setCharges, charges, 'per')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 5000"
                             />
@@ -284,7 +304,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={charges.pensionsAlimentaires}
-                              onChange={(e) => setCharges({...charges, pensionsAlimentaires: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setCharges, charges, 'pensionsAlimentaires')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 5000"
                             />
@@ -294,7 +314,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={charges.csg}
-                              onChange={(e) => setCharges({...charges, csg: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setCharges, charges, 'csg')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 1000"
                             />
@@ -304,7 +324,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={charges.fraisAccueil}
-                              onChange={(e) => setCharges({...charges, fraisAccueil: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setCharges, charges, 'fraisAccueil')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 3000"
                             />
@@ -321,7 +341,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={reductions.dons}
-                              onChange={(e) => setReductions({...reductions, dons: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setReductions, reductions, 'dons')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 500"
                             />
@@ -332,7 +352,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={reductions.investissements}
-                              onChange={(e) => setReductions({...reductions, investissements: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setReductions, reductions, 'investissements')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 2000"
                             />
@@ -363,7 +383,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={patrimoine.biensImmo}
-                              onChange={(e) => setPatrimoine({...patrimoine, biensImmo: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setPatrimoine, patrimoine, 'biensImmo')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 800000"
                             />
@@ -380,7 +400,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={patrimoine.partsSCI}
-                              onChange={(e) => setPatrimoine({...patrimoine, partsSCI: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setPatrimoine, patrimoine, 'partsSCI')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 200000"
                             />
@@ -397,7 +417,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={patrimoine.partsSCPI}
-                              onChange={(e) => setPatrimoine({...patrimoine, partsSCPI: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setPatrimoine, patrimoine, 'partsSCPI')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 150000"
                             />
@@ -414,7 +434,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={patrimoine.partsOPCI}
-                              onChange={(e) => setPatrimoine({...patrimoine, partsOPCI: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setPatrimoine, patrimoine, 'partsOPCI')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 100000"
                             />
@@ -431,7 +451,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={patrimoine.usufruits}
-                              onChange={(e) => setPatrimoine({...patrimoine, usufruits: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setPatrimoine, patrimoine, 'usufruits')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 300000"
                             />
@@ -449,7 +469,7 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={patrimoine.dettes}
-                              onChange={(e) => setPatrimoine({...patrimoine, dettes: Number(e.target.value)})}
+                              onChange={(e) => handleNumberChange(e.target.value, setPatrimoine, patrimoine, 'dettes')}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 200000"
                             />
@@ -470,7 +490,12 @@ export default function CalculatriceImpotsPage() {
                             <input
                               type="number"
                               value={partsFiscales}
-                              onChange={(e) => setPartsFiscales(Number(e.target.value))}
+                              onChange={(e) => {
+                                const value = e.target.value === '' ? 1 : Number(e.target.value);
+                                if (!isNaN(value) && value >= 0) {
+                                  setPartsFiscales(value);
+                                }
+                              }}
                               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#253F60] bg-white text-[#112033]"
                               placeholder="Ex: 1"
                             />

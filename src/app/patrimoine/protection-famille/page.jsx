@@ -38,28 +38,16 @@ export default function ProtectionFamillePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">1</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Revenus immédiats</h3>
                 <p className="text-[#686868] text-sm">Pour maintenir leur niveau de vie</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">2</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Garder le patrimoine</h3>
                 <p className="text-[#686868] text-sm">Sans devoir tout vendre</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <span className="text-white text-xl font-bold relative z-10">3</span>
-                </div>
                 <h3 className="text-[#112033] font-semibold mb-2">Sécurité financière</h3>
                 <p className="text-[#686868] text-sm">Dans un moment difficile</p>
               </div>
@@ -85,13 +73,16 @@ export default function ProtectionFamillePage() {
       </section>
 
       {/* Chart Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Indicateurs de protection familiale
             </h2>
-            <p className="text-[#686868] text-lg max-w-3xl mx-auto">
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Visualisez les paramètres clés de la protection familiale
             </p>
           </div>
@@ -126,9 +117,7 @@ export default function ProtectionFamillePage() {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-red-600 font-bold">1</span>
-                  </div>
+                  <span className="text-[#253F60] mt-1 font-bold">•</span>
                   <div>
                     <p className="text-[#686868] text-sm">
                       Les <strong>droits de succession</strong> doivent être payés rapidement
@@ -136,9 +125,7 @@ export default function ProtectionFamillePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-red-600 font-bold">2</span>
-                  </div>
+                  <span className="text-[#253F60] mt-1 font-bold">•</span>
                   <div>
                     <p className="text-[#686868] text-sm">
                       Le patrimoine peut être <strong>bloqué</strong> (indivision, délais notariaux)
@@ -146,9 +133,7 @@ export default function ProtectionFamillePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-red-600 font-bold">3</span>
-                  </div>
+                  <span className="text-[#253F60] mt-1 font-bold">•</span>
                   <div>
                     <p className="text-[#686868] text-sm">
                       Les revenus locatifs ou professionnels <strong>ne suffisent pas toujours</strong>
@@ -165,19 +150,19 @@ export default function ProtectionFamillePage() {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
-                  <span className="text-orange-600 text-xl">1</span>
+                  <span className="text-[#B99066] font-bold text-xl">•</span>
                   <p className="text-[#686868] text-sm">
                     Une <strong>résidence secondaire</strong>
                   </p>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
-                  <span className="text-orange-600 text-xl">2</span>
+                  <span className="text-[#B99066] font-bold text-xl">•</span>
                   <p className="text-[#686868] text-sm">
                     Un bien <strong>immobilier locatif</strong>
                   </p>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
-                  <span className="text-orange-600 text-xl">3</span>
+                  <span className="text-[#B99066] font-bold text-xl">•</span>
                   <p className="text-[#686868] text-sm">
                     Des <strong>parts d'entreprise familiale</strong>
                   </p>
@@ -315,9 +300,6 @@ export default function ProtectionFamillePage() {
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">1</span>
-                </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-3">
                   Assurance-vie
                 </h3>
@@ -330,9 +312,6 @@ export default function ProtectionFamillePage() {
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">2</span>
-                </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-3">
                   Aménagement du régime matrimonial
                 </h3>
@@ -345,9 +324,6 @@ export default function ProtectionFamillePage() {
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">3</span>
-                </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-3">
                   Mandat de protection future
                 </h3>
@@ -364,8 +340,7 @@ export default function ProtectionFamillePage() {
       <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#253F60] text-3xl">🚀</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
               La vision Azalée Patrimoine
             </h2>
             <p className="text-[#686868] text-lg max-w-4xl mx-auto">
@@ -375,9 +350,6 @@ export default function ProtectionFamillePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Contrats de prévoyance adaptés
               </h3>
@@ -387,9 +359,6 @@ export default function ProtectionFamillePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Clause bénéficiaire optimisée
               </h3>
@@ -399,9 +368,6 @@ export default function ProtectionFamillePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Coordination d'experts
               </h3>
@@ -411,9 +377,6 @@ export default function ProtectionFamillePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">4</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Anticipation de la liquidité
               </h3>

@@ -329,17 +329,17 @@ export default function CalculsFinanciersPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
               <p className="text-[#686868] text-xs uppercase tracking-wide mb-1">Valeur future</p>
-              <p className="text-[#112033] text-2xl font-cairo font-semibold">{showResults ? formatCurrency(futureValue) : '***'}</p>
+              <p className="text-[#253F60] text-2xl font-cairo font-semibold">{showResults ? formatCurrency(futureValue) : '***'}</p>
               <p className="text-[#686868] text-xs mt-1">Montant final</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
               <div className="text-[#686868] text-xs uppercase tracking-wide mb-1">Intérêts générés</div>
-              <p className="text-[#112033] text-2xl font-cairo font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
+              <p className="text-[#253F60] text-2xl font-cairo font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
               <p className="text-[#686868] text-xs mt-1">Gains totaux</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
               <p className="text-[#686868] text-xs uppercase tracking-wide mb-1">Versements</p>
-              <p className="text-[#112033] text-2xl font-cairo font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
+              <p className="text-[#253F60] text-2xl font-cairo font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
               <p className="text-[#686868] text-xs mt-1">Apports totaux</p>
             </div>
           </div>
@@ -347,19 +347,19 @@ export default function CalculsFinanciersPage() {
       </div>
 
       {/* Tabbed calculator card */}
-      <section id="calcul" className="w-full py-12 lg:py-16 bg-[#F2F2F2]">
+      <section id="calcul" className="w-full py-12 lg:py-16 bg-[#F9FAFB]">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
             {/* Tabs */}
-            <div className="flex items-center gap-2 p-2 bg-[#F2F2F2]">
+            <div className="flex items-center gap-2 p-2 bg-[#F9FAFB]">
               {safeContent.calculator.tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-sm font-inter font-medium transition-colors ${
                     activeTab === tab.id
-                      ? "bg-white text-[#112033] shadow-sm border border-[#E5E7EB]"
-                      : "text-[#686868] hover:text-[#112033]"
+                      ? "bg-white text-[#253F60] shadow-sm border border-[#E5E7EB]"
+                      : "text-[#686868] hover:text-[#253F60]"
                   }`}
                 >
                   {tab.label}
@@ -373,7 +373,7 @@ export default function CalculsFinanciersPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   {/* Parameters */}
                   <div>
-                    <h2 className="text-[#112033] text-xl font-source-sans font-semibold mb-4">Paramètres</h2>
+                    <h2 className="text-[#253F60] text-xl font-cairo font-semibold mb-4">Paramètres</h2>
                     <div className="space-y-5">
                       <div>
                         <label className="block text-[#686868] text-sm font-medium mb-2">
@@ -467,13 +467,13 @@ export default function CalculsFinanciersPage() {
                       <div className="flex items-center gap-3 pt-2">
                         <button
                           onClick={resetInputs}
-                          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-transparent border-2 border-[#B99066] text-[#B99066] text-sm font-medium hover:bg-[#B99066] hover:text-white"
+                          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-transparent border-2 border-[#253F60] text-[#253F60] text-sm font-inter font-semibold hover:bg-[#253F60] hover:text-white transition-all duration-200"
                         >
                           {safeContent.actions.reset}
                         </button>
                         <button
                           onClick={calculateResults}
-                          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#253F60] text-white text-sm font-medium hover:bg-[#1E2F4A]"
+                          className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white text-sm font-inter font-semibold hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-200 shadow-lg"
                         >
                           Calculer mes résultats
                         </button>
@@ -483,20 +483,20 @@ export default function CalculsFinanciersPage() {
 
                   {/* Results */}
                   <div>
-                    <h2 className="text-[#112033] text-xl font-source-sans font-semibold mb-4">Résultats</h2>
+                    <h2 className="text-[#253F60] text-xl font-cairo font-semibold mb-4">Résultats</h2>
                     <div className="rounded-xl border border-gray-200 p-6">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                           <p className="text-[#6B7280] text-xs uppercase tracking-wide mb-1">
                             {safeContent.capitalisation.results.sections.montantFinal}
                           </p>
-                          <p className="text-[#112033] text-3xl font-cairo font-semibold">{showResults ? formatCurrency(futureValue) : '***'}</p>
+                          <p className="text-[#253F60] text-3xl font-cairo font-semibold">{showResults ? formatCurrency(futureValue) : '***'}</p>
                         </div>
                         <div>
                           <p className="text-[#6B7280] text-xs uppercase tracking-wide mb-1">
                             {safeContent.capitalisation.results.sections.interetsGeneres}
                           </p>
-                          <p className="text-[#112033] text-3xl font-cairo font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
+                          <p className="text-[#253F60] text-3xl font-cairo font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
                         </div>
                       </div>
 
@@ -505,19 +505,19 @@ export default function CalculsFinanciersPage() {
                           <p className="text-[#6B7280] text-xs uppercase tracking-wide mb-1">
                             {safeContent.capitalisation.results.sections.capitalInitial}
                           </p>
-                          <p className="text-[#112033] font-source-sans font-semibold">{showResults ? formatCurrency(principal) : '***'}</p>
+                          <p className="text-[#253F60] font-inter font-semibold">{showResults ? formatCurrency(principal) : '***'}</p>
                         </div>
                         <div className="bg-[#F9FAFB] rounded-lg p-4">
                           <p className="text-[#6B7280] text-xs uppercase tracking-wide mb-1">
                             {safeContent.capitalisation.results.sections.versements}
                           </p>
-                          <p className="text-[#112033] font-source-sans font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
+                          <p className="text-[#253F60] font-inter font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
                         </div>
                         <div className="bg-[#F9FAFB] rounded-lg p-4">
                           <p className="text-[#6B7280] text-xs uppercase tracking-wide mb-1">
                             {safeContent.capitalisation.results.sections.cagr}
                           </p>
-                          <p className="text-[#112033] font-source-sans font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
+                          <p className="text-[#253F60] font-inter font-semibold">{showResults ? 'Prendre RDV pour connaître le détail' : '***'}</p>
                         </div>
                       </div>
 
@@ -532,38 +532,50 @@ export default function CalculsFinanciersPage() {
 
             {activeTab === "amortissement" && (
               <div className="p-10 text-center">
-                <h2 className="text-[#0F172A] text-2xl font-source-sans font-semibold mb-3">
+                <h2 className="text-[#253F60] text-2xl font-cairo font-semibold mb-3">
                   {safeContent.calculator.tabs.find(t => t.id === 'amortissement')?.label}
                 </h2>
-                <p className="text-[#6B7280] max-w-2xl mx-auto">
+                <p className="text-[#686868] max-w-2xl mx-auto">
                   {safeContent.calculator.tabs.find(t => t.id === 'amortissement')?.description}
                 </p>
                 <div className="mt-6 inline-flex items-center gap-3">
-                  <a href="#" className="px-4 py-2 rounded-lg bg-[#B99066] text-white text-sm font-medium hover:bg-[#A67A5A]">
+                  <button 
+                    onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white text-sm font-inter font-semibold hover:from-[#A67A5A] hover:to-[#B99066] transition-all duration-200 shadow-lg"
+                  >
                     {safeContent.actions.start}
-                  </a>
-                  <a href="#" className="px-4 py-2 rounded-lg bg-[#F3F4F6] text-[#111827] text-sm font-medium hover:bg-[#E5E7EB]">
+                  </button>
+                  <button 
+                    onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="px-4 py-2 rounded-lg bg-white border-2 border-[#253F60] text-[#253F60] text-sm font-inter font-semibold hover:bg-[#253F60] hover:text-white transition-all duration-200"
+                  >
                     {safeContent.actions.learnMore}
-                  </a>
+                  </button>
                 </div>
               </div>
             )}
 
             {activeTab === "roi" && (
               <div className="p-10 text-center">
-                <h2 className="text-[#0F172A] text-2xl font-source-sans font-semibold mb-3">
+                <h2 className="text-[#253F60] text-2xl font-cairo font-semibold mb-3">
                   {safeContent.calculator.tabs.find(t => t.id === 'roi')?.label}
                 </h2>
-                <p className="text-[#6B7280] max-w-2xl mx-auto">
+                <p className="text-[#686868] max-w-2xl mx-auto">
                   {safeContent.calculator.tabs.find(t => t.id === 'roi')?.description}
                 </p>
                 <div className="mt-6 inline-flex items-center gap-3">
-                  <a href="#" className="px-4 py-2 rounded-lg bg-[#B99066] text-white text-sm font-medium hover:bg-[#A67A5A]">
+                  <button 
+                    onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white text-sm font-inter font-semibold hover:from-[#A67A5A] hover:to-[#B99066] transition-all duration-200 shadow-lg"
+                  >
                     {safeContent.actions.start}
-                  </a>
-                  <a href="#" className="px-4 py-2 rounded-lg bg-[#F3F4F6] text-[#111827] text-sm font-medium hover:bg-[#E5E7EB]">
+                  </button>
+                  <button 
+                    onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="px-4 py-2 rounded-lg bg-white border-2 border-[#253F60] text-[#253F60] text-sm font-inter font-semibold hover:bg-[#253F60] hover:text-white transition-all duration-200"
+                  >
                     {safeContent.actions.learnMore}
-                  </a>
+                  </button>
                 </div>
               </div>
             )}
@@ -572,7 +584,7 @@ export default function CalculsFinanciersPage() {
           {/* Methodology / details */}
           <div id="details" className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg shadow-lg p-6 lg:col-span-2">
-              <h3 className="text-[#112033] text-xl font-source-sans font-semibold mb-3">
+              <h3 className="text-[#253F60] text-xl font-cairo font-semibold mb-3">
                 {safeContent.methodology.title}
               </h3>
               <p className="text-[#686868] text-sm leading-relaxed mb-4">
@@ -585,13 +597,13 @@ export default function CalculsFinanciersPage() {
               </ul>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-[#112033] text-xl font-source-sans font-semibold mb-3">
+              <h3 className="text-[#253F60] text-xl font-cairo font-semibold mb-3">
                 {safeContent.faq.title}
               </h3>
               <div className="space-y-3 text-sm">
                 {safeContent.faq.questions.map((item, index) => (
                   <div key={index}>
-                    <p className="text-[#112033] font-medium">{item.question}</p>
+                    <p className="text-[#253F60] font-inter font-medium">{item.question}</p>
                     <p className="text-[#686868]">{item.answer}</p>
                   </div>
                 ))}
@@ -606,10 +618,10 @@ export default function CalculsFinanciersPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="text-center">
-              <h3 className="text-xl sm:text-2xl font-semibold text-[#112033] mb-3 sm:mb-4">
+              <h3 className="text-xl sm:text-2xl font-cairo font-semibold text-[#253F60] mb-3 sm:mb-4">
                 Calcul terminé
               </h3>
-              <p className="text-sm sm:text-base text-[#4A5568] mb-4 sm:mb-6">
+              <p className="text-sm sm:text-base text-[#686868] mb-4 sm:mb-6">
                 Pour connaître le détail de vos calculs financiers et obtenir des conseils personnalisés, prenez rendez-vous avec nos experts.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">

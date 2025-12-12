@@ -49,7 +49,7 @@ export default function RetraiteProgressivePage() {
       </section>
 
       {/* Section 2: Qu'est-ce que la retraite progressive ? */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Qu'est-ce que la retraite progressive ?
@@ -63,31 +63,31 @@ export default function RetraiteProgressivePage() {
               <strong className="text-[#253F60]">L'objectif :</strong> aménager la fin de carrière sans rompre brutalement avec le monde professionnel.
             </p>
 
-            <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-xl mb-6">
-              <h3 className="text-[#253F60] font-cairo font-bold mb-4 text-lg flex items-center gap-2">
-                <span className="text-green-600">✓</span> Conditions principales :
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-6 rounded-xl mb-6">
+              <h3 className="text-[#253F60] font-cairo font-bold mb-4 text-lg">
+                Conditions principales :
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">•</span>
+                  <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
                     Être âgé d'au moins 60 ans,
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">•</span>
+                  <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
                     Justifier d'au moins 150 trimestres validés dans son relevé de carrière retraite,
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">•</span>
+                  <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
                     Exercer une activité à temps partiel (entre 40 % et 80% du temps complet),
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">•</span>
+                  <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
                     Et être affilié à un régime autorisant cette forme de retraite (salariés, fonctionnaires, artisans, commerçants, professions libérales sous conditions).
                   </span>
@@ -97,7 +97,9 @@ export default function RetraiteProgressivePage() {
 
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
               <div className="flex items-start gap-3">
-                <span className="text-xl">💡</span>
+                <svg className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 <p className="text-[#4B5563] text-sm font-inter">
                   Les périodes travaillées à temps partiel continuent de générer des droits à la retraite, ce qui permet d'augmenter la pension future lors du passage en retraite définitive.
                 </p>
@@ -217,7 +219,7 @@ export default function RetraiteProgressivePage() {
       </section>
 
       {/* Section 4: Calcul de la pension */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Comment est calculée la pension de retraite progressive ?
@@ -266,9 +268,8 @@ export default function RetraiteProgressivePage() {
               </li>
             </ul>
 
-            <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded">
-              <div className="flex items-start gap-3">
-                <span className="text-orange-600">🌿</span>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+              <div>
                 <p className="text-[#4B5563] text-sm font-inter">
                   Lors de la liquidation définitive, une nouvelle estimation de votre pension est effectuée pour intégrer les droits supplémentaires accumulés pendant la période de retraite progressive.
                 </p>
@@ -325,7 +326,7 @@ export default function RetraiteProgressivePage() {
       </section>
 
       {/* Section 6: Retraite progressive et indemnités de départ */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Retraite progressive et indemnités de départ
@@ -338,9 +339,8 @@ export default function RetraiteProgressivePage() {
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
               L'indemnité ou la prime de départ à la retraite n'est donc versée qu'au moment de la retraite définitive.
             </p>
-            <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded mb-6">
-              <div className="flex items-start gap-3">
-                <span className="text-orange-600">🌿</span>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded mb-6">
+              <div>
                 <p className="text-[#4B5563] text-sm font-inter">
                   Cela permet d'optimiser la gestion des revenus : vous continuez à cotiser, conservez vos droits et bénéficiez plus tard d'une prime complète.
                 </p>
@@ -412,7 +412,6 @@ export default function RetraiteProgressivePage() {
             </ul>
             <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white text-center">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="text-2xl">🎯</span>
               </div>
               <p className="text-lg font-cairo font-bold italic">
                 <strong>Objectif Azalée Patrimoine</strong> : transformer cette période de transition en levier de stabilité et de liberté financière.
@@ -423,7 +422,7 @@ export default function RetraiteProgressivePage() {
       </section>
 
       {/* Section 8: Les erreurs à éviter */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Les erreurs à éviter
@@ -432,9 +431,7 @@ export default function RetraiteProgressivePage() {
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <ul className="space-y-6">
               <li className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-600 font-bold">✗</span>
-                </div>
+                <span className="text-[#253F60] mt-1 font-bold">•</span>
                 <div>
                   <p className="text-[#4B5563] text-base font-inter leading-relaxed">
                     Croire que la retraite progressive diminue vos droits futurs : <strong className="text-[#253F60]">au contraire, elle les augmente.</strong>
@@ -442,9 +439,7 @@ export default function RetraiteProgressivePage() {
                 </div>
               </li>
               <li className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-600 font-bold">✗</span>
-                </div>
+                <span className="text-[#253F60] mt-1 font-bold">•</span>
                 <div>
                   <p className="text-[#4B5563] text-base font-inter leading-relaxed">
                     Négliger la fiscalité : le cumul pension + salaire peut vous faire <strong className="text-[#253F60]">changer de tranche d'imposition.</strong>
@@ -452,9 +447,7 @@ export default function RetraiteProgressivePage() {
                 </div>
               </li>
               <li className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-600 font-bold">✗</span>
-                </div>
+                <span className="text-[#253F60] mt-1 font-bold">•</span>
                 <div>
                   <p className="text-[#4B5563] text-base font-inter leading-relaxed">
                     Oublier de vérifier votre <strong className="text-[#253F60]">relevé de carrière retraite</strong> avant la demande.
@@ -462,9 +455,7 @@ export default function RetraiteProgressivePage() {
                 </div>
               </li>
               <li className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-600 font-bold">✗</span>
-                </div>
+                <span className="text-[#253F60] mt-1 font-bold">•</span>
                 <div>
                   <p className="text-[#4B5563] text-base font-inter leading-relaxed">
                     Ne pas prévoir de <Link href="/placements/per" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link> ou d'<Link href="/placements/assurance-vie" className="text-[#253F60] hover:text-[#B99066] font-bold underline">assurance vie</Link> pour lisser vos revenus lors du passage à la retraite totale.
@@ -510,14 +501,18 @@ export default function RetraiteProgressivePage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 lg:p-12 text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
-              <span className="text-green-600 text-2xl">✓</span>
+              <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
               <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold">
                 Passez à l'action
               </h2>
             </div>
             <ul className="space-y-4 mb-8 text-left max-w-2xl mx-auto">
               <li className="flex items-start gap-3">
-                <span className="text-red-600 text-xl">⭐</span>
+                <svg className="w-6 h-6 text-[#B99066] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
                 <p className="text-[#4B5563] text-base font-inter">
                   <strong className="text-[#253F60]">Simulez votre retraite progressive avec un expert Azalée Patrimoine</strong>
                 </p>
@@ -536,7 +531,7 @@ export default function RetraiteProgressivePage() {
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full sm:w-auto"
               >
-                📅 Prendre rendez-vous avec un conseiller Azalée
+                Prendre rendez-vous avec un conseiller Azalée
               </a>
             </div>
             <div className="border-t border-gray-200 pt-6 mt-6">
@@ -544,7 +539,7 @@ export default function RetraiteProgressivePage() {
                 href="mailto:contact@azalee-patrimoine.fr"
                 className="text-[#253F60] hover:text-[#B99066] font-inter font-semibold text-base sm:text-lg transition-colors"
               >
-                📧 contact@azalee-patrimoine.fr
+                contact@azalee-patrimoine.fr
               </a>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-200">

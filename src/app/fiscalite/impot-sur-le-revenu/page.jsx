@@ -89,10 +89,10 @@ export default function Page() {
              
              {/* Action buttons */}
              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-               <a href="#" className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200">
+               <a href="/outils/calculatrice-impots" className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200">
                  Accéder au simulateur
                </a>
-               <a href="#" className="bg-white text-[#B99066] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-200">
+               <a href="/fiscalite/declaration-impots" className="bg-white text-[#B99066] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-200">
                  Voir le sommaire
                </a>
              </div>
@@ -126,7 +126,7 @@ export default function Page() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <a 
             href="/outils-financiers/guide-defiscalisation"
-            className="inline-block bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300 border-2 border-[#B8860B]"
+            className="inline-block bg-gradient-to-r from-[#253F60] to-[#B99066] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
           >
             Je comprends les dispositifs et j'optimise mon imposition
           </a>
@@ -137,7 +137,7 @@ export default function Page() {
       <section className="w-full py-8 sm:py-10 lg:py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#112033] mb-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold text-[#253F60] mb-6">
               Les 10 meilleurs dispositifs de réduction d'impôts
           </h1>
             <p className="text-[#374151] font-inter text-base sm:text-lg leading-relaxed mb-8">
@@ -145,7 +145,9 @@ export default function Page() {
             </p>
             <div className="text-left">
               <a 
-                href="#"
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block bg-[#B99066] text-white px-6 py-3 rounded-lg font-bold text-lg hover:bg-[#A67C52] transition-colors duration-200 border border-[#A67C52]"
               >
                 Je fais analyser ma situation personnelle
@@ -326,7 +328,7 @@ export default function Page() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-[#112033] font-semibold text-lg mb-3">
+                  <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-3">
                     Puis-je cumuler plusieurs dispositifs fiscaux la même année ?
                   </h3>
                   <p className="text-[#374151] text-sm leading-relaxed">
@@ -345,7 +347,7 @@ export default function Page() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-[#112033] font-semibold text-lg mb-3">
+                  <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-3">
                     Le PER est-il concerné par le plafonnement des niches fiscales à 10 000 € ?
                   </h3>
                   <p className="text-[#374151] text-sm leading-relaxed">
@@ -365,7 +367,7 @@ export default function Page() {
                 </svg>
               </div>
               <div>
-                <h3 className="text-[#112033] font-semibold text-lg mb-3">
+                <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-3">
                   Comment savoir quel dispositif utiliser en priorité ?
                 </h3>
                 <p className="text-[#374151] text-sm leading-relaxed">
@@ -385,7 +387,7 @@ export default function Page() {
                 href="https://calendly.com/azalee-patrimoine"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-white border-2 border-black text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors duration-200"
+                className="inline-block bg-white border-2 border-[#253F60] text-[#253F60] px-6 py-3 rounded-lg font-semibold hover:bg-[#253F60] hover:text-white transition-colors duration-200"
               >
                 SIMULATION PERSONNALISÉE
               </a>
@@ -398,17 +400,17 @@ export default function Page() {
       <section className="w-full py-8 sm:py-10 lg:py-16 bg-gray-50">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#112033] mb-6">
+            <h2 className="text-2xl sm:text-3xl font-cairo font-bold text-[#253F60] mb-6">
               Comment alléger votre imposition sans prendre de risque : les bonnes pratiques fiscales à connaître après 50 ans
             </h2>
 
             {/* 1. Faites le point sur les abattements et déductions */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-[#005C69] mb-4">1. Faites le point sur les abattements et déductions en 2025</h3>
+              <h3 className="text-xl font-cairo font-semibold text-[#253F60] mb-4">1. Faites le point sur les abattements et déductions en 2025</h3>
               
               <div className="ml-4 space-y-6">
                 <div>
-                  <h4 className="text-lg font-semibold text-[#112033] mb-3">a. Profitez de l'abattement de 10% sur vos pensions de retraite</h4>
+                  <h4 className="text-lg font-cairo font-semibold text-[#253F60] mb-3">a. Profitez de l'abattement de 10% sur vos pensions de retraite</h4>
                   <p className="text-[#374151] text-sm leading-relaxed mb-3">
                     En 2025, les retraités bénéficient encore d'un abattement automatique de 10 % sur leurs pensions (base, complémentaire, invalidité), dans la limite de 4 321 € par foyer fiscal. Cet abattement, destiné à compenser l'absence de frais professionnels, allège votre base imposable et reste cumulable avec d'autres dispositifs (comme les abattements pour plus de 65 ans ou invalidité).
                   </p>
@@ -420,7 +422,7 @@ export default function Page() {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold text-[#112033] mb-3">b. Vérifiez votre droit à l'abattement supplémentaire "plus de 65 ans"</h4>
+                  <h4 className="text-lg font-cairo font-semibold text-[#253F60] mb-3">b. Vérifiez votre droit à l'abattement supplémentaire "plus de 65 ans"</h4>
                   <p className="text-[#374151] text-sm leading-relaxed">
                     Si vous avez plus de 65 ans au 31 décembre de l'année d'imposition, un abattement supplémentaire de 2 796 € (ou 1 398 € selon vos ressources) peut s'appliquer à votre revenu global, dans la limite de certains plafonds.
                   </p>
@@ -430,11 +432,11 @@ export default function Page() {
 
             {/* 2. Optez pour les bonnes stratégies défiscalisantes */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-[#005C69] mb-4">2. Optez pour les bonnes stratégies défiscalisantes</h3>
+              <h3 className="text-xl font-cairo font-semibold text-[#253F60] mb-4">2. Optez pour les bonnes stratégies défiscalisantes</h3>
               
               <div className="ml-4 space-y-6">
                 <div>
-                  <h4 className="text-lg font-semibold text-[#112033] mb-3">a. Anticipez la suppression de l'abattement de 10%</h4>
+                  <h4 className="text-lg font-cairo font-semibold text-[#253F60] mb-3">a. Anticipez la suppression de l'abattement de 10%</h4>
                   <p className="text-[#374151] text-sm leading-relaxed mb-3">
                     Commencez dès cette année à compenser cette perte fiscale à venir :
                   </p>
@@ -445,7 +447,7 @@ export default function Page() {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold text-[#112033] mb-3">b. Exploitez les niches fiscales adaptées à votre situation après 50 ans</h4>
+                  <h4 className="text-lg font-cairo font-semibold text-[#253F60] mb-3">b. Exploitez les niches fiscales adaptées à votre situation après 50 ans</h4>
                   <ul className="list-disc ml-6 space-y-3 text-[#374151] text-sm">
                     <li>
                       <strong>PER (Plan d'Épargne Retraite) :</strong> Les sommes versées sont déductibles du revenu imposable dans la limite de 10% du PASS 2025 (soit jusqu'à 4 637 € cette année pour un retraité). Cette solution est particulièrement intéressante pour diminuer l'impôt avant la retraite ou continuer à alléger la fiscalité après cessation d'activité.
@@ -460,11 +462,11 @@ export default function Page() {
 
             {/* 3. Vérifiez régulièrement vos déclarations */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-[#005C69] mb-4">3. Vérifiez régulièrement vos déclarations et évitez les oublis</h3>
+              <h3 className="text-xl font-cairo font-semibold text-[#253F60] mb-4">3. Vérifiez régulièrement vos déclarations et évitez les oublis</h3>
               
               <div className="ml-4 space-y-6">
                 <div>
-                  <h4 className="text-lg font-semibold text-[#112033] mb-3">a. Soyez vigilant sur la complétude de votre déclaration</h4>
+                  <h4 className="text-lg font-cairo font-semibold text-[#253F60] mb-3">a. Soyez vigilant sur la complétude de votre déclaration</h4>
                   <p className="text-[#374151] text-sm leading-relaxed mb-3">
                     Après 50 ans, la situation patrimoniale se complexifie souvent (plusieurs sources de revenus, pensions, capitaux mobiliers, SCPI, immeubles…). Déclarez systématiquement tous vos revenus :
                   </p>
@@ -476,7 +478,7 @@ export default function Page() {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold text-[#112033] mb-3">b. Vérifiez vos droits et optimisations chaque année</h4>
+                  <h4 className="text-lg font-cairo font-semibold text-[#253F60] mb-3">b. Vérifiez vos droits et optimisations chaque année</h4>
                   <p className="text-[#374151] text-sm leading-relaxed">
                     Les plafonds, taux, et dispositifs évoluent presque chaque campagne fiscale. L'anticipation, la veille et l'accompagnement personnalisé font la différence pour éviter un trop payé ou une pénalité.
                   </p>
@@ -486,7 +488,7 @@ export default function Page() {
 
             {/* 4. Sollicitez un bilan patrimonial */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-[#005C69] mb-4">4. Sollicitez un bilan patrimonial personnalisé</h3>
+              <h3 className="text-xl font-cairo font-semibold text-[#253F60] mb-4">4. Sollicitez un bilan patrimonial personnalisé</h3>
               <p className="text-[#374151] text-sm leading-relaxed mb-3">
                 Après 50 ans, votre situation nécessite souvent la coordination de plusieurs leviers : fiscalité, succession, choix des modes de détention, transmission à vos enfants ou petits-enfants. Travailler avec un conseiller en gestion de patrimoine ou un expert fiscal permet :
               </p>
@@ -498,7 +500,7 @@ export default function Page() {
 
             {/* 5. Les bonnes pratiques */}
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-[#005C69] mb-4">5. Les bonnes pratiques à retenir</h3>
+              <h3 className="text-xl font-cairo font-semibold text-[#253F60] mb-4">5. Les bonnes pratiques à retenir</h3>
               <ul className="list-disc ml-6 space-y-2 text-[#374151] text-sm">
                 <li><strong>Anticipez la suppression de l'abattement de 10% sur les retraites :</strong> commencez à diversifier vos stratégies fiscales.</li>
                 <li><strong>Pensez au PER :</strong> une solution souple, adaptée avant et après la retraite, qui reste défiscalisante.</li>
@@ -509,7 +511,7 @@ export default function Page() {
             </div>
 
             {/* Conclusion */}
-            <div className="bg-blue-50 border-l-4 border-[#005C69] p-6 mb-8">
+            <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-6 mb-8">
               <p className="text-[#374151] text-sm leading-relaxed">
                 Ce guide s'adresse avant tout à ceux qui souhaitent sécuriser leur fiscalité, maintenir un niveau d'imposition raisonnable et continuer à valoriser leur patrimoine sans risquer de requalification ou de redressement.
               </p>
@@ -521,7 +523,7 @@ export default function Page() {
                 href="https://optimiser-fiscalite-50-l13jzpe.gamma.site/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-[#005C69] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#004A5A] transition-colors duration-200"
+                className="inline-block bg-[#253F60] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#1a2d47] transition-colors duration-200"
               >
                 Je souhaite faire un bilan patrimonial (250€HT)
               </a>
@@ -562,7 +564,9 @@ export default function Page() {
           {/* Bouton CTA */}
           <div className="text-center">
             <a 
-              href="#"
+              href="https://calendly.com/rdv-azalee-patrimoine/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block bg-white text-[#253F60] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors duration-200 mb-2"
             >
               Analyser ma déclaration de revenus
@@ -574,85 +578,30 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Sommaire and key sections */}
-      <section id="sommaire" className="w-full py-8 sm:py-10 lg:py-16 bg-white">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-10 mb-6 sm:mb-8 lg:mb-12">
-            <h2 className="text-[#112033] text-xl sm:text-2xl font-source-sans font-semibold mb-4">
-              {content.sommaire?.title || defaultContent.sommaire.title}
-            </h2>
-            <ol className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[#686868] font-inter text-sm sm:text-base">
-              {(content.sommaire?.items || defaultContent.sommaire.items).map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ol>
-          </div>
-
-          {/* Two-column informational blocks */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {(content.content?.sections || defaultContent.content.sections).slice(0, 2).map((section, index) => (
-              <div key={index} className={`bg-gradient-to-r ${index === 0 ? 'from-[#F8F9FA] to-[#E9ECEF]' : 'from-[#FFEFD5] to-[#D7E8FF]'} rounded-lg p-4 sm:p-6 lg:p-8`}>
-                <h3 className="text-[#005C69] text-lg sm:text-xl font-cairo font-semibold mb-3">{section.title}</h3>
-                <p className="text-[#374151] font-inter mb-3 text-sm sm:text-base">{section.content}</p>
-                {section.details && (
-                  <ul className="list-disc pl-5 text-[#374151] font-inter space-y-1 text-sm sm:text-base">
-                    {section.details.map((detail, detailIndex) => (
-                      <li key={detailIndex}>{detail}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Wide card with optimization explanation */}
-          <div className="mt-6 sm:mt-8 bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-10">
-            <h3 className="text-[#005C69] text-lg sm:text-xl font-cairo font-semibold mb-3">3. Optimisation fiscale patrimoniale</h3>
-            <p className="text-[#374151] font-inter mb-4 text-sm sm:text-base">Pour un contribuable patrimonial, la maîtrise de l'impôt sur le revenu est essentielle afin d'optimiser la charge fiscale et d'adapter la stratégie d'investissement.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              <div className="bg-[#F9FAFB] rounded-lg p-3 sm:p-4">
-                <p className="text-[#6B7280] text-xs uppercase mb-1">Optimisation</p>
-                <p className="text-[#112033] font-source-sans font-semibold text-sm sm:text-base">Charge fiscale</p>
-                <p className="text-[#6B7280] text-xs mt-1">Grâce aux dispositifs existants</p>
-              </div>
-              <div className="bg-[#F9FAFB] rounded-lg p-3 sm:p-4">
-                <p className="text-[#6B7280] text-xs uppercase mb-1">Stratégie</p>
-                <p className="text-[#112033] font-source-sans font-semibold text-sm sm:text-base">Investissement</p>
-                <p className="text-[#6B7280] text-xs mt-1">Selon la fiscalité applicable</p>
-              </div>
-              <div className="bg-[#F9FAFB] rounded-lg p-3 sm:p-4 sm:col-span-2 lg:col-span-1">
-                <p className="text-[#6B7280] text-xs uppercase mb-1">Anticipation</p>
-                <p className="text-[#112033] font-source-sans font-semibold text-sm sm:text-base">Réformes fiscales</p>
-                <p className="text-[#6B7280] text-xs mt-1">Impact sur le rendement net</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Dispositifs fiscaux */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-10 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#112033] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">Dispositifs de défiscalisation</h2>
+          <h2 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">Dispositifs de défiscalisation</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 text-center">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-[#112033] text-base sm:text-lg font-source-sans font-semibold mb-3">PER</h3>
+              <h3 className="text-[#253F60] text-base sm:text-lg font-cairo font-semibold mb-3">PER</h3>
               <p className="text-[#374151] text-xs sm:text-sm font-inter">Plan d'Épargne Retraite pour optimiser la fiscalité</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 text-center">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-[#112033] text-base sm:text-lg font-source-sans font-semibold mb-3">Loi Pinel</h3>
+              <h3 className="text-[#253F60] text-base sm:text-lg font-cairo font-semibold mb-3">Loi Pinel</h3>
               <p className="text-[#374151] text-xs sm:text-sm font-inter">Investissement locatif avec réduction d'impôt</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 text-center">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-[#112033] text-base sm:text-lg font-source-sans font-semibold mb-3">Girardin</h3>
+              <h3 className="text-[#253F60] text-base sm:text-lg font-cairo font-semibold mb-3">Girardin</h3>
               <p className="text-[#374151] text-xs sm:text-sm font-inter">Investissement outre-mer avec avantages fiscaux</p>
             </div>
             <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 text-center">
               <div className="text-4xl mb-4"></div>
-              <h3 className="text-[#112033] text-base sm:text-lg font-source-sans font-semibold mb-3">Déficit foncier</h3>
+              <h3 className="text-[#253F60] text-base sm:text-lg font-cairo font-semibold mb-3">Déficit foncier</h3>
               <p className="text-[#374151] text-xs sm:text-sm font-inter">Réduction d'impôt via travaux immobiliers</p>
             </div>
           </div>

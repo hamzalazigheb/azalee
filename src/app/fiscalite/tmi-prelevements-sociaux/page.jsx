@@ -74,26 +74,23 @@ export default function TmiPrelevementsSociauxPage() {
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                {content.hero?.title || defaultContent.hero.title}
-              </h1>
-              <p className="text-lg text-white mb-4 leading-relaxed">
-                {content.hero?.subtitle || defaultContent.hero.subtitle}
-              </p>
-              <p className="text-white mb-8">
-                {content.hero?.description || defaultContent.hero.description}
-              </p>
-            </div>
-            <div className="relative">
-              <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl">
-                <img 
-                  src={content.hero?.image || defaultContent.hero.image} 
-                  alt="TMI & Prélèvements Sociaux"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-cairo font-bold text-white mb-6">
+              {content.hero?.title || defaultContent.hero.title}
+            </h1>
+            <p className="text-lg sm:text-xl text-white mb-4 leading-relaxed">
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
+            </p>
+            <p className="text-base sm:text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+              {content.hero?.description || defaultContent.hero.description}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button 
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                className="bg-[#B99066] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-inter font-semibold hover:bg-[#A67A5A] transition-colors text-sm sm:text-base shadow-lg"
+              >
+                {content.hero?.button || defaultContent.hero.button}
+              </button>
             </div>
           </div>
         </div>

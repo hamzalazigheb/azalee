@@ -110,35 +110,19 @@ export default function PrevoyanceProtectionPage() {
       {/* Section 1: Introduction */}
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Colonne gauche : Texte principal */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-                <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-                  Un accident, une maladie, un décès prématuré ou une perte temporaire de revenus peuvent fragiliser des années d'efforts et remettre en cause la stabilité financière de votre foyer ou de votre entreprise.
-                </p>
-                <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-                  Chez <strong className="text-[#253F60]">Azalée Patrimoine</strong>, nous intégrons la prévoyance au cœur de chaque stratégie patrimoniale, pour garantir votre indépendance financière, celle de vos proches et la pérennité de vos projets.
-                </p>
-              </div>
-            </div>
-
-            {/* Colonne droite : Rectangle bleu avec texte */}
-            <div className="lg:col-span-1">
-              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-lg p-6 sm:p-8 h-full flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-white font-cairo font-bold text-sm sm:text-base text-center transform -rotate-90 whitespace-nowrap">
-                    Les dirigeants de TPE/PME n'ont aucune couverture prévoyance adaptée à leurs besoins professionnels
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
+            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+              Un accident, une maladie, un décès prématuré ou une perte temporaire de revenus peuvent fragiliser des années d'efforts et remettre en cause la stabilité financière de votre foyer ou de votre entreprise.
+            </p>
+            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+              Chez <strong className="text-[#253F60]">Azalée Patrimoine</strong>, nous intégrons la prévoyance au cœur de chaque stratégie patrimoniale, pour garantir votre indépendance financière, celle de vos proches et la pérennité de vos projets.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Section 2: Pourquoi la prévoyance est un pilier du patrimoine */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Pourquoi la prévoyance est un pilier du patrimoine
@@ -185,13 +169,10 @@ export default function PrevoyanceProtectionPage() {
               </div>
             </div>
 
-            <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
-              <div className="flex items-start gap-3">
-                <span className="text-purple-600 text-xl">💬</span>
-                <p className="text-[#4B5563] text-sm font-inter">
-                  Une bonne stratégie de prévoyance assure la cohérence entre votre épargne, vos investissements et votre niveau de protection.
-                </p>
-              </div>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+              <p className="text-[#4B5563] text-sm font-inter">
+                Une bonne stratégie de prévoyance assure la cohérence entre votre épargne, vos investissements et votre niveau de protection.
+              </p>
             </div>
           </div>
         </div>
@@ -218,83 +199,82 @@ export default function PrevoyanceProtectionPage() {
             </div>
 
             {/* Conséquences sans prévoyance */}
-            <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-xl mb-8">
+            <div className="bg-[#F9FAFB] border-l-4 border-[#253F60] p-6 rounded-xl mb-8">
               <h3 className="text-[#253F60] font-cairo font-bold mb-4 text-lg">Conséquences en chaîne :</h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <span className="text-red-600 mt-1 font-bold">•</span>
+                  <span className="text-[#253F60] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">Trois salariés démissionnent faute de pilotage,</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-red-600 mt-1 font-bold">•</span>
+                  <span className="text-[#253F60] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">Le chiffre d'affaires chute de 50%,</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-red-600 mt-1 font-bold">•</span>
+                  <span className="text-[#253F60] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">Le dirigeant doit puiser dans sa trésorerie personnelle pour maintenir ses charges et subvenir aux besoins de sa famille.</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-8">
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 text-xl">►</span>
-                <p className="text-[#4B5563] text-sm font-inter">
-                  <strong className="text-[#253F60]">Sans contrat de prévoyance professionnelle</strong>, Marc subit une perte de revenus immédiate, aucun maintien de salaire et aucune ressource pour faire face à la désorganisation de l'entreprise.
-                </p>
-              </div>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#253F60] p-4 rounded mb-8">
+              <p className="text-[#4B5563] text-sm font-inter">
+                <strong className="text-[#253F60]">Sans contrat de prévoyance professionnelle</strong>, Marc subit une perte de revenus immédiate, aucun maintien de salaire et aucune ressource pour faire face à la désorganisation de l'entreprise.
+              </p>
             </div>
 
             {/* Avec prévoyance */}
-            <div className="bg-green-50 border-l-4 border-green-400 p-6 rounded-xl">
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-6 rounded-xl">
               <h3 className="text-[#253F60] font-cairo font-bold mb-4 text-lg">
                 Avec une prévoyance adaptée, il aurait pu :
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">✓</span>
+                  <svg className="w-5 h-5 text-[#B99066] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                   <span className="text-[#4B5563] text-base font-inter">Percevoir des indemnités journalières pour compenser ses revenus,</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">✓</span>
+                  <svg className="w-5 h-5 text-[#B99066] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                   <span className="text-[#4B5563] text-base font-inter">Financer le remplacement temporaire par un consultant externe,</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">✓</span>
+                  <svg className="w-5 h-5 text-[#B99066] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                   <span className="text-[#4B5563] text-base font-inter">Préserver la trésorerie de sa société et éviter le recours au crédit,</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-green-600 mt-1 font-bold">✓</span>
+                  <svg className="w-5 h-5 text-[#B99066] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                   <span className="text-[#4B5563] text-base font-inter">Assurer la continuité de l'activité le temps de sa convalescence.</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded mt-8">
-              <div className="flex items-start gap-3">
-                <span className="text-purple-600 text-xl">💬</span>
-                <p className="text-[#4B5563] text-sm font-inter">
-                  Cet exemple illustre parfaitement le rôle de la prévoyance : protéger le revenu du dirigeant, la pérennité de son entreprise et, par extension, la sécurité financière de sa famille.
-                </p>
-              </div>
+            <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded mt-8">
+              <p className="text-[#4B5563] text-sm font-inter">
+                Cet exemple illustre parfaitement le rôle de la prévoyance : protéger le revenu du dirigeant, la pérennité de son entreprise et, par extension, la sécurité financière de sa famille.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section 4: Focus Azalée Patrimoine */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-4 h-4 bg-green-500 rounded"></div>
-              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold">
-                Focus Azalée Patrimoine — La prévoyance, un réflexe encore trop rare chez les dirigeants
-              </h3>
-            </div>
+            <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6">
+              Focus Azalée Patrimoine — La prévoyance, un réflexe encore trop rare chez les dirigeants
+            </h3>
 
             <div className="space-y-6">
-              <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded">
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
                 <p className="text-[#4B5563] text-base font-inter leading-relaxed">
                   <strong className="text-[#253F60]">40 %</strong> des dirigeants de TPE/PME n'ont aucune couverture prévoyance adaptée à leurs besoins professionnels.
                 </p>
@@ -379,9 +359,8 @@ export default function PrevoyanceProtectionPage() {
                   </li>
                 </ul>
               </div>
-              <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white flex items-center">
+              <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-white flex items-center">
                 <div>
-                  <span className="text-2xl mb-4 block">🌸</span>
                   <p className="text-lg font-cairo font-bold italic">
                     Notre mission : faire de la prévoyance un pilier de la stratégie patrimoniale du chef d'entreprise, au même titre que la fiscalité ou l'investissement.
                   </p>
@@ -393,7 +372,7 @@ export default function PrevoyanceProtectionPage() {
       </section>
 
       {/* Section 6: Les solutions de prévoyance à connaître */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Les solutions de prévoyance à connaître
@@ -466,13 +445,10 @@ export default function PrevoyanceProtectionPage() {
                 </div>
               </div>
 
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl">💡</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    Les contrats de prévoyance Madelin permettent la déduction des cotisations du bénéfice imposable.
-                  </p>
-                </div>
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+                <p className="text-[#4B5563] text-sm font-inter">
+                  Les contrats de prévoyance Madelin permettent la déduction des cotisations du bénéfice imposable.
+                </p>
               </div>
             </div>
 
@@ -516,22 +492,22 @@ export default function PrevoyanceProtectionPage() {
                 Chez Azalée Patrimoine, nous auditons vos garanties existantes pour identifier les manques :
               </p>
 
-              <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-xl mb-6">
+              <div className="bg-[#F9FAFB] border-l-4 border-[#253F60] p-6 rounded-xl mb-6">
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-red-600 mt-1 font-bold">•</span>
+                    <span className="text-[#253F60] mt-1 font-bold">•</span>
                     <span className="text-[#4B5563] text-base font-inter">
                       Décalage entre revenu net et indemnité en cas d'arrêt,
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-red-600 mt-1 font-bold">•</span>
+                    <span className="text-[#253F60] mt-1 font-bold">•</span>
                     <span className="text-[#4B5563] text-base font-inter">
                       Absence de rente viagère pour le conjoint,
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-red-600 mt-1 font-bold">•</span>
+                    <span className="text-[#253F60] mt-1 font-bold">•</span>
                     <span className="text-[#4B5563] text-base font-inter">
                       Faible couverture en cas d'invalidité partielle.
                     </span>
@@ -539,13 +515,10 @@ export default function PrevoyanceProtectionPage() {
                 </ul>
               </div>
 
-              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-blue-600 text-xl">➡️</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    <strong className="text-[#253F60]">L'objectif :</strong> garantir la continuité de vos revenus et la protection durable de votre foyer.
-                  </p>
-                </div>
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+                <p className="text-[#4B5563] text-sm font-inter">
+                  <strong className="text-[#253F60]">L'objectif :</strong> garantir la continuité de vos revenus et la protection durable de votre foyer.
+                </p>
               </div>
             </div>
 
@@ -589,13 +562,10 @@ export default function PrevoyanceProtectionPage() {
                 </div>
               </div>
 
-              <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-purple-600 text-xl">💜</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    La protection du conjoint est l'une des premières formes de prévoyance patrimoniale.
-                  </p>
-                </div>
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+                <p className="text-[#4B5563] text-sm font-inter">
+                  La protection du conjoint est l'une des premières formes de prévoyance patrimoniale.
+                </p>
               </div>
             </div>
 
@@ -623,13 +593,10 @@ export default function PrevoyanceProtectionPage() {
                 Grâce à la <strong className="text-[#253F60]">Loi Lemoine</strong>, il est désormais possible de résilier l'assurance emprunteur à tout moment et de choisir une couverture plus performante à coût équivalent.
               </p>
 
-              <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-purple-600 text-xl">💜</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    <strong className="text-[#253F60]">Azalée Patrimoine</strong> vous aide à renégocier ou transférer votre assurance emprunteur pour réduire vos mensualités et renforcer vos garanties.
-                  </p>
-                </div>
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+                <p className="text-[#4B5563] text-sm font-inter">
+                  <strong className="text-[#253F60]">Azalée Patrimoine</strong> vous aide à renégocier ou transférer votre assurance emprunteur pour réduire vos mensualités et renforcer vos garanties.
+                </p>
               </div>
             </div>
 
@@ -664,13 +631,10 @@ export default function PrevoyanceProtectionPage() {
                 </li>
               </ul>
 
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl">💡</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    Anticiper tôt permet de réduire le coût et de choisir des garanties plus souples.
-                  </p>
-                </div>
+              <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded">
+                <p className="text-[#4B5563] text-sm font-inter">
+                  Anticiper tôt permet de réduire le coût et de choisir des garanties plus souples.
+                </p>
               </div>
             </div>
           </div>
@@ -719,7 +683,7 @@ export default function PrevoyanceProtectionPage() {
       </section>
 
       {/* Section 8: Types de protection */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
             Les solutions de prévoyance et protection
@@ -766,7 +730,7 @@ export default function PrevoyanceProtectionPage() {
       </section>
 
       {/* Section 9: L'accompagnement Azalée Patrimoine */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-xl p-8 sm:p-10 text-white mb-8">
             <p className="text-xl sm:text-2xl font-cairo font-bold text-center mb-8">
@@ -810,10 +774,7 @@ export default function PrevoyanceProtectionPage() {
               </div>
                 </div>
 
-            <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white text-center">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="text-2xl">🌸</span>
-              </div>
+            <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-white text-center">
               <p className="text-lg font-cairo font-bold italic">
                 Notre mission : vous protéger, vous et vos proches, pour que votre patrimoine reste un levier de liberté, pas une source de vulnérabilité.
               </p>
@@ -830,7 +791,7 @@ export default function PrevoyanceProtectionPage() {
               Prendre rendez-vous avec un conseiller Azalée
           </h2>
             <p className="text-[#4B5563] text-base sm:text-lg font-inter mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-              💬 Vous souhaitez évaluer votre couverture actuelle et identifier les zones de fragilité ?
+              Vous souhaitez évaluer votre couverture actuelle et identifier les zones de fragilité ?
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
               <a
@@ -839,7 +800,7 @@ export default function PrevoyanceProtectionPage() {
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full sm:w-auto"
               >
-                👉 Prenez rendez-vous avec un conseiller Azalée Patrimoine
+                Prenez rendez-vous avec un conseiller Azalée Patrimoine
               </a>
             </div>
             <div className="border-t border-gray-200 pt-6 mt-6">
@@ -847,13 +808,13 @@ export default function PrevoyanceProtectionPage() {
                 href="mailto:contact@azalee-patrimoine.fr"
                 className="text-[#253F60] hover:text-[#B99066] font-inter font-semibold text-base sm:text-lg transition-colors"
               >
-                📧 contact@azalee-patrimoine.fr
+                contact@azalee-patrimoine.fr
               </a>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-200">
               <Link
                 href="/retraite"
-                className="text-[#B99066] hover:text-[#D4A574] font-inter font-semibold text-base transition-colors"
+                className="text-[#B99066] hover:text-[#A67A5A] font-inter font-semibold text-base transition-colors"
               >
                 Retour à la page Retraite
               </Link>

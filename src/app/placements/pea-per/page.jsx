@@ -167,12 +167,15 @@ export default function PeaPerPage() {
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           {activeTab === "pea" && (
-            <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
+            <div className="space-y-12">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="inline-block mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
                   Définition du PEA
                 </h2>
-                <p className="text-[#686868] text-lg max-w-4xl mx-auto">
+                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
                   Le <strong>PEA (Plan d'Épargne en Actions)</strong> est une <strong>spécificité française</strong> : c'est une enveloppe fiscale créée en 1992 pour <strong>encourager les particuliers à investir dans les actions européennes</strong>.
                 </p>
               </div>
@@ -181,31 +184,37 @@ export default function PeaPerPage() {
                 <div className="bg-white rounded-lg shadow-lg p-8">
                   <h3 className="text-[#253F60] text-xl font-semibold mb-6">Caractéristiques principales</h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Spécificité française</h4>
-                        <p className="text-[#686868] text-sm">Créé en 1992 pour encourager l'investissement en actions européennes</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Spécificité française</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Créé en 1992 pour encourager l'investissement en actions européennes</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Titres éligibles</h4>
-                        <p className="text-[#686868] text-sm">Actions, ETF, OPCVM, non coté éligible</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Titres éligibles</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Actions, ETF, OPCVM, non coté éligible</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Fiscalité avantageuse</h4>
-                        <p className="text-[#686868] text-sm">Après 5 ans de détention</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Fiscalité avantageuse</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Après 5 ans de détention</p>
                       </div>
                     </div>
                   </div>
@@ -244,10 +253,12 @@ export default function PeaPerPage() {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#253F60] font-bold text-xl">1</span>
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-8 h-8 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">PEA classique</h3>
                     <p className="text-xl font-bold">150 000 €</p>
@@ -255,10 +266,12 @@ export default function PeaPerPage() {
                   <p className="text-sm mb-4">Plafond de versements</p>
                 </div>
                 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#D4A574] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#B99066] font-bold text-xl">2</span>
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">PEA-PME</h3>
                     <p className="text-xl font-bold">225 000 €</p>
@@ -266,10 +279,12 @@ export default function PeaPerPage() {
                   <p className="text-sm mb-4">Plafond complémentaire</p>
                 </div>
                 
-                <div className="bg-gradient-to-br from-[#59E2E4] to-[#4EBBBD] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#253F60] font-bold text-xl">3</span>
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-8 h-8 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Total</h3>
                     <p className="text-xl font-bold">375 000 €</p>
@@ -281,26 +296,32 @@ export default function PeaPerPage() {
               <div className="bg-[#F8F9FA] rounded-lg p-8">
                 <h3 className="text-[#253F60] text-xl font-semibold mb-4">Titres éligibles au PEA-PME</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">1</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Actions de PME</h4>
-                    <p className="text-sm text-[#686868]">Cotées ou non cotées</p>
+                    <h4 className="font-semibold mb-2 text-lg">Actions de PME</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Cotées ou non cotées</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">1</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Fonds spécialisés</h4>
-                    <p className="text-sm text-[#686868]">Parts de fonds PME/ETI</p>
+                    <h4 className="font-semibold mb-2 text-lg">Fonds spécialisés</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Parts de fonds PME/ETI</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">3</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Obligations convertibles</h4>
-                    <p className="text-sm text-[#686868]">Titres de dette convertibles</p>
+                    <h4 className="font-semibold mb-2 text-lg">Obligations convertibles</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Titres de dette convertibles</p>
                   </div>
                 </div>
               </div>
@@ -310,44 +331,55 @@ export default function PeaPerPage() {
           {activeTab === "avantages" && (
             <div className="space-y-8">
               <div className="text-center mb-8">
-                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  ✅ Avantages du PEA
+                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  Avantages du PEA
                 </h2>
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">2</span>
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-[#253F60] font-semibold mb-2">Exonération d'impôt</h3>
-                      <p className="text-[#686868] text-sm">
+                      <h3 className="text-[#253F60] font-semibold mb-2 text-lg">Exonération d'impôt</h3>
+                      <p className="text-[#686868] text-sm leading-relaxed">
                         Sur les plus-values et dividendes après <strong>5 ans</strong> (hors prélèvements sociaux).
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">3</span>
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-[#253F60] font-semibold mb-2">Effet boule de neige</h3>
-                      <p className="text-[#686868] text-sm">
+                      <h3 className="text-[#253F60] font-semibold mb-2 text-lg">Effet boule de neige</h3>
+                      <p className="text-[#686868] text-sm leading-relaxed">
                         Réinvestir les gains dans le PEA permet de capitaliser sans fiscalité intermédiaire.
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">3</span>
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-[#253F60] font-semibold mb-2">Diversification</h3>
-                      <p className="text-[#686868] text-sm">
+                      <h3 className="text-[#253F60] font-semibold mb-2 text-lg">Diversification</h3>
+                      <p className="text-[#686868] text-sm leading-relaxed">
                         Actions européennes, ETF éligibles, non coté.
                       </p>
                     </div>
@@ -355,37 +387,43 @@ export default function PeaPerPage() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">4</span>
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-[#253F60] font-semibold mb-2">Transmission optimisée</h3>
-                      <p className="text-[#686868] text-sm">
+                      <h3 className="text-[#253F60] font-semibold mb-2 text-lg">Transmission optimisée</h3>
+                      <p className="text-[#686868] text-sm leading-relaxed">
                         Possibilité de purger des plus-values latentes en cas de donation des titres.
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">5</span>
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-[#253F60] font-semibold mb-2">Prise à date stratégique</h3>
-                      <p className="text-[#686868] text-sm">
+                      <h3 className="text-[#253F60] font-semibold mb-2 text-lg">Prise à date stratégique</h3>
+                      <p className="text-[#686868] text-sm leading-relaxed">
                         Ouvrir un PEA le plus tôt possible pour bénéficier du régime fiscal après 5 ans.
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">6</span>
+                  <div className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
                     <div>
-                      <h3 className="text-[#253F60] font-semibold mb-2">PEA transférable</h3>
-                      <p className="text-[#686868] text-sm">
+                      <h3 className="text-[#253F60] font-semibold mb-2 text-lg">PEA transférable</h3>
+                      <p className="text-[#686868] text-sm leading-relaxed">
                         Possibilité de changer d'établissement tout en conservant <strong>l'antériorité fiscale</strong>.
                       </p>
                     </div>
@@ -420,8 +458,13 @@ export default function PeaPerPage() {
           {activeTab === "entrepreneurs" && (
             <div className="space-y-8">
               <div className="text-center mb-8">
-                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  🚀 Le PEA, un atout stratégique pour les entrepreneurs
+                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  Le PEA, un atout stratégique pour les entrepreneurs
                 </h2>
                 <p className="text-[#686868] text-lg max-w-4xl mx-auto">
                   Le PEA est un <strong>outil clé pour les dirigeants et créateurs d'entreprise</strong>.
@@ -429,27 +472,41 @@ export default function PeaPerPage() {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">1. La prise à date : un enjeu essentiel</h3>
                   <p className="text-sm mb-4">
                     Le délai fiscal de <strong>5 ans</strong> court à partir de l'ouverture du PEA.
                   </p>
                   <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                    <p className="text-sm">
-                      👉 Pour un entrepreneur, ouvrir un PEA le plus tôt possible (même avec 100 € symboliques) permet de <strong>prendre date</strong> et de bénéficier du régime fiscal allégé dès la cinquième année.
-                    </p>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                      <p className="text-sm">
+                        Pour un entrepreneur, ouvrir un PEA le plus tôt possible (même avec 100 € symboliques) permet de <strong>prendre date</strong> et de bénéficier du régime fiscal allégé dès la cinquième année.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#D4A574] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">2. Loger ses actions d'entreprise au bon moment</h3>
                   <p className="text-sm mb-4">
                     Un entrepreneur peut loger ses <strong>propres actions</strong> dans son PEA si elles sont éligibles.
                   </p>
                   <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                    <p className="text-sm">
-                      👉 C'est une stratégie particulièrement efficace pour les <strong>startuppers, repreneurs ou fondateurs de PME</strong> qui anticipent une forte valorisation de leur société.
-                    </p>
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                      <p className="text-sm">
+                        C'est une stratégie particulièrement efficace pour les <strong>startuppers, repreneurs ou fondateurs de PME</strong> qui anticipent une forte valorisation de leur société.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -479,9 +536,16 @@ export default function PeaPerPage() {
                       <li>• Transactions : <strong>0,5 % par ordre</strong> en ligne</li>
                     </ul>
                     <div className="mt-3 bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-lg">
-                      <p className="text-sm text-yellow-800">
-                        👉 Attention : certains établissements appliquent encore des frais annexes (transfert, clôture, garde sur titres non cotés).
-                      </p>
+                      <div className="flex items-start gap-3">
+                        <div className="w-5 h-5 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                          </svg>
+                        </div>
+                        <p className="text-sm text-yellow-800">
+                          Attention : certains établissements appliquent encore des frais annexes (transfert, clôture, garde sur titres non cotés).
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -506,17 +570,26 @@ export default function PeaPerPage() {
                   Il a remplacé et <strong>regroupé les anciens dispositifs retraite</strong> (PERP, contrats Madelin, Article 83, PERCO) pour simplifier l'épargne retraite en France.
                 </p>
                 <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                  <p className="text-sm">
-                    👉 Objectif : offrir une <strong>solution unique et flexible</strong> pour préparer ses revenus à la retraite.
-                  </p>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <p className="text-sm">
+                      Objectif : offrir une <strong>solution unique et flexible</strong> pour préparer ses revenus à la retraite.
+                    </p>
+                  </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#253F60] font-bold text-xl">1</span>
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-8 h-8 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">PER individuel</h3>
                     <p className="text-sm">(ex-PERP / Madelin)</p>
@@ -530,8 +603,10 @@ export default function PeaPerPage() {
                 
                 <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#B99066] font-bold text-xl">2</span>
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">PER collectif</h3>
                     <p className="text-sm">(ex-PERCO)</p>
@@ -545,8 +620,10 @@ export default function PeaPerPage() {
                 
                 <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#253F60] font-bold text-xl">3</span>
+                    <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-8 h-8 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">PER obligatoire</h3>
                     <p className="text-sm">(ex-Article 83)</p>
@@ -560,33 +637,46 @@ export default function PeaPerPage() {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold mb-6">✅ Avantages du PER</h3>
+                  <h3 className="text-[#253F60] text-xl font-semibold mb-6 flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    Avantages du PER
+                  </h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Avantage fiscal immédiat</h4>
-                        <p className="text-[#686868] text-sm">Les versements volontaires sont déductibles du revenu imposable</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Avantage fiscal immédiat</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Les versements volontaires sont déductibles du revenu imposable</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Souplesse</h4>
-                        <p className="text-[#686868] text-sm">Possibilité de sortie en capital, en rente ou mixte</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Souplesse</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Possibilité de sortie en capital, en rente ou mixte</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Portabilité</h4>
-                        <p className="text-[#686868] text-sm">Tous les PER sont transférables d'un établissement à l'autre</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Portabilité</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Tous les PER sont transférables d'un établissement à l'autre</p>
                       </div>
                     </div>
                   </div>
@@ -595,31 +685,37 @@ export default function PeaPerPage() {
                 <div>
                   <h3 className="text-[#253F60] text-xl font-semibold mb-6">Inconvénients et limites du PER</h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Blocage de l'épargne</h4>
-                        <p className="text-[#686868] text-sm">Jusqu'à la retraite (hors cas de sortie anticipée)</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Blocage de l'épargne</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Jusqu'à la retraite (hors cas de sortie anticipée)</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">2</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Fiscalité à la sortie</h4>
-                        <p className="text-[#686868] text-sm">Capital : imposé sur la part déductible + prélèvements sociaux</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Fiscalité à la sortie</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Capital : imposé sur la part déductible + prélèvements sociaux</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">3</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#253F60] font-semibold mb-1">Frais variables</h4>
-                        <p className="text-[#686868] text-sm">Frais d'entrée, de gestion, d'arbitrage → parfois élevés</p>
+                        <h4 className="text-[#253F60] font-semibold mb-1 text-lg">Frais variables</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Frais d'entrée, de gestion, d'arbitrage → parfois élevés</p>
                       </div>
                     </div>
                   </div>
@@ -643,9 +739,16 @@ export default function PeaPerPage() {
                   </div>
                 </div>
                 <div className="mt-6 text-center">
-                  <p className="text-sm font-semibold">
-                    👉 Résultat : double avantage, <strong>fiscal immédiat + revenu complémentaire sécurisé à la retraite</strong>.
-                  </p>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center">
+                      <svg className="w-4 h-4 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-semibold">
+                      Résultat : double avantage, <strong>fiscal immédiat + revenu complémentaire sécurisé à la retraite</strong>.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -654,13 +757,18 @@ export default function PeaPerPage() {
           {activeTab === "azalee" && (
             <div className="space-y-8">
               <div className="text-center mb-8">
-                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  🔑 L'accompagnement Azalée Patrimoine
+                <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                    </svg>
+                  </div>
+                  L'accompagnement Azalée Patrimoine
                 </h2>
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">Pour le PEA</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -682,7 +790,7 @@ export default function PeaPerPage() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#D4A574] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">Pour le PER</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -708,33 +816,41 @@ export default function PeaPerPage() {
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <h3 className="text-[#253F60] text-xl font-semibold mb-6">Notre approche repose sur :</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">1</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Simulations personnalisées</h4>
-                    <p className="text-sm text-[#686868]">De revenus futurs en intégrant tous les leviers</p>
+                    <h4 className="font-semibold mb-2 text-lg">Simulations personnalisées</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">De revenus futurs en intégrant tous les leviers</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">3</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Arbitrage capital/rente</h4>
-                    <p className="text-sm text-[#686868]">Selon les besoins et la situation</p>
+                    <h4 className="font-semibold mb-2 text-lg">Arbitrage capital/rente</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Selon les besoins et la situation</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">3</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Optimisation fiscale</h4>
-                    <p className="text-sm text-[#686868]">Selon la tranche d'imposition</p>
+                    <h4 className="font-semibold mb-2 text-lg">Optimisation fiscale</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Selon la tranche d'imposition</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">4</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Sécurisation des revenus</h4>
-                    <p className="text-sm text-[#686868]">Avant et après 70 ans</p>
+                    <h4 className="font-semibold mb-2 text-lg">Sécurisation des revenus</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Avant et après 70 ans</p>
                   </div>
                 </div>
               </div>
@@ -763,9 +879,16 @@ export default function PeaPerPage() {
               <p>
                 C'est une <strong>arme redoutable pour les entrepreneurs</strong>, surtout s'il est ouvert tôt et utilisé pour loger des actions non cotées.
               </p>
-              <p className="text-xl font-semibold">
-                👉 Azalée Patrimoine accompagne ses clients dans l'ouverture, le transfert et la gestion optimisée de leur PEA, pour transformer cet outil en <strong>véritable levier patrimonial</strong>.
-              </p>
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <p className="text-xl font-semibold">
+                  Azalée Patrimoine accompagne ses clients dans l'ouverture, le transfert et la gestion optimisée de leur PEA, pour transformer cet outil en <strong>véritable levier patrimonial</strong>.
+                </p>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">

@@ -267,7 +267,7 @@ const pagesContent = {
       localisation: {
         title: "Rencontrer un conseiller en gestion de patrimoine",
         villes: [],
-        cardTitle: "Disponible en toute la France",
+        cardTitle: "Disponible partout en France",
         cardDescription: "Nos conseillers en gestion de patrimoine sont présents partout en France pour vous accompagner dans votre projet patrimonial, où que vous soyez.",
         buttonText: "Prendre rendez-vous",
         buttonUrl: "https://calendly.com/rdv-azalee-patrimoine/30min",

@@ -185,28 +185,37 @@ export default function AutrePatrimoinePage() {
       </section>
 
       {/* Les 3 solutions patrimoniales Section */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               {content.solutions?.title || "Les solutions patrimoniales originales"}
             </h2>
-            <p className="text-[#686868] text-lg max-w-3xl mx-auto">
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Découvrez les solutions alternatives pour diversifier votre patrimoine
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {(content.solutions?.solutions || []).map((solution, index) => (
-              <div key={index} className={`bg-gradient-to-br ${solution.color} rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group`}>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <div className="text-center mb-6 relative z-10">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-[#253F60]">{solution.icon}</span>
+              <div key={index} className={`group relative bg-gradient-to-br ${solution.color.includes('from-[#253F60]') ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : solution.color.includes('from-[#B99066]') ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#B99066]'} rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500`}>
+                <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-tr-full"></div>
+                <div className="relative z-10">
+                  <div className="text-center mb-6">
+                    <div className={`w-16 h-16 ${solution.color.includes('from-[#253F60]') ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <span className="text-white text-2xl font-bold">{solution.icon}</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <div className="w-1 h-6 bg-white/30 rounded-full"></div>
+                      <h3 className="text-2xl font-cairo font-bold">{solution.title}</h3>
+                      <div className="w-1 h-6 bg-white/30 rounded-full"></div>
+                    </div>
+                    <p className="text-base font-medium opacity-90">{solution.subtitle}</p>
                   </div>
-                  <h3 className="text-2xl font-semibold mb-2">{solution.title}</h3>
-                  <p className="text-sm font-medium opacity-90">{solution.subtitle}</p>
-                </div>
                 
                 <div className="space-y-4 relative z-10">
                   <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -241,6 +250,7 @@ export default function AutrePatrimoinePage() {
                     </p>
                   </div>
                 </div>
+                </div>
               </div>
             ))}
           </div>
@@ -248,11 +258,16 @@ export default function AutrePatrimoinePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full bg-gradient-to-br from-[#253F60] to-[#B99066] py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            {content.cta?.title || "Prêt à découvrir ces solutions ?"}
-          </h2>
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-2xl p-8 sm:p-10 lg:p-12 text-center shadow-2xl overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                {content.cta?.title || "Prêt à découvrir ces solutions ?"}
+              </h2>
           <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
             {content.cta?.subtitle || "Nos experts vous accompagnent dans le choix des solutions patrimoniales les plus adaptées à votre profil et vos objectifs."}
           </p>
@@ -262,6 +277,8 @@ export default function AutrePatrimoinePage() {
           >
             {content.cta?.buttonText || "Prendre rendez-vous"}
           </button>
+            </div>
+          </div>
         </div>
       </section>
       

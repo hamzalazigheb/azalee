@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import VignetteRetraites from "../../components/fiscalite/VignetteRetraites";
@@ -16,6 +17,7 @@ export default function FiscalitePage() {
   const [hoveredProfil, setHoveredProfil] = useState(null);
   const [profilTimeoutId, setProfilTimeoutId] = useState(null);
   const [hoveredIcon, setHoveredIcon] = useState(null);
+  const [iconTimeoutId, setIconTimeoutId] = useState(null);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -374,16 +376,22 @@ export default function FiscalitePage() {
                 {/* Deux boîtes côte à côte */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                   {(pageContent.declarer?.boxes || [
-                    { title: "Période de déclaration" },
-                    { title: "www.impots.gouv.fr" }
+                    { title: "Période de déclaration", link: "/fiscalite/declaration-impots" },
+                    { title: "www.impots.gouv.fr", link: "https://www.impots.gouv.fr" }
                   ]).map((box, index) => (
-                    <div key={index} className="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#B99066] hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[120px]">
-                      <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white rounded-lg px-6 py-4 text-center w-full shadow-md">
+                    <a 
+                      key={index} 
+                      href={box.link || (index === 0 ? "/fiscalite/declaration-impots" : "https://www.impots.gouv.fr")}
+                      target={index === 1 ? "_blank" : undefined}
+                      rel={index === 1 ? "noopener noreferrer" : undefined}
+                      className="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#B99066] hover:shadow-xl transition-all duration-300 flex items-center justify-center min-h-[120px] cursor-pointer"
+                    >
+                      <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white rounded-lg px-6 py-4 text-center w-full shadow-md hover:shadow-lg transition-shadow">
                         <p className="text-lg sm:text-xl font-cairo font-bold">
                           {box.title}
                         </p>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -437,7 +445,7 @@ export default function FiscalitePage() {
           {/* Grille 3x2 des dispositifs */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
             {(pageContent.defiscalisation?.dispositifs || []).map((dispositif, index) => (
-              <Link key={index} href={dispositif.link || "#"} className="group bg-white rounded-xl shadow-lg p-6 border-2 border-gray-200 hover:border-[#B99066] hover:shadow-xl transition-all duration-300">
+              <Link key={index} href={dispositif.link || "/fiscalite"} className="group bg-white rounded-xl shadow-lg p-6 border-2 border-gray-200 hover:border-[#B99066] hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center justify-center mb-4">
                   <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24">
                     <defs>
@@ -460,13 +468,17 @@ export default function FiscalitePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               {pageContent.defiscalisation.ctas.map((cta, index) => (
                 index === 0 ? (
-                  <button key={index} className="bg-[#253F60] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-base hover:bg-[#1a2d47] hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
+                  <button 
+                    key={index}
+                    onClick={() => window.open(cta.link || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="bg-[#253F60] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-base hover:bg-[#1a2d47] hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                  >
                     {cta.text}
                   </button>
                 ) : (
                   <Link 
                     key={index}
-                    href={cta.link || "#"}
+                    href={cta.link || "https://calendly.com/rdv-azalee-patrimoine/30min"}
                     className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-base border-2 border-[#253F60] hover:bg-gray-50 hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-center"
                   >
                     {cta.text}
@@ -904,18 +916,30 @@ export default function FiscalitePage() {
                     fill="#B99066"
                     opacity="0.9"
                     className="hover:opacity-100 transition-opacity cursor-pointer"
-                    onMouseEnter={() => setHoveredIcon('diagnostic')}
-                    onMouseLeave={() => setHoveredIcon(null)}
+                    onMouseEnter={() => {
+                      if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                      setHoveredIcon('diagnostic');
+                    }}
+                    onMouseLeave={() => {
+                      const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                      setIconTimeoutId(timeout);
+                    }}
                   />
                   
                   {/* Segment 2: Stratégie (Top Right - 90° à 180°) */}
                   <path
                     d="M 100 100 L 180 100 A 80 80 0 0 1 100 180 Z"
-                    fill="#D4A574"
+                    fill="#A67A5A"
                     opacity="0.9"
                     className="hover:opacity-100 transition-opacity cursor-pointer"
-                    onMouseEnter={() => setHoveredIcon('strategie')}
-                    onMouseLeave={() => setHoveredIcon(null)}
+                    onMouseEnter={() => {
+                      if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                      setHoveredIcon('strategie');
+                    }}
+                    onMouseLeave={() => {
+                      const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                      setIconTimeoutId(timeout);
+                    }}
                   />
                   
                   {/* Segment 3: Mise en œuvre (Bottom Right - 180° à 270°) */}
@@ -924,18 +948,30 @@ export default function FiscalitePage() {
                     fill="#B99066"
                     opacity="0.9"
                     className="hover:opacity-100 transition-opacity cursor-pointer"
-                    onMouseEnter={() => setHoveredIcon('mise-en-oeuvre')}
-                    onMouseLeave={() => setHoveredIcon(null)}
+                    onMouseEnter={() => {
+                      if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                      setHoveredIcon('mise-en-oeuvre');
+                    }}
+                    onMouseLeave={() => {
+                      const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                      setIconTimeoutId(timeout);
+                    }}
                   />
                   
                   {/* Segment 4: Suivi (Bottom Left - 270° à 360°) */}
                   <path
                     d="M 100 100 L 20 100 A 80 80 0 0 1 100 20 Z"
-                    fill="#D4A574"
+                    fill="#A67A5A"
                     opacity="0.9"
                     className="hover:opacity-100 transition-opacity cursor-pointer"
-                    onMouseEnter={() => setHoveredIcon('suivi')}
-                    onMouseLeave={() => setHoveredIcon(null)}
+                    onMouseEnter={() => {
+                      if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                      setHoveredIcon('suivi');
+                    }}
+                    onMouseLeave={() => {
+                      const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                      setIconTimeoutId(timeout);
+                    }}
                   />
                   
                   {/* Cercle intérieur (donut) avec bordure dorée */}
@@ -996,9 +1032,15 @@ export default function FiscalitePage() {
 
                 {/* Badge 1: Diagnostic (Top Left segment - positionné à l'intérieur du segment) */}
                 <div 
-                  className="absolute top-[25%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-                  onMouseEnter={() => setHoveredIcon('diagnostic')}
-                  onMouseLeave={() => setHoveredIcon(null)}
+                  className="absolute top-[25%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20"
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('diagnostic');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
                 >
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
@@ -1008,9 +1050,19 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Diagnostic - Top Left */}
-                <div className={`absolute top-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] transition-opacity duration-300 z-20 ${hoveredIcon === 'diagnostic' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div 
+                  className={`absolute top-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] transition-opacity duration-300 z-30 ${hoveredIcon === 'diagnostic' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('diagnostic');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
+                >
                   <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
-                    <h3 className="text-[#B99066] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
+                    <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[0]?.title || "Diagnostic complet"}
                     </h3>
                     <p className="text-[#4B5563] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
@@ -1021,9 +1073,15 @@ export default function FiscalitePage() {
 
                 {/* Badge 2: Stratégie (Top Right segment - positionné à l'intérieur du segment) */}
                 <div 
-                  className="absolute top-[25%] right-[25%] transform translate-x-1/2 -translate-y-1/2 cursor-pointer"
-                  onMouseEnter={() => setHoveredIcon('strategie')}
-                  onMouseLeave={() => setHoveredIcon(null)}
+                  className="absolute top-[25%] right-[25%] transform translate-x-1/2 -translate-y-1/2 cursor-pointer z-20"
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('strategie');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
                 >
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
@@ -1034,9 +1092,19 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Stratégie - Top Right */}
-                <div className={`absolute top-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right transition-opacity duration-300 z-20 ${hoveredIcon === 'strategie' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div 
+                  className={`absolute top-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right transition-opacity duration-300 z-30 ${hoveredIcon === 'strategie' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('strategie');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
+                >
                   <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
-                    <h3 className="text-[#B99066] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
+                    <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[1]?.title || "Stratégie personnalisée"}
                     </h3>
                     <p className="text-[#4B5563] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
@@ -1047,9 +1115,15 @@ export default function FiscalitePage() {
 
                 {/* Badge 3: Mise en œuvre (Bottom Right segment - positionné à l'intérieur du segment) */}
                 <div 
-                  className="absolute bottom-[25%] right-[25%] transform translate-x-1/2 translate-y-1/2 cursor-pointer"
-                  onMouseEnter={() => setHoveredIcon('mise-en-oeuvre')}
-                  onMouseLeave={() => setHoveredIcon(null)}
+                  className="absolute bottom-[25%] right-[25%] transform translate-x-1/2 translate-y-1/2 cursor-pointer z-20"
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('mise-en-oeuvre');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
                 >
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
@@ -1059,9 +1133,19 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Mise en œuvre - Bottom Right */}
-                <div className={`absolute bottom-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right transition-opacity duration-300 z-20 ${hoveredIcon === 'mise-en-oeuvre' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div 
+                  className={`absolute bottom-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right transition-opacity duration-300 z-30 ${hoveredIcon === 'mise-en-oeuvre' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('mise-en-oeuvre');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
+                >
                   <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
-                    <h3 className="text-[#B99066] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
+                    <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[2]?.title || "Mise en œuvre"}
                     </h3>
                     <p className="text-[#4B5563] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
@@ -1072,9 +1156,15 @@ export default function FiscalitePage() {
 
                 {/* Badge 4: Suivi (Bottom Left segment - positionné à l'intérieur du segment) */}
                 <div 
-                  className="absolute bottom-[25%] left-[25%] transform -translate-x-1/2 translate-y-1/2 cursor-pointer"
-                  onMouseEnter={() => setHoveredIcon('suivi')}
-                  onMouseLeave={() => setHoveredIcon(null)}
+                  className="absolute bottom-[25%] left-[25%] transform -translate-x-1/2 translate-y-1/2 cursor-pointer z-20"
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('suivi');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
                 >
                   <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
@@ -1084,9 +1174,19 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Suivi - Bottom Left */}
-                <div className={`absolute bottom-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] transition-opacity duration-300 z-20 ${hoveredIcon === 'suivi' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div 
+                  className={`absolute bottom-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] transition-opacity duration-300 z-30 ${hoveredIcon === 'suivi' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onMouseEnter={() => {
+                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
+                    setHoveredIcon('suivi');
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
+                    setIconTimeoutId(timeout);
+                  }}
+                >
                   <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
-                    <h3 className="text-[#B99066] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
+                    <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[3]?.title || "Suivi et ajustement"}
                     </h3>
                     <p className="text-[#4B5563] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
@@ -1095,13 +1195,18 @@ export default function FiscalitePage() {
                   </div>
                 </div>
 
-                {/* Logo central dans le donut */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                  <img 
-                    src="/images/azalee-patrimoine.png" 
-                    alt="Azalée Patrimoine" 
-                    className="w-24 h-24 sm:w-28 sm:h-28 object-contain scale-x-[-1]"
-                  />
+                {/* Logo central dans le donut - Arbre Azalée */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center relative">
+                    <Image 
+                      src="/images/azalee-patrimoine3.png" 
+                      alt="Azalée Patrimoine" 
+                      width={112}
+                      height={112}
+                      className="object-contain opacity-90"
+                      priority
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -1112,7 +1217,7 @@ export default function FiscalitePage() {
           {pageContent.expertise?.services && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {pageContent.expertise.services.map((service, index) => (
-                <div key={index} className="bg-[#1e3a5a] rounded-xl p-6 sm:p-8 border-2 border-[#B99066]/30">
+                <div key={index} className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 sm:p-8 border-2 border-[#B99066]/30 shadow-lg">
                   <h3 className="text-[#B99066] text-xl sm:text-2xl font-cairo font-bold mb-6">
                     {service.title}
                   </h3>
@@ -1189,29 +1294,40 @@ export default function FiscalitePage() {
             </h2>
 
             <div className="space-y-4">
-              {(pageContent.enSavoirPlus?.links || [
-                { text: "Qui sommes-nous ?", link: "/patrimoine" },
-                { text: "Gestion de patrimoine", link: "/patrimoine" },
-                { text: "Placement financier", link: "/placements" },
-                { text: "Investissement immobilier", link: "/immobilier" },
-                { text: "Retraite", link: "/retraite" },
-                { text: "Simulateurs", link: "/retraite/simulation" }
-              ]).map((linkItem, index) => (
-                <Link 
-                  key={index}
-                  href={linkItem.link || "#"} 
-                  className="block bg-white rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow border-l-4 border-[#B99066] group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#253F60] text-base sm:text-lg font-inter font-medium group-hover:text-[#B99066] transition-colors">
-                      {linkItem.text}
-                    </span>
-                    <svg className="w-5 h-5 text-[#B99066] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </Link>
-              ))}
+              {(() => {
+                const defaultLinks = [
+                  { text: "Qui sommes-nous ?", link: "/notre-approche" },
+                  { text: "Gestion de patrimoine", link: "/patrimoine" },
+                  { text: "Placement financier", link: "/placements" },
+                  { text: "Investissement immobilier", link: "/immobilier" },
+                  { text: "Retraite", link: "/retraite" },
+                  { text: "Simulateurs", link: "/retraite/simulation" }
+                ];
+                
+                const links = pageContent.enSavoirPlus?.links || defaultLinks;
+                
+                return links.map((linkItem, index) => {
+                  const link = linkItem.link || linkItem.href || (index === 0 ? "/notre-approche" : index === 1 ? "/patrimoine" : index === 2 ? "/placements" : index === 3 ? "/immobilier" : index === 4 ? "/retraite" : "/retraite/simulation");
+                  const text = linkItem.text || linkItem.label || linkItem.title || "";
+                  
+                  return (
+                    <Link 
+                      key={index}
+                      href={link} 
+                      className="block bg-white rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow border-l-4 border-[#B99066] group cursor-pointer"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#253F60] text-base sm:text-lg font-inter font-medium group-hover:text-[#B99066] transition-colors">
+                          {text}
+                        </span>
+                        <svg className="w-5 h-5 text-[#B99066] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </Link>
+                  );
+                });
+              })()}
             </div>
           </div>
         </div>

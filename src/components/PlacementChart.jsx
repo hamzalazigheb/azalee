@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const PlacementChart = ({ title, data, chartImage }) => {
   return (
@@ -17,15 +18,26 @@ const PlacementChart = ({ title, data, chartImage }) => {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left: Chart Image */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
-            <img
-              src={chartImage}
-              alt={`${title} Chart`}
-              className="w-full max-w-md lg:max-w-lg h-auto rounded-lg shadow-lg"
-              onError={(e) => {
-                console.log('Chart image failed to load:', e.target.src);
-              }}
-              onLoad={() => console.log('Chart image loaded successfully')}
-            />
+            <div className="relative w-full max-w-md lg:max-w-lg aspect-square rounded-lg shadow-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 ring-2 ring-gray-100">
+              <Image
+                src={chartImage}
+                alt={`${title} Chart`}
+                fill
+                className="object-contain object-center"
+                quality={100}
+                priority={false}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                style={{
+                  imageRendering: 'auto',
+                  filter: 'contrast(1.05) saturate(1.1)',
+                }}
+                unoptimized={false}
+                onError={(e) => {
+                  console.log('Chart image failed to load:', e.target.src);
+                }}
+                onLoad={() => console.log('Chart image loaded successfully')}
+              />
+            </div>
           </div>
 
           {/* Right: Data Table */}

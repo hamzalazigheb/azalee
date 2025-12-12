@@ -20,9 +20,9 @@ export default function ContratCapitalisationPage() {
               <p className="text-white text-lg font-inter leading-relaxed mb-8">
                 Souvent éclipsé par la notoriété de l'assurance-vie, le <strong>contrat de capitalisation</strong> est pourtant un instrument patrimonial incontournable pour diversifier son épargne et optimiser sa fiscalité.
               </p>
-              <div className="bg-[#E8F4F8] border-l-4 border-[#B99066] p-4 rounded-r-lg mb-8">
-                <p className="text-[#112033] text-sm font-inter">
-                  👉 Bien maîtrisé, le contrat de capitalisation est un <strong>levier discret mais redoutablement efficace</strong> pour les investisseurs avertis.
+              <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#B99066] p-4 rounded-r-lg mb-8">
+                <p className="text-white text-sm font-inter">
+                  Bien maîtrisé, le contrat de capitalisation est un <strong>levier discret mais redoutablement efficace</strong> pour les investisseurs avertis.
             </p>
           </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -148,9 +148,9 @@ export default function ContratCapitalisationPage() {
             </div>
           </div>
 
-          <div className="mt-8 bg-[#E8F4F8] border-l-4 border-[#B99066] p-6 rounded-r-lg">
+          <div className="mt-8 bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#B99066] p-6 rounded-r-lg">
             <p className="text-[#112033] text-lg font-semibold text-center">
-              👉 Sur le plan fiscal et financier, un contrat de capitalisation <strong>fonctionne comme une assurance-vie</strong>.
+              Sur le plan fiscal et financier, un contrat de capitalisation <strong>fonctionne comme une assurance-vie</strong>.
             </p>
           </div>
         </div>
@@ -219,7 +219,7 @@ export default function ContratCapitalisationPage() {
               </div>
 
             {/* Souscription par personnes morales */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#59E2E4]">
+            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-lg">3</span>
@@ -247,7 +247,7 @@ export default function ContratCapitalisationPage() {
 
           <div className="mt-8 bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
             <h3 className="text-xl font-semibold mb-6 text-center">
-              👉 En résumé :
+              En résumé :
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -269,8 +269,7 @@ export default function ContratCapitalisationPage() {
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#4EBBBD] text-3xl">🏛️</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
               Contrat de capitalisation et SCI à l'IS : un atout discret
             </h2>
             <p className="text-[#686868] text-lg max-w-4xl mx-auto">
@@ -286,7 +285,9 @@ export default function ContratCapitalisationPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-[#4EBBBD] text-xl">📊</span>
+                  <svg className="w-6 h-6 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
                 </div>
                 <h4 className="font-semibold mb-2">Accès à une grande variété de supports</h4>
                 <p className="text-sm">Fonds euros, UC, SCPI, produits structurés</p>
@@ -294,7 +295,9 @@ export default function ContratCapitalisationPage() {
               
               <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-[#4EBBBD] text-xl">💰</span>
+                  <svg className="w-6 h-6 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
                 <h4 className="font-semibold mb-2">Fiscalité maîtrisée à l'IS</h4>
                 <p className="text-sm">Amortissement des parts de SCPI, réintégration progressive</p>
@@ -302,7 +305,9 @@ export default function ContratCapitalisationPage() {
               
               <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-[#4EBBBD] text-xl">📈</span>
+                  <svg className="w-6 h-6 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
                 </div>
                 <h4 className="font-semibold mb-2">Meilleure rentabilité</h4>
                 <p className="text-sm">Que des liquidités laissées sur un compte courant</p>
@@ -310,14 +315,14 @@ export default function ContratCapitalisationPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#4EBBBD]">
+          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
             <h3 className="text-[#112033] text-xl font-semibold mb-6">
               Exemple concret
             </h3>
             
-            <div className="bg-[#E8F4F8] p-6 rounded-lg mb-6">
+            <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 p-6 rounded-lg mb-6">
               <p className="text-[#112033] text-lg font-semibold mb-4">
-                👉 Exemple : une SCI familiale à l'IS détient 300 000 € de trésorerie suite à une vente immobilière.
+                Exemple : une SCI familiale à l'IS détient 300 000 € de trésorerie suite à une vente immobilière.
               </p>
               <p className="text-[#686868] mb-4">
                 Plutôt que de laisser dormir ces fonds sur un compte bancaire faiblement rémunéré, elle les place dans un contrat de capitalisation, diversifié entre fonds euros et SCPI.
@@ -338,8 +343,7 @@ export default function ContratCapitalisationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Avantages */}
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-green-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8 flex items-center gap-3">
-                <span className="text-green-500 text-3xl">✅</span>
+              <h3 className="text-[#112033] text-xl font-semibold mb-8">
                 Les avantages du contrat de capitalisation
                   </h3>
               
@@ -415,8 +419,7 @@ export default function ContratCapitalisationPage() {
 
             {/* Inconvénients */}
             <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-red-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8 flex items-center gap-3">
-                <span className="text-red-500 text-3xl">⚠️</span>
+              <h3 className="text-[#112033] text-xl font-semibold mb-8">
                 Les inconvénients et contre-indications
                   </h3>
               
@@ -486,8 +489,7 @@ export default function ContratCapitalisationPage() {
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#4EBBBD] text-3xl">💡</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
               Exemple concret
             </h2>
           </div>
@@ -536,7 +538,7 @@ export default function ContratCapitalisationPage() {
             </div>
             </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#4EBBBD]">
+          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
             <h3 className="text-[#112033] text-xl font-semibold mb-6">
               Résultat de cette stratégie duale :
               </h3>
@@ -564,8 +566,7 @@ export default function ContratCapitalisationPage() {
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#4EBBBD] text-3xl">🎯</span>
+            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
               Conseil Azalée Patrimoine
             </h2>
           </div>
@@ -577,8 +578,10 @@ export default function ContratCapitalisationPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-[#4EBBBD] rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-2xl">📊</span>
+                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
                 </div>
                 <h4 className="text-[#112033] font-semibold mb-2">Diversification des enveloppes fiscales</h4>
               <p className="text-[#686868] text-sm">
@@ -587,8 +590,10 @@ export default function ContratCapitalisationPage() {
             </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-2xl">🔄</span>
+                <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
                 </div>
                 <h4 className="text-[#112033] font-semibold mb-2">Continuité patrimoniale</h4>
               <p className="text-[#686868] text-sm">
@@ -597,8 +602,10 @@ export default function ContratCapitalisationPage() {
             </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-[#59E2E4] rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white text-2xl">🏢</span>
+                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
                 </div>
                 <h4 className="text-[#112033] font-semibold mb-2">Sociétés patrimoniales</h4>
               <p className="text-[#686868] text-sm">
@@ -610,7 +617,7 @@ export default function ContratCapitalisationPage() {
 
           <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
             <h3 className="text-xl font-semibold mb-6 text-center">
-              👉 L'assurance-vie et le contrat de capitalisation ne s'opposent pas : ils se complètent.
+              L'assurance-vie et le contrat de capitalisation ne s'opposent pas : ils se complètent.
               </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -643,41 +650,45 @@ export default function ContratCapitalisationPage() {
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">📞</span>
+                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
                 </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-3">Appelez-nous</h3>
                 <p className="text-[#686868] text-sm mb-4">
                   Un conseiller vous accompagne dans votre stratégie patrimoniale.
                 </p>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#253F60] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#1A2A4A] transition-colors duration-200"
+                <a 
+                  href="tel:+33153458500"
+                  className="bg-[#253F60] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#1A2A4A] transition-colors duration-200 inline-block text-center"
                 >
                   Prendre rendez-vous
-                </button>
+                </a>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">📧</span>
+                <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-3">Écrivez-nous</h3>
                 <p className="text-[#686868] text-sm mb-4">
                   Obtenez une analyse personnalisée de votre patrimoine.
                 </p>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#B99066] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200"
+                <a 
+                  href="mailto:contact@azalee-patrimoine.fr"
+                  className="inline-block bg-[#B99066] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200"
                 >
-                  Analyser mon patrimoine
-                </button>
+                  contact@azalee-patrimoine.fr
+                </a>
               </div>
             </div>
             
-            <div className="mt-8 bg-[#E8F4F8] border-l-4 border-[#4EBBBD] p-6 rounded-r-lg">
+            <div className="mt-8 bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-6 rounded-r-lg">
               <p className="text-[#112033] text-center font-semibold">
-                📩 <strong>Contactez un conseiller Azalée Patrimoine</strong> pour savoir comment intégrer un contrat de capitalisation dans votre stratégie patrimoniale ou dans la trésorerie de votre société.
+                <strong>Contactez un conseiller Azalée Patrimoine</strong> pour savoir comment intégrer un contrat de capitalisation dans votre stratégie patrimoniale ou dans la trésorerie de votre société.
               </p>
             </div>
           </div>
@@ -701,12 +712,12 @@ export default function ContratCapitalisationPage() {
             >
               Analyser mon patrimoine
             </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+            <a 
+              href="tel:+33153458500"
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200 inline-block text-center"
             >
               Prendre rendez-vous
-          </button>
+            </a>
           </div>
         </div>
       </section>

@@ -2,18 +2,10 @@
 import React, { useState } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
 
 export default function TauxInteretsPage() {
   const [activeTab, setActiveTab] = useState("introduction");
   
-  const chartData = [
-    { label: "Taux directeur BCE", value: "4.50%" },
-    { label: "Taux Livret A", value: "3.00%" },
-    { label: "Taux crédit immobilier", value: "4.20%" },
-    { label: "Inflation actuelle", value: "2.10%" },
-    { label: "Capacité emprunt 1%", value: "210 000 €" }
-  ];
 
   return (
     <>
@@ -96,12 +88,6 @@ export default function TauxInteretsPage() {
         </div>
       </section>
 
-      {/* Chart Section */}
-      <PlacementChart 
-        title="Évolution des taux d'intérêts"
-        data={chartData}
-        chartImage="/images/variation-chart-image-944f04.png"
-      />
 
       {/* Navigation Tabs */}
       <section className="w-full bg-white py-8">
@@ -111,7 +97,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("introduction")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "introduction" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -121,7 +107,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("definition")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "definition" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -131,7 +117,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("economie")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "economie" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -141,7 +127,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("epargnant")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "epargnant" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -151,7 +137,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("placements")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "placements" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -161,7 +147,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("faq")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "faq" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -171,7 +157,7 @@ export default function TauxInteretsPage() {
               onClick={() => setActiveTab("azalee")}
               className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
                 activeTab === "azalee" 
-                  ? "bg-[#4EBBBD] text-white" 
+                  ? "bg-[#253F60] text-white" 
                   : "bg-gray-100 text-[#686868] hover:bg-gray-200"
               }`}
             >
@@ -195,7 +181,7 @@ export default function TauxInteretsPage() {
                 </p>
               </div>
               
-              <div className="bg-gradient-to-r from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
                 <h3 className="text-xl font-semibold mb-4">Pourquoi comprendre les taux ?</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -238,31 +224,37 @@ export default function TauxInteretsPage() {
                     C'est le <strong>coût du crédit</strong> (immobilier, consommation, entreprise).
                   </p>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#4EBBBD] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">H</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Crédit immobilier</h4>
-                        <p className="text-[#686868] text-sm">Coût du financement d'un bien</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Crédit immobilier</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Coût du financement d'un bien</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">💳</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Crédit consommation</h4>
-                        <p className="text-[#686868] text-sm">Financement de biens et services</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Crédit consommation</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Financement de biens et services</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#59E2E4] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">1</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Crédit entreprise</h4>
-                        <p className="text-[#686868] text-sm">Financement de l'activité</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Crédit entreprise</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Financement de l'activité</p>
                       </div>
                     </div>
                   </div>
@@ -274,31 +266,37 @@ export default function TauxInteretsPage() {
                     C'est la <strong>rémunération de son épargne</strong> (livrets, fonds euros, obligations).
                   </p>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#4EBBBD] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">2</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Livrets réglementés</h4>
-                        <p className="text-[#686868] text-sm">Livret A, LDDS, LEP</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Livrets réglementés</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Livret A, LDDS, LEP</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">3</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Fonds euros</h4>
-                        <p className="text-[#686868] text-sm">Assurance-vie sécurisée</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Fonds euros</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Assurance-vie sécurisée</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#59E2E4] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">4</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Obligations</h4>
-                        <p className="text-[#686868] text-sm">Emprunts d'État et d'entreprise</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Obligations</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Emprunts d'État et d'entreprise</p>
                       </div>
                     </div>
                   </div>
@@ -308,33 +306,41 @@ export default function TauxInteretsPage() {
               <div className="bg-[#F8F9FA] rounded-lg p-8">
                 <h3 className="text-[#112033] text-xl font-semibold mb-6">Types de taux</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#4EBBBD] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">1</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Taux directeurs</h4>
-                    <p className="text-sm text-[#686868]">Fixés par la BCE ou la Fed</p>
+                    <h4 className="font-semibold mb-2 text-lg">Taux directeurs</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Fixés par la BCE ou la Fed</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">2</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Taux créditeurs</h4>
-                    <p className="text-sm text-[#686868]">Rémunération des dépôts</p>
+                    <h4 className="font-semibold mb-2 text-lg">Taux créditeurs</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Rémunération des dépôts</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#59E2E4] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">💳</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Taux débiteurs</h4>
-                    <p className="text-sm text-[#686868]">Coût du crédit</p>
+                    <h4 className="font-semibold mb-2 text-lg">Taux débiteurs</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Coût du crédit</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#4EBBBD] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">📊</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Taux obligataires</h4>
-                    <p className="text-sm text-[#686868]">Rendement des emprunts</p>
+                    <h4 className="font-semibold mb-2 text-lg">Taux obligataires</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Rendement des emprunts</p>
                   </div>
                 </div>
               </div>
@@ -353,7 +359,7 @@ export default function TauxInteretsPage() {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">Quand les taux montent</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -371,7 +377,7 @@ export default function TauxInteretsPage() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#D4A574] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
                   <h3 className="text-xl font-semibold mb-6">Quand les taux baissent</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -401,10 +407,12 @@ export default function TauxInteretsPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#253F60] font-bold text-xl">1</span>
+                <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-10 h-10 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                 </div>
                     <h3 className="text-2xl font-semibold mb-2">Épargne de précaution</h3>
               </div>
@@ -418,10 +426,12 @@ export default function TauxInteretsPage() {
                   </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#B99066] to-[#D4A574] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#B99066] font-bold text-xl">H</span>
+                <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-10 h-10 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      </svg>
                 </div>
                     <h3 className="text-2xl font-semibold mb-2">Immobilier</h3>
               </div>
@@ -435,10 +445,12 @@ export default function TauxInteretsPage() {
                   </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#59E2E4] to-[#4EBBBD] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-[#B99066] font-bold text-xl">2</span>
+                <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <svg className="w-10 h-10 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
                     </div>
                     <h3 className="text-2xl font-semibold mb-2">Marchés financiers</h3>
                   </div>
@@ -468,7 +480,7 @@ export default function TauxInteretsPage() {
               <div className="overflow-x-auto">
                 <table className="w-full bg-white rounded-lg shadow-lg">
                   <thead>
-                    <tr className="bg-[#4EBBBD] text-white">
+                    <tr className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white">
                       <th className="px-6 py-4 text-left font-semibold">Placement</th>
                       <th className="px-6 py-4 text-center font-semibold">Sensibilité aux taux</th>
                       <th className="px-6 py-4 text-center font-semibold">Conséquence pour l'investisseur</th>
@@ -508,39 +520,47 @@ export default function TauxInteretsPage() {
                 <div>
                   <h3 className="text-[#112033] text-xl font-semibold mb-6">✅ Avantages d'une bonne lecture des taux</h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#4EBBBD] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">✓</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Anticiper les cycles économiques</h4>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Anticiper les cycles économiques</h4>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">✓</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Adapter ses arbitrages</h4>
-                        <p className="text-[#686868] text-sm">Plus d'obligations quand les taux sont hauts, plus d'actions quand ils baissent</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Adapter ses arbitrages</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Plus d'obligations quand les taux sont hauts, plus d'actions quand ils baissent</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#59E2E4] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">✓</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Optimiser son crédit immobilier</h4>
-                        <p className="text-[#686868] text-sm">Renégociation, opportunités de financement</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Optimiser son crédit immobilier</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Renégociation, opportunités de financement</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-[#4EBBBD] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">✓</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Arbitrer ses supports d'épargne</h4>
-                        <p className="text-[#686868] text-sm">Fonds euros vs livrets vs monétaire</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Arbitrer ses supports d'épargne</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Fonds euros vs livrets vs monétaire</p>
                       </div>
                     </div>
                   </div>
@@ -549,31 +569,37 @@ export default function TauxInteretsPage() {
                 <div>
                   <h3 className="text-[#112033] text-xl font-semibold mb-6">Limites et risques</h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">!</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Taux volatils</h4>
-                        <p className="text-[#686868] text-sm">Dépendent de la politique monétaire, de l'inflation et de la conjoncture mondiale</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Taux volatils</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Dépendent de la politique monétaire, de l'inflation et de la conjoncture mondiale</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">!</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
                       </div>
                       <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Mauvais timing</h4>
-                        <p className="text-[#686868] text-sm">Peut coûter cher (emprunter en haut de cycle, investir en obligations juste avant une hausse)</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Mauvais timing</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Peut coûter cher (emprunter en haut de cycle, investir en obligations juste avant une hausse)</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold">!</span>
+                    <div className="flex items-start gap-4 group">
+                      <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
                       </div>
             <div>
-                        <h4 className="text-[#112033] font-semibold mb-1">Vision globale nécessaire</h4>
-                        <p className="text-[#686868] text-sm">Patrimoine immobilier, financier et fiscal</p>
+                        <h4 className="text-[#112033] font-semibold mb-1 text-lg">Vision globale nécessaire</h4>
+                        <p className="text-[#686868] text-sm leading-relaxed">Patrimoine immobilier, financier et fiscal</p>
                       </div>
                     </div>
                   </div>
@@ -591,7 +617,7 @@ export default function TauxInteretsPage() {
               </div>
               
               <div className="space-y-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#4EBBBD]">
+                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
                   <h3 className="text-[#112033] text-lg font-semibold mb-3">1. Pourquoi les taux d'intérêt influencent-ils l'immobilier ?</h3>
                   <p className="text-[#686868] mb-2">
                     Les taux d'intérêt déterminent le <strong>coût du crédit immobilier</strong>.
@@ -602,7 +628,7 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] text-sm mb-2">
                     • Quand les taux montent, la capacité d'emprunt baisse → la demande ralentit → les prix peuvent se stabiliser ou corriger.
                   </p>
-                  <div className="bg-[#E8F4F8] border-l-4 border-[#4EBBBD] p-3 rounded-r-lg mt-3">
+                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-3 rounded-r-lg mt-3">
                     <p className="text-sm text-[#112033]">
  Exemple : à 1 %, un ménage peut emprunter 250 000 € pour une mensualité donnée. À 4 %, ce même ménage ne peut plus emprunter que 180 000 €.
                     </p>
@@ -617,14 +643,14 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] mb-2">
                     • <strong>Taux variable</strong> : il évolue selon un indice (ex. Euribor). Il peut baisser (avantage) mais aussi monter (risque).
                   </p>
-                  <div className="bg-[#FFF8E1] border-l-4 border-[#B99066] p-3 rounded-r-lg mt-3">
+                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#B99066] p-3 rounded-r-lg mt-3">
                     <p className="text-sm text-[#112033]">
  En France, le taux fixe domine (90 % des crédits), car il protège contre la volatilité des marchés.
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#59E2E4]">
+                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
                   <h3 className="text-[#112033] text-lg font-semibold mb-3">3. Faut-il investir quand les taux montent ?</h3>
                   <p className="text-[#686868] mb-2">
                     Oui, mais pas n'importe comment.
@@ -638,14 +664,14 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] text-sm mb-2">
                     • <strong>Actions</strong> : valorisations ajustées → opportunités d'achat à long terme.
                   </p>
-                  <div className="bg-[#E8F4F8] border-l-4 border-[#59E2E4] p-3 rounded-r-lg mt-3">
+                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-3 rounded-r-lg mt-3">
                     <p className="text-sm text-[#112033]">
  Une hausse des taux redistribue les cartes, elle ne doit pas paralyser l'investisseur.
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#4EBBBD]">
+                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
                   <h3 className="text-[#112033] text-lg font-semibold mb-3">4. Pourquoi la Banque centrale augmente-t-elle les taux ?</h3>
                   <p className="text-[#686868] mb-2">
                     La <strong>Banque centrale européenne (BCE)</strong> ou la <strong>Fed</strong> augmentent les taux pour :
@@ -656,7 +682,7 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] text-sm mb-2">
                     • Rétablir la stabilité monétaire.
                   </p>
-                  <div className="bg-[#E8F4F8] border-l-4 border-[#4EBBBD] p-3 rounded-r-lg mt-3">
+                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-3 rounded-r-lg mt-3">
                     <p className="text-sm text-[#112033]">
  Inversement, elles baissent les taux pour soutenir la croissance en période de crise.
                     </p>
@@ -674,14 +700,14 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] mb-2">
                     • <strong>SCPI</strong> : valorisation des immeubles ajustée par les taux de financement.
                   </p>
-                  <div className="bg-[#FFF8E1] border-l-4 border-[#B99066] p-3 rounded-r-lg mt-3">
+                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#B99066] p-3 rounded-r-lg mt-3">
                     <p className="text-sm text-[#112033]">
  En période de taux hauts, les placements sécurisés redeviennent compétitifs, mais attention à l'inflation.
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#59E2E4]">
+                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
                   <h3 className="text-[#112033] text-lg font-semibold mb-3">6. Quels sont les taux directeurs de la BCE ?</h3>
                   <p className="text-[#686868] mb-2">
                     Les principaux taux directeurs sont :
@@ -695,7 +721,7 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] text-sm mb-2">
                     • <strong>Taux de prêt marginal</strong> : taux d'urgence appliqué aux banques.
                   </p>
-                  <div className="bg-[#E8F4F8] border-l-4 border-[#59E2E4] p-3 rounded-r-lg mt-3">
+                  <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-3 rounded-r-lg mt-3">
                     <p className="text-sm text-[#112033]">
  Ces taux influencent directement le crédit, l'épargne et l'économie européenne.
                     </p>
@@ -703,7 +729,7 @@ export default function TauxInteretsPage() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white text-center">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white text-center">
                 <p className="text-lg font-semibold">
  Chez <strong>Azalée Patrimoine</strong>, nous surveillons l'évolution des taux pour adapter nos recommandations : <strong>immobilier, Bourse, produits financiers, épargne retraite</strong>.
                 </p>
@@ -714,12 +740,17 @@ export default function TauxInteretsPage() {
           {activeTab === "azalee" && (
             <div className="space-y-8">
               <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  🔑 La vision Azalée Patrimoine
+                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                    </svg>
+                  </div>
+                  La vision Azalée Patrimoine
                 </h2>
               </div>
               
-              <div className="bg-gradient-to-r from-[#4EBBBD] to-[#59E2E4] rounded-lg shadow-lg p-8 text-white mb-8">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white mb-8">
                 <h3 className="text-xl font-semibold mb-4">Chez Azalée Patrimoine, nous suivons de près :</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -740,26 +771,32 @@ export default function TauxInteretsPage() {
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <h3 className="text-[#112033] text-xl font-semibold mb-6">Notre rôle :</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#4EBBBD] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">📊</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Mettre en perspective</h4>
-                    <p className="text-sm text-[#686868]">Vos projets avec l'évolution des taux</p>
+                    <h4 className="font-semibold mb-2 text-lg">Mettre en perspective</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Vos projets avec l'évolution des taux</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">🧮</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Simuler l'impact</h4>
-                    <p className="text-sm text-[#686868]">Sur vos revenus futurs</p>
+                    <h4 className="font-semibold mb-2 text-lg">Simuler l'impact</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">Sur vos revenus futurs</p>
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-[#59E2E4] rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-white text-xl">3</span>
+                  <div className="text-center group">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
                     </div>
-                    <h4 className="font-semibold mb-2">Optimiser vos choix</h4>
-                    <p className="text-sm text-[#686868]">D'investissement et de financement</p>
+                    <h4 className="font-semibold mb-2 text-lg">Optimiser vos choix</h4>
+                    <p className="text-sm text-[#686868] leading-relaxed">D'investissement et de financement</p>
                   </div>
                 </div>
                 <div className="mt-6 text-center">
@@ -787,8 +824,8 @@ export default function TauxInteretsPage() {
 
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-[#4EBBBD] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="text-center group">
+                <div className="w-24 h-24 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                   <span className="text-white text-2xl font-bold">1%</span>
                 </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-2">Taux à 1%</h3>
@@ -797,8 +834,8 @@ export default function TauxInteretsPage() {
                 <p className="text-[#686868] text-xs mt-2">Mensualité : 1 000 € sur 20 ans</p>
               </div>
               
-              <div className="text-center">
-                <div className="w-20 h-20 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="text-center group">
+                <div className="w-24 h-24 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                   <span className="text-white text-2xl font-bold">3%</span>
                 </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-2">Taux à 3%</h3>
@@ -807,8 +844,8 @@ export default function TauxInteretsPage() {
                 <p className="text-[#686868] text-xs mt-2">Mensualité : 1 000 € sur 20 ans</p>
             </div>
 
-              <div className="text-center">
-                <div className="w-20 h-20 bg-[#59E2E4] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="text-center group">
+                <div className="w-24 h-24 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                   <span className="text-white text-2xl font-bold">5%</span>
                 </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-2">Taux à 5%</h3>
@@ -818,7 +855,7 @@ export default function TauxInteretsPage() {
               </div>
             </div>
 
-            <div className="mt-8 bg-[#E8F4F8] border-l-4 border-[#4EBBBD] p-6 rounded-r-lg">
+            <div className="mt-8 bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-6 rounded-r-lg">
               <p className="text-[#112033] text-lg font-semibold mb-2">
  Impact dramatique des taux sur le pouvoir d'achat immobilier
               </p>
@@ -848,26 +885,32 @@ export default function TauxInteretsPage() {
                 Chez <strong>Azalée Patrimoine</strong>, nous aidons nos clients à <strong>tirer parti des taux</strong> :
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <div className="w-12 h-12 bg-[#4EBBBD] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl">H</span>
+                <div className="bg-white rounded-lg shadow-lg p-6 group">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
                   </div>
-                  <h4 className="font-semibold mb-2">Crédit optimisé</h4>
-                  <p className="text-sm text-[#686868]">Renégociation et opportunités de financement</p>
+                  <h4 className="font-semibold mb-2 text-lg">Crédit optimisé</h4>
+                  <p className="text-sm text-[#686868] leading-relaxed">Renégociation et opportunités de financement</p>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl">5</span>
+                <div className="bg-white rounded-lg shadow-lg p-6 group">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                    </svg>
                   </div>
-                  <h4 className="font-semibold mb-2">Arbitrages financiers</h4>
-                  <p className="text-sm text-[#686868]">Adaptation selon les cycles de taux</p>
+                  <h4 className="font-semibold mb-2 text-lg">Arbitrages financiers</h4>
+                  <p className="text-sm text-[#686868] leading-relaxed">Adaptation selon les cycles de taux</p>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <div className="w-12 h-12 bg-[#59E2E4] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl">4</span>
+                <div className="bg-white rounded-lg shadow-lg p-6 group">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
                   </div>
-                  <h4 className="font-semibold mb-2">Sécurisation des revenus</h4>
-                  <p className="text-sm text-[#686868]">Préservation de la valeur réelle du patrimoine</p>
+                  <h4 className="font-semibold mb-2 text-lg">Sécurisation des revenus</h4>
+                  <p className="text-sm text-[#686868] leading-relaxed">Préservation de la valeur réelle du patrimoine</p>
                 </div>
               </div>
             </div>
@@ -876,7 +919,7 @@ export default function TauxInteretsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full bg-gradient-to-r from-[#59E2E4] to-[#B99066] py-12 sm:py-16 lg:py-20">
+      <section className="w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
             Prêt à optimiser vos placements selon les taux ?
@@ -886,10 +929,10 @@ export default function TauxInteretsPage() {
             les meilleures stratégies d'investissement adaptées au contexte économique.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-[#4EBBBD] px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-gray-100 transition-colors duration-200">
+            <button className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-gray-100 transition-colors duration-200">
               Analyser mes placements
             </button>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#4EBBBD] transition-colors duration-200">
+            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200">
               Prendre rendez-vous
             </button>
           </div>

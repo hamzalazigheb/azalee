@@ -32,16 +32,10 @@ export default function SuccessionHeritagePage() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
               <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-xl font-bold">1</span>
-                </div>
                 <h3 className="text-white font-semibold mb-2">La réserve héréditaire</h3>
                 <p className="text-white text-sm">Part du patrimoine obligatoirement attribuée aux héritiers réservataires (enfants, conjoint survivant)</p>
               </div>
               <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-xl font-bold">2</span>
-                </div>
                 <h3 className="text-white font-semibold mb-2">La quotité disponible</h3>
                 <p className="text-white text-sm">Part libre que l'on peut léguer à la personne de son choix (enfant, conjoint, tiers, association...)</p>
               </div>
@@ -74,48 +68,60 @@ export default function SuccessionHeritagePage() {
       />
 
       {/* Réserve héréditaire et quotité disponible Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Réserve héréditaire et quotité disponible
             </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+              Comprendre les mécanismes de transmission du patrimoine
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12">
             {/* Définition de la quotité disponible */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">1</span>
+            <div className="group relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+                  <h3 className="text-2xl font-cairo font-bold">Définition de la quotité disponible</h3>
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">Définition de la quotité disponible</h3>
+                <p className="text-base leading-relaxed text-center">
+                  C'est la <strong>portion du patrimoine dont on peut disposer librement</strong> (par testament ou donation), après application de la réserve héréditaire.
+                </p>
               </div>
-              <p className="text-sm mb-4">
-                C'est la <strong>portion du patrimoine dont on peut disposer librement</strong> (par testament ou donation), après application de la réserve héréditaire.
-              </p>
             </div>
 
             {/* Exemple de calcul */}
-            <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
+            <div className="group relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#253F60]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#253F60]/10 rounded-tr-full"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#253F60] to-[#1a2d47] rounded-full"></div>
+                  <h3 className="text-2xl font-cairo font-bold">Exemple de calcul</h3>
+                  <div className="w-1 h-8 bg-gradient-to-b from-[#253F60] to-[#1a2d47] rounded-full"></div>
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">Exemple de calcul</h3>
-              </div>
-              <div className="space-y-3 text-sm">
-                <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                  <p><strong>1 enfant</strong> : réserve = 50% → quotité disponible = 50%</p>
-                </div>
-                <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                  <p><strong>2 enfants</strong> : réserve = 2/3 (1/3 chacun) → quotité disponible = 1/3</p>
-                </div>
-                <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                  <p><strong>3 enfants ou +</strong> : réserve = 3/4 → quotité disponible = 1/4</p>
-                </div>
-                <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                  <p><strong>Sans enfant</strong> : conjoint survivant = 25%, reste = quotité disponible</p>
+                <div className="space-y-3 text-sm">
+                  <div className="bg-white bg-opacity-20 rounded-lg p-3">
+                    <p><strong>1 enfant</strong> : réserve = 50% → quotité disponible = 50%</p>
+                  </div>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-3">
+                    <p><strong>2 enfants</strong> : réserve = 2/3 (1/3 chacun) → quotité disponible = 1/3</p>
+                  </div>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-3">
+                    <p><strong>3 enfants ou +</strong> : réserve = 3/4 → quotité disponible = 1/4</p>
+                  </div>
+                  <div className="bg-white bg-opacity-20 rounded-lg p-3">
+                    <p><strong>Sans enfant</strong> : conjoint survivant = 25%, reste = quotité disponible</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,13 +154,16 @@ export default function SuccessionHeritagePage() {
       </section>
 
       {/* Droits de succession : abattements et barème fiscal Section */}
-      <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               Droits de succession : abattements et barème fiscal
             </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Chaque héritier bénéficie d'un <strong>abattement fiscal</strong> sur la part reçue.
             </p>
           </div>
@@ -264,9 +273,6 @@ export default function SuccessionHeritagePage() {
             {/* Communauté légale */}
             <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">1</span>
-                </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-2">Communauté légale</h3>
               </div>
               <p className="text-[#686868] text-sm mb-4">
@@ -282,9 +288,6 @@ export default function SuccessionHeritagePage() {
             {/* Séparation de biens */}
             <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">2</span>
-                </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-2">Séparation de biens</h3>
               </div>
               <p className="text-[#686868] text-sm mb-4">
@@ -300,9 +303,6 @@ export default function SuccessionHeritagePage() {
             {/* Communauté universelle */}
             <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">3</span>
-                </div>
                 <h3 className="text-[#112033] text-xl font-semibold mb-2">Communauté universelle</h3>
               </div>
               <p className="text-[#686868] text-sm mb-4">
@@ -361,9 +361,6 @@ export default function SuccessionHeritagePage() {
             {/* Assurance-vie */}
             <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">1</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Assurance-vie</h3>
               </div>
               <p className="text-sm mb-4">
@@ -374,9 +371,6 @@ export default function SuccessionHeritagePage() {
             {/* Démembrement */}
             <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Démembrement</h3>
               </div>
               <p className="text-sm mb-4">
@@ -387,9 +381,6 @@ export default function SuccessionHeritagePage() {
             {/* Donation-partage */}
             <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl font-bold">3</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Donation-partage</h3>
               </div>
               <p className="text-sm mb-4">
@@ -400,9 +391,6 @@ export default function SuccessionHeritagePage() {
             {/* Pacte Dutreil */}
             <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">4</span>
-                </div>
                 <h3 className="text-2xl font-semibold mb-2">Pacte Dutreil</h3>
               </div>
               <p className="text-sm mb-4">
@@ -427,9 +415,6 @@ export default function SuccessionHeritagePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">1</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Travail d'équipe
               </h3>
@@ -439,9 +424,6 @@ export default function SuccessionHeritagePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">2</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Anticipation
               </h3>
@@ -451,9 +433,6 @@ export default function SuccessionHeritagePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">3</span>
-              </div>
               <h3 className="text-[#112033] text-xl font-semibold mb-3">
                 Stratégie optimisée
               </h3>

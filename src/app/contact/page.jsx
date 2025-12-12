@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
+import SectionHeader from '../../components/common/SectionHeader';
 
 export default function ContactFormPage() {
   const [formData, setFormData] = useState({
@@ -65,34 +66,34 @@ export default function ContactFormPage() {
   };
 
   return (
-    <div className="w-full bg-gradient-to-br from-[#F8FAFB] to-[#F1F5F9] min-h-screen">
+    <div className="w-full bg-gradient-to-br from-[#F9FAFB] to-white min-h-screen">
       <Header />
       
       <main className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-cairo font-semibold text-[#112033] mb-6">
-              📩 Formulaire de contact
+            <h1 className="text-4xl lg:text-5xl font-cairo font-semibold text-[#253F60] mb-6">
+              Formulaire de contact
             </h1>
-            <p className="text-xl font-inter text-[#4A5568] italic">
-              👉 <em>Parlons de votre patrimoine en toute confidentialité</em>
+            <p className="text-xl font-inter text-[#686868] italic">
+ <em>Parlons de votre patrimoine en toute confidentialité</em>
             </p>
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#4EBBBD] mx-auto rounded-full mt-6"></div>
+            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#253F60] to-[#B99066] mx-auto rounded-full mt-6"></div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Formulaire */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20">
+            <div className="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#253F60]/20">
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Champs essentiels */}
                 <div>
-                  <h2 className="text-2xl font-cairo font-semibold text-[#112033] mb-6">
+                  <h2 className="text-2xl font-cairo font-semibold text-[#253F60] mb-6">
                     Champs essentiels (obligatoires)
                   </h2>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-[#112033] mb-2">
+                      <label className="block text-sm font-semibold text-[#253F60] mb-2">
                         Nom et prénom *
                       </label>
                       <input
@@ -101,13 +102,13 @@ export default function ContactFormPage() {
                         value={formData.nom}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4EBBBD] focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent transition-all"
                         placeholder="Votre nom complet"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-semibold text-[#112033] mb-2">
+                      <label className="block text-sm font-semibold text-[#253F60] mb-2">
                         Adresse e-mail professionnelle *
                       </label>
                       <input
@@ -116,13 +117,13 @@ export default function ContactFormPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4EBBBD] focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent transition-all"
                         placeholder="votre.email@entreprise.com"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-semibold text-[#112033] mb-2">
+                      <label className="block text-sm font-semibold text-[#253F60] mb-2">
                         Téléphone *
                       </label>
                       <input
@@ -131,13 +132,13 @@ export default function ContactFormPage() {
                         value={formData.telephone}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4EBBBD] focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent transition-all"
                         placeholder="01 23 45 67 89"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-semibold text-[#112033] mb-2">
+                      <label className="block text-sm font-semibold text-[#253F60] mb-2">
                         Ville / Région *
                       </label>
                       <input
@@ -146,7 +147,7 @@ export default function ContactFormPage() {
                         value={formData.ville}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4EBBBD] focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent transition-all"
                         placeholder="Paris, Lyon, Marseille..."
                       />
                     </div>
@@ -155,13 +156,13 @@ export default function ContactFormPage() {
 
                 {/* Qualification */}
                 <div>
-                  <h2 className="text-2xl font-cairo font-semibold text-[#112033] mb-6">
+                  <h2 className="text-2xl font-cairo font-semibold text-[#253F60] mb-6">
                     Qualification
                   </h2>
                   
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-lg font-semibold text-[#112033] mb-3">Vous êtes :</h3>
+                      <h3 className="text-lg font-semibold text-[#253F60] mb-3">Vous êtes :</h3>
                       <div className="space-y-2">
                         {['Dirigeant d\'entreprise', 'Profession libérale', 'Cadre supérieur / Top manager', 'Héritier ou membre d\'une famille fortunée', 'Autre (précisez)'].map((option) => (
                           <label key={option} className="flex items-center space-x-3">
@@ -171,16 +172,16 @@ export default function ContactFormPage() {
                               value={option}
                               checked={formData.profession === option}
                               onChange={handleInputChange}
-                              className="w-4 h-4 text-[#4EBBBD] focus:ring-[#4EBBBD]"
+                              className="w-4 h-4 text-[#253F60] focus:ring-[#253F60]"
                             />
-                            <span className="text-[#4A5568]">{option}</span>
+                            <span className="text-[#686868]">{option}</span>
                           </label>
                         ))}
                       </div>
                     </div>
                     
                     <div>
-                      <h3 className="text-lg font-semibold text-[#112033] mb-3">Votre patrimoine estimé :</h3>
+                      <h3 className="text-lg font-semibold text-[#253F60] mb-3">Votre patrimoine estimé :</h3>
                       <div className="space-y-2">
                         {['moins de 500K€', '500 k€ – 1 M€', '1 M€ – 5 M€', 'plus de 5 M€'].map((option) => (
                           <label key={option} className="flex items-center space-x-3">
@@ -190,9 +191,9 @@ export default function ContactFormPage() {
                               value={option}
                               checked={formData.patrimoine === option}
                               onChange={handleInputChange}
-                              className="w-4 h-4 text-[#4EBBBD] focus:ring-[#4EBBBD]"
+                              className="w-4 h-4 text-[#253F60] focus:ring-[#253F60]"
                             />
-                            <span className="text-[#4A5568]">{option}</span>
+                            <span className="text-[#686868]">{option}</span>
                           </label>
                         ))}
                       </div>
@@ -202,7 +203,7 @@ export default function ContactFormPage() {
 
                 {/* Message */}
                 <div>
-                  <h2 className="text-2xl font-cairo font-semibold text-[#112033] mb-6">
+                  <h2 className="text-2xl font-cairo font-semibold text-[#253F60] mb-6">
                     <em>Parlez-nous de vos projets ou de vos questions patrimoniales</em>
                   </h2>
                   <textarea
@@ -210,7 +211,7 @@ export default function ContactFormPage() {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4EBBBD] focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent transition-all resize-none"
                     placeholder="Décrivez vos objectifs patrimoniaux, vos questions fiscales, vos projets d'investissement..."
                   />
                 </div>
@@ -220,8 +221,8 @@ export default function ContactFormPage() {
                   {submitMessage.text && (
                     <div className={`mb-4 p-4 rounded-lg ${
                       submitMessage.type === 'success' 
-                        ? 'bg-green-50 text-green-800 border border-green-200' 
-                        : 'bg-red-50 text-red-800 border border-red-200'
+                        ? 'bg-[#F9FAFB] text-[#253F60] border-2 border-[#B99066]' 
+                        : 'bg-[#F9FAFB] text-[#253F60] border-2 border-[#253F60]'
                     }`}>
                       {submitMessage.text}
                     </div>
@@ -234,8 +235,8 @@ export default function ContactFormPage() {
                     {submitting ? 'Envoi en cours...' : 'Envoyer ma demande'}
                   </button>
                   
-                  <p className="text-sm text-[#4A5568] mt-4 italic">
-                    ⚖️ <em>Vos informations resteront strictement confidentielles. Azalée Patrimoine ne les partage jamais avec des tiers.</em>
+                  <p className="text-sm text-[#686868] mt-4 italic">
+                    <em>Vos informations resteront strictement confidentielles. Azalée Patrimoine ne les partage jamais avec des tiers.</em>
                   </p>
                 </div>
               </form>
@@ -244,11 +245,11 @@ export default function ContactFormPage() {
             {/* QR Code et informations */}
             <div className="space-y-8">
               {/* QR Code Calendly */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20 text-center">
-                <h3 className="text-xl font-cairo font-semibold text-[#112033] mb-4">
-                  📅 Prise de rendez-vous immédiate
+              <div className="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#253F60]/20 text-center">
+                <h3 className="text-xl font-cairo font-semibold text-[#253F60] mb-4">
+                  Prise de rendez-vous immédiate
                 </h3>
-                <p className="text-[#4A5568] mb-6">
+                <p className="text-[#686868] mb-6">
                   Scannez le QR code pour accéder directement à notre calendrier de rendez-vous
                 </p>
                 
@@ -270,22 +271,23 @@ export default function ContactFormPage() {
               </div>
 
               {/* Informations de contact */}
-              <div className="bg-gradient-to-r from-[#253F60] to-[#112033] rounded-2xl p-8 text-white">
+              <div className="bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 text-white">
                 <h3 className="text-xl font-cairo font-semibold mb-6">
-                  📞 Contactez-nous directement
+                  Contactez-nous directement
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">📞</span>
-                    <span>01 53 45 85 00</span>
+                    <a href="tel:+33153458500" className="text-[#B99066] hover:text-white transition-colors">
+                      01 53 45 85 00
+                    </a>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">📧</span>
-                    <span>contact@azalee-patrimoine.fr</span>
+                    <a href="mailto:contact@azalee-patrimoine.fr" className="text-[#B99066] hover:text-white transition-colors">
+                      contact@azalee-patrimoine.fr
+                    </a>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">🕒</span>
-                    <span>Lun-Ven 9h-18h</span>
+                    <span className="text-white/90">Lun-Ven 9h-18h</span>
                   </div>
                 </div>
               </div>
