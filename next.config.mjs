@@ -29,15 +29,17 @@ const nextConfig = {
   // Power by header removal
   poweredByHeader: false,
   
-  webpack(config, { isServer }) {
-    // Configuration pour les composants Dhiwise
-    config.module.rules.push({
-      test: /\.(jsx|tsx)$/,
-      exclude: [/node_modules/],
-      use: [{
-        loader: '@dhiwise/component-tagger/nextLoader',
-      }],
-    });
+  webpack(config, { isServer, dev }) {
+    // Configuration pour les composants Dhiwise (uniquement en développement)
+    if (dev) {
+      config.module.rules.push({
+        test: /\.(jsx|tsx)$/,
+        exclude: [/node_modules/],
+        use: [{
+          loader: '@dhiwise/component-tagger/nextLoader',
+        }],
+      });
+    }
 
     // Improve module resolution for .js files
     config.resolve = {
