@@ -528,11 +528,29 @@ async function initImmobilierContent() {
         }
       }
       
-      existing.content = mergedContent;
-      existing.lastModified = new Date();
-      await existing.save();
-      console.log(`✅ Content for "${path}" merged successfully!`);
-      console.log('   Your existing content has been preserved.\n');
+      // Use findOneAndUpdate instead of save() to avoid document not found errors
+      const updateResult = await PageContent.findOneAndUpdate(
+        { path },
+        {
+          $set: {
+            content: mergedContent,
+            lastModified: new Date()
+          }
+        },
+        { new: true }
+      );
+
+      if (updateResult) {
+        console.log(`✅ Content for "${path}" merged successfully!`);
+        console.log('   Your existing content has been preserved.\n');
+      } else {
+        console.log(`⚠️  Could not update page, trying alternative method...`);
+        // Fallback: try to save directly
+        existing.content = mergedContent;
+        existing.lastModified = new Date();
+        await existing.save();
+        console.log(`✅ Content for "${path}" merged successfully (fallback method)!`);
+      }
     } else {
       const pageContent = new PageContent({
         path,
