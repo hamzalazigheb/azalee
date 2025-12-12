@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function ScpiOpciPage() {
   const [activeTab, setActiveTab] = useState("introduction");
@@ -175,19 +176,15 @@ export default function ScpiOpciPage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           {activeTab === "introduction" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Qu'est-ce qu'un livret réglementé ?
-                </h2>
-                <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-                  Un <strong>livret réglementé</strong> est un produit d'épargne garanti par l'État, exonéré d'impôt sur le revenu et de prélèvements sociaux, accessible à tous avec un plafond fixé par la loi, rémunéré à un taux décidé par les pouvoirs publics.
-                </p>
-              </div>
+              <SectionHeader 
+                title="Introduction aux SCPI et OPCI"
+                subtitle="Découvrez les solutions d'investissement immobilier collectif adaptées à vos objectifs patrimoniaux"
+              />
               
-              <div className="bg-[#F8F9FA] rounded-lg p-8">
-                <h3 className="text-[#112033] text-xl font-semibold mb-4">Rôle économique</h3>
-                <p className="text-[#686868] mb-4">
-                  Ces livrets jouent un rôle essentiel dans le financement de l'économie française (logement social, collectivités, transition énergétique).
+              <div className="relative bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 rounded-2xl p-8 border-l-4 border-[#253F60] shadow-lg">
+                <h3 className="text-[#253F60] text-xl font-semibold mb-4">Rôle économique</h3>
+                <p className="text-[#686868] leading-relaxed">
+                  Ces solutions d'investissement immobilier collectif jouent un rôle essentiel dans le financement de l'économie française (logement social, collectivités, transition énergétique).
                 </p>
               </div>
             </div>
@@ -195,30 +192,32 @@ export default function ScpiOpciPage() {
 
           {activeTab === "fiscalite" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Intérêt fiscal des SCPI/OPCI
-                </h2>
-              </div>
+              <SectionHeader 
+                title="Intérêt fiscal des SCPI/OPCI"
+                subtitle="Optimisez votre fiscalité grâce aux différents modes de détention"
+              />
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">En détention directe</h3>
-                  <p className="text-[#686868] text-sm">
+                <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 sm:p-8 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">En détention directe</h3>
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     Les revenus des SCPI sont imposés comme des <strong>revenus fonciers</strong>, soumis au barème progressif + 17,2 % de prélèvements sociaux.
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#B99066]">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">Via assurance-vie</h3>
-                  <p className="text-[#686868] text-sm">
+                <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 sm:p-8 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-[#B99066]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">Via assurance-vie</h3>
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     Fiscalité différée, plus douce, notamment sur les arbitrages.
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">En nue-propriété</h3>
-                  <p className="text-[#686868] text-sm">
+                <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 sm:p-8 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/5 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">En nue-propriété</h3>
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     Pas de revenus pendant la durée du démembrement → donc <strong>pas d'imposition</strong>, avec un prix d'achat réduit.
                   </p>
                 </div>
@@ -228,112 +227,70 @@ export default function ScpiOpciPage() {
 
           {activeTab === "avantages" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Avantages des SCPI/OPCI
-                </h2>
-              </div>
+              <SectionHeader 
+                title="Avantages des SCPI/OPCI"
+                subtitle="Découvrez les atouts de l'investissement immobilier collectif"
+              />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
+                {[
+                  { title: "Accès simplifié", desc: "Accès simplifié à l'immobilier tertiaire (bureaux, commerces, logistique, santé…).", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
+                  { title: "Diversification", desc: "Diversification géographique et sectorielle immédiate.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" },
+                  { title: "Mutualisation des risques", desc: "Mutualisation des risques locatifs : un locataire qui part n'impacte qu'une petite fraction du patrimoine.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
+                  { title: "Ticket d'entrée accessible", desc: "Ticket d'entrée accessible : à partir de quelques milliers d'euros.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" },
+                  { title: "Effet de levier", desc: "Possibilité de financer à crédit avec effet de levier bancaire.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" }
+                ].map((item, index) => (
+                  <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-white`}>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                    <div className="relative z-10">
+                      <h3 className="font-semibold mb-2 text-lg">{item.title}</h3>
+                      <p className="text-sm leading-relaxed text-white/90">{item.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-[#112033] font-semibold mb-2">Accès simplifié</h3>
-                    <p className="text-[#686868] text-sm">
-                      Accès simplifié à l'immobilier tertiaire (bureaux, commerces, logistique, santé…).
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[#112033] font-semibold mb-2">Diversification</h3>
-                    <p className="text-[#686868] text-sm">
-                      Diversification géographique et sectorielle immédiate.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[#112033] font-semibold mb-2">Mutualisation des risques</h3>
-                    <p className="text-[#686868] text-sm">
-                      Mutualisation des risques locatifs : un locataire qui part n'impacte qu'une petite fraction du patrimoine.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[#112033] font-semibold mb-2">Ticket d'entrée accessible</h3>
-                    <p className="text-[#686868] text-sm">
-                      Ticket d'entrée accessible : à partir de quelques milliers d'euros.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h3 className="text-[#112033] font-semibold mb-2">Effet de levier</h3>
-                    <p className="text-[#686868] text-sm">
-                      Possibilité de financer à crédit avec effet de levier bancaire.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           )}
 
           {activeTab === "inconvenients" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Inconvénients et points de vigilance
-                </h2>
-              </div>
+              <SectionHeader 
+                title="Inconvénients et points de vigilance"
+                subtitle="Les points importants à connaître avant d'investir"
+              />
               
               <div className="space-y-6">
-                <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">Frais de souscription élevés</h3>
-                  <p className="text-[#686868] text-sm mb-2">
+                <div className="relative bg-gradient-to-br from-red-50 via-red-100/50 to-red-50 border-l-4 border-red-500 p-6 sm:p-8 rounded-2xl shadow-lg overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/20 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">Frais de souscription élevés</h3>
+                  <p className="text-[#686868] text-sm mb-2 leading-relaxed relative z-10">
                     Autour de <strong>10 % HT</strong>, ce qui oblige à investir long terme pour amortir ces frais.
                   </p>
-                  <p className="text-[#686868] text-sm">
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     Certaines SCPI "<strong>0 % frais d'entrée</strong>" (ex. <strong>Iroko Zen</strong>) appliquent en réalité des <strong>frais de gestion internes plus élevés</strong> → ce modèle n'est pas forcément plus avantageux.
                   </p>
                 </div>
                 
-                <div className="bg-orange-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">Liquidité limitée</h3>
-                  <p className="text-[#686868] text-sm">
+                <div className="relative bg-gradient-to-br from-amber-50 via-amber-100/50 to-amber-50 border-l-4 border-amber-500 p-6 sm:p-8 rounded-2xl shadow-lg overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/20 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">Liquidité limitée</h3>
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     Depuis 2023, certaines SCPI historiques sont devenues <strong>illiquides</strong>, bloquant les rachats.
                   </p>
                 </div>
                 
-                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">Fiscalité lourde</h3>
-                  <p className="text-[#686868] text-sm">
+                <div className="relative bg-gradient-to-br from-yellow-50 via-yellow-100/50 to-yellow-50 border-l-4 border-yellow-500 p-6 sm:p-8 rounded-2xl shadow-lg overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-200/20 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">Fiscalité lourde</h3>
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     <strong>Revenus fiscalisés lourdement</strong> en détention directe (hors enveloppes fiscales).
                   </p>
                 </div>
                 
-                <div className="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-3">Revalorisation à la baisse</h3>
-                  <p className="text-[#686868] text-sm">
+                <div className="relative bg-gradient-to-br from-blue-50 via-blue-100/50 to-blue-50 border-l-4 border-blue-500 p-6 sm:p-8 rounded-2xl shadow-lg overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/20 rounded-bl-full"></div>
+                  <h3 className="text-[#253F60] text-lg font-semibold mb-3 relative z-10">Revalorisation à la baisse</h3>
+                  <p className="text-[#686868] text-sm leading-relaxed relative z-10">
                     <strong>Revalorisation à la baisse des parts</strong> depuis 2023 (Primonial, Perial, Sofidy…), destinée à réaligner les valeurs avec le marché immobilier.
                   </p>
                 </div>
@@ -343,45 +300,48 @@ export default function ScpiOpciPage() {
 
           {activeTab === "types" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Les différents types de SCPI
-                </h2>
-              </div>
+              <SectionHeader 
+                title="Les différents types de SCPI"
+                subtitle="Choisissez le type de SCPI adapté à vos objectifs d'investissement"
+              />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-                  <h3 className="text-2xl font-semibold mb-4">SCPI de rendement</h3>
-                  <p className="text-sm mb-4">Objectif : générer des <strong>revenus réguliers</strong>.</p>
-                  <ul className="space-y-2 text-sm">
+                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-xl hover:shadow-2xl p-8 text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/20 rounded-bl-full"></div>
+                  <h3 className="text-2xl font-semibold mb-4 relative z-10">SCPI de rendement</h3>
+                  <p className="text-sm mb-4 relative z-10">Objectif : générer des <strong>revenus réguliers</strong>.</p>
+                  <ul className="space-y-2 text-sm relative z-10">
                     <li>• Investies dans les bureaux, commerces, santé, logistique</li>
                     <li>• Exemples : <strong>Immorente (Sofidy)</strong>, <strong>Efimmo 1 (Sofidy)</strong>, <strong>Épargne Pierre (Atland Voisin)</strong></li>
                   </ul>
                 </div>
                 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
-                  <h3 className="text-2xl font-semibold mb-4">SCPI fiscales</h3>
-                  <p className="text-sm mb-4">Objectif : <strong>avantage fiscal immédiat</strong> (Pinel, Malraux, déficit foncier).</p>
-                  <ul className="space-y-2 text-sm">
+                <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl shadow-xl hover:shadow-2xl p-8 text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/20 rounded-bl-full"></div>
+                  <h3 className="text-2xl font-semibold mb-4 relative z-10">SCPI fiscales</h3>
+                  <p className="text-sm mb-4 relative z-10">Objectif : <strong>avantage fiscal immédiat</strong> (Pinel, Malraux, déficit foncier).</p>
+                  <ul className="space-y-2 text-sm relative z-10">
                     <li>• Investies dans du résidentiel en France</li>
                     <li>• Rendement financier plus faible mais avantage fiscal compensateur</li>
                   </ul>
                 </div>
                 
-                <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-                  <h3 className="text-2xl font-semibold mb-4">SCPI patrimoniales (nue-propriété)</h3>
-                  <p className="text-sm mb-4">Objectif : <strong>optimiser fiscalité et transmission</strong>.</p>
-                  <ul className="space-y-2 text-sm">
+                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-xl hover:shadow-2xl p-8 text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/20 rounded-bl-full"></div>
+                  <h3 className="text-2xl font-semibold mb-4 relative z-10">SCPI patrimoniales (nue-propriété)</h3>
+                  <p className="text-sm mb-4 relative z-10">Objectif : <strong>optimiser fiscalité et transmission</strong>.</p>
+                  <ul className="space-y-2 text-sm relative z-10">
                     <li>• Achat en nue-propriété avec une décote de 20 à 40 %</li>
                     <li>• Pas de revenus pendant le démembrement → <strong>zéro fiscalité</strong></li>
                     <li>• Au terme, récupération de la pleine propriété sans droits supplémentaires</li>
                   </ul>
                 </div>
                 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg shadow-lg p-8 text-white">
-                  <h3 className="text-2xl font-semibold mb-4">SCPI internationales</h3>
-                  <p className="text-sm mb-4">Objectif : investir hors de France (Allemagne, Pays-Bas, Espagne…).</p>
-                  <ul className="space-y-2 text-sm">
+                <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#253F60] rounded-2xl shadow-xl hover:shadow-2xl p-8 text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+                  <h3 className="text-2xl font-semibold mb-4 relative z-10">SCPI internationales</h3>
+                  <p className="text-sm mb-4 relative z-10">Objectif : investir hors de France (Allemagne, Pays-Bas, Espagne…).</p>
+                  <ul className="space-y-2 text-sm relative z-10">
                     <li>• Avantages : diversification économique, fiscalité souvent plus douce</li>
                     <li>• Exemple : <strong>Novapierre Allemagne (Paref Gestion)</strong></li>
                   </ul>
@@ -392,13 +352,15 @@ export default function ScpiOpciPage() {
 
           {activeTab === "azalee" && (
             <div id="azalee-section" className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  L'action Azalée Patrimoine : retrouver de la liquidité
-                </h2>
-              </div>
+              <SectionHeader 
+                title="L'action Azalée Patrimoine : retrouver de la liquidité"
+                subtitle="Notre solution innovante pour libérer votre épargne bloquée"
+              />
               
-              <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 sm:p-10 text-white overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
+                <div className="relative z-10">
                 <div className="mb-6">
                   <p className="text-lg mb-4">
                     Chez <strong>Azalée Patrimoine</strong>, nous avons constaté que de nombreux épargnants de notre <strong>Club</strong> sont immobilisés depuis 2023 dans des SCPI historiques devenues <strong>illiquides</strong>.
@@ -413,38 +375,31 @@ export default function ScpiOpciPage() {
                   </ul>
                 </div>
                 
-                <div className="bg-white bg-opacity-20 rounded-lg p-6">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 sm:p-8 border border-white/20">
                   <h3 className="text-xl font-semibold mb-4">Notre solution : marché secondaire de gré à gré</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="text-center">
-                      <div className="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <span className="text-white text-sm font-bold">1</span>
+                    {[
+                      { num: "1", title: "Mise en relation", desc: "Acheteurs / vendeurs avec carnet d'ordres interne" },
+                      { num: "2", title: "Décote maîtrisée", desc: "~10 % HT pour fluidifier les transactions" },
+                      { num: "3", title: "Accompagnement", desc: "Fiscalité, transmission, sécurisation" }
+                    ].map((item, index) => (
+                      <div key={index} className="text-center">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-2 border border-white/30">
+                          <span className="text-white text-sm font-bold">{item.num}</span>
+                        </div>
+                        <h4 className="font-semibold mb-2">{item.title}</h4>
+                        <p className="text-sm text-white/90">{item.desc}</p>
                       </div>
-                      <h4 className="font-semibold mb-2">Mise en relation</h4>
-                      <p className="text-sm">Acheteurs / vendeurs avec carnet d'ordres interne</p>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <span className="text-white text-sm font-bold">2</span>
-                      </div>
-                      <h4 className="font-semibold mb-2">Décote maîtrisée</h4>
-                      <p className="text-sm">~10 % HT pour fluidifier les transactions</p>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-12 h-12 bg-white bg-opacity-30 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <span className="text-white text-sm font-bold">3</span>
-                      </div>
-                      <h4 className="font-semibold mb-2">Accompagnement</h4>
-                      <p className="text-sm">Fiscalité, transmission, sécurisation</p>
-                    </div>
+                    ))}
                   </div>
                 </div>
                 
                 <div className="mt-6 text-center">
                   <p className="text-lg font-semibold mb-2">Objectif</p>
-                  <p className="text-sm">
+                  <p className="text-sm text-white/90 leading-relaxed">
                     Permettre à nos clients <strong>d'éviter d'être "bloqués"</strong> et de <strong>continuer à faire évoluer leur stratégie patrimoniale</strong>, plutôt que de subir une immobilisation forcée.
                   </p>
+                </div>
                 </div>
               </div>
             </div>

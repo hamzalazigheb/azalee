@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function Page() {
   const [content, setContent] = useState({});
@@ -76,7 +77,7 @@ export default function Page() {
 
 
        {/* Hero Section */}
-       <section className="w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
+       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24 overflow-hidden">
          <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
            {/* Main content */}
            <div className="text-center mb-12">
@@ -100,20 +101,23 @@ export default function Page() {
 
            {/* Feature cards */}
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-             <div className="bg-white rounded-lg p-6 text-center">
-               <p className="text-[#686868] text-sm uppercase mb-2">DEPUIS 2019</p>
+             <div className="relative bg-white rounded-2xl p-6 sm:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+               <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/10 rounded-bl-full"></div>
+               <p className="text-[#686868] text-sm uppercase mb-2 font-semibold">DEPUIS 2019</p>
                <h3 className="text-[#253F60] text-xl font-semibold mb-2">Prélèvement à la source</h3>
                <p className="text-[#686868] text-sm">Collecte immédiate et continue</p>
              </div>
              
-             <div className="bg-white rounded-lg p-6 text-center">
-               <p className="text-[#686868] text-sm uppercase mb-2">OPTIMISATION</p>
+             <div className="relative bg-white rounded-2xl p-6 sm:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+               <div className="absolute top-0 right-0 w-24 h-24 bg-[#B99066]/10 rounded-bl-full"></div>
+               <p className="text-[#686868] text-sm uppercase mb-2 font-semibold">OPTIMISATION</p>
                <h3 className="text-[#253F60] text-xl font-semibold mb-2">Dispositifs fiscaux</h3>
                <p className="text-[#686868] text-sm">PER, Pinel, Girardin, déficit foncier</p>
              </div>
              
-             <div className="bg-white rounded-lg p-6 text-center">
-               <p className="text-[#686868] text-sm uppercase mb-2">STRATÉGIE</p>
+             <div className="relative bg-white rounded-2xl p-6 sm:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+               <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/10 rounded-bl-full"></div>
+               <p className="text-[#686868] text-sm uppercase mb-2 font-semibold">STRATÉGIE</p>
                <h3 className="text-[#253F60] text-xl font-semibold mb-2">Patrimoine</h3>
                <p className="text-[#686868] text-sm">Maîtrise de l'IR essentielle</p>
              </div>
@@ -134,15 +138,13 @@ export default function Page() {
       </section>
 
       {/* Section Les 10 meilleurs dispositifs */}
-      <section className="w-full py-8 sm:py-10 lg:py-16 bg-white">
+      <section className="w-full py-8 sm:py-10 lg:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader 
+            title="Les 10 meilleurs dispositifs de réduction d'impôts"
+            subtitle="Après avoir compris le fonctionnement et le calcul de l'impôt sur le revenu, il est essentiel d'identifier les leviers à votre disposition pour réduire votre fiscalité."
+          />
           <div className="mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold text-[#253F60] mb-6">
-              Les 10 meilleurs dispositifs de réduction d'impôts
-          </h1>
-            <p className="text-[#374151] font-inter text-base sm:text-lg leading-relaxed mb-8">
-              Après avoir compris le fonctionnement et le calcul de l'impôt sur le revenu, il est essentiel d'identifier les leviers à votre disposition pour réduire votre fiscalité. Les dispositifs ci-dessous constituent des solutions légales et encadrées, dont l'efficacité dépend toujours de votre situation personnelle, de vos objectifs patrimoniaux et de votre horizon d'investissement.
-            </p>
             <div className="text-left">
               <a 
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -158,7 +160,8 @@ export default function Page() {
           {/* 10 blocs dispositifs fiscaux */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mt-12">
             {/* Bloc 1: Loi Pinel */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -173,7 +176,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 2: Déficit foncier */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -188,7 +192,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 3: LMNP */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -204,7 +209,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 4: LMP */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -220,7 +226,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 5: PER */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -236,7 +243,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 6: Loi Girardin */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -252,7 +260,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 7: FIP et FCPI */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -267,7 +276,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 8: Sofica */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -282,7 +292,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 9: Monuments Historiques */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -297,7 +308,8 @@ export default function Page() {
             </div>
 
             {/* Bloc 10: Dons aux associations */}
-            <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-100">
+            <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl p-6 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#B99066]/5 rounded-bl-full"></div>
               <div className="text-center mb-4">
                 <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">

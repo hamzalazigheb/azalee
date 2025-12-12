@@ -2,6 +2,7 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function EtfProduitsFinanciersPage() {
 
@@ -39,9 +40,8 @@ export default function EtfProduitsFinanciersPage() {
             {/* Right: Product Types Cards */}
             <div className="w-full lg:w-1/2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">1</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Actions</h3>
@@ -50,9 +50,8 @@ export default function EtfProduitsFinanciersPage() {
                   <p className="text-[#686868] text-xs">Croissance potentielle</p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67A5A] transition-colors duration-300">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">2</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">ETF</h3>
@@ -61,9 +60,8 @@ export default function EtfProduitsFinanciersPage() {
                   <p className="text-[#686868] text-xs">Frais réduits</p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:from-[#1A2F4A] hover:to-[#A67A5A] transition-colors duration-300">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">3</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Produits structurés</h3>
@@ -72,9 +70,8 @@ export default function EtfProduitsFinanciersPage() {
                   <p className="text-[#686868] text-xs">Complexité variable</p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">4</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Enveloppes fiscales</h3>
@@ -92,31 +89,25 @@ export default function EtfProduitsFinanciersPage() {
       {/* Définition Section */}
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-block mb-4">
-              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-              Définition
-            </h2>
-            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
-              Les <strong>supports dynamiques</strong> disponibles dans les enveloppes fiscales.
-            </p>
-          </div>
+          <SectionHeader 
+            title="Définition"
+            subtitle="Les supports dynamiques disponibles dans les enveloppes fiscales."
+            className="mb-12 sm:mb-16"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Actions */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">1</span>
+                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm shadow-md">
+                  <span className="text-white text-2xl font-bold">1</span>
                 </div>
                 <h3 className="text-2xl font-semibold mb-2">Actions</h3>
               </div>
-              <p className="text-sm mb-4">
+              <p className="text-sm mb-4 opacity-90">
                 <strong>Titres vifs d'entreprises</strong> donnant droit à une part du capital et des bénéfices.
               </p>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-2 text-sm opacity-90">
                 <li>• Participation au capital</li>
                 <li>• Dividendes possibles</li>
                 <li>• Plus-value potentielle</li>
@@ -125,17 +116,17 @@ export default function EtfProduitsFinanciersPage() {
             </div>
 
             {/* ETF */}
-            <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
+                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm shadow-md">
+                  <span className="text-white text-2xl font-bold">2</span>
                 </div>
                 <h3 className="text-2xl font-semibold mb-2">ETF (trackers)</h3>
               </div>
-              <p className="text-sm mb-4">
+              <p className="text-sm mb-4 opacity-90">
                 <strong>Fonds indiciels</strong> répliquant un indice boursier de manière passive.
               </p>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-2 text-sm opacity-90">
                 <li>• Réplication d'indices</li>
                 <li>• Frais très faibles</li>
                 <li>• Diversification automatique</li>
@@ -144,17 +135,17 @@ export default function EtfProduitsFinanciersPage() {
             </div>
 
             {/* Produits structurés */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">3</span>
+                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm shadow-md">
+                  <span className="text-white text-2xl font-bold">3</span>
                 </div>
                 <h3 className="text-2xl font-semibold mb-2">Produits structurés</h3>
               </div>
-              <p className="text-sm mb-4">
+              <p className="text-sm mb-4 opacity-90">
                 <strong>Instruments combinés</strong> actions, obligations et dérivés pour un rendement conditionnel.
               </p>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-2 text-sm opacity-90">
                 <li>• Combinaison d'actifs</li>
                 <li>• Rendement conditionnel</li>
                 <li>• Protection partielle</li>
@@ -168,9 +159,13 @@ export default function EtfProduitsFinanciersPage() {
       {/* Avantages et Inconvénients Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader 
+            title="Avantages et Inconvénients"
+            className="mb-12"
+          />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Avantages */}
-            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#253F60]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
               <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-8 flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-md">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,7 +227,7 @@ export default function EtfProduitsFinanciersPage() {
             </div>
 
             {/* Inconvénients */}
-            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
               <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-8 flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center shadow-md">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -299,14 +294,12 @@ export default function EtfProduitsFinanciersPage() {
       {/* Conseil Azalée Patrimoine Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 flex items-center justify-center gap-3">
-              <span className="text-[#253F60] text-3xl">1</span>
-              Conseil Azalée Patrimoine
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Conseil Azalée Patrimoine"
+            className="mb-12"
+          />
 
-          <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white mb-8">
+          <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white mb-8 hover:shadow-2xl transition-all duration-300">
             <div className="text-center mb-8">
               <h3 className="text-xl font-semibold mb-4">
                 La réussite d'un placement ne dépend pas uniquement du <strong>support choisi</strong>, mais surtout de l'<strong>enveloppe fiscale</strong> dans laquelle il est logé.
@@ -317,7 +310,7 @@ export default function EtfProduitsFinanciersPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
+          <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
             <h3 className="text-[#112033] text-xl font-semibold mb-6">
               Chez <strong>Azalée Patrimoine</strong>, nous construisons avec vous une <strong>stratégie patrimoniale sur mesure</strong>, en choisissant :
             </h3>
@@ -379,16 +372,13 @@ export default function EtfProduitsFinanciersPage() {
       {/* Contact Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Contactez un conseiller Azalée Patrimoine
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Pour définir la meilleure combinaison <strong>enveloppe / support</strong> et optimiser vos placements.
-            </p>
-          </div>
+          <SectionHeader 
+            title="Contactez un conseiller Azalée Patrimoine"
+            subtitle="Pour définir la meilleure combinaison enveloppe / support et optimiser vos placements."
+            className="mb-12"
+          />
 
-          <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="text-center group">
                 <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">

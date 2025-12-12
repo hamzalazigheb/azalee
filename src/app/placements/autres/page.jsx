@@ -2,6 +2,7 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function AutresPage() {
   return (
@@ -74,11 +75,10 @@ export default function AutresPage() {
       {/* Alternative Investments Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-source-sans font-semibold mb-6">
-              Solutions d'investissement alternatives
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Solutions d'investissement alternatives"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Private Equity */}
@@ -169,11 +169,10 @@ export default function AutresPage() {
       {/* Commodities Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-source-sans font-semibold mb-6">
-              Matières premières et métaux précieux
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Matières premières et métaux précieux"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Gold */}
@@ -375,15 +374,14 @@ export default function AutresPage() {
       {/* Risk & Benefits Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-source-sans font-semibold mb-6">
-              Risques et avantages
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Risques et avantages"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Benefits */}
-            <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
               <h3 className="text-[#253F60] text-2xl font-source-sans font-semibold mb-6 text-center">
                 Avantages
               </h3>
@@ -424,7 +422,7 @@ export default function AutresPage() {
             </div>
 
             {/* Risks */}
-            <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-red-500 hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-red-500 hover:shadow-xl transition-all duration-300">
               <h3 className="text-[#253F60] text-2xl font-source-sans font-semibold mb-6 text-center">
                 Risques
               </h3>
@@ -450,14 +448,13 @@ export default function AutresPage() {
       {/* Investment Process Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-source-sans font-semibold mb-6">
-              Comment investir dans les alternatives ?
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Comment investir dans les alternatives ?"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
               <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -471,7 +468,7 @@ export default function AutresPage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
               <div className="w-20 h-20 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -485,7 +482,7 @@ export default function AutresPage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
               <div className="w-20 h-20 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -500,7 +497,7 @@ export default function AutresPage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center group hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-[#B99066]">
               <div className="w-20 h-20 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />

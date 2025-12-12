@@ -106,12 +106,12 @@ export default function AutreRetraitePage() {
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="relative z-10">
-                  <div className="flex items-start gap-6">
+                <div className="flex items-start gap-6">
                     <div>
                       <h3 className="text-white text-xl sm:text-2xl font-cairo font-bold mb-3">{solution.title}</h3>
                       <p className="text-white text-lg mb-3 font-semibold">{solution.description}</p>
                       <p className="text-white/90 text-base leading-relaxed">{solution.details}</p>
-                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -131,13 +131,13 @@ export default function AutreRetraitePage() {
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-1 h-12 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
                 <h2 className="text-white text-2xl sm:text-3xl font-cairo font-bold">
-                  {content.objectif?.title || "Objectif"}
-                </h2>
+              {content.objectif?.title || "Objectif"}
+            </h2>
                 <div className="w-1 h-12 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
               </div>
               <p className="text-white text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
-                {content.objectif?.description || "Objectif : créer une retraite sur-mesure, adaptée à vos besoins et à votre horizon."}
-              </p>
+              {content.objectif?.description || "Objectif : créer une retraite sur-mesure, adaptée à vos besoins et à votre horizon."}
+            </p>
             </div>
           </div>
         </div>
@@ -152,17 +152,17 @@ export default function AutreRetraitePage() {
             
             <div className="relative z-10">
               <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                {content.cta?.title || "Prêt à diversifier votre épargne retraite ?"}
-              </h2>
+            {content.cta?.title || "Prêt à diversifier votre épargne retraite ?"}
+          </h2>
               <p className="text-white text-base sm:text-lg lg:text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
-                {content.cta?.subtitle || "Nos experts vous accompagnent dans le choix des solutions complémentaires les plus adaptées à votre profil."}
-              </p>
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+            {content.cta?.subtitle || "Nos experts vous accompagnent dans le choix des solutions complémentaires les plus adaptées à votre profil."}
+          </p>
+          <button 
+            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                 className="bg-white text-[#253F60] px-8 py-4 rounded-lg font-cairo font-bold text-lg hover:bg-[#F9FAFB] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-              >
-                Prendre rendez-vous
-              </button>
+          >
+            Prendre rendez-vous
+          </button>
             </div>
           </div>
         </div>

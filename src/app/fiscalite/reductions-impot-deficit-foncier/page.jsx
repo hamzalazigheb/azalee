@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function ReductionsImpotDeficitFoncierPage() {
   const [content, setContent] = useState({});
@@ -99,20 +100,19 @@ export default function ReductionsImpotDeficitFoncierPage() {
       </section>
 
       {/* Quick Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#253F60] mb-4">
-              {content.quickStats?.title || defaultContent.quickStats.title}
-            </h2>
-          </div>
+          <SectionHeader 
+            title={content.quickStats?.title || defaultContent.quickStats.title}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {(content.quickStats?.stats || defaultContent.quickStats.stats).map((stat, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl text-center border border-[#B99066]">
-                <div className="text-4xl font-bold text-[#B99066] mb-2">{stat.value}</div>
-                <div className="text-lg font-semibold text-[#253F60] mb-2">{stat.label}</div>
-                <div className="text-[#686868]">{stat.description}</div>
+              <div key={index} className={`relative bg-gradient-to-br ${index % 3 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#253F60]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+                <div className="text-4xl font-bold mb-2 relative z-10">{stat.value}</div>
+                <div className="text-lg font-semibold mb-2 relative z-10">{stat.label}</div>
+                <div className="text-white/90 relative z-10">{stat.description}</div>
               </div>
             ))}
           </div>
@@ -122,18 +122,14 @@ export default function ReductionsImpotDeficitFoncierPage() {
       {/* Comparison Section */}
       <section className="py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#253F60] mb-4">
-              {content.comparison?.title || defaultContent.comparison.title}
-            </h2>
-            <p className="text-lg text-[#686868] max-w-3xl mx-auto mb-8">
-              {content.comparison?.description || defaultContent.comparison.description}
-            </p>
-          </div>
+          <SectionHeader 
+            title={content.comparison?.title || defaultContent.comparison.title}
+            subtitle={content.comparison?.description || defaultContent.comparison.description}
+          />
           
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <table className="w-full">
-              <thead className="bg-[#253F60]">
+              <thead className="bg-gradient-to-r from-[#253F60] to-[#1a2d47]">
                 <tr>
                   {(content.comparison?.table?.headers || defaultContent.comparison.table.headers).map((header, index) => (
                     <th key={index} className="px-6 py-4 text-left text-sm font-semibold text-white">
@@ -144,7 +140,7 @@ export default function ReductionsImpotDeficitFoncierPage() {
               </thead>
               <tbody>
                 {(content.comparison?.table?.rows || defaultContent.comparison.table.rows).map((row, index) => (
-                  <tr key={index} className="border-t">
+                  <tr key={index} className={`border-t ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                     <td className="px-6 py-4 text-sm font-medium text-[#253F60]">{row.mecanisme}</td>
                     <td className="px-6 py-4 text-sm text-[#686868]">{row.effet}</td>
                     <td className="px-6 py-4 text-sm text-[#686868]">{row.benefice}</td>
@@ -157,23 +153,20 @@ export default function ReductionsImpotDeficitFoncierPage() {
       </section>
 
       {/* Investor Profile Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#253F60] mb-4">
-              {content.investorProfile?.title || defaultContent.investorProfile.title}
-            </h2>
-            <p className="text-lg text-[#686868] max-w-3xl mx-auto mb-8">
-              {content.investorProfile?.description || defaultContent.investorProfile.description}
-            </p>
-          </div>
+          <SectionHeader 
+            title={content.investorProfile?.title || defaultContent.investorProfile.title}
+            subtitle={content.investorProfile?.description || defaultContent.investorProfile.description}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {(content.investorProfile?.profiles || defaultContent.investorProfile.profiles).map((profile, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl border border-[#253F60]">
-                <div className="flex items-start">
-                  <div className="text-[#B99066] mr-3 mt-1">✓</div>
-                  <div className="text-lg font-semibold text-[#253F60]">{profile}</div>
+              <div key={index} className={`relative bg-gradient-to-br ${index % 3 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#253F60]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="flex items-start relative z-10">
+                  <div className="text-white mr-3 mt-1 text-xl font-bold">✓</div>
+                  <div className="text-lg font-semibold text-white leading-relaxed">{profile}</div>
                 </div>
               </div>
             ))}
@@ -184,21 +177,18 @@ export default function ReductionsImpotDeficitFoncierPage() {
       {/* Conditions Section */}
       <section className="py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#253F60] mb-4">
-              {content.conditions?.title || defaultContent.conditions.title}
-            </h2>
-            <p className="text-lg text-[#686868] max-w-3xl mx-auto mb-8">
-              {content.conditions?.description || defaultContent.conditions.description}
-            </p>
-          </div>
+          <SectionHeader 
+            title={content.conditions?.title || defaultContent.conditions.title}
+            subtitle={content.conditions?.description || defaultContent.conditions.description}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {(content.conditions?.conditions || defaultContent.conditions.conditions).map((condition, index) => (
-              <div key={index} className="bg-[#253F60] p-6 rounded-xl shadow-lg">
-                <div className="flex items-start">
-                  <div className="text-white mr-3 mt-1">✓</div>
-                  <div className="text-lg font-semibold text-white">{condition}</div>
+              <div key={index} className={`relative bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="flex items-start relative z-10">
+                  <div className="text-white mr-3 mt-1 text-xl font-bold">✓</div>
+                  <div className="text-lg font-semibold text-white leading-relaxed">{condition}</div>
                 </div>
               </div>
             ))}
@@ -207,17 +197,19 @@ export default function ReductionsImpotDeficitFoncierPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[#253F60] to-[#B99066]">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+      <section className="py-16 bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             {content.cta?.title || defaultContent.cta.title}
           </h2>
-          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             {content.cta?.description || defaultContent.cta.description}
           </p>
           <button 
             onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-            className="bg-[#B99066] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors"
+            className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-3 rounded-lg shadow-xl font-medium transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
           >
             Prendre rendez-vous
           </button>

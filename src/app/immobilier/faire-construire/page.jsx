@@ -2,6 +2,8 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
+import Link from "next/link";
 
 const LOCAL_STORAGE_KEY = 'faireConstruireContent';
 
@@ -143,118 +145,158 @@ export default function FaireConstruirePage() {
       </section>
 
       {/* Services Section */}
-      <section className="w-full py-16 lg:py-24">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-            <h2 className="text-3xl lg:text-4xl font-cairo font-semibold text-[#112033] mb-4">
-              Nos services de construction
-            </h2>
-            <p className="text-[#4A5568] font-inter text-lg max-w-3xl mx-auto">
-              Un accompagnement complet pour réussir votre projet de construction immobilière
-            </p>
-          </div>
+          <SectionHeader 
+            title="Nos services de construction"
+            subtitle="Un accompagnement complet pour réussir votre projet de construction immobilière"
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {content.services.map((service, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-white font-bold text-xl">{index + 1}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {content.services.map((service, index) => {
+              const isBlue = index % 2 === 0;
+              return (
+                <div 
+                  key={index} 
+                  className={`relative rounded-2xl p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group ${
+                    isBlue 
+                      ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
+                      : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+                  }`}
+                >
+                  {/* Decorative corner */}
+                  <div className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full ${
+                    isBlue ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20'
+                  }`}></div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-white font-cairo font-bold text-xl sm:text-2xl mb-4 text-center">
+                      {service.title}
+                    </h3>
+                    <p className="text-white/90 font-inter text-sm sm:text-base mb-6 text-center leading-relaxed">
+                      {service.description}
+                    </p>
+                    <ul className="space-y-3">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className="text-white mt-1 font-bold">•</span>
+                          <span className="text-white/90 text-sm sm:text-base">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <h3 className="text-[#112033] font-cairo font-semibold text-xl mb-4 text-center">
-                  {service.title}
-                </h3>
-                <p className="text-[#4A5568] font-inter text-sm mb-6 text-center">
-                  {service.description}
-                </p>
-                <ul className="space-y-2">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-[#4A5568]">
-                      <div className="w-2 h-2 bg-[#B99066] rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="w-full py-16 lg:py-24 bg-white">
+      <section className="w-full bg-gradient-to-br from-gray-50 to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-            <h2 className="text-3xl lg:text-4xl font-cairo font-semibold text-[#112033] mb-4">
-              Notre processus de construction
-            </h2>
-            <p className="text-[#4A5568] font-inter text-lg max-w-3xl mx-auto">
-              Un processus structuré en 5 étapes pour garantir la réussite de votre projet
-            </p>
-          </div>
+          <SectionHeader 
+            title="Notre processus de construction"
+            subtitle="Un processus structuré en 5 étapes pour garantir la réussite de votre projet"
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-            {content.process.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-white font-bold text-xl">{step.step}</span>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 sm:gap-8">
+            {content.process.map((step, index) => {
+              const isBlue = index % 2 === 0;
+              return (
+                <div 
+                  key={index} 
+                  className={`relative rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-center ${
+                    isBlue 
+                      ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
+                      : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+                  }`}
+                >
+                  {/* Decorative corner */}
+                  <div className={`absolute top-0 right-0 w-20 h-20 rounded-bl-full ${
+                    isBlue ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20'
+                  }`}></div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-white font-cairo font-bold text-lg sm:text-xl mb-3">
+                      {step.title}
+                    </h3>
+                    <p className="text-white/90 font-inter text-sm sm:text-base leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-[#4A5568] font-inter text-sm">
-                  {step.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Advantages Section */}
-      <section className="w-full py-16 lg:py-24 bg-gradient-to-br from-[#F2F2F2] to-[#E8E8E8]">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-            <h2 className="text-3xl lg:text-4xl font-cairo font-semibold text-[#112033] mb-4">
-              Les avantages de faire construire
-            </h2>
-            <p className="text-[#4A5568] font-inter text-lg max-w-3xl mx-auto">
-              Pourquoi choisir la construction neuve pour votre projet immobilier
-            </p>
-          </div>
+          <SectionHeader 
+            title="Les avantages de faire construire"
+            subtitle="Pourquoi choisir la construction neuve pour votre projet immobilier"
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {content.advantages.map((advantage, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h3 className="text-[#112033] font-cairo font-semibold text-xl mb-4">
-                  {advantage.title}
-                </h3>
-                <p className="text-[#4A5568] font-inter leading-relaxed">
-                  {advantage.description}
-                </p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {content.advantages.map((advantage, index) => {
+              const isBlue = index % 2 === 0;
+              return (
+                <div 
+                  key={index} 
+                  className={`relative rounded-2xl p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group ${
+                    isBlue 
+                      ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
+                      : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+                  }`}
+                >
+                  {/* Decorative corner */}
+                  <div className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full ${
+                    isBlue ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20'
+                  }`}></div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-white font-cairo font-bold text-xl sm:text-2xl mb-4">
+                      {advantage.title}
+                    </h3>
+                    <p className="text-white/90 font-inter text-base sm:text-lg leading-relaxed">
+                      {advantage.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-16 lg:py-24 bg-gradient-to-r from-[#253F60] to-[#B99066]">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-white text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            {content.cta.title}
-          </h2>
-          <p className="text-gray-200 text-lg mb-8 max-w-2xl mx-auto">
-            {content.cta.subtitle}
-          </p>
-          <button 
-            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-            className="bg-[#B99066] text-white px-10 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 text-lg shadow-xl"
-          >
-            {content.cta.button}
-          </button>
+      <section className="w-full bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 text-white shadow-2xl overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/20 rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
+            
+            <div className="relative z-10 text-center">
+              <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                {content.cta.title}
+              </h2>
+              <p className="text-white/90 text-lg sm:text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
+                {content.cta.subtitle}
+              </p>
+              <a
+                href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-center transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl text-lg"
+              >
+                {content.cta.button}
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

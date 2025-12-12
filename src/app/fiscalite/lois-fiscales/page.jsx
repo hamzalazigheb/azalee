@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
+import Link from "next/link";
 
 export default function LoisFiscalesPage() {
   const [selectedLaw, setSelectedLaw] = useState("pinel");
@@ -160,83 +162,91 @@ export default function LoisFiscalesPage() {
       </section>
 
       {/* Main Content */}
-      <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             {/* Laws List */}
             <div className="lg:col-span-1">
-              <h2 className="text-[#112033] text-xl font-semibold mb-6">Dispositifs disponibles</h2>
+              <div className="bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-6 mb-6 shadow-xl">
+                <h2 className="text-white text-xl sm:text-2xl font-cairo font-bold mb-6">Dispositifs disponibles</h2>
+              </div>
               <div className="space-y-3">
                 {[
-                  { id: 1, name: "Loi Pinel", category: "immobilier" },
-                  { id: 2, name: "Loi Malraux", category: "immobilier" },
-                  { id: 3, name: "Loi Cosse", category: "immobilier" },
-                  { id: 4, name: "Loi Denormandie", category: "immobilier" },
-                  { id: 5, name: "Loi Girardin", category: "immobilier" },
-                  { id: 6, name: "Monument Historique", category: "immobilier" },
-                  { id: 7, name: "LLI", category: "immobilier" }
+                  { id: 1, name: "Loi Pinel", category: "immobilier", path: "/fiscalite/loi-pinel" },
+                  { id: 2, name: "Loi Malraux", category: "immobilier", path: "/fiscalite/loi-malraux" },
+                  { id: 3, name: "Loi Cosse", category: "immobilier", path: "/fiscalite/loi-cosse" },
+                  { id: 4, name: "Loi Denormandie", category: "immobilier", path: "/fiscalite/loi-denormandie" },
+                  { id: 5, name: "Loi Girardin", category: "immobilier", path: "/fiscalite/loi-girardin" },
+                  { id: 6, name: "Monument Historique", category: "immobilier", path: "/fiscalite/monument-historique" },
+                  { id: 7, name: "LLI", category: "immobilier", path: "/fiscalite/lli" }
                 ].filter(law => selectedCategory === 'immobilier' || selectedCategory === law.category).map((law) => (
-                  <button
+                  <Link
                     key={law.id}
-                    onClick={() => setSelectedLaw(law.id)}
-                    className={`w-full text-left p-4 rounded-lg transition-all duration-200 ${
+                    href={law.path}
+                    className={`block w-full text-left p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 ${
                       selectedLaw === law.id
-                        ? "bg-[#253F60] text-white shadow-lg"
-                        : "bg-white text-[#112033] hover:bg-gray-50 shadow-md"
+                        ? "bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] text-white shadow-xl"
+                        : "bg-white text-[#112033] hover:bg-gray-50 shadow-md hover:shadow-lg"
                     }`}
                   >
-                    <h3 className="font-semibold mb-1">{law.name}</h3>
+                    <h3 className="font-cairo font-semibold mb-1">{law.name}</h3>
                     <p className={`text-sm ${selectedLaw === law.id ? 'text-white/80' : 'text-[#686868]'}`}>
-                      {law.description}
+                      Dispositif de défiscalisation
                     </p>
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>
 
             {/* Law Details */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8">
-                <div className="mb-6">
-                  <span className="inline-block bg-[#253F60] text-white px-3 py-1 rounded-full text-sm font-medium mb-3">
+              <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 border-2 border-[#253F60]/20">
+                <div className="mb-8">
+                  <span className="inline-block bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
                     {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}
                   </span>
-                  <h2 className="text-[#112033] text-2xl font-semibold mb-2">{selectedLawData.name}</h2>
+                  <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-bold mb-3">{selectedLawData.name}</h2>
                   <p className="text-[#686868] text-lg">{selectedLawData.description}</p>
                 </div>
 
                 {/* Avantages et Conditions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   {selectedLawData.avantages && (
-                    <div className="bg-gradient-to-br from-[#E8F5E8] to-[#D4EDDA] rounded-lg p-6">
-                      <h3 className="text-[#112033] text-lg font-semibold mb-4 flex items-center gap-2">
-                        Avantages
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedLawData.avantages.map((avantage, index) => (
-                          <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
-                            <span className="w-2 h-2 bg-[#4EBBBD] rounded-full mt-2 flex-shrink-0"></span>
-                            {avantage}
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-[#B99066]/20 rounded-bl-full"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-white text-lg sm:text-xl font-cairo font-bold mb-4 flex items-center gap-2">
+                          Avantages
+                        </h3>
+                        <ul className="space-y-3">
+                          {selectedLawData.avantages.map((avantage, index) => (
+                            <li key={index} className="text-white/90 text-sm sm:text-base flex items-start gap-3">
+                              <span className="text-white mt-1 font-bold">•</span>
+                              <span>{avantage}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   )}
 
                   {selectedLawData.conditions && (
-                    <div className="bg-gradient-to-br from-[#FFEFD5] to-[#FFE4B5] rounded-lg p-6">
-                      <h3 className="text-[#112033] text-lg font-semibold mb-4 flex items-center gap-2">
-                        Conditions
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedLawData.conditions.map((condition, index) => (
-                          <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
-                            <span className="w-2 h-2 bg-[#B99066] rounded-full mt-2 flex-shrink-0"></span>
-                            {condition}
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/20 rounded-bl-full"></div>
+                      <div className="relative z-10">
+                        <h3 className="text-white text-lg sm:text-xl font-cairo font-bold mb-4 flex items-center gap-2">
+                          Conditions
+                        </h3>
+                        <ul className="space-y-3">
+                          {selectedLawData.conditions.map((condition, index) => (
+                            <li key={index} className="text-white/90 text-sm sm:text-base flex items-start gap-3">
+                              <span className="text-white mt-1 font-bold">•</span>
+                              <span>{condition}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -244,12 +254,15 @@ export default function LoisFiscalesPage() {
                 {/* Taux et Plafonds */}
                 {selectedLawData.taux && (
                   <div className="mb-8">
-                    <h3 className="text-[#112033] text-lg font-semibold mb-4">Taux de réduction</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <h3 className="text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6">Taux de réduction</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                       {selectedLawData.taux.map((taux, index) => (
-                        <div key={index} className="bg-[#B99066] rounded-lg p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000">
-                          <div className="text-2xl font-bold text-white mb-1">{taux.reduction}</div>
-                          <div className="text-white text-sm font-medium">{taux.annees}</div>
+                        <div key={index} className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-6 text-center shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                          <div className="absolute top-0 right-0 w-20 h-20 bg-[#253F60]/20 rounded-bl-full"></div>
+                          <div className="relative z-10">
+                            <div className="text-3xl sm:text-4xl font-bold text-white mb-2">{taux.reduction}</div>
+                            <div className="text-white/90 text-sm sm:text-base font-medium">{taux.annees}</div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -259,14 +272,30 @@ export default function LoisFiscalesPage() {
                 {/* Plafonds */}
                 {selectedLawData.plafonds && (
                   <div className="mb-8">
-                    <h3 className="text-[#112033] text-lg font-semibold mb-4">Plafonds applicables</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {Object.entries(selectedLawData.plafonds).map(([key, value]) => (
-                        <div key={key} className="bg-white border border-gray-200 rounded-lg p-4">
-                          <div className="text-[#686868] text-xs uppercase mb-1">{key}</div>
-                          <div className="text-[#112033] font-semibold">{value}</div>
-                        </div>
-                      ))}
+                    <h3 className="text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6">Plafonds applicables</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                      {Object.entries(selectedLawData.plafonds).map(([key, value], index) => {
+                        const isBlue = index % 2 === 0;
+                        return (
+                          <div key={key} className={`relative rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group ${
+                            isBlue 
+                              ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
+                              : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+                          }`}>
+                            <div className={`absolute top-0 right-0 w-20 h-20 rounded-bl-full ${
+                              isBlue ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20'
+                            }`}></div>
+                            <div className="relative z-10">
+                              <div className={`text-xs uppercase mb-2 ${
+                                isBlue ? 'text-white/80' : 'text-white/80'
+                              }`}>{key}</div>
+                              <div className={`font-bold text-lg sm:text-xl ${
+                                isBlue ? 'text-white' : 'text-white'
+                              }`}>{value}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -274,18 +303,21 @@ export default function LoisFiscalesPage() {
                 {/* Risques */}
                 {selectedLawData.risques && (
                   <div className="mb-8">
-                    <h3 className="text-[#112033] text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6 flex items-center gap-2">
                       Risques
                     </h3>
-                    <div className="bg-gradient-to-br from-[#FFE4E1] to-[#FFCCCB] rounded-lg p-6">
-                      <ul className="space-y-2">
-                        {selectedLawData.risques.map((risque, index) => (
-                          <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
-                            <span className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></span>
-                            {risque}
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="relative bg-gradient-to-br from-amber-50 via-amber-100/50 to-amber-50 rounded-2xl p-6 sm:p-8 shadow-xl border-l-4 border-amber-500 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-40 h-40 bg-amber-200/20 rounded-bl-full"></div>
+                      <div className="relative z-10">
+                        <ul className="space-y-3">
+                          {selectedLawData.risques.map((risque, index) => (
+                            <li key={index} className="text-[#4B5563] text-sm sm:text-base flex items-start gap-3">
+                              <span className="text-amber-600 mt-1 font-bold">⚠️</span>
+                              <span>{risque}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -293,11 +325,14 @@ export default function LoisFiscalesPage() {
                 {/* Cas pratique */}
                 {selectedLawData.cas_pratique && (
                   <div className="mb-8">
-                    <h3 className="text-[#112033] text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6 flex items-center gap-2">
                       Cas pratique
                     </h3>
-                    <div className="bg-gradient-to-r from-[#E3F2FD] to-[#BBDEFB] rounded-lg p-6 border-l-4 border-[#4EBBBD]">
-                      <p className="text-[#112033] text-sm leading-relaxed">{selectedLawData.cas_pratique}</p>
+                    <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-6 sm:p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
+                      <div className="relative z-10">
+                        <p className="text-white/90 text-sm sm:text-base leading-relaxed">{selectedLawData.cas_pratique}</p>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -305,28 +340,34 @@ export default function LoisFiscalesPage() {
                 {/* Recommandation Azalée */}
                 {selectedLawData.recommandation && (
                   <div className="mb-8">
-                    <h3 className="text-[#112033] text-lg font-semibold mb-4 flex items-center gap-2">
+                    <h3 className="text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6 flex items-center gap-2">
                       Recommandation Azalée
                     </h3>
-                    <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000">
-                      <p className="text-sm leading-relaxed opacity-90">{selectedLawData.recommandation}</p>
+                    <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-6 sm:p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                      <div className="absolute top-0 right-0 w-48 h-48 bg-[#253F60]/20 rounded-bl-full"></div>
+                      <div className="relative z-10">
+                        <p className="text-white/90 text-sm sm:text-base leading-relaxed">{selectedLawData.recommandation}</p>
+                      </div>
                     </div>
                   </div>
                 )}
 
                 {/* CTA */}
-                <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg p-6 text-white text-center">
-                  <h3 className="text-xl font-semibold mb-2">{content.cta?.title || defaultContent.cta.title}</h3>
-                  <p className="text-sm opacity-90 mb-6">
-                    {content.cta?.subtitle || defaultContent.cta.subtitle}
-                  </p>
-                  <div className="flex justify-center">
-                    <button 
-                      className="bg-[#B99066] text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-[#A67C52] transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000"
-                      onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-6 sm:p-8 text-white shadow-2xl overflow-hidden">
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/20 rounded-bl-full"></div>
+                  <div className="relative z-10 text-center">
+                    <h3 className="text-xl sm:text-2xl font-cairo font-bold mb-3">{content.cta?.title || defaultContent.cta.title}</h3>
+                    <p className="text-white/90 text-sm sm:text-base mb-6">
+                      {content.cta?.subtitle || defaultContent.cta.subtitle}
+                    </p>
+                    <a
+                      href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-3 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
                     >
                       Prendre rendez-vous
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -337,71 +378,102 @@ export default function LoisFiscalesPage() {
 
 
       {/* FAQ Section */}
-      <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
+      <section className="w-full bg-gradient-to-br from-gray-50 to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-            Questions fréquentes
-          </h2>
+          <SectionHeader 
+            title="Questions fréquentes"
+            subtitle="Tout ce que vous devez savoir sur les lois fiscales"
+          />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-[#112033] text-lg font-semibold mb-3">Puis-je cumuler plusieurs dispositifs ?</h3>
-              <p className="text-[#686868] text-sm">
-                Oui, dans certains cas, vous pouvez cumuler plusieurs dispositifs fiscaux. 
-                Par exemple, la loi Pinel peut être combinée avec le prêt à taux zéro (PTZ) 
-                ou d'autres aides régionales.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-[#112033] text-lg font-semibold mb-3">Quand dois-je m'engager ?</h3>
-              <p className="text-[#686868] text-sm">
-                L'engagement de location doit généralement être pris dès l'acquisition du bien. 
-                La durée varie selon le dispositif : 6, 9 ou 12 ans pour Pinel, 9 ans pour Malraux, etc.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-[#112033] text-lg font-semibold mb-3">Quels sont les risques ?</h3>
-              <p className="text-[#686868] text-sm">
-                Les principaux risques sont la non-respect des conditions d'engagement, 
-                la baisse de la valeur du bien, et les évolutions législatives qui peuvent 
-                modifier les avantages fiscaux.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-[#112033] text-lg font-semibold mb-3">Quels documents fournir ?</h3>
-              <p className="text-[#686868] text-sm">
-                Vous devrez fournir les justificatifs d'acquisition, les contrats de location, 
-                les attestations de loyer, et respecter les déclarations fiscales annuelles.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {[
+              {
+                question: "Puis-je cumuler plusieurs dispositifs ?",
+                answer: "Oui, dans certains cas, vous pouvez cumuler plusieurs dispositifs fiscaux. Par exemple, la loi Pinel peut être combinée avec le prêt à taux zéro (PTZ) ou d'autres aides régionales."
+              },
+              {
+                question: "Quand dois-je m'engager ?",
+                answer: "L'engagement de location doit généralement être pris dès l'acquisition du bien. La durée varie selon le dispositif : 6, 9 ou 12 ans pour Pinel, 9 ans pour Malraux, etc."
+              },
+              {
+                question: "Quels sont les risques ?",
+                answer: "Les principaux risques sont la non-respect des conditions d'engagement, la baisse de la valeur du bien, et les évolutions législatives qui peuvent modifier les avantages fiscaux."
+              },
+              {
+                question: "Quels documents fournir ?",
+                answer: "Vous devrez fournir les justificatifs d'acquisition, les contrats de location, les attestations de loyer, et respecter les déclarations fiscales annuelles."
+              }
+            ].map((faq, index) => {
+              const isBlue = index % 2 === 0;
+              return (
+                <div 
+                  key={index}
+                  className={`relative rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group ${
+                    isBlue 
+                      ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
+                      : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+                  }`}
+                >
+                  <div className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full ${
+                    isBlue ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20'
+                  }`}></div>
+                  <div className="relative z-10">
+                    <h3 className={`text-lg sm:text-xl font-cairo font-bold mb-3 ${
+                      isBlue ? 'text-white' : 'text-white'
+                    }`}>{faq.question}</h3>
+                    <p className={`text-sm sm:text-base leading-relaxed ${
+                      isBlue ? 'text-white/90' : 'text-white/90'
+                    }`}>
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[#F2F2F2] to-[#E5E5E5]">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">
-            <h2 className="text-[#112033] text-2xl lg:text-3xl font-semibold mb-4">
-              {content.finalCta?.title || defaultContent.finalCta.title}
-            </h2>
-            <p className="text-[#686868] text-lg mb-8 max-w-3xl mx-auto">
-              {content.finalCta?.description || defaultContent.finalCta.description}
-            </p>
-            <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-6 text-white mb-8">
-              <h3 className="text-xl font-semibold mb-3">{content.finalCta?.email || defaultContent.finalCta.email}</h3>
-              <p className="text-sm opacity-90">{content.finalCta?.emailSubtitle || defaultContent.finalCta.emailSubtitle}</p>
-            </div>
-            <div className="flex justify-center">
-              <button 
-                className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg shadow-lg"
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              >
-                Prendre un rendez-vous
-              </button>
+          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 sm:p-10 lg:p-12 text-white shadow-2xl overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
+            
+            <div className="relative z-10 text-center">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                {content.finalCta?.title || defaultContent.finalCta.title}
+              </h2>
+              <p className="text-white/90 text-lg sm:text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
+                {content.finalCta?.description || defaultContent.finalCta.description}
+              </p>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8 border-2 border-white/20 max-w-2xl mx-auto">
+                <a 
+                  href={`mailto:${content.finalCta?.email || defaultContent.finalCta.email}`}
+                  className="text-xl sm:text-2xl font-cairo font-bold mb-2 block hover:text-[#B99066] transition-colors"
+                >
+                  {content.finalCta?.email || defaultContent.finalCta.email}
+                </a>
+                <p className="text-white/80 text-sm sm:text-base">{content.finalCta?.emailSubtitle || defaultContent.finalCta.emailSubtitle}</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-center transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl text-lg"
+                >
+                  Prendre un rendez-vous
+                </a>
+                <a
+                  href={`mailto:${content.finalCta?.email || defaultContent.finalCta.email}`}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-center transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl text-lg"
+                >
+                  Nous écrire
+                </a>
+              </div>
             </div>
           </div>
         </div>

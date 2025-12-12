@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function PlanRetraitePage() {
   return (
@@ -55,17 +56,19 @@ export default function PlanRetraitePage() {
       </section>
 
       {/* Section 2: Comprendre les différences */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            PER, PERP, PERCO, Madelin, Préfon : comprendre les différences
-            </h2>
+          <SectionHeader 
+            title="PER, PERP, PERCO, Madelin, Préfon : comprendre les différences"
+            subtitle="Découvrez les caractéristiques de chaque dispositif pour faire le meilleur choix selon votre profil"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Colonne gauche : Contenu textuel */}
             <div className="lg:col-span-2 space-y-12">
               {/* H3: Le PER */}
-              <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
+              <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 sm:p-10 border-l-4 border-[#253F60] transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
                 <h3 className="text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-6">
                   Le PER : le nouveau standard de l'épargne retraite
                 </h3>

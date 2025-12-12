@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function RetraiteProgressivePage() {
   return (
@@ -51,9 +52,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 2: Qu'est-ce que la retraite progressive ? */}
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Qu'est-ce que la retraite progressive ?
-          </h2>
+          <SectionHeader 
+            title="Qu'est-ce que la retraite progressive ?"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -112,36 +113,38 @@ export default function RetraiteProgressivePage() {
       {/* Section 3: Les avantages de la retraite progressive */}
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Les avantages de la retraite progressive
-          </h2>
+          <SectionHeader 
+            title="Les avantages de la retraite progressive"
+          />
 
           <div className="space-y-8">
             {/* H3 - 1. Revenu sécurisé */}
-            <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6">
-                1. Un revenu sécurisé pendant la transition
+            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 sm:p-10 border-l-4 border-[#253F60] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
+              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6 relative z-10">
+                Un revenu sécurisé pendant la transition
               </h3>
-              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4">
+              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4 relative z-10">
                 Le principal avantage est la stabilité du revenu :
               </p>
-              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4">
+              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-4 relative z-10">
                 vous cumulez à la fois votre salaire à temps partiel et une partie de votre pension (souvent 30 à 60% du montant total).
               </p>
-              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
+              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed relative z-10">
                 Cela permet de préserver votre pouvoir d'achat sans puiser dans votre épargne.
               </p>
             </div>
 
             {/* H3 - 2. Optimisation fiscale */}
-            <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6">
-                2. Une optimisation fiscale et patrimoniale
+            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 sm:p-10 border-l-4 border-[#B99066] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/5 rounded-bl-full"></div>
+              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6 relative z-10">
+                Une optimisation fiscale et patrimoniale
               </h3>
-              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6 relative z-10">
                 Travailler à temps partiel tout en percevant une pension ouvre la possibilité de :
               </p>
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 relative z-10">
                 <li className="flex items-start gap-3">
                   <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
@@ -161,25 +164,23 @@ export default function RetraiteProgressivePage() {
                   </span>
                 </li>
               </ul>
-              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-blue-600 text-xl">➡️</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    En combinant retraite progressive et stratégie d'épargne retraite, il est possible de lisser la fiscalité et d'éviter une hausse d'imposition ponctuelle à la fin de carrière.
-                  </p>
-                </div>
+              <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-4 rounded relative z-10">
+                <p className="text-[#253F60] text-sm font-inter font-semibold">
+                  En combinant retraite progressive et stratégie d'épargne retraite, il est possible de lisser la fiscalité et d'éviter une hausse d'imposition ponctuelle à la fin de carrière.
+                </p>
               </div>
             </div>
 
             {/* H3 - 3. Transmission et formation */}
-            <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6">
-                3. Un levier pour transmettre et former
+            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 sm:p-10 border-l-4 border-[#253F60] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
+              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6 relative z-10">
+                Un levier pour transmettre et former
               </h3>
-              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+              <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6 relative z-10">
                 Pour les chefs d'entreprise, la retraite progressive offre une transition douce vers la transmission :
               </p>
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 relative z-10">
                 <li className="flex items-start gap-3">
                   <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
@@ -205,13 +206,10 @@ export default function RetraiteProgressivePage() {
                   </span>
                 </li>
               </ul>
-              <div className="bg-gray-50 border-l-4 border-gray-400 p-4 rounded">
-                <div className="flex items-start gap-3">
-                  <span className="text-gray-600">🌿</span>
-                  <p className="text-[#4B5563] text-sm font-inter">
-                    Chez Azalée Patrimoine, nous accompagnons souvent des dirigeants qui utilisent la retraite progressive pour préparer une cession en douceur et optimiser leur fiscalité avant le départ.
-                  </p>
-                </div>
+              <div className="bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 border-l-4 border-[#B99066] p-4 rounded relative z-10">
+                <p className="text-[#253F60] text-sm font-inter font-semibold">
+                  Chez Azalée Patrimoine, nous accompagnons souvent des dirigeants qui utilisent la retraite progressive pour préparer une cession en douceur et optimiser leur fiscalité avant le départ.
+                </p>
               </div>
             </div>
           </div>
@@ -221,9 +219,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 4: Calcul de la pension */}
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Comment est calculée la pension de retraite progressive ?
-          </h2>
+          <SectionHeader 
+            title="Comment est calculée la pension de retraite progressive ?"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -231,16 +229,18 @@ export default function RetraiteProgressivePage() {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white">
-                <h4 className="font-cairo font-bold mb-4 text-lg">Exemple 1</h4>
-                <p className="font-inter text-sm mb-2">Si vous travaillez à <strong>60 %</strong></p>
-                <p className="font-inter text-2xl font-bold text-[#B99066]">Vous percevez 40 % de votre retraite</p>
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-xl hover:shadow-2xl p-6 text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/10 rounded-bl-full"></div>
+                <h4 className="font-cairo font-bold mb-4 text-lg relative z-10">Exemple 1</h4>
+                <p className="font-inter text-sm mb-2 relative z-10">Si vous travaillez à <strong>60 %</strong></p>
+                <p className="font-inter text-2xl font-bold text-[#B99066] relative z-10">Vous percevez 40 % de votre retraite</p>
               </div>
 
-              <div className="bg-gradient-to-br from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white">
-                <h4 className="font-cairo font-bold mb-4 text-lg">Exemple 2</h4>
-                <p className="font-inter text-sm mb-2">Si vous travaillez à <strong>40 %</strong></p>
-                <p className="font-inter text-2xl font-bold">Vous percevez 60 % de votre retraite</p>
+              <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl shadow-xl hover:shadow-2xl p-6 text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/10 rounded-bl-full"></div>
+                <h4 className="font-cairo font-bold mb-4 text-lg relative z-10">Exemple 2</h4>
+                <p className="font-inter text-sm mb-2 relative z-10">Si vous travaillez à <strong>40 %</strong></p>
+                <p className="font-inter text-2xl font-bold relative z-10">Vous percevez 60 % de votre retraite</p>
               </div>
             </div>
 
@@ -282,9 +282,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 5: Fonctionnaires et professions libérales */}
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Et pour les fonctionnaires ou les professions libérales ?
-          </h2>
+          <SectionHeader 
+            title="Et pour les fonctionnaires ou les professions libérales ?"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -328,9 +328,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 6: Retraite progressive et indemnités de départ */}
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Retraite progressive et indemnités de départ
-          </h2>
+          <SectionHeader 
+            title="Retraite progressive et indemnités de départ"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -376,9 +376,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 7: Retraite progressive et planification patrimoniale */}
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Retraite progressive et planification patrimoniale
-          </h2>
+          <SectionHeader 
+            title="Retraite progressive et planification patrimoniale"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -410,10 +410,10 @@ export default function RetraiteProgressivePage() {
                 </span>
               </li>
             </ul>
-            <div className="bg-gradient-to-r from-[#B99066] to-[#A67C52] rounded-xl p-6 text-white text-center">
-              <div className="flex items-center justify-center gap-3 mb-4">
-              </div>
-              <p className="text-lg font-cairo font-bold italic">
+            <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl shadow-xl hover:shadow-2xl p-6 text-white text-center transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#253F60]/10 rounded-tr-full"></div>
+              <p className="text-lg font-cairo font-bold italic relative z-10">
                 <strong>Objectif Azalée Patrimoine</strong> : transformer cette période de transition en levier de stabilité et de liberté financière.
               </p>
             </div>
@@ -424,9 +424,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 8: Les erreurs à éviter */}
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Les erreurs à éviter
-          </h2>
+          <SectionHeader 
+            title="Les erreurs à éviter"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <ul className="space-y-6">
@@ -470,9 +470,9 @@ export default function RetraiteProgressivePage() {
       {/* Section 9: Conclusion */}
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-12 text-center">
-            Conclusion : un tremplin vers une retraite choisie
-          </h2>
+          <SectionHeader 
+            title="Conclusion : un tremplin vers une retraite choisie"
+          />
 
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
             <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
@@ -497,9 +497,11 @@ export default function RetraiteProgressivePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full bg-gradient-to-r from-[#253F60] via-[#1e3a5a] to-[#253F60] py-16 sm:py-20 lg:py-24">
+      <section className="w-full bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] py-16 sm:py-20 lg:py-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 lg:p-12 text-center">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 lg:p-12 text-center relative z-10">
             <div className="flex items-center justify-center gap-2 mb-6">
               <svg className="w-8 h-8 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

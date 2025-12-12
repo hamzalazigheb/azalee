@@ -2,6 +2,7 @@
 import React from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function ScellierPage() {
   return (
@@ -85,34 +86,35 @@ export default function ScellierPage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* La loi Pinel */}
-          <div className="bg-[#253F60] rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              La loi Pinel : défiscaliser tout en investissant
-            </h2>
+          <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12 hover:shadow-2xl transition-all duration-300">
+            <SectionHeader 
+              title="La loi Pinel : défiscaliser tout en investissant"
+              className="mb-8"
+            />
             <div className="space-y-6">
               <p className="text-white text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
                 La <strong>loi Pinel</strong>, encore en vigueur jusqu'en 2024 sous conditions, offre une réduction d'impôt proportionnelle à la durée d'engagement locatif :
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white rounded-lg p-6 shadow-md text-center">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-xl font-bold">12%</span>
                   </div>
                   <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-2">6 ans</h3>
                   <p className="text-[#686868] text-sm font-inter">12% du prix du bien</p>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md text-center">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-xl font-bold">18%</span>
                   </div>
                   <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-2">9 ans</h3>
                   <p className="text-[#686868] text-sm font-inter">18% du prix du bien</p>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md text-center">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-xl font-bold">21%</span>
                   </div>
                   <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-2">12 ans</h3>
@@ -120,9 +122,9 @@ export default function ScellierPage() {
                 </div>
               </div>
               
-              <div className="bg-[#B99066] rounded-lg p-6 text-white">
+              <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-white shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">Exemple</h3>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4">
+                <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
                   <p className="text-sm">
                     Un couple investit <strong>250 000 €</strong> dans un T2 à Toulouse. Ils économisent <strong>52 500 €</strong> d'impôts en 9 ans, tout en percevant un loyer mensuel de <strong>650 €</strong>.
                   </p>
@@ -130,7 +132,7 @@ export default function ScellierPage() {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-white rounded-lg p-6 shadow-md">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                   <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-4">Avantages</h3>
                   <ul className="text-[#686868] text-sm font-inter space-y-2">
                     <li>• Réduction d'impôt significative (jusqu'à 63 000 €)</li>
@@ -139,7 +141,7 @@ export default function ScellierPage() {
                   </ul>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
                   <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-4">Inconvénients</h3>
                   <ul className="text-[#686868] text-sm font-inter space-y-2">
                     <li>• Plafonds de loyers et de ressources qui limitent la rentabilité</li>
@@ -152,38 +154,39 @@ export default function ScellierPage() {
           </div>
 
           {/* Les anciens dispositifs */}
-          <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-[#112033] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Les anciens dispositifs : Scellier et Robien
-            </h2>
+          <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
+            <SectionHeader 
+              title="Les anciens dispositifs : Scellier et Robien"
+              className="mb-8"
+            />
             <div className="space-y-6">
               <p className="text-[#686868] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
                 Avant la loi Pinel, d'autres mécanismes existaient comme le <strong>Robien</strong> (2003-2009) et le <strong>Scellier</strong> (2009-2012).
               </p>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 text-white">
+                  <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
                     <span className="text-white text-2xl font-bold">1</span>
                   </div>
-                  <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-4 text-center">Dispositif Robien (2003-2009)</h3>
-                  <p className="text-[#686868] text-sm font-inter text-center">
+                  <h3 className="text-white font-cairo font-semibold text-lg mb-4 text-center">Dispositif Robien (2003-2009)</h3>
+                  <p className="text-white text-sm font-inter text-center opacity-90">
                     Le dispositif Robien permettait d'<strong>amortir une partie du prix d'achat</strong> du logement.
                   </p>
                 </div>
                 
-                <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 text-white">
+                  <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
                     <span className="text-white text-2xl font-bold">2</span>
                   </div>
-                  <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-4 text-center">Dispositif Scellier (2009-2012)</h3>
-                  <p className="text-[#686868] text-sm font-inter text-center">
+                  <h3 className="text-white font-cairo font-semibold text-lg mb-4 text-center">Dispositif Scellier (2009-2012)</h3>
+                  <p className="text-white text-sm font-inter text-center opacity-90">
                     Le dispositif Scellier offrait une <strong>réduction d'impôt de 25%</strong> sur 9 ans.
                   </p>
                 </div>
               </div>
               
-              <div className="bg-[#253F60] rounded-lg p-6 text-white text-center">
+              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white text-center shadow-lg">
                 <p className="text-sm">
                   Ces régimes ne sont plus accessibles pour de nouveaux investissements, mais les biens acquis à l'époque restent soumis aux règles fiscales d'origine tant que la durée d'engagement n'est pas écoulée.
                 </p>
@@ -192,10 +195,11 @@ export default function ScellierPage() {
           </div>
 
           {/* Pourquoi vendre après la période d'engagement */}
-          <div className="bg-white rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
-            <h2 className="text-[#112033] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Pourquoi vendre après la période d'engagement fiscal ?
-            </h2>
+          <div className="bg-white rounded-xl p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12">
+            <SectionHeader 
+              title="Pourquoi vendre après la période d'engagement fiscal ?"
+              className="mb-8"
+            />
             <div className="space-y-6">
               <p className="text-[#686868] text-sm sm:text-base lg:text-lg font-inter leading-relaxed">
                 Une fois la période d'avantage fiscal terminée (6, 9 ou 12 ans), beaucoup de propriétaires s'interrogent : faut-il conserver ou vendre le bien ?
@@ -204,8 +208,8 @@ export default function ScellierPage() {
               <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-4">Raisons fréquentes de vendre :</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">1</span>
                   </div>
                   <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-3 text-center">Fin des avantages fiscaux</h3>
@@ -214,8 +218,8 @@ export default function ScellierPage() {
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">2</span>
                   </div>
                   <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-3 text-center">Changer de vie</h3>
@@ -224,8 +228,8 @@ export default function ScellierPage() {
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">3</span>
                   </div>
                   <h3 className="text-[#253F60] font-cairo font-semibold text-lg mb-3 text-center">Financer un nouveau projet</h3>
@@ -234,8 +238,8 @@ export default function ScellierPage() {
                   </p>
                 </div>
                 
-                <div className="bg-white rounded-lg p-6 shadow-md">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                     <span className="text-white text-2xl font-bold">4</span>
                   </div>
                   <h3 className="text-[#B99066] font-cairo font-semibold text-lg mb-3 text-center">Optimiser la fiscalité</h3>
@@ -245,9 +249,9 @@ export default function ScellierPage() {
                 </div>
               </div>
               
-              <div className="bg-[#B99066] rounded-lg p-6 text-white">
+              <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-white shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">Exemple</h3>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4">
+                <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
                   <p className="text-sm">
                     Un investisseur a acheté un appartement en loi Scellier en 2010 pour <strong>180 000 €</strong>. Après 12 ans, il a bénéficié de <strong>45 000 €</strong> de réductions d'impôt et son bien vaut aujourd'hui <strong>230 000 €</strong>. Revendre lui permet de dégager une plus-value de <strong>50 000 €</strong> et de réinvestir dans un immeuble de rapport plus rentable.
                   </p>
@@ -257,10 +261,15 @@ export default function ScellierPage() {
           </div>
 
           {/* Conseil Azalée Patrimoine */}
-          <div className="bg-[#253F60] rounded-lg p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12 text-white">
-            <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
-              Conseil Azalée Patrimoine
-            </h2>
+          <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-6 sm:p-8 lg:p-10 mb-8 sm:mb-12 text-white hover:shadow-2xl transition-all duration-300">
+            <div className="text-center mb-8">
+              <div className="inline-block mb-4">
+                <div className="w-16 h-1 bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-full mx-auto"></div>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-white mb-4">
+                Conseil Azalée Patrimoine
+              </h2>
+            </div>
             <div className="space-y-6">
               <p className="text-lg text-center">
                 Les dispositifs Pinel, Scellier et Robien ont permis à des milliers d'investisseurs de réduire leurs impôts et de bâtir un patrimoine immobilier. Mais une fois la période fiscale terminée, il est essentiel de <strong>réévaluer l'intérêt de conserver ou de vendre</strong> le bien.
@@ -271,25 +280,25 @@ export default function ScellierPage() {
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl font-bold">1</span>
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                  <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm shadow-md">
+                    <span className="text-white text-2xl font-bold">1</span>
                   </div>
-                  <h3 className="font-semibold mb-2">Garder le bien ?</h3>
-                  <p className="text-sm">Pour des revenus complémentaires à la retraite</p>
+                  <h3 className="font-semibold mb-3 text-white text-lg">Garder le bien ?</h3>
+                  <p className="text-sm text-white opacity-90">Pour des revenus complémentaires à la retraite</p>
                 </div>
                 
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white text-xl font-bold">2</span>
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-center shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                  <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm shadow-md">
+                    <span className="text-white text-2xl font-bold">2</span>
                   </div>
-                  <h3 className="font-semibold mb-2">Ou le vendre ?</h3>
-                  <p className="text-sm">Pour réallouer le capital vers des placements plus rentables et moins contraignants</p>
+                  <h3 className="font-semibold mb-3 text-white text-lg">Ou le vendre ?</h3>
+                  <p className="text-sm text-white opacity-90">Pour réallouer le capital vers des placements plus rentables et moins contraignants</p>
                 </div>
               </div>
               
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <p className="text-sm">
+              <div className="bg-gradient-to-br from-white to-gray-50 bg-opacity-20 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg border border-white border-opacity-30">
+                <p className="text-sm text-white">
                   Notre accompagnement vous aide à prendre la bonne décision en fonction de vos objectifs patrimoniaux, fiscaux et de vie.
                 </p>
               </div>
@@ -297,7 +306,7 @@ export default function ScellierPage() {
           </div>
 
           {/* CTA Final */}
-          <div className="bg-[#253F60] rounded-lg p-8 sm:p-10 lg:p-12 text-center">
+          <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 sm:p-10 lg:p-12 text-center">
             <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-4 sm:mb-6">
               Prêt à optimiser votre bien en dispositif fiscal ?
             </h2>

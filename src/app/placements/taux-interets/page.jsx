@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function TauxInteretsPage() {
   const [activeTab, setActiveTab] = useState("introduction");
@@ -29,10 +30,16 @@ export default function TauxInteretsPage() {
             </p>
           </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200"
+                >
                   Analyser mes placements
                 </button>
-                <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+                <button 
+                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+                >
                   En savoir plus
                 </button>
               </div>
@@ -41,10 +48,9 @@ export default function TauxInteretsPage() {
             {/* Right: Current Rates Cards */}
             <div className="w-full lg:w-1/2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300">
-                    <span className="text-white text-2xl font-bold">BCE</span>
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <span className="text-white text-xl font-bold">BCE</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">BCE</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux directeur</p>
@@ -52,30 +58,27 @@ export default function TauxInteretsPage() {
                   <p className="text-[#686868] text-xs">Influence toute l'économie</p>
                 </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67A5A] transition-colors duration-300">
-                    <span className="text-white text-2xl font-bold">€</span>
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <span className="text-white text-xl font-bold">€</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Livret A</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux réglementé</p>
                   <p className="text-[#B99066] text-xl font-bold">3.00%</p>
                   <p className="text-[#686868] text-xs">Rémunération épargne</p>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:from-[#1A2F4A] hover:to-[#A67A5A] transition-colors duration-300">
-                    <span className="text-white text-2xl font-bold">H</span>
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <span className="text-white text-xl font-bold">H</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Crédit immobilier</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux moyen</p>
                   <p className="text-[#B99066] text-xl font-bold">4.20%</p>
                   <p className="text-[#686868] text-xs">Coût du crédit</p>
                 </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300">
-                    <span className="text-white text-2xl font-bold">%</span>
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+                    <span className="text-white text-xl font-bold">%</span>
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Inflation</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux actuel</p>
@@ -172,16 +175,13 @@ export default function TauxInteretsPage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           {activeTab === "introduction" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Introduction
-                </h2>
-                <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-                  Les <strong>taux d'intérêt</strong> influencent directement la vie des épargnants et des investisseurs : ils déterminent le <strong>coût d'un crédit</strong>, le <strong>rendement d'un placement sécurisé</strong>, ou encore la <strong>valorisation de l'immobilier et des marchés financiers</strong>.
-                </p>
-              </div>
+              <SectionHeader 
+                title="Introduction"
+                subtitle="Les taux d'intérêt influencent directement la vie des épargnants et des investisseurs : ils déterminent le coût d'un crédit, le rendement d'un placement sécurisé, ou encore la valorisation de l'immobilier et des marchés financiers."
+                className="mb-8"
+              />
               
-              <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
+              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
                 <h3 className="text-xl font-semibold mb-4">Pourquoi comprendre les taux ?</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -208,17 +208,14 @@ export default function TauxInteretsPage() {
 
           {activeTab === "definition" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Qu'est-ce qu'un taux d'intérêt ?
-                </h2>
-                <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-                  Un taux d'intérêt représente le <strong>prix de l'argent dans le temps</strong>.
-                </p>
-              </div>
+              <SectionHeader 
+                title="Qu'est-ce qu'un taux d'intérêt ?"
+                subtitle="Un taux d'intérêt représente le prix de l'argent dans le temps."
+                className="mb-8"
+              />
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-white rounded-lg shadow-lg p-8">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
                   <h3 className="text-[#112033] text-xl font-semibold mb-6">Pour un emprunteur</h3>
                   <p className="text-[#686868] mb-4">
                     C'est le <strong>coût du crédit</strong> (immobilier, consommation, entreprise).
@@ -260,7 +257,7 @@ export default function TauxInteretsPage() {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-8">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
                   <h3 className="text-[#112033] text-xl font-semibold mb-6">Pour un épargnant</h3>
                   <p className="text-[#686868] mb-4">
                     C'est la <strong>rémunération de son épargne</strong> (livrets, fonds euros, obligations).
@@ -303,7 +300,7 @@ export default function TauxInteretsPage() {
                 </div>
               </div>
 
-              <div className="bg-[#F8F9FA] rounded-lg p-8">
+              <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
                 <h3 className="text-[#112033] text-xl font-semibold mb-6">Types de taux</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="text-center group">
@@ -349,17 +346,14 @@ export default function TauxInteretsPage() {
 
           {activeTab === "economie" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Taux et économie : un lien étroit
-                </h2>
-                <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-                  Les taux agissent comme un <strong>thermomètre économique</strong>.
-                </p>
-              </div>
+              <SectionHeader 
+                title="Taux et économie : un lien étroit"
+                subtitle="Les taux agissent comme un thermomètre économique."
+                className="mb-8"
+              />
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
                   <h3 className="text-xl font-semibold mb-6">Quand les taux montent</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -377,7 +371,7 @@ export default function TauxInteretsPage() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
+                <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
                   <h3 className="text-xl font-semibold mb-6">Quand les taux baissent</h3>
                   <div className="space-y-4">
                     <div className="bg-white bg-opacity-20 rounded-lg p-4">
@@ -400,14 +394,13 @@ export default function TauxInteretsPage() {
 
           {activeTab === "epargnant" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Impact pour l'épargnant
-            </h2>
-          </div>
+              <SectionHeader 
+                title="Impact pour l'épargnant"
+                className="mb-8"
+              />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-6">
                 <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                       <svg className="w-10 h-10 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -426,26 +419,26 @@ export default function TauxInteretsPage() {
                   </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <svg className="w-10 h-10 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg backdrop-blur-sm">
+                      <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                       </svg>
                 </div>
                     <h3 className="text-2xl font-semibold mb-2">Immobilier</h3>
               </div>
-              <p className="text-sm mb-4">
+              <p className="text-sm mb-4 opacity-90">
                     Un crédit à 1 % vs 4 % change totalement la rentabilité d'un projet.
                   </p>
-                  <div className="bg-white bg-opacity-20 rounded-lg p-4">
+                  <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
                     <p className="text-sm">
                       Exemple : sur 20 ans, un emprunt de 200 000 € coûte 21 000 € d'intérêts à 1 %, mais 89 000 € à 4 %.
                     </p>
                   </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <div className="text-center mb-6">
                 <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                       <svg className="w-10 h-10 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -471,14 +464,13 @@ export default function TauxInteretsPage() {
 
           {activeTab === "placements" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  Les taux et vos placements
-            </h2>
-          </div>
+              <SectionHeader 
+                title="Les taux et vos placements"
+                className="mb-8"
+              />
 
               <div className="overflow-x-auto">
-                <table className="w-full bg-white rounded-lg shadow-lg">
+                <table className="w-full bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg">
                   <thead>
                     <tr className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white">
                       <th className="px-6 py-4 text-left font-semibold">Placement</th>
@@ -610,14 +602,13 @@ export default function TauxInteretsPage() {
 
           {activeTab === "faq" && (
             <div className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-                  FAQ – Taux & Intérêts
-                </h2>
-              </div>
+              <SectionHeader 
+                title="FAQ – Taux & Intérêts"
+                className="mb-8"
+              />
               
               <div className="space-y-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-[#253F60]">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
                   <h3 className="text-[#112033] text-lg font-semibold mb-3">1. Pourquoi les taux d'intérêt influencent-ils l'immobilier ?</h3>
                   <p className="text-[#686868] mb-2">
                     Les taux d'intérêt déterminent le <strong>coût du crédit immobilier</strong>.
@@ -929,10 +920,16 @@ export default function TauxInteretsPage() {
             les meilleures stratégies d'investissement adaptées au contexte économique.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-gray-100 transition-colors duration-200">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-gray-100 transition-colors duration-200"
+            >
               Analyser mes placements
             </button>
-            <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+            >
               Prendre rendez-vous
             </button>
           </div>
