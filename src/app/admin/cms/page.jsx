@@ -262,6 +262,14 @@ export default function CMSManagementPage() {
     try {
       console.log('Saving page:', selectedPage.path);
       
+      // Filter out menuItems section before saving (menu items are static)
+      const contentToSave = Object.keys(formData).reduce((acc, key) => {
+        if (key.toLowerCase() !== 'menuitems' && key.toLowerCase() !== 'menu items') {
+          acc[key] = formData[key];
+        }
+        return acc;
+      }, {});
+      
       const response = await fetch('/api/cms/pages', {
         method: 'PUT',
         headers: {
@@ -269,7 +277,7 @@ export default function CMSManagementPage() {
         },
         body: JSON.stringify({
           path: selectedPage.path,
-          content: formData
+          content: contentToSave
         })
       });
 
@@ -2195,15 +2203,17 @@ export default function CMSManagementPage() {
                 </div>
                 <div className="p-3 sm:p-4 lg:p-6 max-h-[calc(100vh-180px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto">
                   {formData && Object.keys(formData).length > 0 ? (
-                    Object.keys(formData).map((sectionKey) => {
-                      const section = formData[sectionKey];
-                      const sectionTitle = sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1).replace(/([A-Z])/g, ' $1');
-                      return (
-                        <div key={sectionKey}>
-                          {renderNestedSection(sectionKey, section, sectionTitle)}
-                        </div>
-                      );
-                    })
+                    Object.keys(formData)
+                      .filter((sectionKey) => sectionKey.toLowerCase() !== 'menuitems' && sectionKey.toLowerCase() !== 'menu items')
+                      .map((sectionKey) => {
+                        const section = formData[sectionKey];
+                        const sectionTitle = sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1).replace(/([A-Z])/g, ' $1');
+                        return (
+                          <div key={sectionKey}>
+                            {renderNestedSection(sectionKey, section, sectionTitle)}
+                          </div>
+                        );
+                      })
                   ) : (
                     <div className="text-center py-12">
                       <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 rounded-xl p-8 border-2 border-[#253F60]/20 dark:border-gray-700">

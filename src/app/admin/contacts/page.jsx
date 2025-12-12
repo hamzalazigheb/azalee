@@ -14,27 +14,30 @@ export default function ContactsPage() {
   const [updatingStatus, setUpdatingStatus] = useState({});
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
+  // Check authentication on mount
   useEffect(() => {
-    // Check authentication
     const token = localStorage.getItem('adminToken');
     if (!token) {
       router.push('/admin/login');
       return;
     }
-
-    // Only show loading on initial load, not when filter changes
-    fetchContacts(isInitialLoad);
-    if (isInitialLoad) {
-      setIsInitialLoad(false);
-    }
-  }, [filter, router, isInitialLoad]);
-
-  // Check for filter in URL params
-  useEffect(() => {
+    
+    // Check for filter in URL params on initial load
     const urlParams = new URLSearchParams(window.location.search);
     const urlFilter = urlParams.get('filter');
-    if (urlFilter && urlFilter !== filter) {
+    if (urlFilter && ['all', 'new', 'read', 'contacted', 'archived'].includes(urlFilter)) {
       setFilter(urlFilter);
+    }
+    
+    // Fetch contacts on initial load
+    fetchContacts(true);
+    setIsInitialLoad(false);
+  }, [router]);
+
+  // Fetch contacts when filter changes (but not on initial load)
+  useEffect(() => {
+    if (!isInitialLoad) {
+      fetchContacts(false);
     }
   }, [filter]);
 
@@ -45,6 +48,11 @@ export default function ContactsPage() {
         setLoading(true);
       }
       const token = localStorage.getItem('adminToken');
+      if (!token) {
+        router.push('/admin/login');
+        return;
+      }
+      
       const status = filter === 'all' ? '' : filter;
       const url = `/api/contact/list${status ? `?status=${status}` : ''}`;
       
@@ -54,16 +62,27 @@ export default function ContactsPage() {
         }
       });
 
+      if (!response.ok) {
+        if (response.status === 401) {
+          router.push('/admin/login');
+          return;
+        }
+        throw new Error('Failed to fetch contacts');
+      }
+
       const data = await response.json();
       if (data.success) {
         setContacts(data.data || []);
       } else {
         if (data.message === 'Unauthorized' || data.message === 'Invalid token') {
           router.push('/admin/login');
+        } else {
+          showNotification('Erreur lors du chargement des contacts', 'error');
         }
       }
     } catch (error) {
       console.error('Error fetching contacts:', error);
+      showNotification('Erreur lors du chargement des contacts', 'error');
     } finally {
       if (showLoading) {
         setLoading(false);
@@ -155,12 +174,12 @@ export default function ContactsPage() {
       const data = await response.json();
       if (data.success) {
         showNotification('Notes sauvegardées avec succès', 'success');
-        fetchContacts();
+        // Refresh contacts list without showing loading
+        fetchContacts(false);
         if (selectedContact && selectedContact._id === id) {
           setSelectedContact({ ...selectedContact, notes });
         }
         setNotes('');
-        setSelectedContact(null);
       } else {
         showNotification('Erreur lors de la sauvegarde', 'error');
       }
@@ -242,7 +261,13 @@ export default function ContactsPage() {
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 mb-6 border-2 border-[#253F60]/20 dark:border-gray-700">
             <div className="flex gap-2 flex-wrap">
               <button
-                onClick={() => setFilter('all')}
+                onClick={() => {
+                  setFilter('all');
+                  // Update URL without page reload
+                  const url = new URL(window.location);
+                  url.searchParams.set('filter', 'all');
+                  window.history.pushState({}, '', url);
+                }}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                   filter === 'all'
                     ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white'
@@ -252,7 +277,12 @@ export default function ContactsPage() {
                 Tous
               </button>
               <button
-                onClick={() => setFilter('new')}
+                onClick={() => {
+                  setFilter('new');
+                  const url = new URL(window.location);
+                  url.searchParams.set('filter', 'new');
+                  window.history.pushState({}, '', url);
+                }}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                   filter === 'new'
                     ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white'
@@ -262,7 +292,12 @@ export default function ContactsPage() {
                 Nouveaux
               </button>
               <button
-                onClick={() => setFilter('read')}
+                onClick={() => {
+                  setFilter('read');
+                  const url = new URL(window.location);
+                  url.searchParams.set('filter', 'read');
+                  window.history.pushState({}, '', url);
+                }}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                   filter === 'read'
                     ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white'
@@ -272,7 +307,12 @@ export default function ContactsPage() {
                 Lus
               </button>
               <button
-                onClick={() => setFilter('contacted')}
+                onClick={() => {
+                  setFilter('contacted');
+                  const url = new URL(window.location);
+                  url.searchParams.set('filter', 'contacted');
+                  window.history.pushState({}, '', url);
+                }}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                   filter === 'contacted'
                     ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white'
@@ -282,7 +322,12 @@ export default function ContactsPage() {
                 Contactés
               </button>
               <button
-                onClick={() => setFilter('archived')}
+                onClick={() => {
+                  setFilter('archived');
+                  const url = new URL(window.location);
+                  url.searchParams.set('filter', 'archived');
+                  window.history.pushState({}, '', url);
+                }}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                   filter === 'archived'
                     ? 'bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white'
