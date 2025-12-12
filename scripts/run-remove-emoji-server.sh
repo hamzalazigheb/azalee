@@ -29,6 +29,9 @@ echo ""
 # Method 1: Run in backend container (if it has Node.js and dependencies)
 echo "📦 Method 1: Running in backend container..."
 if sudo docker ps | grep -q azalee-backend; then
+    echo "   Creating scripts directory in container..."
+    sudo docker exec azalee-backend mkdir -p /app/scripts 2>/dev/null || true
+    
     echo "   Copying script to container..."
     sudo docker cp scripts/remove-pointing-hand-emoji.js azalee-backend:/app/scripts/remove-pointing-hand-emoji.js
     
@@ -36,7 +39,7 @@ if sudo docker ps | grep -q azalee-backend; then
     sudo docker exec azalee-backend npm install dotenv mongoose --save 2>/dev/null || true
     
     echo "   Running script..."
-    sudo docker exec -e MONGODB_URI="mongodb://mongo:27017/azalee_db" azalee-backend node scripts/remove-pointing-hand-emoji.js
+    sudo docker exec -e MONGODB_URI="mongodb://mongo:27017/azalee_db" azalee-backend sh -c "cd /app && node scripts/remove-pointing-hand-emoji.js"
     
     if [ $? -eq 0 ]; then
         echo ""
@@ -49,6 +52,9 @@ fi
 echo ""
 echo "📦 Method 2: Running in frontend container..."
 if sudo docker ps | grep -q azalee-frontend; then
+    echo "   Creating scripts directory in container..."
+    sudo docker exec azalee-frontend mkdir -p /app/scripts 2>/dev/null || true
+    
     echo "   Copying script to container..."
     sudo docker cp scripts/remove-pointing-hand-emoji.js azalee-frontend:/app/scripts/remove-pointing-hand-emoji.js
     
@@ -56,7 +62,7 @@ if sudo docker ps | grep -q azalee-frontend; then
     sudo docker exec azalee-frontend npm install dotenv mongoose --save 2>/dev/null || true
     
     echo "   Running script..."
-    sudo docker exec -e MONGODB_URI="mongodb://mongo:27017/azalee_db" azalee-frontend node scripts/remove-pointing-hand-emoji.js
+    sudo docker exec -e MONGODB_URI="mongodb://mongo:27017/azalee_db" azalee-frontend sh -c "cd /app && node scripts/remove-pointing-hand-emoji.js"
     
     if [ $? -eq 0 ]; then
         echo ""
