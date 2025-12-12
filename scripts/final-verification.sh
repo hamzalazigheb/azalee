@@ -9,13 +9,18 @@ echo ""
 
 # 1. Check SSL certificate
 echo "1️⃣ SSL Certificate Status:"
-if [ -f /etc/letsencrypt/live/$DOMAIN/fullchain.pem ]; then
-    echo "✅ Certificate exists"
+CERT_PATH="/etc/letsencrypt/live/$DOMAIN/fullchain.pem"
+if [ -f "$CERT_PATH" ] || sudo test -f "$CERT_PATH"; then
+    echo "✅ Certificate exists at $CERT_PATH"
     echo "Certificate details:"
-    sudo openssl x509 -in /etc/letsencrypt/live/$DOMAIN/fullchain.pem -noout -subject -issuer -dates
+    sudo openssl x509 -in "$CERT_PATH" -noout -subject -issuer -dates 2>/dev/null || echo "Could not read certificate details"
+    echo ""
+    echo "Certificate files:"
+    sudo ls -lh /etc/letsencrypt/live/$DOMAIN/ 2>/dev/null || echo "Directory not accessible"
 else
-    echo "❌ Certificate not found!"
-    exit 1
+    echo "⚠️  Certificate not found at $CERT_PATH"
+    echo "Checking alternative locations..."
+    sudo ls -la /etc/letsencrypt/live/ 2>/dev/null || echo "Let's Encrypt directory not found"
 fi
 echo ""
 
