@@ -10,6 +10,7 @@ export async function POST(request) {
     // Wait for MongoDB connection to be fully established
     await connectDB();
     
+    
     // Small delay to ensure connection is ready (Mongoose needs a moment)
     await new Promise(resolve => setTimeout(resolve, 100));
 
