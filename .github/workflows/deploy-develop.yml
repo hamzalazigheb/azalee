@@ -1,0 +1,42 @@
+name: Deploy to Development
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to Dev Server
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Development Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVER_USER }}
+          key: ${{ secrets.DEV_SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            cd ~/azalee-app
+            
+            echo "📥 Pulling latest code..."
+            git fetch origin develop
+            git checkout develop
+            git pull origin develop
+            
+            echo "🔨 Building new images..."
+            docker compose build
+            
+            echo "🔄 Restarting with new images..."
+            docker compose up -d --force-recreate
+            
+            echo "🧹 Cleaning up..."
+            docker image prune -f
+            
+            echo "✅ Dev deployment complete!"
+
