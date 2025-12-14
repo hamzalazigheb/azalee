@@ -42,7 +42,7 @@ export default function SettingsPage() {
     try {
       const token = localStorage.getItem('adminToken');
       if (!token) {
-        router.push('/admin/login');
+        router.push('/dashboard/login');
         return;
       }
 
@@ -210,7 +210,7 @@ export default function SettingsPage() {
               </button>
               <button
                 type="button"
-                onClick={() => router.push('/admin')}
+                onClick={() => router.push('/dashboard')}
                 className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-cairo font-semibold hover:bg-gray-50 transition-all duration-300"
               >
                 Annuler

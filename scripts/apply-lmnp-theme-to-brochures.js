@@ -301,3 +301,5 @@ brochures.forEach(brochure => {
 
 console.log('\n✅ All brochures updated with LMNP theme!');
 
+
+

@@ -90,3 +90,5 @@ echo "   - If firewall is blocking: sudo ufw allow 443/tcp"
 echo "   - If certificate issue: Check /etc/letsencrypt/live/$DOMAIN/"
 echo "   - If Nginx config error: sudo nginx -t"
 
+
+

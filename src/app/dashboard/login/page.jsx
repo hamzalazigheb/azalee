@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
         
         // Redirect to dashboard after 5 seconds
         setTimeout(() => {
-          router.push('/admin');
+          router.push('/dashboard');
         }, 5000);
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');

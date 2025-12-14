@@ -313,3 +313,5 @@ async function removeEmojiFromDatabase() {
 // Run the script
 removeEmojiFromDatabase();
 
+
+

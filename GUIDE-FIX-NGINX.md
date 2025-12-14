@@ -145,3 +145,5 @@ sudo systemctl status nginx
 curl -I https://azalee-patrimoine.fr
 ```
 
+
+

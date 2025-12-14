@@ -80,3 +80,5 @@ curl -I https://azalee-patrimoine.fr
 
 Après le déploiement, si vous souhaitez exécuter le script de suppression d'emoji sur le serveur, suivez les instructions dans `RUN_EMOJI_SCRIPT_SERVER.md`.
 
+
+

@@ -58,3 +58,5 @@ echo "   - Check logs: sudo docker-compose logs -f frontend"
 echo "   - Test site: https://azalee-patrimoine.fr"
 echo ""
 
+
+

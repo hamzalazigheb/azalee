@@ -160,7 +160,7 @@ export default function SEOManagementPage() {
               <p className="text-gray-200 font-inter">Gérez les meta descriptions et titres SEO de vos pages</p>
             </div>
             <button
-              onClick={() => router.push('/admin')}
+              onClick={() => router.push('/dashboard')}
               className="bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-6 py-3 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold"
             >
               ← Retour

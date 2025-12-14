@@ -210,7 +210,7 @@ export default function AdminDashboardPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <button 
-              onClick={() => router.push('/admin/cms')}
+              onClick={() => router.push('/dashboard/cms')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">
@@ -226,7 +226,7 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/cms?path=header')}
+              onClick={() => router.push('/dashboard/cms?path=header')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">
@@ -242,7 +242,7 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/cms?path=footer')}
+              onClick={() => router.push('/dashboard/cms?path=footer')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">
@@ -258,7 +258,7 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/seo')}
+              onClick={() => router.push('/dashboard/seo')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">
@@ -274,7 +274,7 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/users')}
+              onClick={() => router.push('/dashboard/users')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">
@@ -290,7 +290,7 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/chatbot')}
+              onClick={() => router.push('/dashboard/chatbot')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">
@@ -306,7 +306,7 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/contacts')}
+              onClick={() => router.push('/dashboard/contacts')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
               <div className="flex items-center gap-4">

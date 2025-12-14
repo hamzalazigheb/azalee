@@ -12,17 +12,9 @@ export default function PlanRetraiteCMSPage() {
   useEffect(() => {
     async function fetchContent() {
       try {
-        const res = await fetch('/api/cms/content?path=retraite/plan-retraite', {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-          }
-        });
+        const res = await fetch('/api/pages/retraite/plan-retraite');
         const data = await res.json();
-        if (data.success && data.data) {
-          setPageContent(data.data);
-        }
+        setPageContent(data.content);
       } catch (error) {
         console.error('Error fetching content:', error);
       } finally {

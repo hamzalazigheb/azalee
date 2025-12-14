@@ -18,7 +18,7 @@ export default function ContactsPage() {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      router.push('/admin/login');
+      router.push('/dashboard/login');
       return;
     }
     
@@ -49,7 +49,7 @@ export default function ContactsPage() {
       }
       const token = localStorage.getItem('adminToken');
       if (!token) {
-        router.push('/admin/login');
+        router.push('/dashboard/login');
         return;
       }
       
@@ -64,7 +64,7 @@ export default function ContactsPage() {
 
       if (!response.ok) {
         if (response.status === 401) {
-          router.push('/admin/login');
+          router.push('/dashboard/login');
           return;
         }
         throw new Error('Failed to fetch contacts');
@@ -75,7 +75,7 @@ export default function ContactsPage() {
         setContacts(data.data || []);
       } else {
         if (data.message === 'Unauthorized' || data.message === 'Invalid token') {
-          router.push('/admin/login');
+          router.push('/dashboard/login');
         } else {
           showNotification('Erreur lors du chargement des contacts', 'error');
         }

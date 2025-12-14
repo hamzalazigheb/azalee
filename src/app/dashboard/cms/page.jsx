@@ -55,6 +55,51 @@ const safeStringValue = (value) => {
 
 // Editors removed - using simple textarea for all fields
 
+// Helper function to organize pages hierarchically
+const organizePages = (pages) => {
+  const organized = {};
+  const standalone = [];
+  
+  // Sort pages by path
+  const sortedPages = [...pages].sort((a, b) => a.path.localeCompare(b.path));
+  
+  sortedPages.forEach(page => {
+    const pathParts = page.path.split('/');
+    
+    if (pathParts.length === 1) {
+      // Main page (no slash)
+      if (!organized[page.path]) {
+        organized[page.path] = { main: page, subPages: [] };
+      } else {
+        organized[page.path].main = page;
+      }
+    } else {
+      // Sub-page
+      const parentPath = pathParts[0];
+      if (!organized[parentPath]) {
+        organized[parentPath] = { main: null, subPages: [] };
+      }
+      organized[parentPath].subPages.push(page);
+    }
+  });
+  
+  return organized;
+};
+
+// Category labels for organized display
+const categoryLabels = {
+  'accueil': '🏠 Accueil',
+  'header': '📌 Header',
+  'footer': '📎 Footer',
+  'retraite': '👴 Retraite',
+  'placements': '💰 Placements',
+  'fiscalite': '📊 Fiscalité',
+  'immobilier': '🏢 Immobilier',
+  'patrimoine': '💎 Patrimoine',
+  'outils': '🔧 Outils',
+  'contact': '📞 Contact',
+};
+
 export default function CMSManagementPage() {
   const router = useRouter();
   const [pages, setPages] = useState([]);
@@ -64,6 +109,7 @@ export default function CMSManagementPage() {
   const [newPage, setNewPage] = useState({ path: '', title: '', content: {} });
   const [formData, setFormData] = useState({});
   const [notification, setNotification] = useState({ isOpen: false, message: '', type: 'success' });
+  const [expandedCategories, setExpandedCategories] = useState({});
 
   // dnd-kit sensors for drag and drop
   const sensors = useSensors(
@@ -2125,48 +2171,99 @@ export default function CMSManagementPage() {
                     <p className="text-gray-500 dark:text-gray-400 font-inter">Aucune page trouvée. Créez-en une pour commencer.</p>
                   </div>
                 ) : (
-                  pages.map((page) => (
-                    <div
-                      key={page._id}
-                      className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
-                        selectedPage?.path === page.path 
-                          ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
-                          : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
-                      }`}
-                      onClick={() => fetchPageContent(page.path)}
-                    >
-                      <div className="flex items-start sm:items-center justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">{page.title}</h3>
-                          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">{page.path}</p>
-                          <div className="flex items-center gap-2 mt-2 flex-wrap">
-                            <span
-                              className={`text-xs px-2 py-1 rounded font-inter ${
-                                page.published
-                                  ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
-                                  : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 border border-gray-200'
-                              }`}
-                            >
-                              {page.published ? 'Publié' : 'Brouillon'}
-                            </span>
-                            <span className="text-xs text-gray-400 dark:text-gray-500 font-inter">
-                              {new Date(page.lastModified).toLocaleDateString('fr-FR')}
-                            </span>
-                          </div>
+                  Object.entries(organizePages(pages)).map(([category, { main, subPages }]) => (
+                    <div key={category} className="border-b border-gray-200 dark:border-gray-700">
+                      {/* Category Header */}
+                      <div 
+                        className="flex items-center justify-between p-3 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-750 cursor-pointer hover:from-gray-100 hover:to-gray-50 dark:hover:from-gray-700 dark:hover:to-gray-800 transition-all"
+                        onClick={() => setExpandedCategories(prev => ({ ...prev, [category]: !prev[category] }))}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{categoryLabels[category]?.split(' ')[0] || '📄'}</span>
+                          <span className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] text-sm uppercase tracking-wide">
+                            {categoryLabels[category]?.split(' ').slice(1).join(' ') || category}
+                          </span>
+                          <span className="text-xs text-gray-400 dark:text-gray-500 bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded-full">
+                            {(main ? 1 : 0) + subPages.length}
+                          </span>
                         </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(page.path);
-                          }}
-                          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
-                          title="Supprimer"
+                        <svg 
+                          className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${expandedCategories[category] !== false ? 'rotate-180' : ''}`} 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
                         >
-                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
                       </div>
+                      
+                      {/* Pages in Category */}
+                      {expandedCategories[category] !== false && (
+                        <div className="bg-white dark:bg-gray-800">
+                          {/* Main Page */}
+                          {main && (
+                            <div
+                              className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
+                                selectedPage?.path === main.path 
+                                  ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
+                                  : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
+                              }`}
+                              onClick={() => fetchPageContent(main.path)}
+                            >
+                              <div className="flex items-start sm:items-center justify-between gap-2">
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xs bg-[#253F60] text-white px-2 py-0.5 rounded font-semibold">MAIN</span>
+                                    <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">{main.title}</h3>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">{main.path}</p>
+                                </div>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); handleDelete(main.path); }}
+                                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
+                                  title="Supprimer"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Sub Pages */}
+                          {subPages.map((page) => (
+                            <div
+                              key={page._id}
+                              className={`p-3 sm:p-4 pl-8 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
+                                selectedPage?.path === page.path 
+                                  ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
+                                  : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
+                              }`}
+                              onClick={() => fetchPageContent(page.path)}
+                            >
+                              <div className="flex items-start sm:items-center justify-between gap-2">
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-gray-400 dark:text-gray-500">└</span>
+                                    <h3 className="font-cairo font-semibold text-sm text-[#253F60] dark:text-[#B99066] truncate">{page.title}</h3>
+                                  </div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-inter truncate ml-5">{page.path}</p>
+                                </div>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); handleDelete(page.path); }}
+                                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
+                                  title="Supprimer"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))
                 )}

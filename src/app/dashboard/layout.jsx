@@ -14,7 +14,7 @@ export default function AdminLayout({ children }) {
   const pathname = usePathname();
   
   // Check if we're on CMS page
-  const isCMSPage = pathname === '/admin/cms';
+  const isCMSPage = pathname === '/dashboard/cms';
 
   // Load dark mode preference from localStorage
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function AdminLayout({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       // Skip auth check for login page
-      if (pathname === '/admin/login') {
+      if (pathname === '/dashboard/login') {
         setLoading(false);
         return;
       }
@@ -50,7 +50,7 @@ export default function AdminLayout({ children }) {
       const token = localStorage.getItem('adminToken');
       
       if (!token) {
-        router.push('/admin/login');
+        router.push('/dashboard/login');
         return;
       }
 
@@ -65,7 +65,7 @@ export default function AdminLayout({ children }) {
         if (response.status === 401) {
           localStorage.removeItem('adminToken');
           localStorage.removeItem('adminUser');
-          router.push('/admin/login');
+          router.push('/dashboard/login');
           return;
         }
 
@@ -81,7 +81,7 @@ export default function AdminLayout({ children }) {
           // Token invalid or expired - redirect to login
           localStorage.removeItem('adminToken');
           localStorage.removeItem('adminUser');
-          router.push('/admin/login');
+          router.push('/dashboard/login');
         }
       } catch (error) {
         // Only log non-401 errors (network issues, etc.)
@@ -90,7 +90,7 @@ export default function AdminLayout({ children }) {
         }
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
-        router.push('/admin/login');
+        router.push('/dashboard/login');
       } finally {
         setLoading(false);
       }
@@ -101,7 +101,7 @@ export default function AdminLayout({ children }) {
 
   // Fetch new contacts count
   useEffect(() => {
-    if (!isAuthenticated || pathname === '/admin/login') return;
+    if (!isAuthenticated || pathname === '/dashboard/login') return;
 
     const fetchNewContactsCount = async () => {
       try {
@@ -134,7 +134,7 @@ export default function AdminLayout({ children }) {
 
   // Fetch new contacts list when dropdown opens (only on CMS page)
   useEffect(() => {
-    if (!isAuthenticated || pathname === '/admin/login' || !isCMSPage) return;
+    if (!isAuthenticated || pathname === '/dashboard/login' || !isCMSPage) return;
     
     if (showNotificationsDropdown && newContactsCount > 0) {
       fetchNewContacts();
@@ -170,7 +170,7 @@ export default function AdminLayout({ children }) {
       setShowNotificationsDropdown(!showNotificationsDropdown);
     } else {
       // Redirect to contacts page on other pages
-      router.push('/admin/contacts?filter=new');
+      router.push('/dashboard/contacts?filter=new');
     }
   };
 
@@ -214,7 +214,7 @@ export default function AdminLayout({ children }) {
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('adminUser');
-    router.push('/admin/login');
+    router.push('/dashboard/login');
   };
 
   // Show loading state
@@ -230,7 +230,7 @@ export default function AdminLayout({ children }) {
   }
 
   // Don't show layout on login page
-  if (pathname === '/admin/login') {
+  if (pathname === '/dashboard/login') {
     return <>{children}</>;
   }
 
@@ -378,7 +378,7 @@ export default function AdminLayout({ children }) {
                           <button
                             onClick={() => {
                               setShowNotificationsDropdown(false);
-                              router.push('/admin/contacts?filter=new');
+                              router.push('/dashboard/contacts?filter=new');
                             }}
                             className="w-full px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 font-cairo font-semibold text-sm"
                           >
@@ -423,7 +423,7 @@ export default function AdminLayout({ children }) {
                 </div>
                 {/* Settings Button */}
                 <button
-                  onClick={() => router.push('/admin/settings')}
+                  onClick={() => router.push('/dashboard/settings')}
                   className="flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 text-white"
                   title="Paramètres"
                 >

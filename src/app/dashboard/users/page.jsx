@@ -27,7 +27,7 @@ export default function UsersManagementPage() {
       setLoading(true);
       const token = localStorage.getItem('adminToken');
       if (!token) {
-        router.push('/admin/login');
+        router.push('/dashboard/login');
         return;
       }
 
@@ -193,7 +193,7 @@ export default function UsersManagementPage() {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => router.push('/admin')}
+                onClick={() => router.push('/dashboard')}
                 className="p-2 hover:bg-white/10 rounded-lg transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
