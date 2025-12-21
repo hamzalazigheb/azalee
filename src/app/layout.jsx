@@ -9,6 +9,9 @@ export const metadata = {
   title: "Azalée Patrimoine - Gestion de patrimoine et conseil financier",
   description: "Expert en gestion de patrimoine, optimisation fiscale et conseil financier. Solutions personnalisées pour sécuriser et faire croître votre patrimoine.",
   keywords: "gestion de patrimoine, optimisation fiscale, conseil financier, investissement immobilier, placements financiers, retraite, fiscalité",
+  alternates: {
+    canonical: "https://azalee-patrimoine.fr"
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
