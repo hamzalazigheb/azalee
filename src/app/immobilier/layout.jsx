@@ -6,15 +6,24 @@ export const metadata = {
     canonical: "https://azalee-patrimoine.fr/immobilier",
   },
   openGraph: {
+    type: "website",
+    locale: "fr_FR",
     title: "Investissement Immobilier | Azalée Patrimoine",
     description: "Azalée Patrimoine transforme vos projets immobiliers en stratégies patrimoniales : immobilier neuf, LMNP, SCI, SCPI, crédit.",
-    type: "website",
     url: "https://azalee-patrimoine.fr/immobilier",
+    siteName: "Azalée Patrimoine",
+    images: [{
+      url: "https://azalee-patrimoine.fr/og-image.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Investissement Immobilier | Azalée Patrimoine"
+    }]
   },
   twitter: {
     card: "summary_large_image",
     title: "Investissement Immobilier | Azalée Patrimoine",
     description: "Azalée Patrimoine transforme vos projets immobiliers en stratégies patrimoniales : immobilier neuf, LMNP, SCI, SCPI, crédit.",
+    images: ["https://azalee-patrimoine.fr/og-image.jpg"]
   }
 };
 
