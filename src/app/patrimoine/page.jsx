@@ -1297,7 +1297,7 @@ export default function PatrimoinePage() {
                 </span>
               </a>
               
-              <a href="/qui-sommes-nous" className="bg-white rounded-xl p-6 shadow-lg border-2 border-[#B99066] hover:border-[#A67C52] hover:shadow-xl transition-all duration-300 flex items-center gap-4 group">
+              <a href="/notre-approche" className="bg-white rounded-xl p-6 shadow-lg border-2 border-[#B99066] hover:border-[#A67C52] hover:shadow-xl transition-all duration-300 flex items-center gap-4 group">
                 <svg className="w-8 h-8 text-[#B99066] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.503-1.135-2.01M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.503 1.135-2.01m0 0A5.002 5.002 0 0112 13c1.242 0 2.4.402 3.332 1.09M9 9a3 3 0 116 0m-6 0a3 3 0 106 0m-6 0a3 3 0 106 0" />
                 </svg>

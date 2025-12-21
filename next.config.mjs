@@ -38,6 +38,12 @@ const nextConfig = {
         destination: '/notre-approche',
         permanent: true,
       },
+      // 2. Solutions simulation de projets → Simulateur investissement
+      {
+        source: '/solutions-simulation-de-projets',
+        destination: '/outils/simulateur-investissement',
+        permanent: true,
+      },
       // 2. Bien placer son argent → Placements
       {
         source: '/bien-placer-son-argent',
