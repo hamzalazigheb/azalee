@@ -29,7 +29,8 @@ services:
     ports:
       - "3002:3000"  # Port différent de la prod (3000)
     environment:
-      - NODE_ENV=staging
+      - NODE_ENV=production
+      - STAGING=true
       - MONGODB_URI=mongodb://mongo-staging:27017/azalee_db_staging
       - JWT_SECRET=${JWT_SECRET:-staging-secret-key}
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3002}
@@ -53,7 +54,8 @@ services:
     ports:
       - "3003:3000"  # Port différent de la prod (3001)
     environment:
-      - NODE_ENV=staging
+      - NODE_ENV=production
+      - STAGING=true
       - MONGODB_URI=mongodb://mongo-staging:27017/azalee_db_staging
       - JWT_SECRET=${JWT_SECRET:-staging-secret-key}
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3003}
