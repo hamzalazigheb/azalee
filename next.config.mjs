@@ -9,7 +9,10 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   distDir: process.env.DIST_DIR || '.next',
   // Base path for staging environment (only when STAGING=true)
-  ...(process.env.STAGING === 'true' && { basePath: '/staging' }),
+  ...(process.env.STAGING === 'true' && { 
+    basePath: '/staging',
+    assetPrefix: '/staging' // Prefix static assets in public/ folder
+  }),
   
   // Remove console.log in production
   compiler: {
