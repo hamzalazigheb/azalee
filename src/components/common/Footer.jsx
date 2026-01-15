@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import CTAButton from '@/components/ui/CTAButton';
+import { getApiPath } from '@/lib/paths';
 
 const Footer = () => {
   const [content, setContent] = useState(null);
@@ -13,7 +14,7 @@ const Footer = () => {
 
   const fetchFooterContent = async () => {
     try {
-      const response = await fetch('/api/cms/content?path=footer');
+      const response = await fetch(getApiPath('/cms/content?path=footer'));
       const data = await response.json();
       if (data.success) {
         setContent(data.data);

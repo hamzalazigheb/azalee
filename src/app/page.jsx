@@ -8,6 +8,7 @@ import Slider from '../components/ui/Slider';
 import PagerIndicator from '../components/ui/PagerIndicator';
 import ExpandableList from '../components/ui/ExpandableList';
 import NewsletterForm from '../components/common/NewsletterForm';
+import { getImagePath } from '@/lib/paths';
 
 const LOCAL_STORAGE_KEY = 'homepageContent';
 
@@ -47,7 +48,7 @@ const HeroCarousel = ({ content }) => {
               }`}
           >
             <img
-              src={bg}
+              src={getImagePath(bg)}
               alt={`Hero background ${index + 1}`}
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -258,7 +259,7 @@ const PartnersCarousel = ({ content }) => {
 
                             {partnerSrc && partnerSrc.trim() !== '' ? (
                               <img
-                                src={partnerSrc}
+                                src={getImagePath(partnerSrc)}
                                 alt={partnerName}
                                 className="max-h-[80px] sm:max-h-[100px] max-w-[240px] sm:max-w-[280px] object-contain"
                                 onError={(e) => {
@@ -802,13 +803,13 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src={content.team?.teamImage || content.teamImage || "/images/azalee-team-meeting.webp"}
+                src={getImagePath(content.team?.teamImage || content.teamImage || "/images/azalee-team-meeting.webp")}
                 alt="Équipe Azalée Patrimoine - Vision d'ensemble équipe diversifiée (4 personnes)"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.log('Team image failed to load:', e.target.src);
                   console.log('Trying fallback to image4.webp');
-                  e.target.src = "/images/image4.webp";
+                  e.target.src = getImagePath("/images/image4.webp");
                 }}
                 onLoad={() => console.log('Team image loaded successfully')}
                 style={{
@@ -903,7 +904,7 @@ export default function HomePage() {
 
                     {/* Main image */}
                     <img
-                      src="/images/expertise.webp"
+                      src={getImagePath("/images/expertise.webp")}
                       alt="Conseiller Azalée en discussion avec un couple dans un bureau élégant"
                       className="relative z-10 w-full max-w-md lg:max-w-lg rounded-2xl shadow-md object-cover border-4 border-white"
                       style={{ aspectRatio: '3/2' }}
@@ -952,7 +953,7 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src="/images/azalee-garden-separator.webp"
+                src={getImagePath("/images/azalee-garden-separator.webp")}
                 alt="Jardin sophistiqué avec azalées blanches et roses en premier-plan - Jardin à la française avec allée de graviers et perspective élégante"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -1092,7 +1093,7 @@ export default function HomePage() {
                 {/* Right Image */}
                 <div className="w-full lg:w-[50%] relative">
                   <img
-                    src={content.investment?.investmentImage2 || content.investmentImage2 || '/images/financial-strategy-planning.webp'}
+                    src={getImagePath(content.investment?.investmentImage2 || content.investmentImage2 || '/images/financial-strategy-planning.webp')}
                     className="w-full h-full object-cover"
                     alt="Financial planning consultation"
                   />
@@ -1124,12 +1125,12 @@ export default function HomePage() {
                   <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-md group">
                     <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#253F60] to-[#B99066]">
                       <img
-                        src={member.photo || '/images/client1.webp'}
+                        src={getImagePath(member.photo || '/images/client1.webp')}
                         alt={member.name}
                         className="w-full h-full object-cover"
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src = '/images/client1.webp';
+                          e.target.src = getImagePath('/images/client1.webp');
                         }}
                       />
                       <div className="absolute bottom-4 right-4 bg-[#B99066] text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -1222,7 +1223,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <img
-                  src={content.finalCta?.finalCtaImage || content.finalCtaImage}
+                  src={getImagePath(content.finalCta?.finalCtaImage || content.finalCtaImage || '/images/expertise.webp')}
                   className="w-full lg:w-[34%] h-[490px] object-cover"
                   alt="Expert consultation"
                 />

@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 import dynamic from "next/dynamic";
 const LanguageSwitcher = dynamic(() => import("./LanguageSwitcher"), { ssr: false });
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getApiPath, getImagePath } from '@/lib/paths';
 
 const Header = () => {
+  const router = useRouter();
   const [headerContent, setHeaderContent] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +17,7 @@ const Header = () => {
 
   const fetchHeaderContent = async () => {
     try {
-      const response = await fetch(`/api/cms/content?path=header&t=${Date.now()}`);
+      const response = await fetch(getApiPath(`/cms/content?path=header&t=${Date.now()}`));
       const data = await response.json();
       if (data.success) {
         setHeaderContent(data.data);
@@ -32,12 +35,12 @@ const Header = () => {
       phone: {
         number: "01 53 45 85 00",
         link: "tel:+33153458500",
-        icon: "/images/img_component_1.svg"
+        icon: getImagePath("/images/img_component_1.svg")
       },
       email: {
         address: "contact@azalee-patrimoine.fr",
         link: "mailto:contact@azalee-patrimoine.fr",
-        icon: "/images/img_component_1_light_green_400.svg"
+        icon: getImagePath("/images/img_component_1_light_green_400.svg")
       }
     },
     social: {
@@ -212,7 +215,7 @@ const Header = () => {
               {topBar.contact?.phone && (
                 <div className="flex items-center gap-2 group">
                   <div className="bg-white/10 p-1.5 rounded-full group-hover:bg-[#B99066] transition-colors">
-                    <img src={topBar.contact.phone.icon || "/images/img_component_1.svg"} className="w-3.5 h-3.5 invert sm:invert-0" alt="phone" />
+                    <img src={getImagePath(topBar.contact.phone.icon || "/images/img_component_1.svg")} className="w-3.5 h-3.5 invert sm:invert-0" alt="phone" />
                   </div>
                   <a href={topBar.contact.phone.link || `tel:${topBar.contact.phone.number}`} className="text-sm font-segoe text-white hover:text-white/80 transition-colors">
                     {topBar.contact.phone.number}
@@ -223,7 +226,7 @@ const Header = () => {
               {topBar.contact?.email && (
                 <div className="flex items-center gap-2 group">
                   <div className="bg-white/10 p-1.5 rounded-full group-hover:bg-[#B99066] transition-colors">
-                    <img src={topBar.contact.email.icon || "/images/img_component_1_light_green_400.svg"} className="w-3.5 h-3.5 invert sm:invert-0" alt="email" />
+                    <img src={getImagePath(topBar.contact.email.icon || "/images/img_component_1_light_green_400.svg")} className="w-3.5 h-3.5 invert sm:invert-0" alt="email" />
                   </div>
                   <a href={topBar.contact.email.link || `mailto:${topBar.contact.email.address}`} className="text-sm font-inter text-white hover:text-white/80 transition-colors hidden xl:block">
                     {topBar.contact.email.address}
@@ -270,7 +273,7 @@ const Header = () => {
             <div className="flex-shrink-0 relative z-20">
               <Link href="/">
                 <img 
-                    src={headerContent?.logo?.src || "/images/azalee-patrimoine3.webp"} 
+                    src={getImagePath(headerContent?.logo?.src || "/images/azalee-patrimoine3.webp")} 
                     className="w-[100px] h-auto sm:w-[130px] lg:w-[150px] object-contain hover:opacity-90 transition-opacity" 
                   alt={headerContent?.logo?.alt || "Azalée Patrimoine Logo"} 
                 />
@@ -309,13 +312,25 @@ const Header = () => {
               ].map((menu) => (
                 <div key={menu.name} className="header-nav-item lg:static relative">
                   <div className="flex items-center gap-1">
-                    <Link 
-                      href={menu.path}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // First click: open dropdown, Second click: navigate to page
+                        if (activeDropdown === menu.name) {
+                          // Dropdown is open, navigate to page
+                          router.push(menu.path);
+                          setActiveDropdown(null);
+                        } else {
+                          // Dropdown is closed, open it
+                          toggleDropdown(menu.name);
+                        }
+                      }}
                       className={`flex items-center text-lg lg:text-base font-inter font-medium transition-colors py-2 lg:py-4 border-b lg:border-none border-white/10
                         ${activeDropdown === menu.name ? 'text-[#B99066]' : 'text-white hover:text-[#B99066]'}`}
                     >
                       {menu.label}
-                    </Link>
+                    </button>
                     <button 
                       onClick={(e) => { 
                         e.preventDefault(); 

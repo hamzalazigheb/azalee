@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import { getApiPath } from '@/lib/paths';
 
 // Générer un ID de session unique
 const generateSessionId = () => {
@@ -30,7 +31,7 @@ export default function SaraChatbot() {
     setSessionId(newSessionId);
     
     // Charger le contenu de Sara depuis le CMS
-    fetch('/api/cms/content?path=sara&t=' + Date.now())
+    fetch(getApiPath('/cms/content?path=sara&t=' + Date.now()))
       .then(res => res.json())
       .then(data => {
         if (data.success && data.data) {
