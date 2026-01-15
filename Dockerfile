@@ -21,6 +21,10 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 
+# Accept STAGING as build argument
+ARG STAGING
+ENV STAGING=${STAGING}
+
 # Build the application
 RUN npm run build
 

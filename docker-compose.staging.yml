@@ -49,6 +49,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - STAGING=true
+        - NODE_ENV=production
     container_name: azalee-frontend-staging
     restart: unless-stopped
     ports:
