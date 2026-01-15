@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   productionBrowserSourceMaps: true,
   distDir: process.env.DIST_DIR || '.next',
+  // Base path for staging environment (only when NODE_ENV is staging)
+  ...(process.env.NODE_ENV === 'staging' && { basePath: '/staging' }),
   
   // Remove console.log in production
   compiler: {
