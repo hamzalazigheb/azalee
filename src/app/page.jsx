@@ -8,7 +8,7 @@ import Slider from '../components/ui/Slider';
 import PagerIndicator from '../components/ui/PagerIndicator';
 import ExpandableList from '../components/ui/ExpandableList';
 import NewsletterForm from '../components/common/NewsletterForm';
-import { getImagePath } from '@/lib/paths';
+import { getImagePath, getApiPath } from '@/lib/paths';
 
 const LOCAL_STORAGE_KEY = 'homepageContent';
 
@@ -535,7 +535,7 @@ export default function HomePage() {
       try {
         setLoading(true);
         // Add cache-busting parameter to force fresh data
-        const response = await fetch(`/api/cms/content?path=home&t=${Date.now()}`, {
+        const response = await fetch(getApiPath(`/cms/content?path=home&t=${Date.now()}`), {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache, no-store, must-revalidate',

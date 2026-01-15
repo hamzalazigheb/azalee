@@ -35,12 +35,12 @@ const Header = () => {
       phone: {
         number: "01 53 45 85 00",
         link: "tel:+33153458500",
-        icon: getImagePath("/images/img_component_1.svg")
+        icon: "/images/img_component_1.svg" // Pas de getImagePath ici, sera appliqué lors du rendu
       },
       email: {
         address: "contact@azalee-patrimoine.fr",
         link: "mailto:contact@azalee-patrimoine.fr",
-        icon: getImagePath("/images/img_component_1_light_green_400.svg")
+        icon: "/images/img_component_1_light_green_400.svg" // Pas de getImagePath ici, sera appliqué lors du rendu
       }
     },
     social: {

@@ -24,6 +24,11 @@ export function getImagePath(path) {
     return '';
   }
   
+  // ✅ CORRECTION : Vérifier si le chemin commence déjà par /staging (éviter le double préfixe)
+  if (cleanPath.startsWith('/staging/')) {
+    return cleanPath; // Déjà préfixé, retourner tel quel
+  }
+  
   // Côté client : détecter depuis l'URL
   if (typeof window !== 'undefined') {
     if (window.location.pathname.startsWith('/staging')) {
@@ -49,6 +54,11 @@ export function getApiPath(path) {
   let cleanPath = path.startsWith('/') ? path : `/${path}`;
   if (cleanPath.startsWith('/api/')) {
     cleanPath = cleanPath.replace('/api/', '/');
+  }
+  
+  // ✅ CORRECTION : Vérifier si le chemin commence déjà par /staging/api (éviter le double préfixe)
+  if (cleanPath.startsWith('/staging/api/') || cleanPath.startsWith('/staging/api?')) {
+    return cleanPath; // Déjà préfixé, retourner tel quel
   }
   
   // Côté client
