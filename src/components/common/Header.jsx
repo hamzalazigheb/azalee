@@ -300,24 +300,36 @@ const Header = () => {
               
               {/* Menu Items */}
               {[
-                { name: 'gestion-patrimoine', label: 'Gestion de patrimoine', items: patrimoineMenuItems },
-                { name: 'placements', label: 'Placements', items: placementsMenuItems },
-                { name: 'immobilier', label: 'Investissement immobilier', items: immobilierMenuItems },
-                { name: 'fiscalite', label: 'Fiscalité', items: fiscaliteMenuItems },
-                { name: 'retraite', label: 'Retraite', items: retraiteMenuItems },
-                { name: 'outils', label: 'Outils financiers', items: outilsMenuItems },
+                { name: 'gestion-patrimoine', label: 'Gestion de patrimoine', path: '/patrimoine', items: patrimoineMenuItems },
+                { name: 'placements', label: 'Placements', path: '/placements', items: placementsMenuItems },
+                { name: 'immobilier', label: 'Investissement immobilier', path: '/immobilier', items: immobilierMenuItems },
+                { name: 'fiscalite', label: 'Fiscalité', path: '/fiscalite', items: fiscaliteMenuItems },
+                { name: 'retraite', label: 'Retraite', path: '/retraite', items: retraiteMenuItems },
+                { name: 'outils', label: 'Outils financiers', path: '/outils-financiers', items: outilsMenuItems },
               ].map((menu) => (
                 <div key={menu.name} className="header-nav-item lg:static relative">
-                  <button 
-                    onClick={(e) => { e.preventDefault(); toggleDropdown(menu.name); }}
-                    className={`flex items-center justify-between w-full lg:w-auto text-lg lg:text-base font-inter font-medium transition-colors py-2 lg:py-4 border-b lg:border-none border-white/10
-                      ${activeDropdown === menu.name ? 'text-[#B99066]' : 'text-white hover:text-[#B99066]'}`}
-                  >
-                    {menu.label}
-                    <svg className={`w-4 h-4 transition-transform duration-200 ml-1 ${activeDropdown === menu.name ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
+                  <div className="flex items-center gap-1">
+                    <Link 
+                      href={menu.path}
+                      className={`flex items-center text-lg lg:text-base font-inter font-medium transition-colors py-2 lg:py-4 border-b lg:border-none border-white/10
+                        ${activeDropdown === menu.name ? 'text-[#B99066]' : 'text-white hover:text-[#B99066]'}`}
+                    >
+                      {menu.label}
+                    </Link>
+                    <button 
+                      onClick={(e) => { 
+                        e.preventDefault(); 
+                        e.stopPropagation();
+                        toggleDropdown(menu.name); 
+                      }}
+                      className="lg:ml-1 p-1 hover:bg-white/10 rounded transition-colors"
+                      aria-label={`Toggle ${menu.label} menu`}
+                    >
+                      <svg className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === menu.name ? 'rotate-180' : ''} text-white`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
                   
                   {/* Mega Menu Dropdown (Desktop) */}
                   <div className="hidden lg:block text-left">
