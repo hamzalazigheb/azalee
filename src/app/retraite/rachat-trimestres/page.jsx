@@ -1,14 +1,34 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function RachatTrimestresPage() {
+export const defaultContent = {
+  hero: {
+    title: "Qu'est-ce que le rachat de trimestres ?",
+    subtitle: "Optimisez votre retraite en complétant votre carrière et en réduisant la décote sur votre pension.",
+    breadcrumb: {
+      parent: "Retraite",
+      current: "Rachat de trimestres"
+    }
+  },
+  seo: {
+    metaTitle: "Rachat de Trimestres | Azalée Patrimoine",
+    metaDescription: "Optimisez votre retraite en complétant votre carrière et en réduisant la décote sur votre pension grâce au rachat de trimestres."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('retraite/rachat-trimestres', defaultContent);
+  return {
+    title: content.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function RachatTrimestresPage() {
+  const content = await getPageContent('retraite/rachat-trimestres', defaultContent);
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[400px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,10 +43,10 @@ export default function RachatTrimestresPage() {
             </nav>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
-              Qu'est-ce que le rachat de trimestres ?
-          </h1>
+              {content.hero?.title || defaultContent.hero.title}
+            </h1>
             <p className="text-lg sm:text-xl font-inter text-white/90 max-w-3xl">
-              Optimisez votre retraite en complétant votre carrière et en réduisant la décote sur votre pension.
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
             </p>
           </div>
         </div>
@@ -866,10 +886,10 @@ export default function RachatTrimestresPage() {
             </div>
           </div>
 
-          {/* CTA Prendre rendez-vous */}
+          {/* CTA Planifiez votre consultation gratuite */}
           <div className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] rounded-xl shadow-2xl p-8 sm:p-10 text-center">
             <h3 className="text-white text-2xl sm:text-3xl font-cairo font-bold mb-4">
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </h3>
             <p className="text-white/90 text-base sm:text-lg font-inter mb-6">
               Vous souhaitez évaluer le niveau de retraite futur de votre couple et optimiser vos versements PER ?
@@ -884,7 +904,7 @@ export default function RachatTrimestresPage() {
                 rel="noopener noreferrer"
                 className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:bg-[#F9FAFB] w-full sm:w-auto"
               >
-                Prendre rendez-vous
+                Planifiez votre consultation gratuite
               </a>
               <a
                 href="mailto:contact@azalee-patrimoine.fr"

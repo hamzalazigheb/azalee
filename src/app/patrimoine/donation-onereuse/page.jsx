@@ -1,11 +1,31 @@
-"use client";
 import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from '@/components/ui/CTAButton';
+import { getPageContent } from '@/lib/cms-server';
 
-export default function DonationOnereusePage() {
+export const defaultContent = {
+  hero: {
+    title: "Donation à titre onéreux & donation de la nue-propriété",
+    subtitle: "Une donation à titre onéreux est une donation assortie de charges ou contreparties pour le bénéficiaire."
+  },
+  seo: {
+    metaTitle: "Donation à titre onéreux | Azalée Patrimoine",
+    metaDescription: "Découvrez la donation à titre onéreux et la donation de la nue-propriété pour optimiser votre transmission patrimoniale."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('patrimoine/donation-onereuse', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Donation à titre onéreux | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Découvrez la donation à titre onéreux."
+  };
+}
+
+export default async function DonationOnereusePage() {
+  const content = await getPageContent('patrimoine/donation-onereuse', defaultContent);
   const chartData = [
     { label: "Nue-propriété à 70 ans", value: "60%" },
     { label: "Abattement par enfant", value: "€100,000" },
@@ -16,8 +36,6 @@ export default function DonationOnereusePage() {
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,10 +43,10 @@ export default function DonationOnereusePage() {
             {/* Left Content */}
             <div className="w-full lg:w-1/2">
               <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-                Donation à titre onéreux & donation de la nue-propriété
+                {content.hero?.title || defaultContent.hero.title}
               </h1>
               <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                Une <strong>donation à titre onéreux</strong> est une donation assortie de <strong>charges ou contreparties</strong> pour le bénéficiaire.
+                {content.hero?.subtitle || defaultContent.hero.subtitle}
               </p>
               <p className="text-white text-lg font-inter leading-relaxed mb-8">
                 Contrairement à la donation à titre gratuit (sans aucune obligation), le donataire doit respecter certaines conditions fixées par le donateur : entretien du bien, prise en charge de dettes, obligation de conserver ou d'exploiter un actif transmis, etc.
@@ -39,50 +57,48 @@ export default function DonationOnereusePage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67C52] transition-colors duration-200"
+                <CTAButton 
+                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                  variant="primary"
+                  className="px-6 py-3"
                 >
                   Évaluer ma donation
-                </button>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+                </CTAButton>
+                <CTAButton 
+                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                  variant="secondary"
+                  className="px-6 py-3"
                 >
                   Consulter un expert
-                </button>
+                </CTAButton>
               </div>
             </div>
             
             {/* Right: Key Features Cards */}
             <div className="w-full lg:w-1/2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Avec charges</h3>
                   <p className="text-[#686868] text-sm mb-2">Obligations pour le bénéficiaire</p>
                   <p className="text-[#B99066] text-xl font-bold">Contrôle</p>
                   <p className="text-[#686868] text-xs">Conservation du pouvoir</p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Nue-propriété</h3>
                   <p className="text-[#686868] text-sm mb-2">Conservation de l'usufruit</p>
                   <p className="text-[#B99066] text-xl font-bold">Loyers</p>
                   <p className="text-[#686868] text-xs">Droit d'usage</p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Optimisation fiscale</h3>
                   <p className="text-[#686868] text-sm mb-2">Démembrement</p>
                   <p className="text-[#B99066] text-xl font-bold">60-90%</p>
                   <p className="text-[#686868] text-xs">Selon l'âge</p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Transmission progressive</h3>
                   <p className="text-[#686868] text-sm mb-2">Anticipation</p>
                   <p className="text-[#B99066] text-xl font-bold">Sécurisée</p>
@@ -106,7 +122,7 @@ export default function DonationOnereusePage() {
             <PlacementChart 
               title="Caractéristiques des donations à titre onéreux"
               data={chartData}
-              chartImage="/images/onereuse.png"
+              chartImage="/images/onereuse.webp"
             />
           </div>
         </div>
@@ -350,7 +366,7 @@ export default function DonationOnereusePage() {
               { title: "Maîtrise du bien", desc: "Conserve une maîtrise du bien (loyers, usage, décisions).", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
               { title: "Sécurise la transmission", desc: "Sécurise la transmission en évitant les conflits ultérieurs.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" }
             ].map((item, index) => (
-              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-xl hover:shadow-2xl p-8 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-md p-8 text-center text-white overflow-hidden`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <h3 className="text-xl font-semibold mb-3 relative z-10">
                   {item.title}
@@ -379,7 +395,7 @@ export default function DonationOnereusePage() {
               { title: "Optimiser le transfert", desc: "Avec vos notaires et experts-comptables pour une approche coordonnée.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
               { title: "Stratégie globale", desc: "Assurance-vie, immobilier, transmission d'entreprise : vision patrimoniale complète.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" }
             ].map((item, index) => (
-              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-xl hover:shadow-2xl p-6 sm:p-8 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-md p-6 sm:p-8 text-center text-white overflow-hidden`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <h3 className="text-xl font-semibold mb-3 relative z-10">{item.title}</h3>
                 <p className="text-sm text-white/90 leading-relaxed relative z-10">{item.desc}</p>
@@ -415,18 +431,20 @@ export default function DonationOnereusePage() {
             Nos experts vous accompagnent pour mettre en place la stratégie de donation la plus adaptée à votre situation familiale et patrimoniale.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="primary"
+              className="px-8 py-4 font-semibold text-lg"
             >
               Évaluer ma donation
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            </CTAButton>
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="secondary"
+              className="px-8 py-4 font-semibold text-lg"
             >
-              Prendre rendez-vous
-            </button>
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>

@@ -1,14 +1,33 @@
-"use client";
 import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import CTAButton from '@/components/ui/CTAButton';
+import { getPageContent } from '@/lib/cms-server';
 
-export default function ConseilsPage() {
+export const defaultContent = {
+  hero: {
+    title: "Conseils patrimoniaux",
+    subtitle: "Le patrimoine n'est pas qu'une addition de biens immobiliers et financiers.",
+    description: "C'est un ensemble cohérent qui doit être construit, protégé, optimisé fiscalement et transmis."
+  },
+  seo: {
+    metaTitle: "Conseils Patrimoniaux | Azalée Patrimoine",
+    metaDescription: "Bénéficiez de conseils patrimoniaux personnalisés pour construire, protéger et transmettre votre patrimoine."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('patrimoine/conseils', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Conseils Patrimoniaux | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Bénéficiez de conseils patrimoniaux personnalisés."
+  };
+}
+
+export default async function ConseilsPage() {
+  const content = await getPageContent('patrimoine/conseils', defaultContent);
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,23 +42,19 @@ export default function ConseilsPage() {
               C'est un <strong>ensemble cohérent</strong> qui doit être :
             </p>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8">
-              <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                 <h3 className="text-[#112033] font-semibold mb-2">Construit</h3>
                 <p className="text-[#686868] text-sm">Stratégie d'accumulation</p>
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                 <h3 className="text-[#112033] font-semibold mb-2">Protégé</h3>
                 <p className="text-[#686868] text-sm">Sécurité et assurance</p>
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                 <h3 className="text-[#112033] font-semibold mb-2">Optimisé fiscalement</h3>
                 <p className="text-[#686868] text-sm">Réduction des impôts</p>
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                 <h3 className="text-[#112033] font-semibold mb-2">Transmis</h3>
                 <p className="text-[#686868] text-sm">Dans les meilleures conditions</p>
               </div>
@@ -51,45 +66,27 @@ export default function ConseilsPage() {
             </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200"
+          {/* CTA Button */}
+          <div className="flex justify-center">
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="primary"
+              className="px-8 py-4 font-semibold text-lg"
             >
-              Prendre rendez-vous
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
-            >
-              Consulter nos experts
-            </button>
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>
 
       {/* Image Section */}
       <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center items-center">
-            <div className="relative w-full max-w-5xl">
-              {/* Main image container with consistent styling */}
-              <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
-                {/* Subtle gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#253F60]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                
-                {/* Image */}
-                <div className="relative z-10">
-                  <img
-                    src="/images/balance.webp"
-                    alt="Balance patrimoniale - Conseils Azalée Patrimoine"
-                    className="w-full h-auto rounded-lg object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <img
+            src="/images/balance.webp"
+            alt="Balance patrimoniale - Conseils Azalée Patrimoine"
+            className="w-full h-auto rounded-lg object-cover"
+          />
         </div>
       </section>
 
@@ -110,7 +107,7 @@ export default function ConseilsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Pilier 1: L'immobilier */}
-            <div className="group relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+            <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-md text-white overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
               <div className="relative z-10">
@@ -134,7 +131,7 @@ export default function ConseilsPage() {
             </div>
 
             {/* Pilier 2: L'assurance-vie */}
-            <div className="group relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+            <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-md text-white overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#253F60]/10 rounded-bl-full"></div>
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#253F60]/10 rounded-tr-full"></div>
               <div className="relative z-10">
@@ -158,7 +155,7 @@ export default function ConseilsPage() {
             </div>
 
             {/* Pilier 3: Les produits financiers */}
-            <div className="group relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+            <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 shadow-md text-white overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#B99066]/10 rounded-tr-full"></div>
               <div className="relative z-10">
@@ -182,7 +179,7 @@ export default function ConseilsPage() {
             </div>
 
             {/* Pilier 4: La transmission et la fiscalité */}
-            <div className="group relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500">
+            <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl p-8 shadow-md text-white overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#253F60]/10 rounded-bl-full"></div>
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#253F60]/10 rounded-tr-full"></div>
               <div className="relative z-10">
@@ -247,10 +244,25 @@ export default function ConseilsPage() {
 
               <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
                 <h4 className="text-red-800 font-semibold mb-2">Problématiques :</h4>
-                <ul className="text-red-700 text-sm space-y-1">
-                  <li>• Fiscalité lourde sur les revenus fonciers</li>
-                  <li>• Manque de diversification</li>
-                  <li>• Optimisation insuffisante</li>
+                <ul className="text-red-700 text-sm space-y-2">
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                    <span>Fiscalité lourde sur les revenus fonciers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                    <span>Manque de diversification</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                    <span>Optimisation insuffisante</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -290,10 +302,25 @@ export default function ConseilsPage() {
 
               <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
                 <h4 className="text-green-800 font-semibold mb-2">Résultat :</h4>
-                <ul className="text-green-700 text-sm space-y-1">
-                  <li>• Fiscalité allégée de <strong>15 000 €/an</strong></li>
-                  <li>• Plus de revenus nets disponibles</li>
-                  <li>• Transmission optimisée pour les enfants</li>
+                <ul className="text-green-700 text-sm space-y-2">
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Fiscalité allégée de <strong>15 000 €/an</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Plus de revenus nets disponibles</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <svg className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Transmission optimisée pour les enfants</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -416,25 +443,14 @@ export default function ConseilsPage() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200"
+          <div className="flex justify-center">
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="primary"
+              className="px-8 py-4 font-semibold text-lg"
             >
-              Prendre rendez-vous
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
-            >
-              Consulter nos experts
-            </button>
-          </div>
-
-          <div className="mt-8 bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto">
-            <p className="text-white text-center font-semibold">
-              <strong>Prenez rendez-vous dès aujourd'hui</strong> pour bénéficier d'un conseil patrimonial personnalisé avec Azalée Patrimoine.
-            </p>
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>

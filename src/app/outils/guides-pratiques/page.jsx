@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../../components/common/Header';
 import Footer from '../../../components/common/Footer';
 import SectionHeader from '../../../components/common/SectionHeader';
+import CTAButton from '@/components/ui/CTAButton';
 
 export default function GuidesPratiquesPage() {
   const [cmsContent, setCmsContent] = useState(null);
@@ -13,11 +14,11 @@ export default function GuidesPratiquesPage() {
   useEffect(() => {
     const loadCmsContent = async () => {
       try {
-        const response = await fetch(`/api/pages/content?path=/outils/guides-pratiques&type=cms`);
+        const response = await fetch(`/api/cms/content?path=outils/guides-pratiques&t=${Date.now()}`);
         if (response.ok) {
           const data = await response.json();
-          if (data.success && data.content) {
-            setCmsContent(JSON.parse(data.content.content));
+          if (data.content) {
+            setCmsContent(data.content);
           }
         }
       } catch (error) {
@@ -28,6 +29,24 @@ export default function GuidesPratiquesPage() {
     };
 
     loadCmsContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadCmsContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadCmsContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Default content if CMS content is not available
@@ -92,7 +111,7 @@ export default function GuidesPratiquesPage() {
         id: "intencial",
         name: "Intencial",
         description: "Supports pédagogiques sur la gestion d'actifs et l'assurance",
-        logo: "/images/intencial-1.png",
+        logo: "/images/intencial-1.webp",
         logoType: "svg",
         category: "gestion",
         products: ["Gestion d'actifs", "Assurance-vie", "OPCVM"],
@@ -197,9 +216,9 @@ export default function GuidesPratiquesPage() {
             </div>
             <h3 className="text-2xl sm:text-3xl font-cairo font-bold mb-4">{content.featured.guide.title}</h3>
             <p className="text-lg text-white/90 mb-6">{content.featured.guide.description}</p>
-            <button className="px-8 py-3 bg-[#B99066] text-white font-semibold rounded-xl hover:bg-[#A67A5A] transition-colors">
+            <CTAButton variant="primary">
               Lire le guide →
-            </button>
+            </CTAButton>
           </div>
         </div>
       </section>
@@ -235,14 +254,14 @@ export default function GuidesPratiquesPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredPartners.map((partner, index) => (
-              <div key={partner.id} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${
+              <div key={partner.id} className={`relative rounded-2xl p-8 shadow-xl text-white overflow-hidden flex flex-col ${
                 index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 
                 index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 
                 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'
               }`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-tr-full"></div>
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col flex-grow">
                   <div className="flex items-center gap-4 mb-6">
                     <div className={`w-16 h-16 rounded-xl flex items-center justify-center ${
                       partner.logoType === 'svg' 
@@ -286,7 +305,7 @@ export default function GuidesPratiquesPage() {
                     </div>
                   </div>
                   
-                  <div className="mb-6">
+                  <div className="mb-6 flex-grow">
                     <h4 className="text-sm font-cairo font-semibold mb-3 text-white">Contenu des guides :</h4>
                     <ul className="space-y-1">
                       {partner.features.map((feature, featureIndex) => (
@@ -298,7 +317,7 @@ export default function GuidesPratiquesPage() {
                     </ul>
                   </div>
                   
-                  <button className={`w-full px-6 py-3 font-semibold rounded-xl transition-all duration-200 ${
+                  <button className={`w-full px-6 py-3 font-semibold rounded-xl transition-all duration-200 mt-auto hover:scale-105 ${
                     index % 3 === 0 || index % 3 === 2 
                       ? 'bg-[#B99066] hover:bg-[#A67A5A] text-white' 
                       : 'bg-[#253F60] hover:bg-[#1a2d47] text-white'
@@ -357,9 +376,9 @@ export default function GuidesPratiquesPage() {
                   placeholder="Votre adresse email"
                   className="flex-1 px-6 py-3 rounded-xl border-0 focus:ring-4 focus:ring-[#B99066] focus:ring-opacity-30 text-[#253F60]"
                 />
-                <button className="px-8 py-3 bg-[#B99066] text-white font-semibold rounded-xl hover:bg-[#A67A5A] transition-colors shadow-lg">
+                <CTAButton variant="primary">
                   S'abonner
-                </button>
+                </CTAButton>
               </div>
             </div>
           </div>

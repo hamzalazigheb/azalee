@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Header from "../../../../components/common/Header";
 import Footer from "../../../../components/common/Footer";
 import Link from "next/link";
 import SectionHeader from "../../../../components/common/SectionHeader";
@@ -8,8 +7,6 @@ import SectionHeader from "../../../../components/common/SectionHeader";
 export default function AthenaIARobotique2025Page() {
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -312,7 +309,7 @@ export default function AthenaIARobotique2025Page() {
                     rel="noopener noreferrer"
                     className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-center transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
                   >
-                    Prendre rendez-vous avec un conseiller
+                    Planifiez votre consultation gratuite avec un conseiller
                   </a>
                   <Link
                     href="/placements/produits-structures"

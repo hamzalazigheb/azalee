@@ -21,3 +21,4 @@ export default function FiscalitePlacementsLayout({ children }) {
   return <>{children}</>;
 }
 
+

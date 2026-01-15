@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import CTAButton from '@/components/ui/CTAButton';
 
 const Footer = () => {
   const [content, setContent] = useState(null);
@@ -35,7 +36,7 @@ const Footer = () => {
       email: "contact@azalee-patrimoine.fr",
       phone: "01 53 45 85 00",
       ctaButton: {
-        text: "Prendre rendez-vous",
+        text: "Planifiez votre consultation gratuite",
         url: "https://calendly.com/rdv-azalee-patrimoine/30min"
       }
     },
@@ -55,6 +56,15 @@ const Footer = () => {
         { text: "Calculateur d'impôts", path: "/outils/calculatrice-impots" },
         { text: "Calculs financiers", path: "/outils/calculs-financiers" },
         { text: "Assurance-vie vs PER", path: "/outils-financiers/assurance-vie-vs-per" }
+      ]
+    },
+    apropos: {
+      title: "À propos",
+      items: [
+        { text: "Qui sommes-nous", path: "/qui-sommes-nous" },
+        { text: "Notre équipe", path: "/equipe" },
+        { text: "Notre approche", path: "/notre-approche" },
+        { text: "Contact", path: "/contact" }
       ]
     },
     mentionsLegales: {
@@ -101,7 +111,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-[#253F60] px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Contact */}
           {footerContent.contact && (
             <div className="text-white">
@@ -117,12 +127,13 @@ const Footer = () => {
                 {footerContent.contact.phone && <p>{footerContent.contact.phone}</p>}
               </div>
               {footerContent.contact.ctaButton && (
-                <button
-                  onClick={() => window.open(footerContent.contact.ctaButton.url, '_blank')}
-                  className="mt-4 bg-[#B99066] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors duration-200"
+                <CTAButton
+                  externalUrl={footerContent.contact.ctaButton.url}
+                  variant="primary"
+                  className="mt-4"
                 >
                   {footerContent.contact.ctaButton.text}
-                </button>
+                </CTAButton>
               )}
             </div>
           )}
@@ -181,6 +192,20 @@ const Footer = () => {
                       {item.text || item}
                     </Link>
                   )
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* À propos */}
+          {footerContent.apropos && (
+            <div className="text-white">
+              <h3 className="text-lg font-semibold mb-4">{footerContent.apropos.title || "À propos"}</h3>
+              <div className="space-y-2 text-sm">
+                {footerContent.apropos.items && footerContent.apropos.items.map((item, index) => (
+                  <Link key={index} href={item.path || "#"} className="hover:text-[#B99066] transition-colors block">
+                    {item.text || item}
+                  </Link>
                 ))}
               </div>
             </div>

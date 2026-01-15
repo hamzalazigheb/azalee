@@ -21,3 +21,4 @@ export default function ImmeublesRapportLayout({ children }) {
   return <>{children}</>;
 }
 
+

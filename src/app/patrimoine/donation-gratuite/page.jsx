@@ -1,23 +1,41 @@
-"use client";
-import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from "@/components/ui/CTAButton";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function DonationGratuitePage() {
-  const chartData = [
-    { label: "Abattement par enfant", value: "€100,000" },
-    { label: "Don Sarkozy supplémentaire", value: "€31,865" },
-    { label: "Taux fiscal après abattement", value: "5-45%" },
-    { label: "Renouvelable tous les", value: "15 ans" },
-    { label: "Nue-propriété à 70 ans", value: "60%" }
-  ];
+export const defaultContent = {
+  hero: {
+    title: "Donation à titre gratuit",
+    description: "Transmettre de son vivant sans contrepartie : les règles et stratégies optimales."
+  },
+  seo: {
+    metaTitle: "Donation à Titre Gratuit | Azalée Patrimoine",
+    metaDescription: "Découvrez les différentes formes de donations à titre gratuit et optimisez votre transmission patrimoniale."
+  }
+};
 
+export async function generateMetadata() {
+  const content = await getPageContent('patrimoine/donation-gratuite', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Donation à Titre Gratuit | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Découvrez les différentes formes de donations à titre gratuit."
+  };
+}
+
+const chartData = [
+  { label: "Abattement par enfant", value: "€100,000" },
+  { label: "Don Sarkozy supplémentaire", value: "€31,865" },
+  { label: "Taux fiscal après abattement", value: "5-45%" },
+  { label: "Renouvelable tous les", value: "15 ans" },
+  { label: "Nue-propriété à 70 ans", value: "60%" }
+];
+
+export default async function DonationGratuitePage() {
+  const content = await getPageContent('patrimoine/donation-gratuite', defaultContent);
+  
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,7 +43,7 @@ export default function DonationGratuitePage() {
             {/* Left Content */}
             <div className="w-full lg:w-1/2">
               <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-                Donation à titre gratuit
+                {content.hero?.title || defaultContent.hero.title}
               </h1>
               <p className="text-white text-lg font-inter leading-relaxed mb-8">
                 Une <strong>donation à titre gratuit</strong> est un transfert de patrimoine effectué <strong>sans contrepartie</strong>.
@@ -39,18 +57,18 @@ export default function DonationGratuitePage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67C52] transition-colors duration-200"
+                <CTAButton 
+                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                  variant="primary"
                 >
                   Simuler ma donation
-                </button>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+                </CTAButton>
+                <CTAButton 
+                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                  variant="secondary"
                 >
                   Consulter un notaire
-                </button>
+                </CTAButton>
               </div>
             </div>
             
@@ -122,7 +140,7 @@ export default function DonationGratuitePage() {
             <PlacementChart 
               title="Caractéristiques des donations à titre gratuit"
               data={chartData}
-              chartImage="/images/donation.png"
+              chartImage="/images/donation.webp"
             />
           </div>
         </div>
@@ -577,18 +595,20 @@ export default function DonationGratuitePage() {
             Nos experts vous accompagnent pour mettre en place la stratégie de donation la plus adaptée à votre situation familiale et fiscale.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="primary"
+              className="px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
               Simuler ma donation
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            </CTAButton>
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="secondary"
+              className="bg-white/20 border-white/30 px-8 py-4 text-lg font-semibold hover:bg-white/30 transform hover:-translate-y-1 hover:shadow-2xl"
             >
-              Prendre rendez-vous
-            </button>
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>

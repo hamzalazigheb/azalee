@@ -21,3 +21,4 @@ export default function ConseillerPatrimoineLayout({ children }) {
   return <>{children}</>;
 }
 
+

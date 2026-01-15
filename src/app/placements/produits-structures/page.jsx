@@ -1,14 +1,31 @@
-"use client";
 import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import Link from "next/link";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function ProduitsStructuresPage() {
+export const defaultContent = {
+  hero: {
+    title: "Comprendre les produits structurés",
+    subtitle: "Un contrat à géométrie maîtrisée pour votre patrimoine"
+  },
+  seo: {
+    metaTitle: "Produits Structurés | Azalée Patrimoine",
+    metaDescription: "Découvrez les produits structurés : UCS, Phoenix, Athena, Autocall. Un contrat à géométrie maîtrisée pour votre patrimoine."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('placements/produits-structures', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Produits Structurés | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Découvrez les produits structurés."
+  };
+}
+
+export default async function ProduitsStructuresPage() {
+  const content = await getPageContent('placements/produits-structures', defaultContent);
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -672,7 +689,7 @@ export default function ProduitsStructuresPage() {
               rel="noopener noreferrer"
               className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
             >
- Prendre rendez-vous avec un conseiller Azalée
+              Planifiez votre consultation gratuite avec un conseiller Azalée
             </a>
             <Link
               href="/placements"
@@ -688,5 +705,3 @@ export default function ProduitsStructuresPage() {
     </>
   );
 }
-
-

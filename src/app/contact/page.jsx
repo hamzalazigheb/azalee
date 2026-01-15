@@ -256,7 +256,7 @@ export default function ContactFormPage() {
                 {/* QR Code Calendly */}
                 <div className="mb-4 mx-auto w-48 h-48 flex items-center justify-center">
                   <img 
-                    src="/images/qr.jpg" 
+                    src="/images/qr.webp" 
                     alt="QR Code Calendly" 
                     className="w-full h-full object-contain rounded-lg"
                   />

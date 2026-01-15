@@ -21,3 +21,4 @@ export default function LoiGirardinLayout({ children }) {
   return <>{children}</>;
 }
 
+

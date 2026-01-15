@@ -21,3 +21,4 @@ export default function MonumentHistoriqueLayout({ children }) {
   return <>{children}</>;
 }
 
+

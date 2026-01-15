@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import { processHTMLForRender } from '../../lib/utils/htmlConverter';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
@@ -108,7 +107,6 @@ export default function ImmobilierPage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#253F60]"></div>
         </div>
@@ -123,33 +121,28 @@ export default function ImmobilierPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             {/* Left card */}
             <div className="lg:col-span-2 bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10">
-              {/* Contenu */}
-              <div>
-                <h1 className="text-[#112033] text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-4">
-                  {pageContent.hero?.h1 || "Investir dans l'immobilier avec Azalée Patrimoine"}
-                </h1>
-                <p className="text-[#686868] text-base sm:text-lg font-inter leading-relaxed mb-6">
-                  {pageContent.hero?.description || "L'immobilier, pilier de votre indépendance financière et de la transmission familiale. Chez Azalée Patrimoine, nous considérons l'immobilier comme un socle fondamental d'un patrimoine équilibré : tangible, résilient et porteur de sens. Notre rôle est de transformer vos projets immobiliers — qu'ils soient locatifs, neufs ou patrimoniaux — en véritables stratégies d'enrichissement à long terme, intégrant rendement, fiscalité et transmission."}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <button 
-                    onClick={() => window.open(pageContent.hero?.ctaButton1Link || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                    className="inline-flex items-center justify-center bg-[#B99066] text-white px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors"
-                  >
-                    {pageContent.hero?.ctaButton1 || "Demandez votre audit patrimonial personnalisé"}
-                  </button>
-                  <a href={pageContent.hero?.ctaButton2Link || "#pourquoi-investir"} className="inline-flex items-center justify-center bg-transparent border-2 border-[#253F60] text-[#253F60] px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#253F60] hover:text-white transition-colors">
-                    {pageContent.hero?.ctaButton2 || "Découvrir nos solutions"}
-                  </a>
-                </div>
+              <h1 className="text-[#112033] text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-4">
+                {pageContent.hero?.h1 || "Investir dans l'immobilier avec Azalée Patrimoine"}
+              </h1>
+              <p className="text-[#686868] text-base sm:text-lg font-inter leading-relaxed mb-6">
+                {pageContent.hero?.description || "L'immobilier, pilier de votre indépendance financière et de la transmission familiale. Chez Azalée Patrimoine, nous considérons l'immobilier comme un socle fondamental d'un patrimoine équilibré : tangible, résilient et porteur de sens. Notre rôle est de transformer vos projets immobiliers — qu'ils soient locatifs, neufs ou patrimoniaux — en véritables stratégies d'enrichissement à long terme, intégrant rendement, fiscalité et transmission."}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <button 
+                  onClick={() => window.open(pageContent.hero?.ctaButton1Link || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="inline-flex items-center justify-center bg-[#B99066] text-white px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors"
+                >
+                  {pageContent.hero?.ctaButton1 || "Demandez votre audit patrimonial personnalisé"}
+                </button>
+                <a href={pageContent.hero?.ctaButton2Link || "#pourquoi-investir"} className="inline-flex items-center justify-center bg-transparent border-2 border-[#253F60] text-[#253F60] px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#253F60] hover:text-white transition-colors">
+                  {pageContent.hero?.ctaButton2 || "Découvrir nos solutions"}
+                </a>
               </div>
             </div>
             
@@ -908,7 +901,7 @@ export default function ImmobilierPage() {
               <div className="relative">
                 <div className="bg-gradient-to-br from-[#F9FAFB] to-white rounded-xl p-4 sm:p-6 border-2 border-[#E5E7EB] shadow-xl overflow-hidden">
                   <img 
-                    src="/images/signat.png" 
+                    src="/images/signat.webp" 
                     alt="Main signant un dossier de prêt" 
                     className="w-full h-auto rounded-lg object-cover"
                   />
@@ -1387,7 +1380,7 @@ export default function ImmobilierPage() {
               <div className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 cursor-pointer">
                 <a href="/immobilier/immobilier-neuf" className="block">
                   <div className="relative h-48 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/construction-building.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 to-[#B99066]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
@@ -1412,7 +1405,7 @@ export default function ImmobilierPage() {
               <div className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 cursor-pointer">
                 <a href="/immobilier/investissement-locatif" className="block">
                   <div className="relative h-48 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/apartment-keys.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
@@ -1437,7 +1430,7 @@ export default function ImmobilierPage() {
               <div className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 cursor-pointer">
                 <a href="/immobilier/sci" className="block">
                   <div className="relative h-48 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/family-house.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 via-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
@@ -1688,7 +1681,7 @@ export default function ImmobilierPage() {
               {/* Immobilier neuf & VEFA */}
               <a href="/immobilier/immobilier-neuf" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                 <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/construction-site.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 to-[#B99066]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1709,7 +1702,7 @@ export default function ImmobilierPage() {
               {/* Investissement locatif & LMNP */}
               <a href="/immobilier/investissement-locatif" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                 <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/modern-apartment.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1730,7 +1723,7 @@ export default function ImmobilierPage() {
               {/* SCI & transmission patrimoniale */}
               <a href="/immobilier/sci" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                 <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/notary-signing.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 via-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1755,7 +1748,7 @@ export default function ImmobilierPage() {
                 {/* Crédit immobilier & PTZ */}
                 <a href="/immobilier/credit-immobilier-ptz" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                   <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/mortgage-documents.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 to-[#B99066]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1776,7 +1769,7 @@ export default function ImmobilierPage() {
                 {/* Immeubles de rapport & plus-value */}
                 <a href="/immobilier/immeubles-de-rapport" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                   <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/paris-building-facade.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1866,7 +1859,7 @@ export default function ImmobilierPage() {
                 onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
-                Prendre rendez-vous
+                Planifiez votre consultation gratuite
               </button>
             </div>
           </div>
@@ -2227,7 +2220,7 @@ export default function ImmobilierPage() {
               className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300"
             >
               <div className="relative h-48 bg-gradient-to-br from-[#253F60] to-[#2d4a6b] overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/investment-chart.jpg')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                 <div className="absolute top-4 left-4 bg-[#B99066] text-white px-3 py-1 rounded-full text-sm font-inter font-semibold">
                   Guide complet
                 </div>
@@ -2254,7 +2247,7 @@ export default function ImmobilierPage() {
               className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300"
             >
               <div className="relative h-48 bg-gradient-to-br from-[#253F60] to-[#B99066] overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/furnished-apartment.jpg')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                 <div className="absolute top-4 left-4 bg-[#253F60] text-white px-3 py-1 rounded-full text-sm font-inter font-semibold">
                   Analyse 2025
                 </div>

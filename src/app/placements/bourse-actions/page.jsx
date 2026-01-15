@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import CTAButton from "@/components/ui/CTAButton";
 export default function BourseActionsPage() {
   const [activeTab, setActiveTab] = useState("introduction");
   const [marketData, setMarketData] = useState({
@@ -52,8 +52,6 @@ export default function BourseActionsPage() {
   
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -958,18 +956,18 @@ export default function BourseActionsPage() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-cairo font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200"
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="primary"
             >
               Démarrer mon investissement
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-cairo font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+            </CTAButton>
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="secondary"
             >
-              Prendre rendez-vous
-            </button>
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>

@@ -21,3 +21,4 @@ export default function BilanPatrimonialLayout({ children }) {
   return <>{children}</>;
 }
 
+

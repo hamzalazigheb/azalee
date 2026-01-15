@@ -1,6 +1,6 @@
 export default function sitemap() {
   const baseUrl = 'https://azalee-patrimoine.fr';
-  
+
   const routes = [
     '',
     '/patrimoine',
@@ -9,9 +9,11 @@ export default function sitemap() {
     '/immobilier',
     '/retraite',
     '/contact',
+    '/qui-sommes-nous',
+    '/equipe',
     '/notre-approche',
     '/outils/simulateur-investissement',
-    
+
     // Fiscalite subpages
     '/fiscalite/loi-pinel',
     '/fiscalite/loi-malraux',
@@ -29,7 +31,7 @@ export default function sitemap() {
     '/fiscalite/lois-fiscales',
     '/fiscalite/autre-fiscalite',
     '/fiscalite/defiscalisation-cas-specifiques',
-    
+
     // Immobilier subpages
     '/immobilier/lmnp',
     '/immobilier/sci',
@@ -44,11 +46,11 @@ export default function sitemap() {
     '/immobilier/immeubles-de-rapport',
     '/immobilier/investissement-immobilier-rentable',
     '/immobilier/lmnp-2025',
-    
+
     // Placements subpages
     '/placements/assurance-vie',
     '/placements/scpi',
-    '/placements/per',
+    '/placements/per-perp',
     '/placements/pea',
     '/placements/private-equity',
     '/placements/livrets-epargne',
@@ -58,7 +60,7 @@ export default function sitemap() {
     '/placements/obligations-fonds',
     '/placements/epargne-salariale',
     '/placements/placements-securises',
-    
+
     // Patrimoine subpages
     '/patrimoine/succession-heritage',
     '/patrimoine/donation',
@@ -68,7 +70,7 @@ export default function sitemap() {
     '/patrimoine/conseiller-patrimoine',
     '/patrimoine/droits-succession',
     '/patrimoine/optimisation-patrimoine',
-    
+
     // Retraite subpages
     '/retraite/preparer-retraite',
     '/retraite/per-perp',
@@ -85,4 +87,5 @@ export default function sitemap() {
     priority: route === '' ? 1.0 : route.includes('/') && route.split('/').length === 2 ? 0.8 : 0.6,
   }));
 }
+
 

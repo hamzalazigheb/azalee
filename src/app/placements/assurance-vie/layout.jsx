@@ -21,3 +21,4 @@ export default function AssuranceVieLayout({ children }) {
   return <>{children}</>;
 }
 
+

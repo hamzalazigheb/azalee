@@ -5,7 +5,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const slides = [
   {
-    image: '/images/img_vector_1.png',
+    image: '/images/img_vector_1.webp',
     title: "VOTRE PARTENAIRE DE CONFIANCE EN MATIÈRE DE GESTION DE PATRIMOINE, DE FISCALITÉ ET DE CONSEIL EN INVESTISSEMENT.",
     description: (
       <>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 
@@ -358,13 +357,35 @@ export default function PatrimoinePage() {
     };
 
     loadContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'patrimoine') {
+        console.log('🔄 CMS content updated, refreshing patrimoine page...', updatedPath);
+        loadContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Show loading state if content is being fetched
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#253F60] mx-auto mb-4"></div>
@@ -390,7 +411,6 @@ export default function PatrimoinePage() {
           }
         }
       `}</style>
-      <Header />
       
       {/* Hero Section - Deux cartes */}
       <section className="relative w-full min-h-[650px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-20 sm:py-24 lg:py-32">
@@ -638,7 +658,7 @@ export default function PatrimoinePage() {
                     </div>
                     
                     {/* Texte */}
-                    <h3 className="text-[#253F60] group-hover:text-white text-lg sm:text-xl font-inter font-bold leading-relaxed transition-colors duration-300 relative z-10">
+                    <h3 className="text-[#253F60] text-lg sm:text-xl font-inter font-bold leading-relaxed relative z-10">
                       {point}
                     </h3>
                     
@@ -1389,7 +1409,7 @@ export default function PatrimoinePage() {
                     onClick={() => window.open(content.localisation?.buttonUrl || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                     className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-lg hover:bg-white/90 hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300"
                   >
-                    {content.localisation?.buttonText || "Prendre rendez-vous"}
+                    {content.localisation?.buttonText || "Planifiez votre consultation gratuite"}
                   </button>
                 </div>
               </div>

@@ -1,23 +1,46 @@
-"use client";
-import React from "react";
-import Header from "../../../components/common/Header";
+import { notFound } from 'next/navigation';
+import { getPageContent } from '@/lib/cms-server';
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from '@/components/ui/CTAButton';
 
-export default function AutresPage() {
+const defaultContent = {
+  hero: {
+    title: "Autres Solutions de Placement",
+    subtitle: "Découvrez nos solutions d'investissement alternatives et spécialisées"
+  },
+  seo: {
+    metaTitle: "Autres Solutions de Placement | Azalée Patrimoine",
+    metaDescription: "Découvrez nos solutions d'investissement alternatives et spécialisées avec Azalée Patrimoine."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('placements/autres', defaultContent);
+  return {
+    title: content?.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content?.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function AutresPage() {
+  const content = await getPageContent('placements/autres', defaultContent);
+  
+  if (!content) {
+    notFound();
+  }
+
   return (
     <>
-      <Header />
-      
       {/* Hero Section with diverse products */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-6">
-              Autres Solutions de Placement
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-white text-lg sm:text-xl lg:text-2xl font-inter leading-relaxed max-w-4xl mx-auto">
-              Découvrez nos solutions d'investissement alternatives et spécialisées
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
             </p>
           </div>
           
@@ -59,15 +82,15 @@ export default function AutresPage() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200">
+            <CTAButton variant="primary">
               Découvrir nos solutions
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
+            </CTAButton>
+            <CTAButton 
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="secondary"
             >
-              Prendre rendez-vous
-            </button>
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>
@@ -524,13 +547,16 @@ export default function AutresPage() {
             Nos experts vous accompagnent dans la découverte et la mise en place 
             de solutions d'investissement alternatives adaptées à votre profil.
           </p>
-          <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-source-sans font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200">
+          <CTAButton 
+            externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+            className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-source-sans font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200"
+          >
             Découvrir nos solutions
-          </button>
+          </CTAButton>
         </div>
       </section>
       
       <Footer />
     </>
   );
-} 
+}

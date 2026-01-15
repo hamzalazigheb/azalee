@@ -13,11 +13,11 @@ export default function AutresPage() {
   useEffect(() => {
     const loadCmsContent = async () => {
       try {
-        const response = await fetch(`/api/pages/content?path=/outils/autres&type=cms`);
+        const response = await fetch(`/api/cms/content?path=outils/autres&t=${Date.now()}`);
         if (response.ok) {
           const data = await response.json();
-          if (data.success && data.content) {
-            setCmsContent(JSON.parse(data.content.content));
+          if (data.content) {
+            setCmsContent(data.content);
           }
         }
       } catch (error) {
@@ -28,6 +28,24 @@ export default function AutresPage() {
     };
 
     loadCmsContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadCmsContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadCmsContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Default content if CMS content is not available

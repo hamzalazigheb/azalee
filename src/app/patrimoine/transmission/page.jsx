@@ -1,54 +1,109 @@
 "use client";
-import React from "react";
-import Header from "../../../components/common/Header";
+import React, { useEffect, useState } from "react";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 
+export const defaultContent = {
+  hero: {
+    title: "Transmission de patrimoine",
+    description: "La transmission de patrimoine consiste à organiser le passage de ses biens à ses héritiers ou à des tiers, de son vivant ou après son décès.",
+    aspects: [
+      { title: "Juridiques", description: "Notaire, régime matrimonial, clauses bénéficiaires" },
+      { title: "Fiscaux", description: "Droits de donation et succession, abattements, pactes fiscaux" },
+      { title: "Stratégiques", description: "Protection de la famille, continuité du patrimoine, valorisation d'entreprise" }
+    ],
+    highlight: "Anticiper, c'est transmettre plus et mieux, en évitant les blocages et les coûts inutiles."
+  },
+  chart: {
+    data: [
+      { label: "Patrimoine moyen transmis", value: "€2,000,000" },
+      { label: "Réduction des droits", value: "50%" },
+      { label: "Économies fiscales", value: "€300,000" },
+      { label: "Durée de planification", value: "10-15 ans" },
+      { label: "Exonération AV", value: "€152,500" }
+    ]
+  },
+  seo: {
+    metaTitle: "Transmission de Patrimoine | Azalée Patrimoine",
+    metaDescription: "Organisez la transmission de votre patrimoine avec Azalée Patrimoine : conseils juridiques, fiscaux et stratégiques."
+  }
+};
+
 export default function TransmissionPage() {
-  const chartData = [
-    { label: "Patrimoine moyen transmis", value: "€2,000,000" },
-    { label: "Réduction des droits", value: "50%" },
-    { label: "Économies fiscales", value: "€300,000" },
-    { label: "Durée de planification", value: "10-15 ans" },
-    { label: "Exonération AV", value: "€152,500" }
-  ];
+  const [content, setContent] = useState(defaultContent);
+  // Load content from CMS
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=patrimoine/transmission&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setContent((prev) => ({ ...prev, ...data.content }));
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load CMS content", error);
+      }
+    };
+
+    loadContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
+  }, []);
+
+  const chartData = content.chart?.data || defaultContent.chart.data;
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-              Transmission de patrimoine
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              La <strong>transmission de patrimoine</strong> consiste à organiser le passage de ses biens à ses héritiers ou à des tiers, de son vivant ou après son décès.
+              {content.hero?.description || defaultContent.hero.description}
             </p>
-            <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              Elle englobe les aspects :
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
-              <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <h3 className="text-white font-semibold mb-2">Juridiques</h3>
-                <p className="text-white text-sm">Notaire, régime matrimonial, clauses bénéficiaires</p>
+            {content.hero?.aspects && content.hero.aspects.length > 0 && (
+              <>
+                <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
+                  Elle englobe les aspects :
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
+                  {content.hero.aspects.map((aspect, index) => (
+                    <div key={index} className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-white font-semibold mb-2">{aspect.title}</h3>
+                      <p className="text-white text-sm">{aspect.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+            {content.hero?.highlight && (
+              <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
+                <p className="text-white text-sm font-inter">
+                  {content.hero.highlight}
+                </p>
               </div>
-              <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <h3 className="text-white font-semibold mb-2">Fiscaux</h3>
-                <p className="text-white text-sm">Droits de donation et succession, abattements, pactes fiscaux</p>
-              </div>
-              <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <h3 className="text-white font-semibold mb-2">Stratégiques</h3>
-                <p className="text-white text-sm">Protection de la famille, continuité du patrimoine, valorisation d'entreprise</p>
-              </div>
-            </div>
-            <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
-              <p className="text-white text-sm font-inter">
-                Anticiper, c'est transmettre <strong>plus et mieux</strong>, en évitant les blocages et les coûts inutiles.
-              </p>
-            </div>
+            )}
           </div>
 
           {/* CTA Buttons */}
@@ -57,7 +112,7 @@ export default function TransmissionPage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </button>
             <button 
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
@@ -73,7 +128,7 @@ export default function TransmissionPage() {
       <PlacementChart 
         title="Indicateurs de transmission patrimoniale"
         data={chartData}
-        chartImage="/images/transmission.png"
+        chartImage="/images/transmission.webp"
       />
 
       {/* Pourquoi anticiper sa transmission Section */}
@@ -410,7 +465,7 @@ export default function TransmissionPage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </button>
             <button 
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}

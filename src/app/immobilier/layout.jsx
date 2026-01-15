@@ -1,3 +1,6 @@
+import Breadcrumb from '@/components/common/Breadcrumb';
+import Header from '@/components/common/Header';
+
 export const metadata = {
   title: "Investissement Immobilier | Azalée Patrimoine - LMNP, SCI, SCPI, Crédit",
   description: "Azalée Patrimoine transforme vos projets immobiliers en stratégies patrimoniales : immobilier neuf, LMNP, SCI, SCPI, crédit. Pour vous, des solutions d'investissement sur-mesure.",
@@ -28,6 +31,12 @@ export const metadata = {
 };
 
 export default function ImmobilierLayout({ children }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      <Breadcrumb />
+      {children}
+    </>
+  );
 }
 

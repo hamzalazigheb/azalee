@@ -1,15 +1,42 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function PlanRetraitePage() {
+export const defaultContent = {
+  hero: {
+    title: "Plan d'Épargne Retraite : PER, PERP, PERCO, Madelin, Préfon - quel dispositif choisir selon votre profil ?",
+    subtitle: "Découvrez les solutions d'épargne retraite adaptées à votre statut et optimisez votre préparation à la retraite.",
+    breadcrumb: {
+      parent: "Retraite",
+      current: "Plans d'épargne retraite"
+    }
+  },
+  introduction: {
+    paragraphs: [
+      "Préparer sa retraite, c'est anticiper la baisse de revenus qui survient au moment du départ de la vie active.",
+      "Pour maintenir votre niveau de vie, plusieurs solutions d'épargne retraite existent : le PER (Plan d'Épargne Retraite), l'ancien PERP, le PERCO d'entreprise, le contrat Madelin pour les indépendants, ou encore Préfon Retraite pour les fonctionnaires.",
+      "Ces solutions vous permettent de transformer votre épargne en revenus durables à la retraite."
+    ]
+  },
+  seo: {
+    metaTitle: "Plan d'Épargne Retraite | Azalée Patrimoine",
+    metaDescription: "Découvrez les solutions d'épargne retraite PER, PERP, PERCO, Madelin, Préfon adaptées à votre statut et optimisez votre préparation à la retraite."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('retraite/plan-retraite', defaultContent);
+  return {
+    title: content.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function PlanRetraitePage() {
+  const content = await getPageContent('retraite/plan-retraite', defaultContent);
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[400px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,10 +51,10 @@ export default function PlanRetraitePage() {
             </nav>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
-              Plan d'Épargne Retraite : PER, PERP, PERCO, Madelin, Préfon - quel dispositif choisir selon votre profil ?
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-lg sm:text-xl font-inter text-white/90 max-w-3xl">
-              Découvrez les solutions d'épargne retraite adaptées à votre statut et optimisez votre préparation à la retraite.
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
             </p>
           </div>
         </div>
@@ -37,15 +64,17 @@ export default function PlanRetraitePage() {
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Préparer sa retraite, c'est anticiper la baisse de revenus qui survient au moment du départ de la vie active.
-            </p>
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Pour maintenir votre niveau de vie, plusieurs solutions d'épargne retraite existent : le <strong className="text-[#253F60]">PER</strong> (Plan d'Épargne Retraite), l'ancien <strong className="text-[#253F60]">PERP</strong>, le <strong className="text-[#253F60]">PERCO</strong> d'entreprise, le contrat <strong className="text-[#253F60]">Madelin</strong> pour les indépendants, ou encore <strong className="text-[#253F60]">Préfon Retraite</strong> pour les fonctionnaires.
-            </p>
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Ces solutions vous permettent de transformer votre épargne en revenus durables à la retraite.
-            </p>
+            {content.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
+              <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+                {paragraph.includes('PER') ? (
+                  <>
+                    Pour maintenir votre niveau de vie, plusieurs solutions d'épargne retraite existent : le <strong className="text-[#253F60]">PER</strong> (Plan d'Épargne Retraite), l'ancien <strong className="text-[#253F60]">PERP</strong>, le <strong className="text-[#253F60]">PERCO</strong> d'entreprise, le contrat <strong className="text-[#253F60]">Madelin</strong> pour les indépendants, ou encore <strong className="text-[#253F60]">Préfon Retraite</strong> pour les fonctionnaires.
+                  </>
+                ) : (
+                  paragraph
+                )}
+              </p>
+            ))}
             <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-xl p-6 sm:p-8 text-white mt-8">
               <p className="text-white text-base sm:text-lg font-inter leading-relaxed">
                 Chez <strong className="text-[#B99066]">Azalée Patrimoine</strong>, nous vous accompagnons dans le choix du dispositif le plus adapté selon votre statut (salarié, indépendant, fonctionnaire, militaire, dirigeant) pour une retraite sereine et fiscalement optimisée.
@@ -115,7 +144,7 @@ export default function PlanRetraitePage() {
                   <div className="flex items-start gap-3">
                     <span className="text-xl">💡</span>
                     <div>
-                      <Link href="/retraite/plan-retraite/per-individuel" className="text-[#253F60] font-inter font-bold hover:text-[#B99066] transition-colors underline">
+                      <Link href="/retraite/per-perp" className="text-[#253F60] font-inter font-bold hover:text-[#B99066] transition-colors underline">
                         En savoir plus sur le PER individuel
                       </Link>
                     </div>
@@ -461,7 +490,7 @@ export default function PlanRetraitePage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 lg:p-12 text-center">
             <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-4 sm:mb-6">
-              Prendre rendez-vous avec un conseiller Azalée
+              Planifiez votre consultation gratuite avec un conseiller Azalée
           </h2>
             <p className="text-[#4B5563] text-base sm:text-lg font-inter mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
  Vous souhaitez savoir quel plan d'épargne retraite correspond à votre profil ?
@@ -473,7 +502,7 @@ export default function PlanRetraitePage() {
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full sm:w-auto"
               >
- Prendre rendez-vous avec un conseiller Azalée Patrimoine
+ Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine
               </a>
             </div>
             <div className="border-t border-gray-200 pt-6 mt-6">

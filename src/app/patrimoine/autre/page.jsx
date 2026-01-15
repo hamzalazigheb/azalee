@@ -1,9 +1,8 @@
-"use client";
-import React from "react";
-import Header from "../../../components/common/Header";
+import { notFound } from 'next/navigation';
+import { getPageContent } from '@/lib/cms-server';
 import Footer from "../../../components/common/Footer";
+import CTAButton from '@/components/ui/CTAButton';
 
-// Default content
 const defaultContent = {
   hero: {
     title: "Autres solutions patrimoniales",
@@ -28,7 +27,7 @@ const defaultContent = {
     highlight: "Ces véhicules collectifs sont souvent méconnus, mais peuvent jouer un rôle stratégique dans une gestion patrimoniale équilibrée.",
     buttons: [
       { text: "Découvrir les solutions", type: "primary" },
-      { text: "Prendre rendez-vous", type: "secondary" }
+      { text: "Planifiez votre consultation gratuite", type: "secondary" }
     ]
   },
   solutions: {
@@ -96,26 +95,40 @@ const defaultContent = {
   cta: {
     title: "Prêt à découvrir ces solutions ?",
     subtitle: "Nos experts vous accompagnent dans le choix des solutions patrimoniales les plus adaptées à votre profil et vos objectifs.",
-    buttonText: "Prendre rendez-vous"
+    buttonText: "Planifiez votre consultation gratuite"
+  },
+  seo: {
+    metaTitle: "Autres Solutions Patrimoniales | Azalée Patrimoine",
+    metaDescription: "Découvrez les solutions patrimoniales alternatives avec Azalée Patrimoine."
   }
 };
 
-export default function AutrePatrimoinePage() {
-  const content = defaultContent;
+export async function generateMetadata() {
+  const content = await getPageContent('patrimoine/autre', defaultContent);
+  return {
+    title: content?.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content?.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function AutrePatrimoinePage() {
+  const content = await getPageContent('patrimoine/autre', defaultContent);
+  
+  if (!content) {
+    notFound();
+  }
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-              {content.hero?.title || "Autres solutions patrimoniales"}
+              {content.hero?.title}
             </h1>
             <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              {content.hero?.subtitle || "En dehors des placements classiques (immobilier, assurance-vie, produits financiers), il existe des solutions patrimoniales originales permettant de :"}
+              {content.hero?.subtitle}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
               {(content.hero?.benefits || []).map((benefit, index) => (
@@ -132,7 +145,7 @@ export default function AutrePatrimoinePage() {
             </div>
             <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
               <p className="text-white text-sm font-inter">
-                {content.hero?.highlight || "Ces véhicules collectifs sont souvent méconnus, mais peuvent jouer un rôle stratégique dans une gestion patrimoniale équilibrée."}
+                {content.hero?.highlight}
               </p>
             </div>
           </div>
@@ -140,21 +153,13 @@ export default function AutrePatrimoinePage() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {(content.hero?.buttons || []).map((button, index) => (
-              <button 
+              <CTAButton 
                 key={index}
-                onClick={() => {
-                  if (button.text === "Prendre rendez-vous") {
-                    window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank');
-                  }
-                }}
-                className={`${
-                  button.type === 'primary' 
-                    ? 'bg-[#B99066] text-white hover:bg-[#A67C52]' 
-                    : 'bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#253F60]'
-                } px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg transition-colors duration-200`}
+                externalUrl={button.text === "Planifiez votre consultation gratuite" ? "https://calendly.com/rdv-azalee-patrimoine/30min" : undefined}
+                variant={button.type === 'primary' ? 'primary' : 'secondary'}
               >
                 {button.text}
-              </button>
+              </CTAButton>
             ))}
           </div>
         </div>
@@ -192,7 +197,7 @@ export default function AutrePatrimoinePage() {
               <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-              {content.solutions?.title || "Les solutions patrimoniales originales"}
+              {content.solutions?.title}
             </h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Découvrez les solutions alternatives pour diversifier votre patrimoine
@@ -201,12 +206,12 @@ export default function AutrePatrimoinePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {(content.solutions?.solutions || []).map((solution, index) => (
-              <div key={index} className={`group relative bg-gradient-to-br ${solution.color.includes('from-[#253F60]') ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : solution.color.includes('from-[#B99066]') ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#B99066]'} rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500`}>
+              <div key={index} className={`group relative bg-gradient-to-br ${solution.color?.includes('from-[#253F60]') ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : solution.color?.includes('from-[#B99066]') ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#B99066]'} rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500`}>
                 <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-bl-full"></div>
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-tr-full"></div>
                 <div className="relative z-10">
                   <div className="text-center mb-6">
-                    <div className={`w-16 h-16 ${solution.color.includes('from-[#253F60]') ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <div className={`w-16 h-16 ${solution.color?.includes('from-[#253F60]') ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       <span className="text-white text-2xl font-bold">{solution.icon}</span>
                     </div>
                     <div className="flex items-center justify-center gap-3 mb-2">
@@ -266,17 +271,17 @@ export default function AutrePatrimoinePage() {
             
             <div className="relative z-10">
               <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                {content.cta?.title || "Prêt à découvrir ces solutions ?"}
+                {content.cta?.title}
               </h2>
-          <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
-            {content.cta?.subtitle || "Nos experts vous accompagnent dans le choix des solutions patrimoniales les plus adaptées à votre profil et vos objectifs."}
-          </p>
-          <button 
-            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-            className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors"
-          >
-            {content.cta?.buttonText || "Prendre rendez-vous"}
-          </button>
+              <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                {content.cta?.subtitle}
+              </p>
+              <CTAButton 
+                externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors"
+              >
+                {content.cta?.buttonText}
+              </CTAButton>
             </div>
           </div>
         </div>

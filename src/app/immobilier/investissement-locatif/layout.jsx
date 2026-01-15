@@ -21,3 +21,4 @@ export default function InvestissementLocatifLayout({ children }) {
   return <>{children}</>;
 }
 
+

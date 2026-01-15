@@ -1,90 +1,90 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from "@/components/ui/CTAButton";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function LoiPinelPage() {
-  const [content, setContent] = useState({});
+// Default content structure
+export const defaultContent = {
+  hero: {
+    title: "Loi Pinel",
+    subtitle: "Investir dans le neuf pour réduire ses impôts",
+    description: "La loi Pinel est un dispositif de défiscalisation qui permet de réduire ses impôts en investissant dans l'immobilier neuf locatif. Elle offre une réduction d'impôt de 12% du montant investi par an pendant 9 ans.",
+    button: "En savoir plus",
+    image: "/images/loi-pinel-hero.jpg"
+  },
+  overview: {
+    title: "Présentation de la loi Pinel",
+    description: "La loi Pinel est un dispositif de défiscalisation qui permet de réduire ses impôts en investissant dans l'immobilier neuf locatif. Elle vise à stimuler la construction de logements neufs et à favoriser l'investissement locatif.",
+    keyPoints: [
+      "Réduction d'impôt de 12% par an",
+      "Investissement dans le neuf uniquement",
+      "Engagement de location de 9 ans",
+      "Plafond de 300 000€ par an"
+    ]
+  },
+  benefits: {
+    title: "Avantages fiscaux",
+    benefits: [
+      {
+        title: "Réduction d'impôt",
+        description: "12% du montant investi par an",
+        percentage: "12%"
+      },
+      {
+        title: "Plafond d'investissement",
+        description: "300 000€ par an",
+        amount: "300k€"
+      },
+      {
+        title: "Durée d'engagement",
+        description: "9 ans minimum",
+        duration: "9 ans"
+      }
+    ]
+  },
+  conditions: {
+    title: "Conditions d'éligibilité",
+    description: "Pour bénéficier de la Loi Pinel, plusieurs conditions doivent être respectées :",
+    points: [
+      "Investissement dans un bien neuf",
+      "Location à usage d'habitation principale",
+      "Engagement de location de 9 ans minimum",
+      "Respect des plafonds de loyer"
+    ]
+  },
+  cta: {
+    title: "Besoin d'aide pour votre investissement ?",
+    description: "Nos experts vous accompagnent dans votre projet d'investissement avec la Loi Pinel.",
+    buttonText: "Demander une consultation gratuite"
+  }
+};
 
-  // Default content structure
-  const defaultContent = {
-    hero: {
-      title: "Loi Pinel",
-      subtitle: "Investir dans le neuf pour réduire ses impôts",
-      description: "La loi Pinel est un dispositif de défiscalisation qui permet de réduire ses impôts en investissant dans l'immobilier neuf locatif. Elle offre une réduction d'impôt de 12% du montant investi par an pendant 9 ans.",
-      button: "En savoir plus",
-      image: "/images/loi-pinel-hero.jpg"
-    },
-    overview: {
-      title: "Présentation de la loi Pinel",
-      description: "La loi Pinel est un dispositif de défiscalisation qui permet de réduire ses impôts en investissant dans l'immobilier neuf locatif. Elle vise à stimuler la construction de logements neufs et à favoriser l'investissement locatif.",
-      keyPoints: [
-        "Réduction d'impôt de 12% par an",
-        "Investissement dans le neuf uniquement",
-        "Engagement de location de 9 ans",
-        "Plafond de 300 000€ par an"
-      ]
-    },
-    benefits: {
-      title: "Avantages fiscaux",
-      benefits: [
-        {
-          title: "Réduction d'impôt",
-          description: "12% du montant investi par an",
-          percentage: "12%"
-        },
-        {
-          title: "Plafond d'investissement",
-          description: "300 000€ par an",
-          amount: "300k€"
-        },
-        {
-          title: "Durée d'engagement",
-          description: "9 ans minimum",
-          duration: "9 ans"
-        }
-      ]
-    },
-    conditions: {
-      title: "Conditions d'éligibilité",
-      description: "Pour bénéficier de la Loi Pinel, plusieurs conditions doivent être respectées :",
-      points: [
-        "Investissement dans un bien neuf",
-        "Location à usage d'habitation principale",
-        "Engagement de location de 9 ans minimum",
-        "Respect des plafonds de loyer"
-      ]
-    },
-    cta: {
-      title: "Besoin d'aide pour votre investissement ?",
-      description: "Nos experts vous accompagnent dans votre projet d'investissement avec la Loi Pinel.",
-      buttonText: "Demander une consultation gratuite"
-    }
+export async function generateMetadata() {
+  const content = await getPageContent('fiscalite/loi-pinel', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Loi Pinel | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "La loi Pinel est un dispositif de défiscalisation pour l'investissement locatif neuf.",
   };
+}
 
-  useEffect(() => {
-    // Set static content
-    setContent(defaultContent);
-  }, []);
+export default async function LoiPinelPage() {
+  const content = await getPageContent('fiscalite/loi-pinel', defaultContent);
 
   return (
     <>
-      <Header />
-
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-                {content.hero?.title || defaultContent.hero.title}
+                {content.hero.title}
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-white mb-3 sm:mb-4 leading-relaxed">
-                {content.hero?.subtitle || defaultContent.hero.subtitle}
+                {content.hero.subtitle}
               </p>
               <p className="text-sm sm:text-base text-white mb-6 sm:mb-8">
-                {content.hero?.description || defaultContent.hero.description}
+                {content.hero.description}
               </p>
             </div>
           </div>
@@ -95,11 +95,11 @@ export default function LoiPinelPage() {
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.overview?.title || defaultContent.overview.title}
-            subtitle={content.overview?.description || defaultContent.overview.description}
+            title={content.overview.title}
+            subtitle={content.overview.description}
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {(content.overview?.keyPoints || defaultContent.overview.keyPoints).map((point, index) => (
+            {content.overview.keyPoints.map((point, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 4 === 0 || index % 4 === 2 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="relative z-10 text-center">
@@ -115,11 +115,11 @@ export default function LoiPinelPage() {
       <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.benefits?.title || defaultContent.benefits.title}
+            title={content.benefits.title}
             subtitle="Les avantages fiscaux de la loi Pinel"
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {(content.benefits?.benefits || defaultContent.benefits.benefits).map((benefit, index) => (
+            {content.benefits.benefits.map((benefit, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="relative z-10 text-center">
@@ -139,11 +139,11 @@ export default function LoiPinelPage() {
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions?.title || defaultContent.conditions.title}
-            subtitle={content.conditions?.description || defaultContent.conditions.description}
+            title={content.conditions.title}
+            subtitle={content.conditions.description}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {(content.conditions?.points || defaultContent.conditions.points).map((point, index) => (
+            {content.conditions.points.map((point, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="relative z-10 flex items-start gap-4">
@@ -169,17 +169,18 @@ export default function LoiPinelPage() {
             
             <div className="relative z-10">
               <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                {content.cta?.title || defaultContent.cta.title}
+                {content.cta.title}
               </h2>
               <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
-                {content.cta?.description || defaultContent.cta.description}
+                {content.cta.description}
               </p>
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              <CTAButton 
+                externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                variant="primary"
+                className="px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                {content.cta?.buttonText || defaultContent.cta.buttonText || "Prendre rendez-vous"}
-              </button>
+                {content.cta.buttonText}
+              </CTAButton>
             </div>
           </div>
         </div>

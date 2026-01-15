@@ -27,25 +27,25 @@ export default function InvestissementImmobilierPage() {
               {
                 title: "Analyse personnalisée de votre situation patrimoniale",
                 description: "Nous évaluons votre profil investisseur, vos objectifs de rendement et vos projets pour identifier les meilleures opportunités d'investissement immobilier.",
-                image: "/images/investissement-immobilier-responsive-analysis-image-45db43.png",
+                image: "/images/investissement-immobilier-responsive-analysis-image-45db43.webp",
                 bgColor: "#253F60"
               },
               {
                 title: "Optimisation fiscale de vos investissements immobiliers",
                 description: "Nous structurons vos opérations immobilières afin d'optimiser la rentabilité et les avantages fiscaux, en intégrant dispositifs légaux et stratégies patrimoniales.",
-                image: "/images/investissement-immobilier-responsive-tax-image-74349c.png",
+                image: "/images/investissement-immobilier-responsive-tax-image-74349c.webp",
                 bgColor: "#EDEDED"
               },
               {
                 title: "Accompagnement global sur la gestion et la fiscalité",
                 description: "Nos experts vous accompagnent dans la structuration, la gestion juridique et fiscale, ainsi que dans la déclaration de vos investissements, en toute conformité.",
-                image: "/images/investissement-immobilier-responsive-management-image-67c728.png",
+                image: "/images/investissement-immobilier-responsive-management-image-67c728.webp",
                 bgColor: "#EDEDED"
               },
               {
                 title: "Stratégie patrimoniale intégrée projets immobiliers",
                 description: "Nous alignons vos investissements immobiliers avec votre stratégie globale de patrimoine pour sécuriser vos actifs, anticiper la transmission et optimiser la fiscalité successorale.",
-                image: "/images/investissement-immobilier-responsive-strategy-image-6274ef.png",
+                image: "/images/investissement-immobilier-responsive-strategy-image-6274ef.webp",
                 bgColor: "#EDEDED"
               }
             ]
@@ -56,25 +56,25 @@ export default function InvestissementImmobilierPage() {
               {
                 title: "Optimisation fiscale immobilière",
                 description: "Nous vous accompagnons dans la gestion fiscale de vos investissements immobiliers pour maximiser vos revenus fonciers et valoriser votre patrimoine. Nos solutions : structuration en SCI, LMNP/LMP, déficit foncier, démembrement, investissements en immobilier locatif.",
-                image: "/images/investissement-immobilier-responsive-expertise-tax-optimization.png",
+                image: "/images/investissement-immobilier-responsive-expertise-tax-optimization.webp",
                 bgColor: "#253F60"
               },
               {
                 title: "Stratégies de défiscalisation patrimoniale",
                 description: "Profitez des dispositifs légaux pour réduire votre pression fiscale et pérenniser vos actifs. Nous intervenons sur : défiscalisation immobilière, investissements loi Girardin, Malraux, PER, holding patrimoniale.",
-                image: "/images/investissement-immobilier-responsive-expertise-defiscalization.png",
+                image: "/images/investissement-immobilier-responsive-expertise-defiscalization.webp",
                 bgColor: "#EDEDED"
               },
               {
                 title: "Fiscalité professionnelle & investissement",
                 description: "Conseil sur-mesure pour chefs d'entreprise, dirigeants et professions libérales souhaitant développer ou sécuriser leur patrimoine professionnel et personnel.",
-                image: "/images/investissement-immobilier-responsive-expertise-professional.png",
+                image: "/images/investissement-immobilier-responsive-expertise-professional.webp",
                 bgColor: "#EDEDED"
               },
               {
                 title: "Transmission, donation & gestion successorale",
                 description: "Nous vous aidons à anticiper la transmission de vos biens avec des solutions fiscales adaptées pour optimiser les donations et protéger vos héritiers.",
-                image: "/images/investissement-immobilier-responsive-expertise-transmission.png",
+                image: "/images/investissement-immobilier-responsive-expertise-transmission.webp",
                 bgColor: "#EDEDED"
               }
             ]
@@ -85,29 +85,29 @@ export default function InvestissementImmobilierPage() {
               {
                 title: "Investissement locatif neuf (Loi Pinel)",
                 description: "Bénéficiez d'une réduction d'impôt en investissant dans l'immobilier neuf destiné à la location, sous conditions de durée et de plafonds de loyers.",
-                image: "/images/investissement-immobilier-responsive-fiscal-pinel-bg-8b82a6.png",
-                icon: "/images/investissement-immobilier-responsive-fiscal-pinel-icon.png",
+                image: "/images/investissement-immobilier-responsive-fiscal-pinel-bg-8b82a6.webp",
+                icon: "/images/investissement-immobilier-responsive-fiscal-pinel-icon.webp",
                 bgColor: "#253F60"
               },
               {
                 title: "Location meublée (Statut LMNP / LMP)",
                 description: "Optimisez votre fiscalité grâce à la location meublée, avec amortissement des biens et régime fiscal allégé sur les revenus locatifs.",
-                image: "/images/investissement-immobilier-responsive-fiscal-lmnp-bg-51a138.png",
-                icon: "/images/investissement-immobilier-responsive-fiscal-lmnp-icon.png",
+                image: "/images/investissement-immobilier-responsive-fiscal-lmnp-bg-51a138.webp",
+                icon: "/images/investissement-immobilier-responsive-fiscal-lmnp-icon.webp",
                 bgColor: "#EDEDED"
               },
               {
                 title: "Déficit foncier sur vos revenus",
                 description: "Réduisez votre imposition en déduisant le montant des travaux de rénovation ou d'entretien de vos revenus fonciers.",
-                image: "/images/investissement-immobilier-responsive-fiscal-deficit-bg-1b3fc2.png",
-                icon: "/images/investissement-immobilier-responsive-fiscal-deficit-icon.png",
+                image: "/images/investissement-immobilier-responsive-fiscal-deficit-bg-1b3fc2.webp",
+                icon: "/images/investissement-immobilier-responsive-fiscal-deficit-icon.webp",
                 bgColor: "#EDEDED"
               },
               {
                 title: "Valorisation de l'immobilier ancien",
                 description: "Profitez d'avantages fiscaux attractifs en rénovant des biens classés ou situés dans des secteurs sauvegardés, tout en valorisant votre patrimoine.",
-                image: "/images/investissement-immobilier-responsive-fiscal-valorisation-bg-1b3fc2.png",
-                icon: "/images/investissement-immobilier-responsive-fiscal-valorisation-icon.png",
+                image: "/images/investissement-immobilier-responsive-fiscal-valorisation-bg-1b3fc2.webp",
+                icon: "/images/investissement-immobilier-responsive-fiscal-valorisation-icon.webp",
                 bgColor: "#EDEDED"
               }
             ]
@@ -188,7 +188,7 @@ export default function InvestissementImmobilierPage() {
                 step: "01",
                 title: "Analyse personnalisée",
                 description: "Des recommandations claires et objectives, basées sur une étude approfondie de votre situation patrimoniale et fiscale.",
-                image: "/images/investissement-immobilier-responsive-why-choose-step1-icon.png",
+                image: "/images/investissement-immobilier-responsive-why-choose-step1-icon.webp",
                 bgColor: "#253F60"
               },
               {
@@ -202,14 +202,14 @@ export default function InvestissementImmobilierPage() {
                 step: "03",
                 title: "Accès à notre réseau d'experts",
                 description: "Un accompagnement complet grâce à nos partenaires : notaires, avocats spécialisés, experts-comptables et conseillers en gestion de patrimoine.",
-                image: "/images/investissement-immobilier-responsive-why-choose-step3-icon.png",
+                image: "/images/investissement-immobilier-responsive-why-choose-step3-icon.webp",
                 bgColor: "#EDEDED"
               },
               {
                 step: "04",
                 title: "Suivi et ajustement régulier",
                 description: "Un suivi patrimonial annuel pour anticiper les évolutions fiscales, ajuster votre stratégie et sécuriser votre projet sur le long terme.",
-                image: "/images/investissement-immobilier-responsive-why-choose-step4-icon.png",
+                image: "/images/investissement-immobilier-responsive-why-choose-step4-icon.webp",
                 bgColor: "#EDEDED"
               }
             ]
@@ -247,13 +247,13 @@ export default function InvestissementImmobilierPage() {
                 title: "Budget 2026 : a financial plan contested by the French",
                 date: "16 Juillet 2025",
                 category: "Taxes",
-                image: "/images/investissement-immobilier-news-article-1-48ed7d.png"
+                image: "/images/investissement-immobilier-news-article-1-48ed7d.webp"
               },
               {
                 title: "Livret A : une nouvelle baisse de rendement à 1,7 %",
                 date: "15 Juillet 2025",
                 category: "News",
-                image: "/images/investissement-immobilier-news-article-2-92e27a.png"
+                image: "/images/investissement-immobilier-news-article-2-92e27a.webp"
               },
               {
                 title: "PEA : Éric Ciotti wants to revive investment in stocks",
@@ -483,7 +483,7 @@ export default function InvestissementImmobilierPage() {
                 <div className="flex items-start p-3 sm:p-4 lg:p-6">
                   <div className="flex-shrink-0 mr-3 sm:mr-4 lg:mr-6">
                     <img
-                      src="/images/investissement-immobilier-responsive-expertise-tax-optimization.png"
+                      src="/images/investissement-immobilier-responsive-expertise-tax-optimization.webp"
                       alt="Optimisation fiscale"
                       className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover"
                     />
@@ -506,7 +506,7 @@ export default function InvestissementImmobilierPage() {
                 <div className="flex items-start p-3 sm:p-4 lg:p-6">
                   <div className="flex-shrink-0 mr-3 sm:mr-4 lg:mr-6">
                     <img
-                      src="/images/investissement-immobilier-responsive-expertise-defiscalization.png"
+                      src="/images/investissement-immobilier-responsive-expertise-defiscalization.webp"
                       alt="Stratégies de défiscalisation"
                       className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover"
                     />
@@ -529,7 +529,7 @@ export default function InvestissementImmobilierPage() {
                 <div className="flex items-start p-3 sm:p-4 lg:p-6">
                   <div className="flex-shrink-0 mr-3 sm:mr-4 lg:mr-6">
                     <img
-                      src="/images/investissement-immobilier-responsive-expertise-professional.png"
+                      src="/images/investissement-immobilier-responsive-expertise-professional.webp"
                       alt="Fiscalité professionnelle"
                       className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover"
                     />
@@ -552,7 +552,7 @@ export default function InvestissementImmobilierPage() {
                 <div className="flex items-start p-3 sm:p-4 lg:p-6">
                   <div className="flex-shrink-0 mr-3 sm:mr-4 lg:mr-6">
                     <img
-                      src="/images/investissement-immobilier-responsive-expertise-transmission.png"
+                      src="/images/investissement-immobilier-responsive-expertise-transmission.webp"
                       alt="Transmission et donation"
                       className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover"
                     />
@@ -588,7 +588,7 @@ export default function InvestissementImmobilierPage() {
             <div className="bg-[#253F60] rounded-lg shadow-lg overflow-hidden relative">
               <div className="relative">
                 <img
-                  src="/images/investissement-immobilier-responsive-fiscal-pinel-bg-8b82a6.png"
+                  src="/images/investissement-immobilier-responsive-fiscal-pinel-bg-8b82a6.webp"
                   alt="Loi Pinel"
                   className="w-full h-32 sm:h-48 object-cover"
                 />
@@ -596,7 +596,7 @@ export default function InvestissementImmobilierPage() {
                 {/* Circular Icon Overlay */}
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
                   <img
-                    src="/images/investissement-immobilier-responsive-fiscal-pinel-icon.png"
+                    src="/images/investissement-immobilier-responsive-fiscal-pinel-icon.webp"
                     alt="Pinel icon"
                     className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-white"
                   />
@@ -616,7 +616,7 @@ export default function InvestissementImmobilierPage() {
             <div className="bg-gradient-to-b from-[#E9E9E9] to-white rounded-lg shadow-lg overflow-hidden relative border border-white">
               <div className="relative">
                 <img
-                  src="/images/investissement-immobilier-responsive-fiscal-lmnp-bg-51a138.png"
+                  src="/images/investissement-immobilier-responsive-fiscal-lmnp-bg-51a138.webp"
                   alt="LMNP/LMP"
                   className="w-full h-32 sm:h-48 object-cover"
                 />
@@ -624,7 +624,7 @@ export default function InvestissementImmobilierPage() {
                 {/* Circular Icon Overlay */}
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
                   <img
-                    src="/images/investissement-immobilier-responsive-fiscal-lmnp-icon.png"
+                    src="/images/investissement-immobilier-responsive-fiscal-lmnp-icon.webp"
                     alt="LMNP icon"
                     className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-white"
                   />
@@ -644,7 +644,7 @@ export default function InvestissementImmobilierPage() {
             <div className="bg-gradient-to-b from-[#E9E9E9] to-white rounded-lg shadow-lg overflow-hidden relative border border-white">
               <div className="relative">
                 <img
-                  src="/images/investissement-immobilier-responsive-fiscal-deficit-bg-1b3fc2.png"
+                  src="/images/investissement-immobilier-responsive-fiscal-deficit-bg-1b3fc2.webp"
                   alt="Déficit foncier"
                   className="w-full h-32 sm:h-48 object-cover"
                 />
@@ -652,7 +652,7 @@ export default function InvestissementImmobilierPage() {
                 {/* Circular Icon Overlay */}
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
                   <img
-                    src="/images/investissement-immobilier-responsive-fiscal-deficit-icon.png"
+                    src="/images/investissement-immobilier-responsive-fiscal-deficit-icon.webp"
                     alt="Déficit foncier icon"
                     className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-white"
                   />
@@ -672,7 +672,7 @@ export default function InvestissementImmobilierPage() {
             <div className="bg-gradient-to-b from-[#E9E9E9] to-white rounded-lg shadow-lg overflow-hidden relative border border-white">
               <div className="relative">
                 <img
-                  src="/images/investissement-immobilier-responsive-fiscal-valorisation-bg-1b3fc2.png"
+                  src="/images/investissement-immobilier-responsive-fiscal-valorisation-bg-1b3fc2.webp"
                   alt="Valorisation"
                   className="w-full h-32 sm:h-48 object-cover"
                 />
@@ -680,7 +680,7 @@ export default function InvestissementImmobilierPage() {
                 {/* Circular Icon Overlay */}
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
                   <img
-                    src="/images/investissement-immobilier-responsive-fiscal-valorisation-icon.png"
+                    src="/images/investissement-immobilier-responsive-fiscal-valorisation-icon.webp"
                     alt="Valorisation icon"
                     className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-white"
                   />
@@ -885,7 +885,7 @@ export default function InvestissementImmobilierPage() {
               {/* Quote Icon */}
               <div className="absolute top-4 sm:top-6 left-4 sm:left-6 w-12 h-16 sm:w-16 sm:h-20">
                 <img
-                  src="/images/investissement-immobilier-quote-icon-56586a.png"
+                  src="/images/investissement-immobilier-quote-icon-56586a.webp"
                   alt="Quote Icon"
                   className="w-full h-full object-contain"
             />
@@ -1011,7 +1011,7 @@ export default function InvestissementImmobilierPage() {
               {/* Quote Icon */}
               <div className="absolute top-4 sm:top-6 left-4 sm:left-6 w-12 h-16 sm:w-16 sm:h-20">
                 <img
-                  src="/images/investissement-immobilier-quote-icon-2-56586a.png"
+                  src="/images/investissement-immobilier-quote-icon-2-56586a.webp"
                   alt="Quote Icon"
                   className="w-full h-full object-contain"
             />
@@ -1130,7 +1130,7 @@ export default function InvestissementImmobilierPage() {
                   {/* Icon */}
                   <div className="flex-shrink-0">
                     <img
-                      src="/images/investissement-immobilier-responsive-why-choose-step1-icon.png"
+                      src="/images/investissement-immobilier-responsive-why-choose-step1-icon.webp"
                       alt="Analyse personnalisée"
                       className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full object-cover"
                     />
@@ -1196,7 +1196,7 @@ export default function InvestissementImmobilierPage() {
                   {/* Icon */}
                   <div className="flex-shrink-0">
                     <img
-                      src="/images/investissement-immobilier-responsive-why-choose-step3-icon.png"
+                      src="/images/investissement-immobilier-responsive-why-choose-step3-icon.webp"
                       alt="Accès à notre réseau d'experts"
                       className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full object-cover"
                     />
@@ -1229,7 +1229,7 @@ export default function InvestissementImmobilierPage() {
                   {/* Icon */}
                   <div className="flex-shrink-0">
                     <img
-                      src="/images/investissement-immobilier-responsive-why-choose-step4-icon.png"
+                      src="/images/investissement-immobilier-responsive-why-choose-step4-icon.webp"
                       alt="Suivi et ajustement régulier"
                       className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full object-cover"
                     />
@@ -1341,7 +1341,7 @@ export default function InvestissementImmobilierPage() {
             <div className="lg:col-span-2 bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="relative">
                 <img
-                  src="/images/investissement-immobilier-news-article-1-48ed7d.png"
+                  src="/images/investissement-immobilier-news-article-1-48ed7d.webp"
                   alt="Budget 2026 financial plan"
                   className="w-full h-48 sm:h-56 lg:h-64 object-cover"
                 />
@@ -1378,7 +1378,7 @@ export default function InvestissementImmobilierPage() {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="relative">
                 <img
-                  src="/images/investissement-immobilier-news-article-2-92e27a.png"
+                  src="/images/investissement-immobilier-news-article-2-92e27a.webp"
                   alt="Livret A rate decrease"
                   className="w-full h-48 sm:h-56 lg:h-64 object-cover"
                 />
@@ -1601,7 +1601,7 @@ export default function InvestissementImmobilierPage() {
       <section className="w-full relative py-16 sm:py-20 lg:py-24">
         <div className="absolute inset-0">
           <img
-            src="/images/investissement-immobilier-agencies-bg.png"
+            src="/images/investissement-immobilier-agencies-bg.webp"
             alt="Agencies background"
             className="w-full h-full object-cover"
             style={{

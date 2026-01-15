@@ -21,3 +21,4 @@ export default function FaireConstruireLayout({ children }) {
   return <>{children}</>;
 }
 
+

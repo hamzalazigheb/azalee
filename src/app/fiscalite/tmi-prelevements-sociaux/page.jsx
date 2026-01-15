@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 
 export default function TmiPrelevementsSociauxPage() {
@@ -63,14 +62,60 @@ export default function TmiPrelevementsSociauxPage() {
 
   // Load content from CMS
   useEffect(() => {
-    // Set static content
-    setContent(defaultContent);
-  }, []);
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=fiscalite/tmi-prelevements-sociaux&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.data) {
+            // Merge with defaultContent as fallback
+            setContent({ ...defaultContent, ...data.data });
+          } else {
+            setContent(defaultContent);
+          }
+        } else {
+          setContent(defaultContent);
+        }
+      } catch (error) {
+        console.error("Failed to fetch fiscalite/tmi-prelevements-sociaux content:", error);
+        setContent(defaultContent);
+      }
+    };
+
+    fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'fiscalite/tmi-prelevements-sociaux' || updatedPath.includes('tmi-prelevements-sociaux')) {
+        console.log('🔄 CMS content updated, refreshing tmi-prelevements-sociaux page...', updatedPath);
+        fetchContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        fetchContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
+  }, []);;
 
   return (
     <>
-      <Header />
-
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -196,7 +241,7 @@ export default function TmiPrelevementsSociauxPage() {
             onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
             className="bg-[#B99066] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors"
           >
-            Prendre rendez-vous
+            Planifiez votre consultation gratuite
           </button>
         </div>
       </section>

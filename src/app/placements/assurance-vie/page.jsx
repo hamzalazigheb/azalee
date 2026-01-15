@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 
 const STORAGE_KEY = "assuranceVieContent";
@@ -103,7 +102,7 @@ const defaultContent = {
     subtitle: "pour auditer vos contrats d'assurance-vie et sécuriser votre transmission familiale",
     email: "contact@azalee-patrimoine.fr",
     primaryButton: "Demander un audit gratuit",
-    secondaryButton: "Prendre rendez-vous"
+    secondaryButton: "Planifiez votre consultation gratuite"
   }
 };
 
@@ -116,7 +115,13 @@ export default function AssuranceViePage() {
   useEffect(() => {
     const loadContent = async () => {
       try {
-        const response = await fetch('/api/cms/content?path=placements/assurance-vie');
+        const response = await fetch(`/api/cms/content?path=placements/assurance-vie&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         const data = await response.json();
         
         if (data.success && data.data) {
@@ -135,13 +140,35 @@ export default function AssuranceViePage() {
     };
 
     loadContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'placements/assurance-vie' || updatedPath.includes('assurance-vie')) {
+        console.log('🔄 CMS content updated, refreshing assurance-vie page...', updatedPath);
+        loadContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Show loading state if content is being fetched
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#253F60] mx-auto mb-4"></div>
@@ -155,8 +182,6 @@ export default function AssuranceViePage() {
 
   return (
     <>
-      <Header />
-
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -166,13 +191,13 @@ export default function AssuranceViePage() {
                 1 900 milliards d'encours
               </span>
               <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-6">
-                {content.hero.title}
+                {content.hero?.title || defaultContent.hero.title}
               </h1>
               <p className="text-white text-lg leading-relaxed mb-4">
-                {content.hero.subtitle}
+                {content.hero?.subtitle || defaultContent.hero.subtitle}
               </p>
               <p className="text-white text-lg leading-relaxed mb-8">
-                {content.hero.description}
+                {content.hero?.description || defaultContent.hero.description}
               </p>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -180,7 +205,7 @@ export default function AssuranceViePage() {
                 rel="noopener noreferrer"
                 className="inline-block bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg"
               >
-                {content.hero.button}
+                {content.hero?.button || defaultContent.hero.button}
               </a>
             </div>
           </div>
@@ -255,15 +280,15 @@ export default function AssuranceViePage() {
                   <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
                 </div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-                  {content.enveloppe.title}
+                  {content.enveloppe?.title || defaultContent.enveloppe.title}
                 </h2>
                 <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
-                  {content.enveloppe.description}
+                  {content.enveloppe?.description || defaultContent.enveloppe.description}
                 </p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
-                {content.enveloppe.contenus.map((contenu, index) => (
+                {(content.enveloppe?.contenus || defaultContent.enveloppe.contenus || []).map((contenu, index) => (
                   <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
                     <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                     <div className="relative z-10 flex items-start gap-4">
@@ -282,7 +307,7 @@ export default function AssuranceViePage() {
                 <div className="relative z-10 text-center">
                   <div className="flex items-center justify-center gap-3 mb-4">
                     <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
-                    <p className="text-xl sm:text-2xl font-cairo font-bold">{content.enveloppe.particularite}</p>
+                    <p className="text-xl sm:text-2xl font-cairo font-bold">{content.enveloppe?.particularite || defaultContent.enveloppe.particularite}</p>
                     <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
                   </div>
                 </div>
@@ -298,15 +323,15 @@ export default function AssuranceViePage() {
                   <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
                 </div>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-                  {content.clause.title}
+                  {content.clause?.title || defaultContent.clause.title}
                 </h2>
                 <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
-                  {content.clause.description}
+                  {content.clause?.description || defaultContent.clause.description}
                 </p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
-                {content.clause.avantages.map((avantage, index) => (
+                {(content.clause?.avantages || defaultContent.clause.avantages || []).map((avantage, index) => (
                   <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
                     <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                     <div className="relative z-10 flex items-start gap-4">
@@ -327,7 +352,7 @@ export default function AssuranceViePage() {
                     <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
                     <h3 className="text-xl sm:text-2xl font-cairo font-bold">Exemple concret</h3>
                   </div>
-                  <p className="text-base sm:text-lg leading-relaxed">{content.clause.exemple}</p>
+                  <p className="text-base sm:text-lg leading-relaxed">{content.clause?.exemple || defaultContent.clause.exemple}</p>
                 </div>
               </div>
             </div>
@@ -340,14 +365,14 @@ export default function AssuranceViePage() {
         <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-              {content.fiscalite.title}
+              {content.fiscalite?.title || defaultContent.fiscalite.title}
             </h2>
             <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-              {content.fiscalite.description}
+              {content.fiscalite?.description || defaultContent.fiscalite.description}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              {content.fiscalite.criteres.map((critere, index) => (
+              {(content.fiscalite?.criteres || defaultContent.fiscalite.criteres || []).map((critere, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg p-6">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
@@ -361,9 +386,9 @@ export default function AssuranceViePage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.fiscalite.avant2017.title}</h3>
+                <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.fiscalite?.avant2017?.title || defaultContent.fiscalite.avant2017.title}</h3>
                 <ul className="space-y-2">
-                  {content.fiscalite.avant2017.options.map((option, index) => (
+                  {(content.fiscalite?.avant2017?.options || defaultContent.fiscalite.avant2017.options || []).map((option, index) => (
                     <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
                       <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                       {option}
@@ -373,9 +398,9 @@ export default function AssuranceViePage() {
               </div>
               
               <div className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.fiscalite.depuis2017.title}</h3>
+                <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.fiscalite?.depuis2017?.title || defaultContent.fiscalite.depuis2017.title}</h3>
                 <ul className="space-y-2">
-                  {content.fiscalite.depuis2017.options.map((option, index) => (
+                  {(content.fiscalite?.depuis2017?.options || defaultContent.fiscalite.depuis2017.options || []).map((option, index) => (
                     <li key={index} className="text-[#112033] text-sm flex items-start gap-2">
                       <span className="w-2 h-2 bg-[#253F60] rounded-full mt-2 flex-shrink-0"></span>
                       {option}
@@ -386,7 +411,7 @@ export default function AssuranceViePage() {
             </div>
             
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">{content.fiscalite.abattement}</p>
+              <p className="text-lg font-medium">{content.fiscalite?.abattement || defaultContent.fiscalite.abattement}</p>
             </div>
           </div>
         </section>
@@ -397,27 +422,33 @@ export default function AssuranceViePage() {
         <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-              {content.transmission.title}
+              {content.transmission?.title || defaultContent.transmission.title}
             </h2>
             <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-              {content.transmission.description}
+              {content.transmission?.description || defaultContent.transmission.description}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.transmission.avant70.title}</h3>
-                <p className="text-[#112033] text-sm">{content.transmission.avant70.description}</p>
-              </div>
+              {content.transmission?.avant70 && (
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.transmission.avant70.title || defaultContent.transmission.avant70.title}</h3>
+                  <p className="text-[#112033] text-sm">{content.transmission.avant70.description || defaultContent.transmission.avant70.description}</p>
+                </div>
+              )}
               
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.transmission.apres70.title}</h3>
-                <p className="text-[#112033] text-sm">{content.transmission.apres70.description}</p>
-              </div>
+              {content.transmission?.apres70 && (
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                  <h3 className="text-[#112033] text-lg font-semibold mb-4">{content.transmission.apres70.title || defaultContent.transmission.apres70.title}</h3>
+                  <p className="text-[#112033] text-sm">{content.transmission.apres70.description || defaultContent.transmission.apres70.description}</p>
+                </div>
+              )}
             </div>
             
-            <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">{content.transmission.attention}</p>
-            </div>
+            {content.transmission?.attention && (
+              <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
+                <p className="text-lg font-medium">{content.transmission.attention || defaultContent.transmission.attention}</p>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -428,14 +459,14 @@ export default function AssuranceViePage() {
           <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-                {content.jurisprudence.title}
+                {content.jurisprudence?.title || defaultContent.jurisprudence.title}
               </h2>
               <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-                {content.jurisprudence.description}
+                {content.jurisprudence?.description || defaultContent.jurisprudence.description}
               </p>
               
               <div className="space-y-6 mb-8">
-                {content.jurisprudence.points.map((point, index) => (
+                {(content.jurisprudence?.points || defaultContent.jurisprudence.points || []).map((point, index) => (
                   <div key={index} className="bg-white rounded-xl shadow-lg p-6">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
@@ -448,7 +479,7 @@ export default function AssuranceViePage() {
               </div>
               
               <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-                <p className="text-lg font-medium">{content.jurisprudence.resultat}</p>
+                <p className="text-lg font-medium">{content.jurisprudence?.resultat || defaultContent.jurisprudence.resultat}</p>
               </div>
             </div>
           </section>
@@ -457,14 +488,14 @@ export default function AssuranceViePage() {
           <section className="py-12 bg-white">
             <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-                {content.exemple.title}
+                {content.exemple?.title || defaultContent.exemple.title}
               </h2>
               <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-                {content.exemple.description}
+                {content.exemple?.description || defaultContent.exemple.description}
               </p>
               
               <div className="space-y-6">
-                {content.exemple.points.map((point, index) => (
+                {(content.exemple?.points || defaultContent.exemple.points || []).map((point, index) => (
                   <div key={index} className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-6">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
@@ -485,18 +516,18 @@ export default function AssuranceViePage() {
         <section className="py-12 bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF]">
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-[#112033] text-2xl font-semibold text-center mb-8">
-              {content.conseil.title}
+              {content.conseil?.title || defaultContent.conseil.title}
             </h2>
             <p className="text-[#686868] text-lg text-center mb-8 max-w-3xl mx-auto">
-              {content.conseil.description}
+              {content.conseil?.description || defaultContent.conseil.description}
             </p>
             
             <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
               <h3 className="text-[#112033] text-lg font-semibold mb-6 text-center">
-                {content.conseil.accompagnement}
+                {content.conseil?.accompagnement || defaultContent.conseil.accompagnement}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {content.conseil.services.map((service, index) => (
+                {(content.conseil?.services || defaultContent.conseil.services || []).map((service, index) => (
                   <div key={index} className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-xl p-6">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 bg-[#253F60] text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
@@ -510,7 +541,7 @@ export default function AssuranceViePage() {
             </div>
             
             <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-8 text-white text-center">
-              <p className="text-lg font-medium">{content.conseil.conclusion}</p>
+              <p className="text-lg font-medium">{content.conseil?.conclusion || defaultContent.conseil.conclusion}</p>
             </div>
           </div>
         </section>
@@ -521,22 +552,24 @@ export default function AssuranceViePage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">
             <h2 className="text-[#112033] text-2xl lg:text-3xl font-semibold mb-4">
-              {content.cta.title}
+              {content.cta?.title || defaultContent.cta.title}
             </h2>
             <p className="text-[#686868] text-lg mb-8 max-w-3xl mx-auto">
-              {content.cta.subtitle}
+              {content.cta?.subtitle || defaultContent.cta.subtitle}
             </p>
-            <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-6 text-white mb-8">
-              <h3 className="text-xl font-semibold mb-3">
-                <a 
-                  href={`mailto:${content.cta.email}`}
-                  className="hover:text-[#B99066] transition-colors duration-200 underline decoration-2 underline-offset-4"
-                >
-                  {content.cta.email}
-                </a>
-              </h3>
-              <p className="text-sm opacity-90">Audit gratuit de vos contrats d'assurance-vie</p>
-            </div>
+            {content.cta?.email && (
+              <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-xl p-6 text-white mb-8">
+                <h3 className="text-xl font-semibold mb-3">
+                  <a 
+                    href={`mailto:${content.cta.email || defaultContent.cta.email}`}
+                    className="hover:text-[#B99066] transition-colors duration-200 underline decoration-2 underline-offset-4"
+                  >
+                    {content.cta.email || defaultContent.cta.email}
+                  </a>
+                </h3>
+                <p className="text-sm opacity-90">Audit gratuit de vos contrats d'assurance-vie</p>
+              </div>
+            )}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -544,7 +577,7 @@ export default function AssuranceViePage() {
                 rel="noopener noreferrer"
                 className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg"
               >
-                {content.cta.primaryButton}
+                {content.cta?.primaryButton || defaultContent.cta.primaryButton}
               </a>
               <a
                 href="https://calendly.com/rdv-azalee-patrimoine/30min"
@@ -552,7 +585,7 @@ export default function AssuranceViePage() {
                 rel="noopener noreferrer"
                 className="border-2 border-[#253F60] text-[#253F60] px-8 py-4 rounded-lg font-medium hover:bg-[#253F60] hover:text-white transition-colors duration-200 text-lg"
               >
-                {content.cta.secondaryButton}
+                {content.cta?.secondaryButton || defaultContent.cta.secondaryButton}
               </a>
             </div>
           </div>

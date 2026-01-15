@@ -249,7 +249,7 @@ export default function AdminLayout({ children }) {
                 {/* Logo */}
                 <div className="bg-white rounded-xl p-2 shadow-lg">
                   <img 
-                    src="/images/azalee-patrimoine3.png" 
+                    src="/images/azalee-patrimoine3.webp" 
                     alt="Azalée Patrimoine Logo" 
                     className="w-10 h-10 object-contain"
                     onError={(e) => {

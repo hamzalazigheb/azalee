@@ -54,3 +54,4 @@ En attendant l'image officielle, vous pouvez utiliser un outil comme:
 
 Ou créer une image simple avec du texte sur fond uni aux couleurs de la marque.
 
+

@@ -1,48 +1,104 @@
 "use client";
-import React from "react";
-import Header from "../../../components/common/Header";
+import React, { useEffect, useState } from "react";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 import SectionHeader from "../../../components/common/SectionHeader";
 import Link from "next/link";
 
+export const defaultContent = {
+  hero: {
+    title: "Protection de la famille",
+    description: "Construire un patrimoine est une étape importante, mais encore faut-il s'assurer que sa famille pourra en bénéficier dans de bonnes conditions.",
+    highlight: "En cas de décès prématuré, d'accident ou d'invalidité, un patrimoine peut vite devenir un poids plutôt qu'un soutien s'il est trop immobilisé (immobilier, parts sociales, entreprise).",
+    guarantees: [
+      { title: "Revenus immédiats", description: "Pour maintenir leur niveau de vie" },
+      { title: "Garder le patrimoine", description: "Sans devoir tout vendre" },
+      { title: "Sécurité financière", description: "Dans un moment difficile" }
+    ]
+  },
+  chart: {
+    data: [
+      { label: "Couverture prévoyance", value: "€400,000" },
+      { label: "Droits de succession", value: "€400,000" },
+      { label: "Coût mensuel moyen", value: "€85" },
+      { label: "Durée de couverture", value: "25 ans" },
+      { label: "Protection famille", value: "100%" }
+    ]
+  },
+  seo: {
+    metaTitle: "Protection de la Famille | Azalée Patrimoine",
+    metaDescription: "Protégez votre famille et votre patrimoine avec les solutions d'Azalée Patrimoine."
+  }
+};
+
 export default function ProtectionFamillePage() {
-  const chartData = [
-    { label: "Couverture prévoyance", value: "€400,000" },
-    { label: "Droits de succession", value: "€400,000" },
-    { label: "Coût mensuel moyen", value: "€85" },
-    { label: "Durée de couverture", value: "25 ans" },
-    { label: "Protection famille", value: "100%" }
-  ];
+  const [content, setContent] = useState(defaultContent);
+  
+  // Load content from CMS
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=patrimoine/protection-famille&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setContent((prev) => ({ ...prev, ...data.content }));
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load CMS content", error);
+      }
+    };
+
+    loadContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
+  }, []);
+
+  const chartData = content.chart?.data || defaultContent.chart.data;
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-              Protection de la famille
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              Construire un patrimoine est une étape importante, mais encore faut-il s'assurer que sa famille pourra <strong>en bénéficier dans de bonnes conditions</strong>.
+              {content.hero?.description || defaultContent.hero.description}
             </p>
-            <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
-              <p className="text-white text-sm font-inter">
-                En cas de décès prématuré, d'accident ou d'invalidité, un patrimoine peut vite devenir un <strong>poids</strong> plutôt qu'un soutien s'il est <strong>trop immobilisé</strong> (immobilier, parts sociales, entreprise).
-              </p>
-            </div>
-            <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              La protection familiale, c'est garantir à ses proches :
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
-              {[
-                { title: "Revenus immédiats", description: "Pour maintenir leur niveau de vie" },
-                { title: "Garder le patrimoine", description: "Sans devoir tout vendre" },
-                { title: "Sécurité financière", description: "Dans un moment difficile" }
-              ].map((item, index) => {
+            {content.hero?.highlight && (
+              <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
+                <p className="text-white text-sm font-inter">
+                  {content.hero.highlight}
+                </p>
+              </div>
+            )}
+            {content.hero?.guarantees && content.hero.guarantees.length > 0 && (
+              <>
+                <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
+                  La protection familiale, c'est garantir à ses proches :
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
+                  {content.hero.guarantees.map((item, index) => {
                 const isBlue = index % 2 === 0;
                 return (
                   <div 
@@ -104,7 +160,7 @@ export default function ProtectionFamillePage() {
             <PlacementChart 
               title="Indicateurs de protection familiale"
               data={chartData}
-              chartImage="/images/protection.png"
+              chartImage="/images/protection.webp"
             />
           </div>
         </div>
@@ -442,7 +498,7 @@ export default function ProtectionFamillePage() {
                   rel="noopener noreferrer"
                   className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-lg shadow-xl font-inter font-semibold text-center transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl text-lg"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </a>
               </div>
             </div>

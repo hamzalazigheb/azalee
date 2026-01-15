@@ -21,3 +21,4 @@ export default function ImpotRevenuLayout({ children }) {
   return <>{children}</>;
 }
 
+

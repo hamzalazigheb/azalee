@@ -1,11 +1,9 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import { getPageContent } from '@/lib/cms-server';
 
 // Default content
-const defaultContent = {
+export const defaultContent = {
     hero: {
       title: "Prévoyance / Protection de la famille",
       subtitle: "La retraite ne se limite pas à l'épargne : il faut aussi protéger sa famille.",
@@ -73,16 +71,44 @@ const defaultContent = {
       title: "Protégez votre famille dès aujourd'hui",
       subtitle: "Nos experts vous accompagnent dans le choix des solutions de protection les plus adaptées à votre situation familiale.",
       buttonText: "Demander une évaluation gratuite"
+    },
+    introduction: {
+      paragraphs: [
+        "Un accident, une maladie, un décès prématuré ou une perte temporaire de revenus peuvent fragiliser des années d'efforts et remettre en cause la stabilité financière de votre foyer ou de votre entreprise.",
+        "Chez Azalée Patrimoine, nous intégrons la prévoyance au cœur de chaque stratégie patrimoniale, pour garantir votre indépendance financière, celle de vos proches et la pérennité de vos projets."
+      ]
+    },
+    pourquoiPilier: {
+      title: "Pourquoi la prévoyance est un pilier du patrimoine",
+      intro: "La prévoyance ne se limite pas à l'assurance : c'est une stratégie de continuité patrimoniale.",
+      points: [
+        "Maintenir un revenu de remplacement en cas d'arrêt de travail,",
+        "Protéger votre famille en cas de décès,",
+        "Financer la dépendance ou les soins longue durée,",
+        "Préserver la valeur de votre entreprise,",
+        "Et éviter une vente précipitée d'actifs en cas d'imprévu."
+      ],
+      conclusion: "Une bonne stratégie de prévoyance assure la cohérence entre votre épargne, vos investissements et votre niveau de protection."
+    },
+    seo: {
+      metaTitle: "Prévoyance et Protection | Azalée Patrimoine",
+      metaDescription: "Sécurisez votre avenir et celui de vos proches avec les solutions de prévoyance et protection d'Azalée Patrimoine."
     }
   };
 
-export default function PrevoyanceProtectionPage() {
-  const content = defaultContent;
+export async function generateMetadata() {
+  const content = await getPageContent('retraite/prevoyance-protection', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Prévoyance et Protection | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Sécurisez votre avenir et celui de vos proches avec les solutions de prévoyance et protection d'Azalée Patrimoine.",
+  };
+}
+
+export default async function PrevoyanceProtectionPage() {
+  const content = await getPageContent('retraite/prevoyance-protection', defaultContent);
 
   return (
     <>
-      <Header />
-      
       
       {/* Hero Section */}
       <section className="relative w-full min-h-[400px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
@@ -98,11 +124,16 @@ export default function PrevoyanceProtectionPage() {
             </nav>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
-              Prévoyance et protection du patrimoine : sécuriser votre avenir et celui de vos proches
-              </h1>
+              {content.hero?.title || defaultContent.hero.title}
+            </h1>
             <p className="text-lg sm:text-xl font-inter text-white/90 max-w-3xl">
-              Anticiper l'avenir, ce n'est pas seulement faire fructifier son patrimoine : c'est aussi le protéger face aux aléas de la vie.
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
             </p>
+            {content.hero?.highlight && (
+              <p className="text-base sm:text-lg font-inter text-white/80 max-w-3xl mt-4">
+                {content.hero.highlight}
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -111,12 +142,19 @@ export default function PrevoyanceProtectionPage() {
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Un accident, une maladie, un décès prématuré ou une perte temporaire de revenus peuvent fragiliser des années d'efforts et remettre en cause la stabilité financière de votre foyer ou de votre entreprise.
-            </p>
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Chez <strong className="text-[#253F60]">Azalée Patrimoine</strong>, nous intégrons la prévoyance au cœur de chaque stratégie patrimoniale, pour garantir votre indépendance financière, celle de vos proches et la pérennité de vos projets.
-            </p>
+            {content.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
+              <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+                {paragraph.includes('Azalée Patrimoine') ? (
+                  <>
+                    {paragraph.split('Azalée Patrimoine')[0]}
+                    <strong className="text-[#253F60]">Azalée Patrimoine</strong>
+                    {paragraph.split('Azalée Patrimoine')[1]}
+                  </>
+                ) : (
+                  paragraph
+                )}
+              </p>
+            ))}
           </div>
         </div>
       </section>
@@ -788,7 +826,7 @@ export default function PrevoyanceProtectionPage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-2xl p-8 sm:p-10 lg:p-12 text-center">
             <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-4 sm:mb-6">
-              Prendre rendez-vous avec un conseiller Azalée
+              Planifiez votre consultation gratuite avec un conseiller Azalée
           </h2>
             <p className="text-[#4B5563] text-base sm:text-lg font-inter mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
               Vous souhaitez évaluer votre couverture actuelle et identifier les zones de fragilité ?

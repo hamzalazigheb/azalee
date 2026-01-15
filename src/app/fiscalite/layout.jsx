@@ -1,3 +1,6 @@
+import Breadcrumb from '@/components/common/Breadcrumb';
+import Header from '@/components/common/Header';
+
 export const metadata = {
   title: "Fiscalité et Optimisation Fiscale | Azalée Patrimoine",
   description: "Azalée Patrimoine optimise votre fiscalité : défiscalisation immobilière, réduction d'impôts, dispositifs Pinel, Malraux, Girardin. Pour vous, un conseil fiscal personnalisé.",
@@ -28,6 +31,12 @@ export const metadata = {
 };
 
 export default function FiscaliteLayout({ children }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      <Breadcrumb />
+      {children}
+    </>
+  );
 }
 

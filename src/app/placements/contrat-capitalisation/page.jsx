@@ -1,13 +1,10 @@
 "use client";
 import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 export default function ContratCapitalisationPage() {
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -663,7 +660,7 @@ export default function ContratCapitalisationPage() {
                   href="tel:+33153458500"
                   className="bg-[#253F60] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#1A2A4A] transition-colors duration-200 inline-block text-center"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </a>
               </div>
               
@@ -716,7 +713,7 @@ export default function ContratCapitalisationPage() {
               href="tel:+33153458500"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200 inline-block text-center"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </a>
           </div>
         </div>

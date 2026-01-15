@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 export default function PeaPerPage() {
   const [activeTab, setActiveTab] = useState("pea");
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -937,7 +934,7 @@ export default function PeaPerPage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-cairo font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </button>
           </div>
         </div>

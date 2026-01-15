@@ -111,13 +111,38 @@ export async function PUT(request) {
       );
     }
 
+    // Find existing page to merge content
+    const existingPage = await PageContent.findOne({ path: path.toLowerCase() });
+    
     const updateData = {
       lastModified: new Date()
     };
 
     if (title !== undefined) updateData.title = title;
-    if (content !== undefined) updateData.content = content;
     if (published !== undefined) updateData.published = published;
+    
+    // Merge content instead of replacing completely
+    if (content !== undefined) {
+      if (existingPage && existingPage.content) {
+        // Deep merge: preserve existing sections that are not in the new content
+        const mergedContent = {
+          ...existingPage.content,
+          ...content
+        };
+        // For nested objects, merge them too
+        Object.keys(content).forEach(key => {
+          if (typeof content[key] === 'object' && content[key] !== null && !Array.isArray(content[key])) {
+            mergedContent[key] = {
+              ...(existingPage.content[key] || {}),
+              ...content[key]
+            };
+          }
+        });
+        updateData.content = mergedContent;
+      } else {
+        updateData.content = content;
+      }
+    }
 
     const page = await PageContent.findOneAndUpdate(
       { path: path.toLowerCase() },

@@ -21,3 +21,4 @@ export default function InvestissementsAlternatifsLayout({ children }) {
   return <>{children}</>;
 }
 
+

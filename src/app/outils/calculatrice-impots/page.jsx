@@ -761,7 +761,7 @@ export default function CalculatriceImpotsPage() {
                   onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                   className="bg-[#B99066] text-white px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors text-sm sm:text-base"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </button>
                 <button 
                   onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
@@ -794,7 +794,7 @@ export default function CalculatriceImpotsPage() {
                   }}
                   className="flex-1 bg-gradient-to-r from-[#253F60] to-[#B99066] text-white py-3 px-6 rounded-lg font-semibold hover:from-[#1E2F4A] hover:to-[#A67A5A] transition-all duration-200 shadow-lg"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </button>
                 <button
                   onClick={() => setShowPopup(false)}

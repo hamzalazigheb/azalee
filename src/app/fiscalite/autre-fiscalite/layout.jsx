@@ -21,3 +21,4 @@ export default function AutreFiscaliteLayout({ children }) {
   return <>{children}</>;
 }
 
+

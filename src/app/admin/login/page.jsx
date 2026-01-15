@@ -119,7 +119,7 @@ export default function AdminLoginPage() {
               
               {!logoError ? (
                 <img 
-                  src="/images/azalee-patrimoine3.png" 
+                  src="/images/azalee-patrimoine3.webp" 
                   alt="Azalée Patrimoine Logo" 
                   className="max-w-full max-h-full object-contain relative z-10 animate-logo-refined drop-shadow-2xl"
                   onError={() => setLogoError(true)}
@@ -694,7 +694,7 @@ export default function AdminLoginPage() {
             <div className="bg-white rounded-2xl p-5 shadow-2xl relative w-28 h-28 flex items-center justify-center">
               {!logoError ? (
                 <img 
-                  src="/images/azalee-patrimoine3.png" 
+                  src="/images/azalee-patrimoine3.webp" 
                   alt="Azalée Patrimoine Logo" 
                   className="max-w-full max-h-full object-contain"
                   onError={() => setLogoError(true)}

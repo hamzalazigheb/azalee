@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import VignetteRetraites from "../../components/fiscalite/VignetteRetraites";
 import VignetteProfessionnels from "../../components/fiscalite/VignetteProfessionnels";
 import VignetteInvestisseurImmobilier from "../../components/fiscalite/VignetteInvestisseurImmobilier";
 import VignetteHeritier from "../../components/fiscalite/VignetteHeritier";
 import { processHTMLForRender } from "../../lib/utils/htmlConverter";
+import SchemaMarkup from "../../components/common/SchemaMarkup";
 
 export default function FiscalitePage() {
   const [content, setContent] = useState({});
@@ -51,12 +51,34 @@ export default function FiscalitePage() {
     };
 
     fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'fiscalite') {
+        console.log('🔄 CMS content updated, refreshing fiscalite page...', updatedPath);
+        fetchContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        fetchContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   if (loading) {
     return (
       <>
-        <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#253F60]"></div>
         </div>
@@ -87,10 +109,25 @@ export default function FiscalitePage() {
     setProfilTimeoutId(id);
   };
 
+  // Générer le Schema FAQPage pour SEO
+  const faqSchema = pageContent.faq?.questions && pageContent.faq.questions.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": pageContent.faq.questions.map((faqItem) => ({
+      "@type": "Question",
+      "name": faqItem.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": typeof faqItem.answer === 'string' 
+          ? faqItem.answer.replace(/<[^>]*>/g, '') // Strip HTML tags for schema
+          : String(faqItem.answer)
+      }
+    }))
+  } : null;
+
   return (
     <>
-      <Header />
-
+      {faqSchema && <SchemaMarkup schema={faqSchema} id="faq-schema" />}
       {/* Hero Section - Deux cartes */}
       <section className="relative w-full min-h-[650px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-20 sm:py-24 lg:py-32">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,7 +140,7 @@ export default function FiscalitePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
             {/* Carte gauche */}
-            <div className="bg-white rounded-xl shadow-2xl p-8 sm:p-10 lg:p-12 border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
+            <div className="bg-white rounded-xl shadow-md p-8 sm:p-10 lg:p-12 border border-gray-100">
               <h1 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight">
                 {pageContent.hero?.leftCard?.h1 || "Optimiser votre fiscalité en 2025 pour mieux valoriser votre patrimoine"}
               </h1>
@@ -127,7 +164,7 @@ export default function FiscalitePage() {
           </div>
             
             {/* Carte droite */}
-            <div className="relative bg-white rounded-xl shadow-2xl p-8 sm:p-10 lg:p-12 border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
+            <div className="relative bg-white rounded-xl shadow-md p-8 sm:p-10 lg:p-12 border border-gray-100">
               {/* Bulle de discours avec économie */}
               {pageContent.hero?.rightCard?.bubble && (
                 <div className="absolute -top-6 -right-6 w-48 h-32 sm:w-56 sm:h-36 bg-white rounded-2xl shadow-xl border-2 border-[#B99066] flex items-center justify-center z-20">
@@ -244,7 +281,7 @@ export default function FiscalitePage() {
             </div>
             
             {/* Carte principale avec contenu */}
-            <div className="bg-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl transition-all duration-300">
+            <div className="bg-white rounded-2xl shadow-md border-2 border-[#E5E7EB] overflow-hidden">
               <div className="p-8 sm:p-10 lg:p-12">
                 <h3 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-8 flex items-center gap-4">
                   <div className="w-1 h-12 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
@@ -307,7 +344,7 @@ export default function FiscalitePage() {
           {/* Grille 2x2 des catégories */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-8">
             {(pageContent.categoriesRevenus?.categories || []).map((category, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border-2 border-gray-200 hover:border-[#B99066] hover:shadow-xl transition-all duration-300">
+              <div key={index} className="bg-white rounded-xl shadow-md p-6 sm:p-8 border-2 border-gray-200">
                 <h4 className={`${index === 1 ? 'text-[#B99066]' : 'text-[#253F60]'} text-lg sm:text-xl font-cairo font-bold mb-5`}>
                   {category.title}
                 </h4>
@@ -425,7 +462,7 @@ export default function FiscalitePage() {
               {/* Image de l'infographie */}
               <div className="rounded-lg overflow-hidden shadow-lg border-2 border-gray-200">
                 <img 
-                  src={pageContent.bareme?.infographie?.image || "/images/I6644.jpg"} 
+                  src={pageContent.bareme?.infographie?.image || "/images/I6644.webp"} 
                   alt={pageContent.bareme?.infographie?.imageAlt || "Barème de l'impôt sur le revenu 2025 - Tranches et taux d'imposition"} 
                   className="w-full h-auto"
                 />
@@ -503,7 +540,7 @@ export default function FiscalitePage() {
             </div>
 
             {/* Carte principale avec contenu */}
-            <div className="bg-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl transition-all duration-300">
+            <div className="bg-white rounded-2xl shadow-md border-2 border-[#E5E7EB] overflow-hidden">
               <div className="p-8 sm:p-10 lg:p-12">
                 {/* Liste à puces améliorée */}
                 <ul className="space-y-6 mb-8">
@@ -712,7 +749,7 @@ export default function FiscalitePage() {
             </div>
 
             {/* Carte principale avec contenu */}
-            <div className="bg-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl transition-all duration-300 mb-8">
+            <div className="bg-white rounded-2xl shadow-md border-2 border-[#E5E7EB] overflow-hidden mb-8">
               <div className="p-8 sm:p-10 lg:p-12">
                 <h3 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-8 flex items-center gap-4">
                   <div className="w-1 h-12 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
@@ -741,7 +778,7 @@ export default function FiscalitePage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
               {/* Avantages */}
               {pageContent.conseilsExpert?.avantages && (
-                <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border-2 border-[#B99066] hover:shadow-xl transition-all duration-300">
+                <div className="bg-white rounded-xl shadow-md p-6 sm:p-8 border-2 border-[#B99066]">
                   <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6 flex items-center gap-3">
                     <svg className="w-6 h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -765,7 +802,7 @@ export default function FiscalitePage() {
 
               {/* Inconvénients */}
               {pageContent.conseilsExpert?.inconvenients && (
-                <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 border-2 border-[#253F60] hover:shadow-xl transition-all duration-300">
+                <div className="bg-white rounded-xl shadow-md p-6 sm:p-8 border-2 border-[#253F60]">
                   <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-6 flex items-center gap-3">
                     <svg className="w-6 h-6 text-[#253F60]" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -818,7 +855,7 @@ export default function FiscalitePage() {
 
             {/* Audit fiscal personnalisé */}
             {pageContent.conseilsExpert?.auditFiscal && (
-              <div className="bg-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 mb-8 hover:shadow-2xl transition-all duration-300">
+              <div className="bg-white rounded-2xl shadow-md border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 mb-8">
                 <h3 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-6 flex items-center gap-4">
                   <div className="w-1 h-12 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
                   <span>{pageContent.conseilsExpert.auditFiscal.title}</span>
@@ -831,7 +868,7 @@ export default function FiscalitePage() {
 
             {/* Le CGP réalise un diagnostic complet */}
             {pageContent.conseilsExpert?.diagnostic && (
-              <div className="bg-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 mb-8 hover:shadow-2xl transition-all duration-300">
+              <div className="bg-white rounded-2xl shadow-md border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 mb-8">
                 <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-8 flex items-center gap-4">
                   <div className="w-1 h-12 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
                   <span>{pageContent.conseilsExpert.diagnostic.h2}</span>
@@ -851,7 +888,7 @@ export default function FiscalitePage() {
 
             {/* Accompagnement sur mesure */}
             {pageContent.conseilsExpert?.accompagnement && (
-              <div className="bg-white rounded-2xl shadow-xl border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 mb-8 hover:shadow-2xl transition-all duration-300">
+              <div className="bg-white rounded-2xl shadow-md border-2 border-[#E5E7EB] p-8 sm:p-10 lg:p-12 mb-8">
                 <h3 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-bold mb-6 flex items-center gap-4">
                   <div className="w-1 h-12 bg-gradient-to-b from-[#253F60] to-[#B99066] rounded-full"></div>
                   <span>{pageContent.conseilsExpert.accompagnement.title}</span>
@@ -1042,7 +1079,7 @@ export default function FiscalitePage() {
                     setIconTimeoutId(timeout);
                   }}
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#B99066]">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
@@ -1050,18 +1087,8 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Diagnostic - Top Left */}
-                <div 
-                  className={`absolute top-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] transition-opacity duration-300 z-30 ${hoveredIcon === 'diagnostic' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                  onMouseEnter={() => {
-                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
-                    setHoveredIcon('diagnostic');
-                  }}
-                  onMouseLeave={() => {
-                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
-                    setIconTimeoutId(timeout);
-                  }}
-                >
-                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
+                <div className="absolute top-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] z-30">
+                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-[#B99066]">
                     <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[0]?.title || "Diagnostic complet"}
                     </h3>
@@ -1083,7 +1110,7 @@ export default function FiscalitePage() {
                     setIconTimeoutId(timeout);
                   }}
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#B99066]">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -1092,18 +1119,8 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Stratégie - Top Right */}
-                <div 
-                  className={`absolute top-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right transition-opacity duration-300 z-30 ${hoveredIcon === 'strategie' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                  onMouseEnter={() => {
-                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
-                    setHoveredIcon('strategie');
-                  }}
-                  onMouseLeave={() => {
-                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
-                    setIconTimeoutId(timeout);
-                  }}
-                >
-                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
+                <div className="absolute top-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right z-30">
+                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-[#B99066]">
                     <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[1]?.title || "Stratégie personnalisée"}
                     </h3>
@@ -1125,7 +1142,7 @@ export default function FiscalitePage() {
                     setIconTimeoutId(timeout);
                   }}
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#B99066]">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                     </svg>
@@ -1133,18 +1150,8 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Mise en œuvre - Bottom Right */}
-                <div 
-                  className={`absolute bottom-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right transition-opacity duration-300 z-30 ${hoveredIcon === 'mise-en-oeuvre' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                  onMouseEnter={() => {
-                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
-                    setHoveredIcon('mise-en-oeuvre');
-                  }}
-                  onMouseLeave={() => {
-                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
-                    setIconTimeoutId(timeout);
-                  }}
-                >
-                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
+                <div className="absolute bottom-0 right-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] text-right z-30">
+                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-[#B99066]">
                     <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[2]?.title || "Mise en œuvre"}
                     </h3>
@@ -1166,7 +1173,7 @@ export default function FiscalitePage() {
                     setIconTimeoutId(timeout);
                   }}
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-xl border-2 border-[#B99066] hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-[#B99066]">
                     <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
@@ -1174,18 +1181,8 @@ export default function FiscalitePage() {
                 </div>
                 
                 {/* Texte Suivi - Bottom Left */}
-                <div 
-                  className={`absolute bottom-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] transition-opacity duration-300 z-30 ${hoveredIcon === 'suivi' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                  onMouseEnter={() => {
-                    if (iconTimeoutId) clearTimeout(iconTimeoutId);
-                    setHoveredIcon('suivi');
-                  }}
-                  onMouseLeave={() => {
-                    const timeout = setTimeout(() => setHoveredIcon(null), 200);
-                    setIconTimeoutId(timeout);
-                  }}
-                >
-                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-xl border-2 border-[#B99066]">
+                <div className="absolute bottom-0 left-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[280px] z-30">
+                  <div className="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 border-[#B99066]">
                     <h3 className="text-[#253F60] text-lg sm:text-xl lg:text-2xl font-cairo font-bold mb-3">
                       {pageContent.expertise?.diagramme?.segments?.[3]?.title || "Suivi et ajustement"}
                     </h3>
@@ -1199,7 +1196,7 @@ export default function FiscalitePage() {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center relative">
                     <Image 
-                      src="/images/azalee-patrimoine3.png" 
+                      src="/images/azalee-patrimoine3.webp" 
                       alt="Azalée Patrimoine" 
                       width={112}
                       height={112}
@@ -1273,11 +1270,12 @@ export default function FiscalitePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  {openQuestion === index && (
+                  {/* Content always in DOM for Google indexation, hidden with CSS */}
+                  <div className={`overflow-hidden transition-all duration-300 ${openQuestion === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <div className="p-4 sm:p-6 pt-0 bg-white">
                       <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(faqItem.answer) }} />
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>

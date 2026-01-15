@@ -1,9 +1,41 @@
-"use client";
-import React from 'react';
 import Link from 'next/link';
 import Footer from '../../../components/common/Footer';
+import CTAButton from '@/components/ui/CTAButton';
+import { getPageContent } from '@/lib/cms-server';
 
-export default function InvestissementImmobilierRentablePage() {
+export const defaultContent = {
+  hero: {
+    title: "Investissement immobilier rentable : comment bâtir une stratégie durable",
+    breadcrumb: {
+      parent: "Immobilier",
+      current: "Investissement immobilier rentable"
+    }
+  },
+  introduction: {
+    title: "Pourquoi l'immobilier reste le pilier d'un patrimoine rentable",
+    paragraphs: [
+      "En 2025, plus de 60 % des Français détiennent un bien immobilier. Malgré les variations du marché, l'immobilier demeure l'un des placements les plus appréciés, car il conjugue valeur refuge, rendement régulier et effet de levier.",
+      "Mais un investissement immobilier rentable ne se résume pas à acheter un appartement à louer. C'est une stratégie complète qui tient compte de la fiscalité, du financement, de la gestion et du temps.",
+      "Chez Azalée Patrimoine, nous accompagnons les investisseurs particuliers dans la construction d'un patrimoine immobilier équilibré, mêlant immobilier direct, pierre papier (SCPI) et produits hybrides.",
+      "Notre objectif : transformer chaque projet en un levier de liberté financière."
+    ]
+  },
+  seo: {
+    metaTitle: "Investissement Immobilier Rentable | Azalée Patrimoine",
+    metaDescription: "Découvrez comment bâtir une stratégie d'investissement immobilier rentable et durable avec Azalée Patrimoine."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('immobilier/investissement-immobilier-rentable', defaultContent);
+  return {
+    title: content.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function InvestissementImmobilierRentablePage() {
+  const content = await getPageContent('immobilier/investissement-immobilier-rentable', defaultContent);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
@@ -14,7 +46,7 @@ export default function InvestissementImmobilierRentablePage() {
               Immobilier
             </Link>
             <span className="text-[#6B7280]">/</span>
-            <span className="text-[#253F60] font-semibold">Investissement immobilier rentable</span>
+            <span className="text-[#253F60] font-semibold">{content.hero?.breadcrumb?.current || defaultContent.hero.breadcrumb.current}</span>
           </nav>
         </div>
       </div>
@@ -24,26 +56,25 @@ export default function InvestissementImmobilierRentablePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <article>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-8">
-              Investissement immobilier rentable : comment bâtir une stratégie durable
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
 
             {/* Introduction */}
             <div className="prose prose-lg max-w-none mb-12">
               <h2 className="text-2xl sm:text-3xl font-cairo font-bold text-[#253F60] mb-6">
-                Pourquoi l'immobilier reste le pilier d'un patrimoine rentable
+                {content.introduction?.title || defaultContent.introduction.title}
               </h2>
-              <p className="text-lg font-inter text-[#374151] leading-relaxed mb-4">
-                En 2025, plus de <strong className="text-[#253F60] font-semibold">60 % des Français détiennent un bien immobilier</strong>. Malgré les variations du marché, l'immobilier demeure l'un des placements les plus appréciés, car il conjugue valeur refuge, rendement régulier et effet de levier.
-              </p>
-              <p className="text-lg font-inter text-[#374151] leading-relaxed mb-4">
-                Mais un investissement immobilier rentable ne se résume pas à acheter un appartement à louer. C'est une stratégie complète qui tient compte de la fiscalité, du financement, de la gestion et du temps.
-              </p>
-              <p className="text-lg font-inter text-[#374151] leading-relaxed mb-4">
-                Chez Azalée Patrimoine, nous accompagnons les investisseurs particuliers dans la construction d'un patrimoine immobilier équilibré, mêlant immobilier direct, pierre papier (SCPI) et produits hybrides.
-              </p>
-              <p className="text-lg font-inter text-[#253F60] font-semibold leading-relaxed">
-                Notre objectif : transformer chaque projet en un levier de liberté financière.
-              </p>
+              {content.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
+                <p key={index} className={`text-lg font-inter text-[#374151] leading-relaxed ${index < content.introduction.paragraphs.length - 1 ? 'mb-4' : ''} ${paragraph.includes('Notre objectif') ? 'text-[#253F60] font-semibold' : ''}`}>
+                  {paragraph.includes('60 %') ? (
+                    <>
+                      En 2025, plus de <strong className="text-[#253F60] font-semibold">60 % des Français détiennent un bien immobilier</strong>. Malgré les variations du marché, l'immobilier demeure l'un des placements les plus appréciés, car il conjugue valeur refuge, rendement régulier et effet de levier.
+                    </>
+                  ) : (
+                    paragraph
+                  )}
+                </p>
+              ))}
             </div>
 
             {/* Section 1 */}
@@ -321,18 +352,15 @@ export default function InvestissementImmobilierRentablePage() {
                 Que vous souhaitiez investir dans une SCPI, un bien locatif ou une stratégie mixte, nos conseillers vous aident à trouver le bon équilibre entre rentabilité et sérénité.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => alert('Téléchargement du guide')}
-                  className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
+                <a 
+                  href="/guides/strategies-immobilieres.pdf"
+                  className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300 text-center"
                 >
- Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
-                </button>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
-                >
- Prenez rendez-vous avec un conseiller Azalée Patrimoine
-                </button>
+                  Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
+                </a>
+                <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="white" className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300">
+                  Prenez rendez-vous avec un conseiller Azalée Patrimoine
+                </CTAButton>
               </div>
             </div>
 
@@ -356,4 +384,3 @@ export default function InvestissementImmobilierRentablePage() {
     </div>
   );
 }
-

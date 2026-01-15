@@ -1,45 +1,101 @@
 "use client";
-import React from "react";
-import Header from "../../../components/common/Header";
+import React, { useEffect, useState } from "react";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 
+export const defaultContent = {
+  hero: {
+    title: "Comprendre la succession",
+    description: "La succession correspond à la transmission du patrimoine d'une personne décédée à ses héritiers.",
+    codeCivil: [
+      { title: "La réserve héréditaire", description: "Part du patrimoine obligatoirement attribuée aux héritiers réservataires (enfants, conjoint survivant)" },
+      { title: "La quotité disponible", description: "Part libre que l'on peut léguer à la personne de son choix (enfant, conjoint, tiers, association...)" }
+    ]
+  },
+  chart: {
+    data: [
+      { label: "Droits de succession moyens", value: "€38,000" },
+      { label: "Abattement enfants", value: "€100,000" },
+      { label: "Exonération conjoint", value: "100%" },
+      { label: "Économies moyennes", value: "€28,500" },
+      { label: "Durée de transmission", value: "3-6 mois" }
+    ]
+  },
+  seo: {
+    metaTitle: "Succession et Héritage | Azalée Patrimoine",
+    metaDescription: "Comprenez les règles de succession et optimisez la transmission de votre patrimoine avec Azalée Patrimoine."
+  }
+};
+
 export default function SuccessionHeritagePage() {
-  const chartData = [
-    { label: "Droits de succession moyens", value: "€38,000" },
-    { label: "Abattement enfants", value: "€100,000" },
-    { label: "Exonération conjoint", value: "100%" },
-    { label: "Économies moyennes", value: "€28,500" },
-    { label: "Durée de transmission", value: "3-6 mois" }
-  ];
+  const [content, setContent] = useState(defaultContent);
+  
+  // Load content from CMS
+  useEffect(() => {
+    const loadContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=patrimoine/succession-heritage&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setContent((prev) => ({ ...prev, ...data.content }));
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load CMS content", error);
+      }
+    };
+
+    loadContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
+  }, []);
+
+  const chartData = content.chart?.data || defaultContent.chart.data;
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-              Comprendre la succession
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              La <strong>succession</strong> correspond à la transmission du patrimoine d'une personne décédée à ses héritiers.
+              {content.hero?.description || defaultContent.hero.description}
             </p>
-            <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              Elle est encadrée par le <strong>Code civil</strong>, qui fixe :
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
-              <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <h3 className="text-white font-semibold mb-2">La réserve héréditaire</h3>
-                <p className="text-white text-sm">Part du patrimoine obligatoirement attribuée aux héritiers réservataires (enfants, conjoint survivant)</p>
-              </div>
-              <div className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
-                <h3 className="text-white font-semibold mb-2">La quotité disponible</h3>
-                <p className="text-white text-sm">Part libre que l'on peut léguer à la personne de son choix (enfant, conjoint, tiers, association...)</p>
-              </div>
-            </div>
+            {content.hero?.codeCivil && content.hero.codeCivil.length > 0 && (
+              <>
+                <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
+                  Elle est encadrée par le <strong>Code civil</strong>, qui fixe :
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
+                  {content.hero.codeCivil.map((item, index) => (
+                    <div key={index} className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
+                      <h3 className="text-white font-semibold mb-2">{item.title}</h3>
+                      <p className="text-white text-sm">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* CTA Buttons */}
@@ -48,7 +104,7 @@ export default function SuccessionHeritagePage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </button>
             <button 
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
@@ -64,7 +120,7 @@ export default function SuccessionHeritagePage() {
       <PlacementChart 
         title="Indicateurs de succession"
         data={chartData}
-        chartImage="/images/succesion.png"
+        chartImage="/images/succesion.webp"
       />
 
       {/* Réserve héréditaire et quotité disponible Section */}
@@ -493,7 +549,7 @@ export default function SuccessionHeritagePage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </button>
             <button 
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}

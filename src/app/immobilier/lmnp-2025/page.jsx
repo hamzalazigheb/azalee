@@ -1,7 +1,11 @@
-"use client";
-import React from 'react';
 import Link from 'next/link';
 import Footer from '../../../components/common/Footer';
+import CTAButton from '@/components/ui/CTAButton';
+
+export const metadata = {
+  title: "LMNP 2025 | Azalée Patrimoine",
+  description: "LMNP 2025 : le meublé reste-t-il un bon investissement après la réforme ? Découvrez l'impact de la nouvelle fiscalité et comment adapter votre stratégie.",
+};
 
 export default function LMNP2025Page() {
   return (
@@ -292,18 +296,15 @@ export default function LMNP2025Page() {
                 La loi de finance 2026, va-t-elle préserver cet avantage ? C'est la question qui est sur toutes les lèvres. Chez Azalee Patrimoine, nous réfléchissons déjà à la suite.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
+                <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min">
+                  Demandez une simulation personnalisée de votre projet LMNP
+                </CTAButton>
+                <a 
+                  href="/guides/investir-meuble-2025.pdf"
+                  className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300 text-center"
                 >
- Demandez une simulation personnalisée de votre projet LMNP
-                </button>
-                <button 
-                  onClick={() => alert('Téléchargement du guide')}
-                  className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
-                >
- Téléchargez le guide "Investir dans le meublé en 2025"
-                </button>
+                  Téléchargez le guide "Investir dans le meublé en 2025"
+                </a>
               </div>
             </div>
 
@@ -327,4 +328,3 @@ export default function LMNP2025Page() {
     </div>
   );
 }
-

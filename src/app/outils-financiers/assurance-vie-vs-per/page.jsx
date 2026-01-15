@@ -584,7 +584,7 @@ export default function AssuranceVieVsPerPage() {
               rel="noopener noreferrer"
               className="bg-white text-[#253F60] px-6 sm:px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm sm:text-base"
             >
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </a>
             <a
               href="mailto:contact@azalee-patrimoine.fr"
@@ -615,7 +615,7 @@ export default function AssuranceVieVsPerPage() {
                   }}
                   className="flex-1 bg-gradient-to-r from-[#253F60] to-[#B99066] text-white py-3 px-4 sm:px-6 rounded-lg font-semibold hover:from-[#1E2F4A] hover:to-[#A67A5A] transition-all duration-200 shadow-lg text-sm sm:text-base"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </button>
                 <button
                   onClick={() => setShowPopup(false)}

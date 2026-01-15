@@ -19,10 +19,29 @@ export async function GET(request) {
       );
     }
 
-    const page = await PageContent.findOne({ 
-      path: path.toLowerCase(),
-      published: true 
-    });
+    const pathLower = path.toLowerCase();
+    
+    // For homepage, try multiple possible paths
+    let page = null;
+    if (pathLower === 'home' || pathLower === '/' || pathLower === '') {
+      // Try different possible paths for homepage
+      const possiblePaths = ['home', 'accueil', 'accueil - azalée patrimoine'];
+      for (const possiblePath of possiblePaths) {
+        page = await PageContent.findOne({ 
+          path: possiblePath.toLowerCase(),
+          published: true 
+        });
+        if (page) {
+          console.log(`[CMS API] Found homepage with path: ${page.path}`);
+          break;
+        }
+      }
+    } else {
+      page = await PageContent.findOne({ 
+        path: pathLower,
+        published: true 
+      });
+    }
     
     if (!page) {
       return NextResponse.json(

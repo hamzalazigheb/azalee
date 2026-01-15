@@ -21,3 +21,4 @@ export default function DeclarationImpotsLayout({ children }) {
   return <>{children}</>;
 }
 
+

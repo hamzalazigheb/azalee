@@ -21,3 +21,4 @@ export default function ImmobilierNeufLayout({ children }) {
   return <>{children}</>;
 }
 
+

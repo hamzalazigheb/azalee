@@ -1,91 +1,90 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
+import React from "react";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from '@/components/ui/CTAButton';
+import { getPageContent } from '@/lib/cms-server';
 
-export default function MonumentHistoriquePage() {
-  const [content, setContent] = useState({});
+export const defaultContent = {
+  hero: {
+    title: "Monument Historique",
+    subtitle: "Investir dans le patrimoine historique français",
+    description: "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits. Il offre une réduction d'impôt de 22 à 30% du montant des travaux engagés.",
+    button: "En savoir plus",
+    image: "/images/monument-historique-hero.jpg"
+  },
+  overview: {
+    title: "Présentation du dispositif Monument Historique",
+    description: "Le dispositif Monument Historique est un mécanisme de défiscalisation qui permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits. Il vise à préserver le patrimoine historique français.",
+    keyPoints: [
+      "Réduction d'impôt de 22 à 30%",
+      "Sur le montant des travaux engagés",
+      "Monument classé ou inscrit",
+      "Travaux encadrés par architecte des Bâtiments de France"
+    ]
+  },
+  benefits: {
+    title: "Avantages fiscaux",
+    benefits: [
+      {
+        title: "Réduction d'impôt",
+        description: "22 à 30% du montant des travaux",
+        percentage: "22-30%"
+      },
+      {
+        title: "Plafond de travaux",
+        description: "400 000€ par période de 4 ans",
+        amount: "400k€"
+      },
+      {
+        title: "Durée d'engagement",
+        description: "9 ans minimum",
+        duration: "9 ans"
+      }
+    ]
+  },
+  conditions: {
+    title: "Conditions d'éligibilité",
+    description: "Pour bénéficier du dispositif Monument Historique, plusieurs conditions doivent être respectées :",
+    points: [
+      "Monument classé ou inscrit",
+      "Travaux encadrés par architecte des Bâtiments de France",
+      "Engagement de location de 9 ans minimum",
+      "Respect des normes patrimoniales"
+    ]
+  },
+  cta: {
+    title: "Besoin d'aide pour votre investissement ?",
+    description: "Nos experts vous accompagnent dans votre projet d'investissement Monument Historique.",
+    buttonText: "Demander une consultation gratuite"
+  }
+};
 
-  // Default content structure
-  const defaultContent = {
-    hero: {
-      title: "Monument Historique",
-      subtitle: "Investir dans le patrimoine historique français",
-      description: "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits. Il offre une réduction d'impôt de 22 à 30% du montant des travaux engagés.",
-      button: "En savoir plus",
-      image: "/images/monument-historique-hero.jpg"
-    },
-    overview: {
-      title: "Présentation du dispositif Monument Historique",
-      description: "Le dispositif Monument Historique est un mécanisme de défiscalisation qui permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits. Il vise à préserver le patrimoine historique français.",
-      keyPoints: [
-        "Réduction d'impôt de 22 à 30%",
-        "Sur le montant des travaux engagés",
-        "Monument classé ou inscrit",
-        "Travaux encadrés par architecte des Bâtiments de France"
-      ]
-    },
-    benefits: {
-      title: "Avantages fiscaux",
-      benefits: [
-        {
-          title: "Réduction d'impôt",
-          description: "22 à 30% du montant des travaux",
-          percentage: "22-30%"
-        },
-        {
-          title: "Plafond de travaux",
-          description: "400 000€ par période de 4 ans",
-          amount: "400k€"
-        },
-        {
-          title: "Durée d'engagement",
-          description: "9 ans minimum",
-          duration: "9 ans"
-        }
-      ]
-    },
-    conditions: {
-      title: "Conditions d'éligibilité",
-      description: "Pour bénéficier du dispositif Monument Historique, plusieurs conditions doivent être respectées :",
-      points: [
-        "Monument classé ou inscrit",
-        "Travaux encadrés par architecte des Bâtiments de France",
-        "Engagement de location de 9 ans minimum",
-        "Respect des normes patrimoniales"
-      ]
-    },
-    cta: {
-      title: "Besoin d'aide pour votre investissement ?",
-      description: "Nos experts vous accompagnent dans votre projet d'investissement Monument Historique.",
-      buttonText: "Demander une consultation gratuite"
-    }
+export async function generateMetadata() {
+  const content = await getPageContent('fiscalite/monument-historique', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Monument Historique | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits.",
   };
+}
 
-  // Load content from CMS
-  useEffect(() => {
-    // Set static content
-    setContent(defaultContent);
-  }, []);
+export default async function MonumentHistoriquePage() {
+  const content = await getPageContent('fiscalite/monument-historique', defaultContent);
 
   return (
     <>
-      <Header />
-
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                {content.hero?.title || defaultContent.hero.title}
+                {content.hero.title}
               </h1>
               <p className="text-lg text-white mb-4 leading-relaxed">
-                {content.hero?.subtitle || defaultContent.hero.subtitle}
+                {content.hero.subtitle}
               </p>
               <p className="text-white mb-8">
-                {content.hero?.description || defaultContent.hero.description}
+                {content.hero.description}
               </p>
             </div>
           </div>
@@ -96,12 +95,12 @@ export default function MonumentHistoriquePage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.overview?.title || defaultContent.overview.title}
-            subtitle={content.overview?.description || defaultContent.overview.description}
+            title={content.overview.title}
+            subtitle={content.overview.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(content.overview?.keyPoints || defaultContent.overview.keyPoints).map((point, index) => {
+            {content.overview.keyPoints.map((point, index) => {
               const isBlue = index % 2 === 0;
               return (
                 <div key={index} className={`relative bg-gradient-to-br ${isBlue ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} p-6 sm:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-center text-white`}>
@@ -118,11 +117,11 @@ export default function MonumentHistoriquePage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.benefits?.title || defaultContent.benefits.title}
+            title={content.benefits.title}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {(content.benefits?.benefits || defaultContent.benefits.benefits).map((benefit, index) => {
+            {content.benefits.benefits.map((benefit, index) => {
               const isBlue = index % 2 === 0;
               return (
                 <div key={index} className={`relative bg-gradient-to-br ${isBlue ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} p-6 sm:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-center text-white`}>
@@ -145,12 +144,12 @@ export default function MonumentHistoriquePage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions?.title || defaultContent.conditions.title}
-            subtitle={content.conditions?.description || defaultContent.conditions.description}
+            title={content.conditions.title}
+            subtitle={content.conditions.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {(content.conditions?.points || defaultContent.conditions.points).map((point, index) => {
+            {content.conditions.points.map((point, index) => {
               const isBlue = index % 2 === 0;
               return (
                 <div key={index} className={`relative bg-gradient-to-br ${isBlue ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} p-6 sm:p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
@@ -172,17 +171,17 @@ export default function MonumentHistoriquePage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
-            {content.cta?.title || defaultContent.cta.title}
+            {content.cta.title}
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed">
-            {content.cta?.description || defaultContent.cta.description}
+            {content.cta.description}
           </p>
-          <button 
-            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-            className="bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-lg shadow-xl font-semibold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+          <CTAButton 
+            externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+            className="px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold"
           >
-            {content.cta?.buttonText || defaultContent.cta.buttonText}
-          </button>
+            {content.cta.buttonText}
+          </CTAButton>
         </div>
       </section>
 

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 import {
@@ -197,7 +196,6 @@ export default function RetraitePage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#253F60]"></div>
         </div>
@@ -208,8 +206,6 @@ export default function RetraitePage() {
 
   return (
     <>
-      <Header />
-      
       {/* Content Updated Notification */}
       {contentUpdated && (
         <div className="fixed top-20 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in">
@@ -723,7 +719,7 @@ export default function RetraitePage() {
                           rel="noopener noreferrer"
                           className="inline-block bg-white text-[#253F60] px-6 py-3 rounded-lg shadow-lg font-inter font-bold text-sm hover:bg-gray-100 transition-all duration-300"
                         >
-                          {pageContent.section3.calculer.cta.text || "Prendre rendez-vous avec un conseiller Azalée"}
+                          {pageContent.section3.calculer.cta.text || "Planifiez votre consultation gratuite avec un conseiller Azalée"}
                         </a>
                       )}
                     </div>
@@ -969,7 +965,7 @@ export default function RetraitePage() {
                           rel="noopener noreferrer"
                           className="text-[#B99066] font-inter font-semibold hover:text-[#A67C52] transition-colors"
                         >
-                          {pageContent.section6.pret.contact.rendezVous.label || "Prendre rendez-vous"}
+                          {pageContent.section6.pret.contact.rendezVous.label || "Planifiez votre consultation gratuite"}
                         </a>
                       </div>
                     )}
@@ -1683,7 +1679,7 @@ export default function RetraitePage() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-white font-inter font-semibold hover:text-[#B99066] transition-colors underline"
                       >
-                        <strong>{pageContent.section12.diagnostic.cta.link.text || "Prendre rendez-vous avec un conseiller Azalée Patrimoine"}</strong>
+                        <strong>{pageContent.section12.diagnostic.cta.link.text || "Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine"}</strong>
                       </a>
                     )}
                   </div>
@@ -1837,7 +1833,7 @@ export default function RetraitePage() {
                   rel="noopener noreferrer"
                   className="text-[#B99066] font-inter font-semibold hover:text-[#A67C52] transition-colors"
                 >
-                  Prendre rendez-vous en ligne
+                  Planifiez votre consultation gratuite en ligne
                 </a>
               </div>
             </div>

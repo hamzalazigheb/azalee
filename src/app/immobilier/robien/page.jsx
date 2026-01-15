@@ -1,13 +1,14 @@
-"use client";
-import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import BackButton from "@/components/ui/BackButton";
+
+export const metadata = {
+  title: "Robien | Azalée Patrimoine",
+  description: "Page en cours de développement - Dispositif Robien.",
+};
 
 export default function RobienPage() {
   return (
     <>
-      <Header />
-      
       {/* Maintenance Page */}
       <section className="relative w-full min-h-screen bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24 flex items-center justify-center">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -25,12 +26,7 @@ export default function RobienPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => window.history.back()}
-                className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200"
-              >
-                Retour
-              </button>
+              <BackButton>Retour</BackButton>
               <a 
                 href="/"
                 className="bg-transparent border-2 border-[#253F60] text-[#253F60] px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-[#253F60] hover:text-white transition-colors duration-200"
@@ -45,4 +41,4 @@ export default function RobienPage() {
       <Footer />
     </>
   );
-} 
+}

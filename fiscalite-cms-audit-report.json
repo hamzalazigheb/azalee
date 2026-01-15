@@ -1,0 +1,958 @@
+{
+  "summary": {
+    "total": 17,
+    "withCMS": 17,
+    "withoutCMS": 0,
+    "totalSections": 103,
+    "totalIssues": 97,
+    "pagesWithIssues": 6
+  },
+  "pages": {
+    "fiscalite": {
+      "exists": true,
+      "pageName": "fiscalite",
+      "usesCMS": true,
+      "hasSSR": false,
+      "hasCSR": true,
+      "cmsSections": [
+        "banniere",
+        "bareme",
+        "categoriesRevenus",
+        "comprendreIR",
+        "conseilsExpert",
+        "content",
+        "data",
+        "declarer",
+        "defiscalisation",
+        "dispositifs",
+        "enSavoirPlus",
+        "erreurs",
+        "essentiel",
+        "expertise",
+        "faq",
+        "hero",
+        "profils"
+      ],
+      "hardcodedIssues": [
+        {
+          "type": "hardcoded-text",
+          "line": 388,
+          "text": "barème progressif",
+          "fullLine": "\"L'imposition repose sur un <strong className=\\\"text-[#253F60] font-semibold\\\">barème progressif</strong> comportant plusieurs tranches : à chaque \\\"part\\\" du foyer fiscal, un taux s'applique selon le revenu déclaré. Plus vous avez de parts (enfants, conjoint), plus votre revenu imposable par part diminue, grâce au <strong className=\\\"text-[#253F60] font-semibold\\\">quotient familial</strong>.\","
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 390,
+          "text": "investissement immobilier (Pinel, Girardin...)",
+          "fullLine": "\"Bien comprendre ces fondamentaux permet de saisir le potentiel d'optimisation offert par le système français, de la réduction d'impôt via l'<strong className=\\\"text-[#253F60] font-semibold\\\">investissement immobilier (Pinel, Girardin...)</strong> à l'ajustement des frais réels ou à la mise en place de <strong className=\\\"text-[#253F60] font-semibold\\\">donations stratégiques</strong>.\""
+        }
+      ],
+      "hasDefaultContent": false,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 104,
+      "hardcodedCount": 2,
+      "cmsRatio": 0.9811320754716981
+    },
+    "fiscalite/autre-fiscalite": {
+      "exists": true,
+      "pageName": "autre-fiscalite",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "cta",
+        "hero",
+        "optimisations",
+        "sujets"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 11,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/declaration-impots": {
+      "exists": true,
+      "pageName": "declaration-impots",
+      "usesCMS": true,
+      "hasSSR": false,
+      "hasCSR": true,
+      "cmsSections": [
+        "cta",
+        "data",
+        "hero",
+        "tabs"
+      ],
+      "hardcodedIssues": [
+        {
+          "type": "hardcoded-text",
+          "line": 204,
+          "text": "Régularisation",
+          "fullLine": "<p className=\"text-white/90 text-sm uppercase tracking-wide mb-2\">Régularisation</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 206,
+          "text": "Remboursement ou complément",
+          "fullLine": "<p className=\"text-white/80 text-xs\">Remboursement ou complément</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 212,
+          "text": "Prélèvement",
+          "fullLine": "<p className=\"text-white/90 text-sm uppercase tracking-wide mb-2\">Prélèvement</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 213,
+          "text": "À la source",
+          "fullLine": "<p className=\"text-white text-2xl font-semibold mb-2\">À la source</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 214,
+          "text": "Depuis 2019",
+          "fullLine": "<p className=\"text-white/80 text-xs\">Depuis 2019</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 220,
+          "text": "Obligatoire",
+          "fullLine": "<p className=\"text-white/90 text-sm uppercase tracking-wide mb-2\">Obligatoire</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 221,
+          "text": "Déclaration",
+          "fullLine": "<p className=\"text-white text-2xl font-semibold mb-2\">Déclaration</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 222,
+          "text": "Même avec prélèvement",
+          "fullLine": "<p className=\"text-white/80 text-xs\">Même avec prélèvement</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 253,
+          "text": "Prélèvement à la source depuis 2019",
+          "fullLine": "<h2 className=\"text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-3 sm:mb-4\">Prélèvement à la source depuis 2019</h2>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 254,
+          "text": "Les contribuables sont imposés au fil de l'eau, ma",
+          "fullLine": "<p className=\"text-[#686868] text-sm sm:text-base lg:text-lg\">Les contribuables sont imposés au fil de l'eau, mais la déclaration reste obligatoire</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 280,
+          "text": "Vous avez payé trop d'impôt",
+          "fullLine": "<h3 className=\"text-white text-lg font-cairo font-semibold\">Vous avez payé trop d'impôt</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 286,
+          "text": "Remboursement automatique",
+          "fullLine": "<p className=\"text-white font-semibold\">Remboursement automatique</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 300,
+          "text": "Vous n'avez pas assez payé",
+          "fullLine": "<h3 className=\"text-white text-lg font-cairo font-semibold\">Vous n'avez pas assez payé</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 306,
+          "text": "Prélèvement complémentaire",
+          "fullLine": "<p className=\"text-white font-semibold\">Prélèvement complémentaire</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 317,
+          "text": "Régularisation en septembre",
+          "fullLine": "<h2 className=\"text-[#253F60] text-2xl font-cairo font-bold mb-4\">Régularisation en septembre</h2>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 318,
+          "text": "Comprendre les mécanismes de régularisation et le ",
+          "fullLine": "<p className=\"text-[#686868] text-lg\">Comprendre les mécanismes de régularisation et le taux de prélèvement</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 324,
+          "text": "La réponse est",
+          "fullLine": "<p className=\"text-white text-lg font-semibold mb-3\">La réponse est <strong>NON</strong></p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 350,
+          "text": "Basé sur les revenus imposables",
+          "fullLine": "<span>Basé sur les revenus imposables</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 358,
+          "text": "Sans anticiper les avantages fiscaux",
+          "fullLine": "<span>Sans anticiper les avantages fiscaux</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 366,
+          "text": "Calculé sur l'année précédente",
+          "fullLine": "<span>Calculé sur l'année précédente</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 374,
+          "text": "Peut être ajusté sur demande",
+          "fullLine": "<span>Peut être ajusté sur demande</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 393,
+          "text": "Régularisations défavorables",
+          "fullLine": "<span>Régularisations défavorables</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 401,
+          "text": "Risque de redressement",
+          "fullLine": "<span>Risque de redressement</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 409,
+          "text": "Perte d'avantages fiscaux",
+          "fullLine": "<span>Perte d'avantages fiscaux</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 417,
+          "text": "Majorations de retard",
+          "fullLine": "<span>Majorations de retard</span>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 429,
+          "text": "Questions fréquentes sur la déclaration de revenus",
+          "fullLine": "<h2 className=\"text-[#253F60] text-2xl font-cairo font-bold mb-4\">Questions fréquentes sur la déclaration de revenus</h2>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 430,
+          "text": "Les réponses aux questions les plus courantes",
+          "fullLine": "<p className=\"text-[#686868] text-lg\">Les réponses aux questions les plus courantes</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 475,
+          "text": "Accompagnement par un conseiller en gestion de pat",
+          "fullLine": "<h2 className=\"text-[#253F60] text-2xl font-cairo font-bold mb-4\">Accompagnement par un conseiller en gestion de patrimoine</h2>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 476,
+          "text": "Transformez votre déclaration en véritable outil d",
+          "fullLine": "<p className=\"text-[#686868] text-lg\">Transformez votre déclaration en véritable outil d'optimisation patrimoniale</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 492,
+          "text": "Taux optimisé",
+          "fullLine": "<h4 className=\"text-white font-cairo font-semibold mb-2\">Taux optimisé</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 493,
+          "text": "Plus proche de votre charge fiscale effective",
+          "fullLine": "<p className=\"text-white/90 text-sm\">Plus proche de votre charge fiscale effective</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 502,
+          "text": "Éviter les surprises",
+          "fullLine": "<h4 className=\"text-white font-cairo font-semibold mb-2\">Éviter les surprises</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 503,
+          "text": "Pas de mauvaises surprises lors de la régularisati",
+          "fullLine": "<p className=\"text-white/90 text-sm\">Pas de mauvaises surprises lors de la régularisation</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 512,
+          "text": "Stratégie patrimoniale",
+          "fullLine": "<h4 className=\"text-white font-cairo font-semibold mb-2\">Stratégie patrimoniale</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 513,
+          "text": "Anticiper et optimiser sur plusieurs années",
+          "fullLine": "<p className=\"text-white/90 text-sm\">Anticiper et optimiser sur plusieurs années</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 567,
+          "text": "Évaluez dès maintenant votre impôt réel avec un co",
+          "fullLine": "<h3 className=\"text-white text-xl font-cairo font-semibold mb-3\">Évaluez dès maintenant votre impôt réel avec un conseiller Azalée Patrimoine</h3>"
+        }
+      ],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 8,
+      "hardcodedCount": 36,
+      "cmsRatio": 0.18181818181818182
+    },
+    "fiscalite/defiscalisation-cas-specifiques": {
+      "exists": true,
+      "pageName": "defiscalisation-cas-specifiques",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "casSpecifiques",
+        "cta",
+        "hero",
+        "situationsParticulieres"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 11,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/fiscalite-placements": {
+      "exists": true,
+      "pageName": "fiscalite-placements",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "analysis",
+        "cta",
+        "hero",
+        "quickStats",
+        "regimesFiscaux",
+        "simulation"
+      ],
+      "hardcodedIssues": [
+        {
+          "type": "hardcoded-text",
+          "line": 221,
+          "text": "Caractéristiques :",
+          "fullLine": "<h4 className=\"font-cairo font-semibold mb-2 text-sm\">Caractéristiques :</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 240,
+          "text": "Inconvénients :",
+          "fullLine": "<h4 className=\"font-cairo font-semibold mb-1 text-sm text-white/80\">Inconvénients :</h4>"
+        }
+      ],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 19,
+      "hardcodedCount": 2,
+      "cmsRatio": 0.9047619047619048
+    },
+    "fiscalite/impot-sur-le-revenu": {
+      "exists": true,
+      "pageName": "impot-sur-le-revenu",
+      "usesCMS": true,
+      "hasSSR": false,
+      "hasCSR": true,
+      "cmsSections": [
+        "data"
+      ],
+      "hardcodedIssues": [
+        {
+          "type": "hardcoded-text",
+          "line": 151,
+          "text": "DEPUIS 2019",
+          "fullLine": "<p className=\"text-[#686868] text-sm uppercase mb-2 font-semibold\">DEPUIS 2019</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 152,
+          "text": "Prélèvement à la source",
+          "fullLine": "<h3 className=\"text-[#253F60] text-xl font-semibold mb-2\">Prélèvement à la source</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 153,
+          "text": "Collecte immédiate et continue",
+          "fullLine": "<p className=\"text-[#686868] text-sm\">Collecte immédiate et continue</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 158,
+          "text": "OPTIMISATION",
+          "fullLine": "<p className=\"text-[#686868] text-sm uppercase mb-2 font-semibold\">OPTIMISATION</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 159,
+          "text": "Dispositifs fiscaux",
+          "fullLine": "<h3 className=\"text-[#253F60] text-xl font-semibold mb-2\">Dispositifs fiscaux</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 160,
+          "text": "PER, Pinel, Girardin, déficit foncier",
+          "fullLine": "<p className=\"text-[#686868] text-sm\">PER, Pinel, Girardin, déficit foncier</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 167,
+          "text": "Maîtrise de l'IR essentielle",
+          "fullLine": "<p className=\"text-[#686868] text-sm\">Maîtrise de l'IR essentielle</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 219,
+          "text": "La loi Pinel",
+          "fullLine": "<a href=\"/fiscalite/loi-pinel\" className=\"text-[#005C69] underline font-semibold hover:text-[#004A5A]\">La loi Pinel</a> permet d'investir dans l'immobilier locatif neuf ou réhabilité et d'obtenir une réduction d'impôt proportionnelle à la durée d'engagement locatif (6, 9 ou 12 ans). L'avantage fiscal est conditionné par le respect de plafonds de loyers et de ressources des locataires."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 232,
+          "text": "Déficit foncier",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Déficit foncier</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 235,
+          "text": "déficit foncier",
+          "fullLine": "Le <a href=\"/fiscalite/reductions-impot-deficit-foncier\" className=\"text-[#005C69] underline font-semibold hover:text-[#004A5A]\">déficit foncier</a> résulte des charges déductibles liées à des travaux d'entretien, de réparation ou de rénovation sur un bien locatif. Il permet de réduire vos revenus fonciers imposables, voire votre revenu global dans certaines limites, offrant ainsi un levier efficace pour diminuer votre impôt sur le revenu."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 248,
+          "text": "Loueur en Meublé Non Professionnel",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Loueur en Meublé Non Professionnel</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 265,
+          "text": "Loueur en Meublé Professionnel",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Loueur en Meublé Professionnel</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 282,
+          "text": "Plan d'Épargne Retraite",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Plan d'Épargne Retraite</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 299,
+          "text": "Loi Girardin",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Loi Girardin</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 300,
+          "text": "Industriel et Logement Social",
+          "fullLine": "<p className=\"text-[#686868] text-xs mt-1\">Industriel et Logement Social</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 316,
+          "text": "FIP et FCPI",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">FIP et FCPI</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 348,
+          "text": "Monuments Historiques",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Monuments Historiques</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 351,
+          "text": "Monuments Historiques",
+          "fullLine": "Le régime <a href=\"/fiscalite/monument-historique\" className=\"text-[#005C69] underline font-semibold hover:text-[#004A5A]\">Monuments Historiques</a> encourage la restauration et la préservation de biens classés. Les travaux réalisés sont déductibles du revenu global, sans plafonnement. C'est l'un des rares dispositifs permettant de défiscaliser fortement tout en contribuant directement à la sauvegarde du patrimoine architectural français."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 364,
+          "text": "Dons aux associations",
+          "fullLine": "<h3 className=\"text-[#B99066] font-bold text-lg uppercase\">Dons aux associations</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 365,
+          "text": "et fondations",
+          "fullLine": "<p className=\"text-[#686868] text-xs mt-1\">et fondations</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 368,
+          "text": "dons aux associations",
+          "fullLine": "Les <a href=\"/patrimoine/conseils\" className=\"text-[#005C69] underline font-semibold hover:text-[#004A5A]\">dons aux associations</a> reconnues d'utilité publique ouvrent droit à une réduction d'impôt significative : 66 % des sommes versées (75 % pour certains organismes d'aide). Ce dispositif accessible à tous permet de soutenir des causes d'intérêt général tout en optimisant sa fiscalité personnelle."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 466,
+          "text": "1. Faites le point sur les abattements et déductio",
+          "fullLine": "<h3 className=\"text-xl font-cairo font-semibold text-[#253F60] mb-4\">1. Faites le point sur les abattements et déductions en 2025</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 470,
+          "text": "a. Profitez de l'abattement de 10% sur vos pension",
+          "fullLine": "<h4 className=\"text-lg font-cairo font-semibold text-[#253F60] mb-3\">a. Profitez de l'abattement de 10% sur vos pensions de retraite</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 476,
+          "text": "Attention :",
+          "fullLine": "<strong>Attention :</strong> cette disposition est amenée à évoluer. Dès l'imposition sur les revenus 2025, la réforme annoncée prévoit la suppression de l'abattement proportionnel au profit d'un abattement forfaitaire unique de 2 000 € par foyer. L'impact : les retraités aux pensions modestes seront peu affectés, mais les retraités aisés verront leur avantage fortement diminuer."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 482,
+          "text": "b. Vérifiez votre droit à l'abattement supplémenta",
+          "fullLine": "<h4 className=\"text-lg font-cairo font-semibold text-[#253F60] mb-3\">b. Vérifiez votre droit à l'abattement supplémentaire \"plus de 65 ans\"</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 492,
+          "text": "2. Optez pour les bonnes stratégies défiscalisante",
+          "fullLine": "<h3 className=\"text-xl font-cairo font-semibold text-[#253F60] mb-4\">2. Optez pour les bonnes stratégies défiscalisantes</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 496,
+          "text": "a. Anticipez la suppression de l'abattement de 10%",
+          "fullLine": "<h4 className=\"text-lg font-cairo font-semibold text-[#253F60] mb-3\">a. Anticipez la suppression de l'abattement de 10%</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 501,
+          "text": "Revoyez vos options sur la déclaration de frais ré",
+          "fullLine": "<li>Revoyez vos options sur la déclaration de frais réels ou forfaitaires (en particulier si vous percevez encore des revenus d'activité ou de locations).</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 502,
+          "text": "Étudiez les solutions pour diminuer votre base imp",
+          "fullLine": "<li>Étudiez les solutions pour diminuer votre base imposable : versements sur un Plan d'Épargne Retraite (PER), dons aux associations (déductibles à hauteur de 66 à 75%), emploi à domicile ou travaux d'économie d'énergie (ouvrant droit à crédit d'impôt).</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 507,
+          "text": "b. Exploitez les niches fiscales adaptées à votre ",
+          "fullLine": "<h4 className=\"text-lg font-cairo font-semibold text-[#253F60] mb-3\">b. Exploitez les niches fiscales adaptées à votre situation après 50 ans</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 510,
+          "text": "PER (Plan d'Épargne Retraite) :",
+          "fullLine": "<strong>PER (Plan d'Épargne Retraite) :</strong> Les sommes versées sont déductibles du revenu imposable dans la limite de 10% du PASS 2025 (soit jusqu'à 4 637 € cette année pour un retraité). Cette solution est particulièrement intéressante pour diminuer l'impôt avant la retraite ou continuer à alléger la fiscalité après cessation d'activité."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 513,
+          "text": "Faites le point sur vos investissements immobilier",
+          "fullLine": "<strong>Faites le point sur vos investissements immobiliers :</strong> Certains dispositifs permettent, même après 50 ans, d'alléger votre impôt (Pinel, Denormandie, Cosse, monuments historiques…) si vous souhaitez investir, rénover ou transmettre un bien."
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 522,
+          "text": "3. Vérifiez régulièrement vos déclarations et évit",
+          "fullLine": "<h3 className=\"text-xl font-cairo font-semibold text-[#253F60] mb-4\">3. Vérifiez régulièrement vos déclarations et évitez les oublis</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 526,
+          "text": "a. Soyez vigilant sur la complétude de votre décla",
+          "fullLine": "<h4 className=\"text-lg font-cairo font-semibold text-[#253F60] mb-3\">a. Soyez vigilant sur la complétude de votre déclaration</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 531,
+          "text": "Pensions de retraite et de réversion",
+          "fullLine": "<li>Pensions de retraite et de réversion</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 532,
+          "text": "Revenus fonciers (locations meublées ou non, en Fr",
+          "fullLine": "<li>Revenus fonciers (locations meublées ou non, en France ou à l'étranger)</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 533,
+          "text": "Revenus de capitaux mobiliers (dividendes, intérêt",
+          "fullLine": "<li>Revenus de capitaux mobiliers (dividendes, intérêts, assurance-vie, SCPI…)</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 538,
+          "text": "b. Vérifiez vos droits et optimisations chaque ann",
+          "fullLine": "<h4 className=\"text-lg font-cairo font-semibold text-[#253F60] mb-3\">b. Vérifiez vos droits et optimisations chaque année</h4>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 548,
+          "text": "4. Sollicitez un bilan patrimonial personnalisé",
+          "fullLine": "<h3 className=\"text-xl font-cairo font-semibold text-[#253F60] mb-4\">4. Sollicitez un bilan patrimonial personnalisé</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 553,
+          "text": "D'adapter vos stratégies chaque année à l'actualit",
+          "fullLine": "<li>D'adapter vos stratégies chaque année à l'actualité fiscale et aux réformes.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 554,
+          "text": "D'aller plus loin dans l'optimisation de vos donat",
+          "fullLine": "<li>D'aller plus loin dans l'optimisation de vos donations, du choix entre capitalisation et rente, de la réorganisation immobilière familiale.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 560,
+          "text": "5. Les bonnes pratiques à retenir",
+          "fullLine": "<h3 className=\"text-xl font-cairo font-semibold text-[#253F60] mb-4\">5. Les bonnes pratiques à retenir</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 562,
+          "text": "Anticipez la suppression de l'abattement de 10% su",
+          "fullLine": "<li><strong>Anticipez la suppression de l'abattement de 10% sur les retraites :</strong> commencez à diversifier vos stratégies fiscales.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 563,
+          "text": "Pensez au PER :",
+          "fullLine": "<li><strong>Pensez au PER :</strong> une solution souple, adaptée avant et après la retraite, qui reste défiscalisante.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 564,
+          "text": "Soyez rigoureux sur vos déclarations :",
+          "fullLine": "<li><strong>Soyez rigoureux sur vos déclarations :</strong> évitez les oublis, comparez frais réels et abattement forfaitaire.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 565,
+          "text": "Exploitez les crédits et déductions accessibles :",
+          "fullLine": "<li><strong>Exploitez les crédits et déductions accessibles :</strong> emploi à domicile, dons, investissements ciblés.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 566,
+          "text": "Faites-vous accompagner :",
+          "fullLine": "<li><strong>Faites-vous accompagner :</strong> l'expertise patrimoniale devient un atout précieux après 50 ans, notamment face à la complexification et à l'instabilité des règles fiscales.</li>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 642,
+          "text": "Dispositifs de défiscalisation",
+          "fullLine": "<h2 className=\"text-[#253F60] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center\">Dispositifs de défiscalisation</h2>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 647,
+          "text": "Plan d'Épargne Retraite pour optimiser la fiscalit",
+          "fullLine": "<p className=\"text-[#374151] text-xs sm:text-sm font-inter\">Plan d'Épargne Retraite pour optimiser la fiscalité</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 652,
+          "text": "Investissement locatif avec réduction d'impôt",
+          "fullLine": "<p className=\"text-[#374151] text-xs sm:text-sm font-inter\">Investissement locatif avec réduction d'impôt</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 657,
+          "text": "Investissement outre-mer avec avantages fiscaux",
+          "fullLine": "<p className=\"text-[#374151] text-xs sm:text-sm font-inter\">Investissement outre-mer avec avantages fiscaux</p>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 661,
+          "text": "Déficit foncier",
+          "fullLine": "<h3 className=\"text-[#253F60] text-base sm:text-lg font-cairo font-semibold mb-3\">Déficit foncier</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 662,
+          "text": "Réduction d'impôt via travaux immobiliers",
+          "fullLine": "<p className=\"text-[#374151] text-xs sm:text-sm font-inter\">Réduction d'impôt via travaux immobiliers</p>"
+        }
+      ],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 2,
+      "hardcodedCount": 53,
+      "cmsRatio": 0.03636363636363636
+    },
+    "fiscalite/loi-cosse": {
+      "exists": true,
+      "pageName": "loi-cosse",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "avantages",
+        "conditions",
+        "cta",
+        "definition",
+        "hero",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 15,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/loi-denormandie": {
+      "exists": true,
+      "pageName": "loi-denormandie",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "benefits",
+        "conditions",
+        "cta",
+        "hero",
+        "overview",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 15,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/loi-girardin": {
+      "exists": true,
+      "pageName": "loi-girardin",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "benefits",
+        "conditions",
+        "cta",
+        "hero",
+        "overview",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 15,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/loi-malraux": {
+      "exists": true,
+      "pageName": "loi-malraux",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "benefits",
+        "conditions",
+        "cta",
+        "hero",
+        "overview",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 15,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/loi-pinel": {
+      "exists": true,
+      "pageName": "loi-pinel",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "benefits",
+        "conditions",
+        "cta",
+        "hero",
+        "overview",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 16,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/lois-fiscales": {
+      "exists": true,
+      "pageName": "lois-fiscales",
+      "usesCMS": true,
+      "hasSSR": false,
+      "hasCSR": true,
+      "cmsSections": [
+        "cta",
+        "data",
+        "finalCta",
+        "hero"
+      ],
+      "hardcodedIssues": [
+        {
+          "type": "hardcoded-text",
+          "line": 217,
+          "text": "Dispositifs disponibles",
+          "fullLine": "<h2 className=\"text-white text-xl sm:text-2xl font-cairo font-bold mb-6\">Dispositifs disponibles</h2>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 301,
+          "text": "Taux de réduction",
+          "fullLine": "<h3 className=\"text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6\">Taux de réduction</h3>"
+        },
+        {
+          "type": "hardcoded-text",
+          "line": 319,
+          "text": "Plafonds applicables",
+          "fullLine": "<h3 className=\"text-[#112033] text-lg sm:text-xl font-cairo font-bold mb-6\">Plafonds applicables</h3>"
+        }
+      ],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 13,
+      "hardcodedCount": 3,
+      "cmsRatio": 0.8125
+    },
+    "fiscalite/monument-historique": {
+      "exists": true,
+      "pageName": "monument-historique",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "benefits",
+        "conditions",
+        "cta",
+        "hero",
+        "overview",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 16,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/pfu": {
+      "exists": true,
+      "pageName": "pfu",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "application",
+        "avantages",
+        "creation",
+        "cta",
+        "definition",
+        "hero",
+        "inconvenients",
+        "seo",
+        "simulation"
+      ],
+      "hardcodedIssues": [
+        {
+          "type": "hardcoded-text",
+          "line": 139,
+          "text": "Taux unique",
+          "fullLine": "<div className=\"text-sm sm:text-base font-medium\">Taux unique</div>"
+        }
+      ],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 27,
+      "hardcodedCount": 1,
+      "cmsRatio": 0.9642857142857143
+    },
+    "fiscalite/reductions-impot-deficit-foncier": {
+      "exists": true,
+      "pageName": "reductions-impot-deficit-foncier",
+      "usesCMS": true,
+      "hasSSR": true,
+      "hasCSR": false,
+      "cmsSections": [
+        "comparison",
+        "conditions",
+        "cta",
+        "hero",
+        "investorProfile",
+        "quickStats",
+        "seo"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": false,
+      "cmsUsageCount": 18,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/tmi-prelevements-sociaux": {
+      "exists": true,
+      "pageName": "tmi-prelevements-sociaux",
+      "usesCMS": true,
+      "hasSSR": false,
+      "hasCSR": true,
+      "cmsSections": [
+        "cta",
+        "data",
+        "definition",
+        "hero",
+        "impact",
+        "prelevementsSociaux"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 19,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    },
+    "fiscalite/tranches-baremes-plafonds": {
+      "exists": true,
+      "pageName": "tranches-baremes-plafonds",
+      "usesCMS": true,
+      "hasSSR": false,
+      "hasCSR": true,
+      "cmsSections": [
+        "cta",
+        "data",
+        "hero",
+        "plafonds",
+        "tranches"
+      ],
+      "hardcodedIssues": [],
+      "hasDefaultContent": true,
+      "usesDefaultAsFallback": true,
+      "cmsUsageCount": 15,
+      "hardcodedCount": 0,
+      "cmsRatio": 1
+    }
+  }
+}

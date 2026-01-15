@@ -55,6 +55,71 @@ const safeStringValue = (value) => {
 
 // Editors removed - using simple textarea for all fields
 
+// Fonction pour catégoriser les pages
+const categorizePages = (pages) => {
+  const categories = {
+    'Accueil': { pages: [], icon: '🏠', color: 'from-blue-500 to-blue-600' },
+    'Fiscalité': { pages: [], icon: '📊', color: 'from-purple-500 to-purple-600' },
+    'Immobilier': { pages: [], icon: '🏠', color: 'from-green-500 to-green-600' },
+    'Placements': { pages: [], icon: '💰', color: 'from-yellow-500 to-yellow-600' },
+    'Retraite': { pages: [], icon: '👴', color: 'from-orange-500 to-orange-600' },
+    'Patrimoine': { pages: [], icon: '💼', color: 'from-indigo-500 to-indigo-600' },
+    'Outils': { pages: [], icon: '🔧', color: 'from-gray-500 to-gray-600' },
+    'Institutionnel': { pages: [], icon: '🏛️', color: 'from-red-500 to-red-600' },
+    'Autres': { pages: [], icon: '📄', color: 'from-gray-400 to-gray-500' }
+  };
+
+  pages.forEach(page => {
+    const path = page.path.toLowerCase();
+    let categorized = false;
+
+    // Pages principales
+    if (path === 'accueil' || path === 'home') {
+      categories['Accueil'].pages.push(page);
+      categorized = true;
+    } else if (path.startsWith('fiscalite') || path.startsWith('fiscalité')) {
+      categories['Fiscalité'].pages.push(page);
+      categorized = true;
+    } else if (path.startsWith('immobilier')) {
+      categories['Immobilier'].pages.push(page);
+      categorized = true;
+    } else if (path.startsWith('placements')) {
+      categories['Placements'].pages.push(page);
+      categorized = true;
+    } else if (path.startsWith('retraite')) {
+      categories['Retraite'].pages.push(page);
+      categorized = true;
+    } else if (path.startsWith('patrimoine')) {
+      categories['Patrimoine'].pages.push(page);
+      categorized = true;
+    } else if (path.startsWith('outils') || path.startsWith('outils-financiers')) {
+      categories['Outils'].pages.push(page);
+      categorized = true;
+    } else if (path === 'qui-sommes-nous' || path === 'equipe' || path === 'notre-approche' || path === 'contact' || path === 'mentions-legales' || path === 'conditions-generales') {
+      categories['Institutionnel'].pages.push(page);
+      categorized = true;
+    }
+
+    if (!categorized) {
+      categories['Autres'].pages.push(page);
+    }
+  });
+
+  // Trier les pages dans chaque catégorie par path
+  Object.keys(categories).forEach(key => {
+    categories[key].pages.sort((a, b) => {
+      // Pages principales en premier
+      const aIsMain = !a.path.includes('/');
+      const bIsMain = !b.path.includes('/');
+      if (aIsMain && !bIsMain) return -1;
+      if (!aIsMain && bIsMain) return 1;
+      return a.path.localeCompare(b.path);
+    });
+  });
+
+  return categories;
+};
+
 export default function CMSManagementPage() {
   const router = useRouter();
   const [pages, setPages] = useState([]);
@@ -64,6 +129,19 @@ export default function CMSManagementPage() {
   const [newPage, setNewPage] = useState({ path: '', title: '', content: {} });
   const [formData, setFormData] = useState({});
   const [notification, setNotification] = useState({ isOpen: false, message: '', type: 'success' });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedCategories, setExpandedCategories] = useState({
+    'Accueil': true,
+    'Fiscalité': true,
+    'Immobilier': true,
+    'Placements': true,
+    'Retraite': true,
+    'Patrimoine': true,
+    'Outils': true,
+    'Institutionnel': true,
+    'Autres': false
+  });
+  const [sortBy, setSortBy] = useState('path'); // 'path', 'date', 'title'
 
   // dnd-kit sensors for drag and drop
   const sensors = useSensors(
@@ -119,10 +197,21 @@ export default function CMSManagementPage() {
       if (data.success) {
         setSelectedPage(data.data);
         const content = data.data.content || {};
-        console.log('Fetched content for', path, ':', JSON.stringify(content, null, 2).substring(0, 1000));
-        console.log('Hero keys:', content.hero ? Object.keys(content.hero) : 'no hero');
-        console.log('Hero description1:', content.hero?.description1);
-        console.log('Hero description2:', content.hero?.description2);
+        console.log('📦 CMS Admin - Fetched content for', path, ':', {
+          totalSections: Object.keys(content).length,
+          sections: Object.keys(content),
+          hasDeclarationSteps: !!content.declarationSteps,
+          declarationStepsCount: content.declarationSteps?.length || 0,
+          hasCalendarData: !!content.calendarData,
+          calendarDataCount: content.calendarData?.length || 0,
+          hasCommonErrors: !!content.commonErrors,
+          commonErrorsCount: content.commonErrors?.length || 0,
+          hasQuickStats: !!content.quickStats,
+          quickStatsCount: content.quickStats?.length || 0,
+          hasTabContent: !!content.tabContent,
+          tabContentKeys: content.tabContent ? Object.keys(content.tabContent) : [],
+          hasConclusion: !!content.conclusion
+        });
         
         // Convert partners from string array to object array if needed
         if (content.partners && Array.isArray(content.partners) && content.partners.length > 0) {
@@ -165,36 +254,43 @@ export default function CMSManagementPage() {
       }
       
       // Handle nested fields with dot notation (e.g., "hero.h1" or "section2.h3_inflation.title")
+      // Also handle cases like section="solutions", field="solutions.solutions"
       const fieldParts = field.split('.');
       
-      if (fieldParts.length === 1) {
+      // Check if the first part of field matches the section name (e.g., section="solutions", field="solutions.solutions")
+      // In this case, we should skip the first part since it's redundant
+      const adjustedFieldParts = (fieldParts.length > 1 && fieldParts[0] === section) 
+        ? fieldParts.slice(1) 
+        : fieldParts;
+      
+      if (adjustedFieldParts.length === 1) {
         // Simple field - ensure we're updating the correct section
         const newData = {
           ...prev,
           [section]: {
             ...(prev[section] || {}),
-            [field]: value
+            [adjustedFieldParts[0]]: value
           }
         };
-        console.log('Updated formData for section:', section, 'field:', field, 'value:', typeof value === 'string' ? value.substring(0, 50) : value);
+        console.log('Updated formData for section:', section, 'field:', adjustedFieldParts[0], 'value:', typeof value === 'string' ? value.substring(0, 50) : value);
         console.log('Section data after update:', newData[section]);
         return newData;
       } else {
         // Nested field - build nested object structure
-        const newSection = { ...prev[section] };
+        const newSection = { ...(prev[section] || {}) };
         let current = newSection;
         
         // Navigate/create nested structure
-        for (let i = 0; i < fieldParts.length - 1; i++) {
-          const part = fieldParts[i];
-          if (!current[part] || typeof current[part] !== 'object') {
+        for (let i = 0; i < adjustedFieldParts.length - 1; i++) {
+          const part = adjustedFieldParts[i];
+          if (!current[part] || typeof current[part] !== 'object' || Array.isArray(current[part])) {
             current[part] = {};
           }
           current = current[part];
         }
         
         // Set the final value
-        current[fieldParts[fieldParts.length - 1]] = value;
+        current[adjustedFieldParts[adjustedFieldParts.length - 1]] = value;
         
         return {
           ...prev,
@@ -334,6 +430,42 @@ export default function CMSManagementPage() {
     }
   };
 
+  // Fonction pour filtrer et trier les pages
+  const getFilteredAndSortedPages = (pagesList) => {
+    let filtered = pagesList;
+
+    // Filtre par recherche
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(page => 
+        page.title.toLowerCase().includes(query) || 
+        page.path.toLowerCase().includes(query)
+      );
+    }
+
+    // Tri
+    filtered = [...filtered].sort((a, b) => {
+      if (sortBy === 'date') {
+        return new Date(b.lastModified) - new Date(a.lastModified);
+      } else if (sortBy === 'title') {
+        return a.title.localeCompare(b.title);
+      } else {
+        // Par défaut, tri par path
+        return a.path.localeCompare(b.path);
+      }
+    });
+
+    return filtered;
+  };
+
+  // Fonction pour toggle une catégorie
+  const toggleCategory = (category) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
+
   const handleDelete = async (path) => {
     if (!confirm('Are you sure you want to delete this page?')) return;
 
@@ -362,8 +494,10 @@ export default function CMSManagementPage() {
     // Handle nested fields with dot notation
     const getNestedValue = (obj, path) => {
       const parts = path.split('.');
+      // If the first part matches the section name, skip it (e.g., section="solutions", field="solutions.solutions")
+      const adjustedParts = (parts.length > 1 && parts[0] === section) ? parts.slice(1) : parts;
       let current = obj;
-      for (const part of parts) {
+      for (const part of adjustedParts) {
         if (current && typeof current === 'object' && part in current) {
           current = current[part];
         } else {
@@ -387,13 +521,7 @@ export default function CMSManagementPage() {
             const oldIndex = value.findIndex((_, idx) => idx.toString() === active.id);
             const newIndex = value.findIndex((_, idx) => idx.toString() === over.id);
             const newArray = arrayMove(value, oldIndex, newIndex);
-            setFormData(prev => ({
-              ...prev,
-              [section]: {
-                ...prev[section],
-                [field]: newArray
-              }
-            }));
+            handleInputChange(section, field, newArray);
           }
         };
 
@@ -439,6 +567,12 @@ export default function CMSManagementPage() {
                               key.toLowerCase().includes('error') ||
                               key.toLowerCase().includes('title')
                             );
+                            
+                            // Detect long text fields that should use textarea
+                            const isLongTextField = key.toLowerCase().includes('details') ||
+                              key.toLowerCase().includes('detail') ||
+                              key.toLowerCase().includes('paragraph') ||
+                              (typeof fieldValue === 'string' && fieldValue.length > 50);
 
                             return (
                               <div key={key}>
@@ -455,6 +589,18 @@ export default function CMSManagementPage() {
                                       handleInputChange(section, field, newArray);
                                     }}
                                     placeholder={`Écrivez ${key}...`}
+                                  />
+                                ) : isLongTextField ? (
+                                  <textarea
+                                    value={fieldValue}
+                                    onChange={(e) => {
+                                      const newArray = [...value];
+                                      newArray[index] = { ...newArray[index], [key]: e.target.value };
+                                      handleInputChange(section, field, newArray);
+                                    }}
+                                    rows={4}
+                                    className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-y"
+                                    placeholder={`Entrez ${key}...`}
                                   />
                                 ) : (
                                   <input
@@ -506,13 +652,7 @@ export default function CMSManagementPage() {
           const oldIndex = value.findIndex((_, idx) => idx.toString() === active.id);
           const newIndex = value.findIndex((_, idx) => idx.toString() === over.id);
           const newArray = arrayMove(value, oldIndex, newIndex);
-          setFormData(prev => ({
-            ...prev,
-            [section]: {
-              ...prev[section],
-              [field]: newArray
-            }
-          }));
+          handleInputChange(section, field, newArray);
         }
       };
 
@@ -1637,7 +1777,7 @@ export default function CMSManagementPage() {
               <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-[#B99066]/10 to-transparent"></div>
               
               <img 
-                src="/images/azalee-patrimoine3.png" 
+                src="/images/azalee-patrimoine3.webp" 
                 alt="Azalée Patrimoine Logo" 
                 className="max-w-full max-h-full object-contain relative z-10 animate-logo-refined drop-shadow-2xl"
                 onError={(e) => {
@@ -2108,13 +2248,42 @@ export default function CMSManagementPage() {
           <div className="lg:col-span-1 order-2 lg:order-1">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
               <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl">
-                <h2 className="text-base sm:text-lg font-cairo font-bold text-white flex items-center gap-2">
+                <h2 className="text-base sm:text-lg font-cairo font-bold text-white flex items-center gap-2 mb-3">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                     <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   Pages ({pages.length})
                 </h2>
+                
+                {/* Barre de recherche */}
+                <div className="mb-3">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Rechercher une page..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full px-3 py-2 pl-10 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#B99066]"
+                    />
+                    <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Tri */}
+                <div className="mb-3">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#B99066]"
+                  >
+                    <option value="path">Trier par chemin</option>
+                    <option value="title">Trier par titre</option>
+                    <option value="date">Trier par date</option>
+                  </select>
+                </div>
               </div>
               <div className="max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] overflow-y-auto">
                 {pages.length === 0 ? (
@@ -2124,8 +2293,9 @@ export default function CMSManagementPage() {
                     </svg>
                     <p className="text-gray-500 dark:text-gray-400 font-inter">Aucune page trouvée. Créez-en une pour commencer.</p>
                   </div>
-                ) : (
-                  pages.map((page) => (
+                ) : searchQuery ? (
+                  // Mode recherche : afficher toutes les pages filtrées
+                  getFilteredAndSortedPages(pages).map((page) => (
                     <div
                       key={page._id}
                       className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
@@ -2169,6 +2339,110 @@ export default function CMSManagementPage() {
                       </div>
                     </div>
                   ))
+                ) : (
+                  // Mode catégories : afficher par catégories
+                  Object.entries(categorizePages(pages)).map(([categoryName, category]) => {
+                    if (category.pages.length === 0) return null;
+                    
+                    const isExpanded = expandedCategories[categoryName];
+                    const sortedPages = getFilteredAndSortedPages(category.pages);
+
+                    return (
+                      <div key={categoryName} className="border-b border-gray-200 dark:border-gray-700">
+                        {/* En-tête de catégorie */}
+                        <button
+                          onClick={() => toggleCategory(categoryName)}
+                          className="w-full p-3 sm:p-4 flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-700 dark:hover:to-gray-800 transition-all duration-200"
+                        >
+                          <div className="flex items-center gap-2 sm:gap-3">
+                            <span className="text-lg sm:text-xl">{category.icon}</span>
+                            <div className="text-left">
+                              <h3 className="font-cairo font-bold text-sm sm:text-base text-[#253F60] dark:text-white">
+                                {categoryName}
+                              </h3>
+                              <p className="text-xs text-gray-500 dark:text-gray-400 font-inter">
+                                {category.pages.length} page{category.pages.length > 1 ? 's' : ''}
+                              </p>
+                            </div>
+                          </div>
+                          <svg
+                            className={`w-5 h-5 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+
+                        {/* Pages de la catégorie */}
+                        {isExpanded && (
+                          <div className="bg-white dark:bg-gray-800">
+                            {sortedPages.map((page) => {
+                              const isSubPage = page.path.includes('/');
+                              return (
+                                <div
+                                  key={page._id}
+                                  className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
+                                    isSubPage ? 'pl-6 sm:pl-8 bg-gray-50 dark:bg-gray-900/50' : ''
+                                  } ${
+                                    selectedPage?.path === page.path 
+                                      ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
+                                      : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
+                                  }`}
+                                  onClick={() => fetchPageContent(page.path)}
+                                >
+                                  <div className="flex items-start sm:items-center justify-between gap-2">
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-2">
+                                        {isSubPage && (
+                                          <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                          </svg>
+                                        )}
+                                        <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">
+                                          {page.title}
+                                        </h3>
+                                      </div>
+                                      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">
+                                        {page.path}
+                                      </p>
+                                      <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                        <span
+                                          className={`text-xs px-2 py-1 rounded font-inter ${
+                                            page.published
+                                              ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
+                                              : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 border border-gray-200'
+                                          }`}
+                                        >
+                                          {page.published ? 'Publié' : 'Brouillon'}
+                                        </span>
+                                        <span className="text-xs text-gray-400 dark:text-gray-500 font-inter">
+                                          {new Date(page.lastModified).toLocaleDateString('fr-FR')}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(page.path);
+                                      }}
+                                      className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
+                                      title="Supprimer"
+                                    >
+                                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </div>

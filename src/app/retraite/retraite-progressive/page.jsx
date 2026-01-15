@@ -1,15 +1,35 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function RetraiteProgressivePage() {
+export const defaultContent = {
+  hero: {
+    title: "Retraite progressive : travailler moins pour partir mieux",
+    subtitle: "La retraite progressive séduit de plus en plus de cadres et de dirigeants désireux de lever le pied sans cesser totalement leur activité.",
+    breadcrumb: {
+      parent: "Retraite",
+      current: "Retraite progressive"
+    }
+  },
+  seo: {
+    metaTitle: "Retraite Progressive | Azalée Patrimoine",
+    metaDescription: "Découvrez comment la retraite progressive vous permet de travailler moins pour partir mieux avec Azalée Patrimoine."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('retraite/retraite-progressive', defaultContent);
+  return {
+    title: content.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function RetraiteProgressivePage() {
+  const content = await getPageContent('retraite/retraite-progressive', defaultContent);
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[400px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,10 +44,10 @@ export default function RetraiteProgressivePage() {
             </nav>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
-              Retraite progressive : travailler moins pour partir mieux
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-lg sm:text-xl font-inter text-white/90 max-w-3xl">
-              La retraite progressive séduit de plus en plus de cadres et de dirigeants désireux de lever le pied sans cesser totalement leur activité.
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
             </p>
           </div>
         </div>
@@ -154,7 +174,7 @@ export default function RetraiteProgressivePage() {
                 <li className="flex items-start gap-3">
                   <span className="text-[#B99066] mt-1 font-bold">•</span>
                   <span className="text-[#4B5563] text-base font-inter">
-                    Continuer à alimenter votre <Link href="/placements/per" className="text-[#253F60] hover:text-[#B99066] font-bold underline">plan d'épargne retraite (PER)</Link> et bénéficier de déductions fiscales,
+                    Continuer à alimenter votre <Link href="/placements/per-perp" className="text-[#253F60] hover:text-[#B99066] font-bold underline">plan d'épargne retraite (PER)</Link> et bénéficier de déductions fiscales,
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -365,7 +385,7 @@ export default function RetraiteProgressivePage() {
               <li className="flex items-start gap-3">
                 <span className="text-[#B99066] mt-1 font-bold">•</span>
                 <span className="text-[#4B5563] text-base font-inter">
-                  Et les opportunités de versement sur le <Link href="/placements/per" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link> pour réduire votre fiscalité.
+                  Et les opportunités de versement sur le <Link href="/placements/per-perp" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link> pour réduire votre fiscalité.
                 </span>
               </li>
             </ul>
@@ -394,7 +414,7 @@ export default function RetraiteProgressivePage() {
               <li className="flex items-start gap-3">
                 <span className="text-[#B99066] mt-1 font-bold">•</span>
                 <span className="text-[#4B5563] text-base font-inter">
-                  <strong className="text-[#253F60]">Arbitrer ses contrats</strong> (<Link href="/placements/assurance-vie" className="text-[#253F60] hover:text-[#B99066] font-bold underline">assurance vie</Link>, capitalisation, <Link href="/placements/per" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link>),
+                  <strong className="text-[#253F60]">Arbitrer ses contrats</strong> (<Link href="/placements/assurance-vie" className="text-[#253F60] hover:text-[#B99066] font-bold underline">assurance vie</Link>, capitalisation, <Link href="/placements/per-perp" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link>),
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -458,7 +478,7 @@ export default function RetraiteProgressivePage() {
                 <span className="text-[#253F60] mt-1 font-bold">•</span>
                 <div>
                   <p className="text-[#4B5563] text-base font-inter leading-relaxed">
-                    Ne pas prévoir de <Link href="/placements/per" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link> ou d'<Link href="/placements/assurance-vie" className="text-[#253F60] hover:text-[#B99066] font-bold underline">assurance vie</Link> pour lisser vos revenus lors du passage à la retraite totale.
+                    Ne pas prévoir de <Link href="/placements/per-perp" className="text-[#253F60] hover:text-[#B99066] font-bold underline">PER</Link> ou d'<Link href="/placements/assurance-vie" className="text-[#253F60] hover:text-[#B99066] font-bold underline">assurance vie</Link> pour lisser vos revenus lors du passage à la retraite totale.
                   </p>
                 </div>
               </li>
@@ -488,7 +508,7 @@ export default function RetraiteProgressivePage() {
               <li className="flex items-start gap-3">
                 <span className="text-[#B99066] mt-1 font-bold">•</span>
                 <span className="text-[#4B5563] text-base font-inter">
-                  Chez Azalée Patrimoine, nous accompagnons les cadres, dirigeants et professions libérales pour <strong className="text-[#253F60]">transformer</strong> cette étape en véritable stratégie d'<Link href="/retraite/independance-financiere" className="text-[#253F60] hover:text-[#B99066] font-bold underline">indépendance financière</Link>.
+                  Chez Azalée Patrimoine, nous accompagnons les cadres, dirigeants et professions libérales pour <strong className="text-[#253F60]">transformer</strong> cette étape en véritable stratégie d'<Link href="/retraite" className="text-[#253F60] hover:text-[#B99066] font-bold underline">indépendance financière</Link>.
                 </span>
               </li>
             </ul>
@@ -533,7 +553,7 @@ export default function RetraiteProgressivePage() {
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-base sm:text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full sm:w-auto"
               >
-                Prendre rendez-vous avec un conseiller Azalée
+                Planifiez votre consultation gratuite avec un conseiller Azalée
               </a>
             </div>
             <div className="border-t border-gray-200 pt-6 mt-6">

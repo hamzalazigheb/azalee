@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 
@@ -53,6 +52,29 @@ export default function PlacementsPage() {
     };
 
     fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'placements') {
+        console.log('🔄 CMS content updated, refreshing placements page...', updatedPath);
+        fetchContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        fetchContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
 
@@ -86,7 +108,6 @@ export default function PlacementsPage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#1a2d47]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#B99066] mx-auto mb-4"></div>
@@ -140,8 +161,6 @@ export default function PlacementsPage() {
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full bg-[#253F60] lg:bg-gradient-to-r lg:from-[#253F60] lg:to-[#B99066] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,12 +168,9 @@ export default function PlacementsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             {/* Left Column: H1 and Intro Text */}
             <div className="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-6">
-              {/* H1 */}
               <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-cairo font-bold leading-tight">
-                {pageContent.hero?.h1 || "Construire son patrimoine"}
+                {pageContent.hero?.h1 || "Placements financiers : construire et faire fructifier votre patrimoine"}
               </h1>
-              
-              {/* Introductory Text */}
               <p className="text-white/90 text-base sm:text-lg lg:text-xl font-inter leading-relaxed max-w-2xl">
                 {pageContent.hero?.introText || (
                   <>
@@ -166,21 +182,13 @@ export default function PlacementsPage() {
 
             {/* Right Column: Image */}
             <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="relative w-full">
-                {/* Image container with consistent styling */}
-                <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
-                  {/* Subtle gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#253F60]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  
-                  {/* Image */}
-                  <div className="relative z-10">
-                    <img
-                      src={pageContent.hero?.rightImage || "/images/place.webp"}
-                      alt="Placements patrimoniaux - Conseils Azalée Patrimoine"
-                      className="w-full h-auto rounded-lg object-cover"
-                    />
-                  </div>
-                </div>
+              <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 overflow-hidden hover:shadow-xl transition-all duration-300 relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#253F60]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <img
+                  src={pageContent.hero?.rightImage || "/images/place.webp"}
+                  alt="Placements patrimoniaux - Conseils Azalée Patrimoine"
+                  className="relative z-10 w-full h-auto rounded-lg object-cover"
+                />
               </div>
             </div>
           </div>

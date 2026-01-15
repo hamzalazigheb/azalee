@@ -1,11 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 
-const STORAGE_KEY = "assuranceVieLuxembourgContent";
-
-const defaultContent = {
+export const defaultContent = {
   hero: {
     title: "Assurance-vie luxembourgeoise : la version haut de gamme",
     subtitle: "Souvent perçue comme une \"assurance-vie haut de gamme\", l'assurance-vie luxembourgeoise est en réalité un outil patrimonial transfrontalier qui répond parfaitement aux besoins des investisseurs fortunés et des personnes susceptibles de s'expatrier.",
@@ -105,7 +102,7 @@ const defaultContent = {
     subtitle: "pour savoir si l'assurance-vie luxembourgeoise peut s'intégrer à votre stratégie patrimoniale et anticiper vos projets d'expatriation",
     email: "contact@azalee-patrimoine.fr",
     primaryButton: "Demander une étude gratuite",
-    secondaryButton: "Prendre rendez-vous"
+    secondaryButton: "Planifiez votre consultation gratuite"
   }
 };
 
@@ -114,35 +111,45 @@ export default function AssuranceVieLuxembourgPage() {
   const [activeTab, setActiveTab] = useState("fonctionnement");
 
   // Load content from localStorage
+  // Load content from CMS
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setContent((prev) => ({ ...prev, ...parsed }));
-      }
-    } catch (e) {
-      console.error("Failed to load content", e);
-    }
-  }, []);
-
-  // Live update on CustomEvent from CMS
-  useEffect(() => {
-    const handler = () => {
+    const loadContent = async () => {
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) setContent((prev) => ({ ...prev, ...JSON.parse(saved) }));
-      } catch {}
+        const response = await fetch(`/api/cms/content?path=placements/assurance-vie-luxembourg&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setContent((prev) => ({ ...prev, ...data.content }));
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load CMS content", error);
+      }
     };
-    window.addEventListener("contentUpdated", handler);
-    return () => window.removeEventListener("contentUpdated", handler);
+
+    loadContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[543px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">

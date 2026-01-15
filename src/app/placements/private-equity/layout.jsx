@@ -21,3 +21,4 @@ export default function PrivateEquityLayout({ children }) {
   return <>{children}</>;
 }
 
+

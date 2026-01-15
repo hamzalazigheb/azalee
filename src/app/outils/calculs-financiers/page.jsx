@@ -632,7 +632,7 @@ export default function CalculsFinanciersPage() {
                   }}
                   className="flex-1 bg-gradient-to-r from-[#253F60] to-[#B99066] text-white py-3 px-4 sm:px-6 rounded-lg font-semibold hover:from-[#1E2F4A] hover:to-[#A67A5A] transition-all duration-200 shadow-lg text-sm sm:text-base"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </button>
                 <button
                   onClick={() => setShowPopup(false)}

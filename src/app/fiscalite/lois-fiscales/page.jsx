@@ -1,45 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
 import Link from "next/link";
 
 export default function LoisFiscalesPage() {
   const [selectedLaw, setSelectedLaw] = useState("pinel");
-  
-  // Mock data for selected law
-  const selectedLawData = {
-    name: "Loi Pinel",
-    description: "Dispositif de défiscalisation immobilière",
-    avantages: [
-      "Réduction d'impôt de 12% par an",
-      "Investissement dans le neuf uniquement",
-      "Engagement de location de 9 ans"
-    ],
-    conditions: [
-      "Plafond de 300 000€ par an",
-      "Respect des plafonds de loyers",
-      "Respect des plafonds de ressources des locataires"
-    ],
-    taux: [
-      { reduction: "12%", annees: "6 ans" },
-      { reduction: "12%", annees: "9 ans" },
-      { reduction: "12%", annees: "12 ans" }
-    ],
-    plafonds: {
-      "Plafond annuel": "300 000€",
-      "Plafond loyer": "Selon zone",
-      "Plafond ressources": "Selon zone"
-    },
-    risques: [
-      "Non-respect des conditions d'engagement",
-      "Baisse de la valeur du bien",
-      "Évolutions législatives"
-    ],
-    cas_pratique: "Exemple : Investissement de 200 000€ dans un appartement Pinel à Paris. Réduction d'impôt de 24 000€ par an pendant 9 ans, soit 216 000€ au total.",
-    recommandation: "La loi Pinel est un excellent dispositif pour réduire ses impôts tout en investissant dans l'immobilier neuf. Elle convient particulièrement aux contribuables imposés souhaitant diversifier leur patrimoine."
-  };
   const [selectedCategory, setSelectedCategory] = useState("immobilier");
   const [content, setContent] = useState({});
 
@@ -50,11 +16,68 @@ export default function LoisFiscalesPage() {
       subtitle: "Guide complet",
       description: "Optimiser sa fiscalité, c'est protéger et valoriser durablement son patrimoine. Les dispositifs fiscaux d'investissement immobilier offrent des leviers puissants pour réduire son imposition, préparer sa retraite ou transmettre plus efficacement. Ce guide décrypte les 7 principaux régimes en vigueur, à jour des dernières réformes, pour vous aider à arbitrer en toute connaissance de cause."
     },
+    laws: [
+      { id: 1, name: "Loi Pinel", shortName: "Pinel", category: "immobilier", path: "/fiscalite/loi-pinel", color: "bg-[#B99066]" },
+      { id: 2, name: "Loi Malraux", shortName: "Malraux", category: "immobilier", path: "/fiscalite/loi-malraux", color: "bg-[#B99066]" },
+      { id: 3, name: "Loi Cosse", shortName: "Cosse", category: "immobilier", path: "/fiscalite/loi-cosse", color: "bg-[#B99066]" },
+      { id: 4, name: "Loi Denormandie", shortName: "Denormandie", category: "immobilier", path: "/fiscalite/loi-denormandie", color: "bg-[#B99066]" },
+      { id: 5, name: "Loi Girardin", shortName: "Girardin", category: "immobilier", path: "/fiscalite/loi-girardin", color: "bg-[#B99066]" },
+      { id: 6, name: "Monument Historique", shortName: "Monument", category: "immobilier", path: "/fiscalite/monument-historique", color: "bg-[#B99066]" }
+    ],
     categories: [
       { id: "immobilier", label: "Immobilier" },
       { id: "entreprise", label: "Entreprise" },
       { id: "patrimoine", label: "Patrimoine" },
       { id: "retraite", label: "Retraite" }
+    ],
+    selectedLawData: {
+      name: "Loi Pinel",
+      description: "Dispositif de défiscalisation immobilière",
+      avantages: [
+        "Réduction d'impôt de 12% par an",
+        "Investissement dans le neuf uniquement",
+        "Engagement de location de 9 ans"
+      ],
+      conditions: [
+        "Plafond de 300 000€ par an",
+        "Respect des plafonds de loyers",
+        "Respect des plafonds de ressources des locataires"
+      ],
+      taux: [
+        { reduction: "12%", annees: "6 ans" },
+        { reduction: "12%", annees: "9 ans" },
+        { reduction: "12%", annees: "12 ans" }
+      ],
+      plafonds: {
+        "Plafond annuel": "300 000€",
+        "Plafond loyer": "Selon zone",
+        "Plafond ressources": "Selon zone"
+      },
+      risques: [
+        "Non-respect des conditions d'engagement",
+        "Baisse de la valeur du bien",
+        "Évolutions législatives"
+      ],
+      cas_pratique: "Exemple : Investissement de 200 000€ dans un appartement Pinel à Paris. Réduction d'impôt de 24 000€ par an pendant 9 ans, soit 216 000€ au total.",
+      recommandation: "La loi Pinel est un excellent dispositif pour réduire ses impôts tout en investissant dans l'immobilier neuf. Elle convient particulièrement aux contribuables imposés souhaitant diversifier leur patrimoine."
+    },
+    faq: [
+      {
+        question: "Puis-je cumuler plusieurs dispositifs ?",
+        answer: "Oui, dans certains cas, vous pouvez cumuler plusieurs dispositifs fiscaux. Par exemple, la loi Pinel peut être combinée avec le prêt à taux zéro (PTZ) ou d'autres aides régionales."
+      },
+      {
+        question: "Quand dois-je m'engager ?",
+        answer: "L'engagement de location doit généralement être pris dès l'acquisition du bien. La durée varie selon le dispositif : 6, 9 ou 12 ans pour Pinel, 9 ans pour Malraux, etc."
+      },
+      {
+        question: "Quels sont les risques ?",
+        answer: "Les principaux risques sont la non-respect des conditions d'engagement, la baisse de la valeur du bien, et les évolutions législatives qui peuvent modifier les avantages fiscaux."
+      },
+      {
+        question: "Quels documents fournir ?",
+        answer: "Vous devrez fournir les justificatifs d'acquisition, les contrats de location, les attestations de loyer, et respecter les déclarations fiscales annuelles."
+      }
     ],
     cta: {
       title: "Prêt à optimiser votre fiscalité ?",
@@ -68,23 +91,84 @@ export default function LoisFiscalesPage() {
       title: "Besoin d'un arbitrage personnalisé ?",
       description: "Chaque situation fiscale est unique. Chez Azalée, nous vous aidons à intégrer ces dispositifs dans une stratégie globale patrimoniale (transmission, SCI, IR/IFI, assurance vie...)",
       email: "contact@azalee-patrimoine.fr",
-      emailSubtitle: "Prendre rendez-vous pour un arbitrage personnalisé",
+      emailSubtitle: "Planifiez votre consultation gratuite pour un arbitrage personnalisé",
       buttons: [
-        { text: "Prendre rendez-vous", type: "primary" },
+        { text: "Planifiez votre consultation gratuite", type: "primary" },
         { text: "Nous écrire", type: "secondary" }
       ]
     }
   };
 
   useEffect(() => {
-    // Set static content
-    setContent(defaultContent);
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=fiscalite/lois-fiscales&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.data) {
+            // Merge with defaultContent as fallback
+            const mergedContent = { ...defaultContent, ...data.data };
+            console.log('📦 CMS Content loaded for lois-fiscales:', {
+              sections: Object.keys(mergedContent),
+              hasLaws: !!mergedContent.laws,
+              lawsCount: mergedContent.laws?.length || 0,
+              hasCategories: !!mergedContent.categories,
+              hasFaq: !!mergedContent.faq,
+              faqCount: mergedContent.faq?.length || 0
+            });
+            setContent(mergedContent);
+          } else {
+            setContent(defaultContent);
+          }
+        } else {
+          setContent(defaultContent);
+        }
+      } catch (error) {
+        console.error("Failed to fetch fiscalite/lois-fiscales content:", error);
+        setContent(defaultContent);
+      }
+    };
+
+    fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'fiscalite/lois-fiscales' || updatedPath.includes('lois-fiscales')) {
+        console.log('🔄 CMS content updated, refreshing lois-fiscales page...', updatedPath);
+        fetchContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        fetchContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
+
+  // Get content from CMS
+  const laws = content.laws || defaultContent.laws || [];
+  const categories = content.categories || defaultContent.categories;
+  const faq = content.faq || defaultContent.faq || [];
+  const selectedLawData = content.selectedLawData || defaultContent.selectedLawData || {};
 
   return (
     <>
-      <Header />
-
       {/* Hero Section with Law Icons */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -101,37 +185,18 @@ export default function LoisFiscalesPage() {
           </p>
           
           {/* Law Icons Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
-            {[
-              { id: 1, shortName: "Pinel" },
-              { id: 2, shortName: "Malraux" },
-              { id: 3, shortName: "Cosse" },
-              { id: 4, shortName: "Denormandie" },
-              { id: 5, shortName: "Girardin" },
-              { id: 6, shortName: "Monument" },
-              { id: 7, shortName: "LLI" }
-            ].map((law, index) => {
-              // Définir les couleurs pour chaque cercle
-              const circleColors = [
-                "bg-[#B99066]", // Pinel - Or AZALEE
-                "bg-[#B99066]", // Malraux - Or AZALEE
-                "bg-[#B99066]", // Cosse - Or AZALEE
-                "bg-[#B99066]", // Denormandie - Or AZALEE
-                "bg-[#B99066]", // Girardin - Or AZALEE
-                "bg-[#B99066]", // Monument - Or AZALEE
-                "bg-[#B99066]" // LLI - Or AZALEE
-              ];
-              
-              return (
-              <div key={law.id} className="bg-white rounded-xl shadow-lg p-4 text-center hover:shadow-xl transition-shadow cursor-pointer">
-                <div className={`w-12 h-12 ${circleColors[index]} text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-2`}>
-                  {law.shortName.charAt(0)}
+          {laws.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
+              {laws.map((law, index) => (
+                <div key={law.id || index} className="bg-white rounded-xl shadow-lg p-4 text-center hover:shadow-xl transition-shadow cursor-pointer">
+                  <div className={`w-12 h-12 ${law.color || "bg-[#B99066]"} text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-2`}>
+                    {law.shortName?.charAt(0) || law.name?.charAt(0) || "?"}
+                  </div>
+                  <p className="text-[#112033] text-xs font-medium">{law.shortName || law.name}</p>
                 </div>
-                <p className="text-[#112033] text-xs font-medium">{law.shortName}</p>
-              </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -139,12 +204,7 @@ export default function LoisFiscalesPage() {
       <section className="py-8 bg-white border-b">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { id: 'immobilier', label: 'Immobilier' },
-              { id: 'entreprise', label: 'Entreprise' },
-              { id: 'patrimoine', label: 'Patrimoine' },
-              { id: 'retraite', label: 'Retraite' }
-            ].map((category) => (
+            {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
@@ -172,27 +232,19 @@ export default function LoisFiscalesPage() {
                 <h2 className="text-white text-xl sm:text-2xl font-cairo font-bold mb-6">Dispositifs disponibles</h2>
               </div>
               <div className="space-y-3">
-                {[
-                  { id: 1, name: "Loi Pinel", category: "immobilier", path: "/fiscalite/loi-pinel" },
-                  { id: 2, name: "Loi Malraux", category: "immobilier", path: "/fiscalite/loi-malraux" },
-                  { id: 3, name: "Loi Cosse", category: "immobilier", path: "/fiscalite/loi-cosse" },
-                  { id: 4, name: "Loi Denormandie", category: "immobilier", path: "/fiscalite/loi-denormandie" },
-                  { id: 5, name: "Loi Girardin", category: "immobilier", path: "/fiscalite/loi-girardin" },
-                  { id: 6, name: "Monument Historique", category: "immobilier", path: "/fiscalite/monument-historique" },
-                  { id: 7, name: "LLI", category: "immobilier", path: "/fiscalite/lli" }
-                ].filter(law => selectedCategory === 'immobilier' || selectedCategory === law.category).map((law) => (
+                {laws.filter(law => !law.category || selectedCategory === law.category || selectedCategory === 'immobilier').map((law) => (
                   <Link
-                    key={law.id}
-                    href={law.path}
+                    key={law.id || law.name}
+                    href={law.path || `#${law.id || law.name}`}
                     className={`block w-full text-left p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 ${
-                      selectedLaw === law.id
+                      selectedLaw === (law.id || law.name)
                         ? "bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] text-white shadow-xl"
                         : "bg-white text-[#112033] hover:bg-gray-50 shadow-md hover:shadow-lg"
                     }`}
                   >
                     <h3 className="font-cairo font-semibold mb-1">{law.name}</h3>
-                    <p className={`text-sm ${selectedLaw === law.id ? 'text-white/80' : 'text-[#686868]'}`}>
-                      Dispositif de défiscalisation
+                    <p className={`text-sm ${selectedLaw === (law.id || law.name) ? 'text-white/80' : 'text-[#686868]'}`}>
+                      {law.description || "Dispositif de défiscalisation"}
                     </p>
                   </Link>
                 ))}
@@ -206,8 +258,8 @@ export default function LoisFiscalesPage() {
                   <span className="inline-block bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
                     {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}
                   </span>
-                  <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-bold mb-3">{selectedLawData.name}</h2>
-                  <p className="text-[#686868] text-lg">{selectedLawData.description}</p>
+                  <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-bold mb-3">{selectedLawData.name || "Sélectionnez une loi"}</h2>
+                  <p className="text-[#686868] text-lg">{selectedLawData.description || "Choisissez une loi dans la liste pour voir les détails"}</p>
                 </div>
 
                 {/* Avantages et Conditions */}
@@ -366,7 +418,7 @@ export default function LoisFiscalesPage() {
                       rel="noopener noreferrer"
                       className="inline-block bg-[#B99066] hover:bg-[#A67A5A] text-white px-8 py-3 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
                     >
-                      Prendre rendez-vous
+                      Planifiez votre consultation gratuite
                     </a>
                   </div>
                 </div>
@@ -386,24 +438,7 @@ export default function LoisFiscalesPage() {
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {[
-              {
-                question: "Puis-je cumuler plusieurs dispositifs ?",
-                answer: "Oui, dans certains cas, vous pouvez cumuler plusieurs dispositifs fiscaux. Par exemple, la loi Pinel peut être combinée avec le prêt à taux zéro (PTZ) ou d'autres aides régionales."
-              },
-              {
-                question: "Quand dois-je m'engager ?",
-                answer: "L'engagement de location doit généralement être pris dès l'acquisition du bien. La durée varie selon le dispositif : 6, 9 ou 12 ans pour Pinel, 9 ans pour Malraux, etc."
-              },
-              {
-                question: "Quels sont les risques ?",
-                answer: "Les principaux risques sont la non-respect des conditions d'engagement, la baisse de la valeur du bien, et les évolutions législatives qui peuvent modifier les avantages fiscaux."
-              },
-              {
-                question: "Quels documents fournir ?",
-                answer: "Vous devrez fournir les justificatifs d'acquisition, les contrats de location, les attestations de loyer, et respecter les déclarations fiscales annuelles."
-              }
-            ].map((faq, index) => {
+            {faq.length > 0 ? faq.map((faqItem, index) => {
               const isBlue = index % 2 === 0;
               return (
                 <div 
@@ -412,7 +447,7 @@ export default function LoisFiscalesPage() {
                     isBlue 
                       ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
                       : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
-                  }`}
+                    }`}
                 >
                   <div className={`absolute top-0 right-0 w-24 h-24 rounded-bl-full ${
                     isBlue ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20'
@@ -420,16 +455,20 @@ export default function LoisFiscalesPage() {
                   <div className="relative z-10">
                     <h3 className={`text-lg sm:text-xl font-cairo font-bold mb-3 ${
                       isBlue ? 'text-white' : 'text-white'
-                    }`}>{faq.question}</h3>
+                    }`}>{faqItem.question}</h3>
                     <p className={`text-sm sm:text-base leading-relaxed ${
                       isBlue ? 'text-white/90' : 'text-white/90'
                     }`}>
-                      {faq.answer}
+                      {faqItem.answer}
                     </p>
                   </div>
                 </div>
               );
-            })}
+            }) : (
+              <div className="col-span-2 text-center text-gray-500">
+                Aucune question fréquente disponible pour le moment.
+              </div>
+            )}
           </div>
         </div>
       </section>

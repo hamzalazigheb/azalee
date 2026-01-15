@@ -1,88 +1,107 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
-import Footer from "../../../components/common/Footer";
+import { notFound } from 'next/navigation';
+import { getPageContent } from '@/lib/cms-server';
+import Footer from '../../../components/common/Footer';
+import CTAButton from '@/components/ui/CTAButton';
 
 // Default content
 const defaultContent = {
-    hero: {
-      title: "Autres solutions retraite",
-      subtitle: "En complément du PER et des dispositifs d'entreprise, découvrez les solutions alternatives pour préparer votre retraite."
-    },
-    chart: {
-      data: [
-        { label: "Solutions complémentaires", value: "4" },
-        { label: "Immobilier locatif", value: "LMNP" },
-        { label: "SCPI rendement", value: "5-7%" },
-        { label: "Assurance-vie", value: "8 ans" },
-        { label: "Produits financiers", value: "ETF" }
-      ]
-    },
-    solutions: {
-      title: "Solutions complémentaires",
-      solutions: [
-        {
-          title: "Immobilier locatif",
-          description: "Revenus complémentaires",
-          details: "Investissement locatif avec avantages fiscaux (LMNP, Pinel, etc.)"
-        },
-        {
-          title: "SCPI",
-          description: "Rente mutualisée",
-          details: "Sociétés Civiles de Placement Immobilier pour diversifier"
-        },
-        {
-          title: "Assurance-vie",
-          description: "Épargne à long terme",
-          details: "Contrats d'assurance-vie pour optimiser la transmission"
-        },
-        {
-          title: "Produits financiers",
-          description: "Diversification",
-          details: "ETF, fonds, actions pour équilibrer le portefeuille"
-        }
-      ]
-    },
-    objectif: {
-      title: "Objectif",
-      description: " Objectif : créer une retraite sur-mesure, adaptée à vos besoins et à votre horizon."
-    },
-    cta: {
-      title: "Prêt à diversifier votre épargne retraite ?",
-      subtitle: "Nos experts vous accompagnent dans le choix des solutions complémentaires les plus adaptées à votre profil.",
-      buttonText: "Demander un conseil personnalisé"
-    }
-  };
+  hero: {
+    title: "Autres solutions retraite",
+    subtitle: "En complément du PER et des dispositifs d'entreprise, découvrez les solutions alternatives pour préparer votre retraite."
+  },
+  chart: {
+    data: [
+      { label: "Solutions complémentaires", value: "4" },
+      { label: "Immobilier locatif", value: "LMNP" },
+      { label: "SCPI rendement", value: "5-7%" },
+      { label: "Assurance-vie", value: "8 ans" },
+      { label: "Produits financiers", value: "ETF" }
+    ]
+  },
+  solutions: {
+    title: "Solutions complémentaires",
+    solutions: [
+      {
+        title: "Immobilier locatif",
+        description: "Revenus complémentaires",
+        details: "Investissement locatif avec avantages fiscaux (LMNP, Pinel, etc.)"
+      },
+      {
+        title: "SCPI",
+        description: "Rente mutualisée",
+        details: "Sociétés Civiles de Placement Immobilier pour diversifier"
+      },
+      {
+        title: "Assurance-vie",
+        description: "Épargne à long terme",
+        details: "Contrats d'assurance-vie pour optimiser la transmission"
+      },
+      {
+        title: "Produits financiers",
+        description: "Diversification",
+        details: "ETF, fonds, actions pour équilibrer le portefeuille"
+      }
+    ]
+  },
+  objectif: {
+    title: "Objectif",
+    description: " Objectif : créer une retraite sur-mesure, adaptée à vos besoins et à votre horizon."
+  },
+  cta: {
+    title: "Prêt à diversifier votre épargne retraite ?",
+    subtitle: "Nos experts vous accompagnent dans le choix des solutions complémentaires les plus adaptées à votre profil.",
+    buttonText: "Demander un conseil personnalisé"
+  },
+  seo: {
+    metaTitle: "Autres Solutions Retraite | Azalée Patrimoine",
+    metaDescription: "Découvrez les solutions alternatives pour préparer votre retraite avec Azalée Patrimoine."
+  }
+};
 
-export default function AutreRetraitePage() {
-  const content = defaultContent;
+export async function generateMetadata() {
+  const content = await getPageContent('retraite/autre', defaultContent);
+  return {
+    title: content?.seo?.metaTitle,
+    description: content?.seo?.metaDescription,
+  };
+}
+
+export default async function AutreRetraitePage() {
+  const content = await getPageContent('retraite/autre', defaultContent);
+  
+  if (!content) {
+    notFound();
+  }
 
   return (
     <>
-      <Header />
-      
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-6">
-              {content.hero?.title || "Autres solutions retraite"}
+              {content.hero?.title}
             </h1>
             <p className="text-white text-lg sm:text-xl lg:text-2xl font-inter leading-relaxed max-w-4xl mx-auto">
-              {content.hero?.subtitle || "En complément du PER et des dispositifs d'entreprise, découvrez les solutions alternatives pour préparer votre retraite."}
+              {content.hero?.subtitle}
             </p>
           </div>
           
           {/* Solutions Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {(content.solutions?.solutions || []).map((solution, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6 text-center">
-                <h3 className="text-[#112033] text-lg font-semibold mb-2">{solution.title}</h3>
-                <p className="text-[#686868] text-sm">{solution.description}</p>
-              </div>
-            ))}
-          </div>
+          {content.solutions?.solutions && content.solutions.solutions.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              {content.solutions.solutions.map((solution, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg p-6 text-center">
+                  <h3 className="text-[#112033] text-lg font-semibold mb-2">{solution.title}</h3>
+                  <p className="text-[#686868] text-sm">{solution.description}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-white/80 text-sm mb-12">
+              Aucune solution disponible
+            </div>
+          )}
         </div>
       </section>
 
@@ -94,7 +113,7 @@ export default function AutreRetraitePage() {
               <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-              {content.solutions?.title || "Solutions complémentaires"}
+              {content.solutions?.title}
             </h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Découvrez les alternatives pour diversifier votre épargne retraite
@@ -131,12 +150,12 @@ export default function AutreRetraitePage() {
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-1 h-12 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
                 <h2 className="text-white text-2xl sm:text-3xl font-cairo font-bold">
-              {content.objectif?.title || "Objectif"}
+              {content.objectif?.title}
             </h2>
                 <div className="w-1 h-12 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
               </div>
               <p className="text-white text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto">
-              {content.objectif?.description || "Objectif : créer une retraite sur-mesure, adaptée à vos besoins et à votre horizon."}
+              {content.objectif?.description}
             </p>
             </div>
           </div>
@@ -152,17 +171,14 @@ export default function AutreRetraitePage() {
             
             <div className="relative z-10">
               <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-            {content.cta?.title || "Prêt à diversifier votre épargne retraite ?"}
+            {content.cta?.title}
           </h2>
               <p className="text-white text-base sm:text-lg lg:text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
-            {content.cta?.subtitle || "Nos experts vous accompagnent dans le choix des solutions complémentaires les plus adaptées à votre profil."}
+            {content.cta?.subtitle}
           </p>
-          <button 
-            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                className="bg-white text-[#253F60] px-8 py-4 rounded-lg font-cairo font-bold text-lg hover:bg-[#F9FAFB] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-          >
-            Prendre rendez-vous
-          </button>
+          <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="white">
+            Planifiez votre consultation gratuite
+          </CTAButton>
             </div>
           </div>
         </div>

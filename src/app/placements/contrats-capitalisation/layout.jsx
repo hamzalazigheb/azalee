@@ -21,3 +21,4 @@ export default function ContratsCapitalisationLayout({ children }) {
   return <>{children}</>;
 }
 
+

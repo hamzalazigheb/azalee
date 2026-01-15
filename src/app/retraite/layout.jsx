@@ -1,3 +1,6 @@
+import Breadcrumb from '@/components/common/Breadcrumb';
+import Header from '@/components/common/Header';
+
 export const metadata = {
   title: "Retraite et Préparation de l'Avenir | Azalée Patrimoine",
   description: "Azalée Patrimoine vous accompagne pour préparer votre retraite : PER, PERP, rachat de trimestres, simulation retraite, prévoyance. Anticipez sereinement votre avenir grâce à nos experts.",
@@ -28,6 +31,12 @@ export const metadata = {
 };
 
 export default function RetraiteLayout({ children }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      <Breadcrumb />
+      {children}
+    </>
+  );
 }
 

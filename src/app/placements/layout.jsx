@@ -1,3 +1,6 @@
+import Breadcrumb from '@/components/common/Breadcrumb';
+import Header from '@/components/common/Header';
+
 export const metadata = {
   title: "Placements Financiers et Épargne | Azalée Patrimoine",
   description: "Azalée Patrimoine vous accompagne dans vos placements financiers : assurance-vie, SCPI, PEA, PER, contrats de capitalisation. Optimisez votre épargne et préparez votre retraite grâce à nos conseils.",
@@ -28,6 +31,12 @@ export const metadata = {
 };
 
 export default function PlacementsLayout({ children }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      <Breadcrumb />
+      {children}
+    </>
+  );
 }
 

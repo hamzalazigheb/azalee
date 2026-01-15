@@ -21,3 +21,4 @@ export default function LoisFiscalesLayout({ children }) {
   return <>{children}</>;
 }
 
+

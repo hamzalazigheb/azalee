@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
 
@@ -8,8 +7,6 @@ export default function EtfProduitsFinanciersPage() {
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -391,7 +388,7 @@ export default function EtfProduitsFinanciersPage() {
                   Un conseiller vous accompagne dans votre stratégie patrimoniale.
                 </p>
                 <button className="bg-[#253F60] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#1a2d47] transition-colors duration-200 shadow-md hover:shadow-lg">
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </button>
               </div>
               
@@ -442,7 +439,7 @@ export default function EtfProduitsFinanciersPage() {
               Analyser mes placements
             </button>
             <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200">
-              Prendre rendez-vous
+              Planifiez votre consultation gratuite
             </button>
           </div>
         </div>

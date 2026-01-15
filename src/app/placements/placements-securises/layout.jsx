@@ -21,3 +21,4 @@ export default function PlacementsSecurisesLayout({ children }) {
   return <>{children}</>;
 }
 
+

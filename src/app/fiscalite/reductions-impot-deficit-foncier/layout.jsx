@@ -21,3 +21,4 @@ export default function ReductionsImpotLayout({ children }) {
   return <>{children}</>;
 }
 
+

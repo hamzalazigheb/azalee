@@ -10,8 +10,41 @@ export default function SimulationsGeneralesPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Set static content
-    setIsLoading(false);
+    const loadCmsContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=outils/simulations-generales&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setCmsContent(data.content);
+          }
+        }
+      } catch (error) {
+        console.log('No CMS content found, using defaults');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadCmsContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadCmsContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadCmsContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Default content if CMS content is not available
@@ -262,7 +295,7 @@ export default function SimulationsGeneralesPage() {
                   rel="noopener noreferrer"
                   className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#253F60] transition-colors"
                 >
-                  Prendre rendez-vous
+                  Planifiez votre consultation gratuite
                 </a>
               </div>
             </div>

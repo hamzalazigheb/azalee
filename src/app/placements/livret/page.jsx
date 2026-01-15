@@ -1,14 +1,32 @@
-"use client";
-import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
-export default function LivretPage() {
+import CTAButton from "@/components/ui/CTAButton";
+import { getPageContent } from '@/lib/cms-server';
+
+export const defaultContent = {
+  hero: {
+    title: "Livrets réglementés (Livret A, LDDS, LEP, PEL…) : utiles mais pas suffisants",
+    description: "Les livrets réglementés font partie des placements préférés des Français. Sécurisés, liquides et garantis par l'État."
+  },
+  seo: {
+    metaTitle: "Livrets Réglementés | Azalée Patrimoine",
+    metaDescription: "Découvrez les livrets réglementés : Livret A, LDDS, LEP, PEL. Avantages, limites et stratégie patrimoniale."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('placements/livret', defaultContent);
+  return {
+    title: content.seo?.metaTitle || "Livrets Réglementés | Azalée Patrimoine",
+    description: content.seo?.metaDescription || "Découvrez les livrets réglementés (Livret A, LDDS, LEP, PEL) : avantages, limites et place dans votre stratégie patrimoniale.",
+  };
+}
+
+export default async function LivretPage() {
+  const content = await getPageContent('placements/livret', defaultContent);
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,12 +45,12 @@ export default function LivretPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
+                <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="primary">
                   Analyser mon épargne
-                </button>
-                <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+                </CTAButton>
+                <CTAButton variant="secondary">
                   En savoir plus
-                </button>
+                </CTAButton>
               </div>
             </div>
             
@@ -660,15 +678,12 @@ export default function LivretPage() {
             Nos experts vous accompagnent pour trouver le <strong>juste équilibre</strong> entre sécurité, performance et stratégie patrimoniale.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200">
+            <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="primary" className="px-8 py-4 text-lg font-semibold">
               Analyser mon épargne
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/azalee-patrimoine', '_blank')}
-              className="bg-transparent border-2 border-[#B99066] text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-[#B99066] hover:text-white transition-colors duration-200"
-            >
-              Prendre rendez-vous
-            </button>
+            </CTAButton>
+            <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="secondary" className="border-[#B99066] px-8 py-4 text-lg font-semibold hover:bg-[#B99066]">
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>

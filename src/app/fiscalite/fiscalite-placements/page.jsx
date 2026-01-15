@@ -1,13 +1,9 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
+import { notFound } from 'next/navigation';
+import { getPageContent } from '@/lib/cms-server';
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from '@/components/ui/CTAButton';
 
-export default function FiscalitePlacementsPage() {
-  const [content, setContent] = useState({});
-
-  // Default content structure
 const defaultContent = {
   hero: {
     title: "Fiscalité des placements financiers",
@@ -47,26 +43,26 @@ const defaultContent = {
         fiscalite: "Exonération d'IR sur les plus-values après 5 ans",
         caracteristiques: [
           "Réservé aux personnes physiques majeures résidentes fiscales en France",
-            "Plafond de versement : 150 000€",
-            "Titres éligibles : actions européennes uniquement",
-            "Durée de détention : 5 ans minimum"
-          ],
-          avantages: "Exonération d'IR sur les plus-values après 5 ans",
-          inconvenients: "Limitation géographique, plafond de versement",
-          icon: ""
-        },
-        {
-          name: "PER - Plan d'Épargne Retraite",
-          description: "Enveloppe fiscale pour la retraite",
-          fiscalite: "Réduction d'impôt sur les versements",
+          "Plafond de versement : 150 000€",
+          "Titres éligibles : actions européennes uniquement",
+          "Durée de détention : 5 ans minimum"
+        ],
+        avantages: "Exonération d'IR sur les plus-values après 5 ans",
+        inconvenients: "Limitation géographique, plafond de versement",
+        icon: ""
+      },
+      {
+        name: "PER - Plan d'Épargne Retraite",
+        description: "Enveloppe fiscale pour la retraite",
+        fiscalite: "Réduction d'impôt sur les versements",
         caracteristiques: [
-            "Réduction d'impôt sur les versements",
-            "Sortie en rente ou capital",
-            "Plafond : 10% du revenu net imposable",
-            "Engagement jusqu'à la retraite"
-          ],
-          avantages: "Réduction d'impôt immédiate",
-          inconvenients: "Blocage des capitaux jusqu'à la retraite",
+          "Réduction d'impôt sur les versements",
+          "Sortie en rente ou capital",
+          "Plafond : 10% du revenu net imposable",
+          "Engagement jusqu'à la retraite"
+        ],
+        avantages: "Réduction d'impôt immédiate",
+        inconvenients: "Blocage des capitaux jusqu'à la retraite",
         icon: ""
       }
     ]
@@ -119,49 +115,61 @@ const defaultContent = {
           gain: "12 560€"
         },
         {
-            enveloppe: "PER",
-            fiscalite: "Réduction IR",
-            impot: "0€",
+          enveloppe: "PER",
+          fiscalite: "Réduction IR",
+          impot: "0€",
           frais: "4 000€",
-            gain: "16 000€"
+          gain: "16 000€"
         }
       ]
     }
   },
   cta: {
-      title: "Besoin d'aide pour optimiser vos placements ?",
-      description: "Nos experts en fiscalité vous accompagnent pour choisir la meilleure stratégie de placement selon votre profil.",
-      buttonText: "Demander une consultation gratuite"
-    }
-  };
+    title: "Besoin d'aide pour optimiser vos placements ?",
+    description: "Nos experts en fiscalité vous accompagnent pour choisir la meilleure stratégie de placement selon votre profil.",
+    buttonText: "Demander une consultation gratuite"
+  },
+  seo: {
+    metaTitle: "Fiscalité des Placements Financiers | Azalée Patrimoine",
+    metaDescription: "Découvrez la fiscalité des placements financiers avec Azalée Patrimoine."
+  }
+};
 
-  useEffect(() => {
-    // Set static content
-    setContent(defaultContent);
-  }, []);
+export async function generateMetadata() {
+  const content = await getPageContent('fiscalite/fiscalite-placements', defaultContent);
+  return {
+    title: content?.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content?.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function FiscalitePlacementsPage() {
+  const content = await getPageContent('fiscalite/fiscalite-placements', defaultContent);
+  
+  if (!content) {
+    notFound();
+  }
 
   return (
     <>
-      <Header />
-
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-12 sm:py-16 lg:py-20">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-6xl font-cairo font-bold text-white mb-4 sm:mb-6">
-                {content.hero?.title || defaultContent.hero.title}
+                {content.hero?.title}
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-white mb-6 sm:mb-8 leading-relaxed">
-                {content.hero?.subtitle || defaultContent.hero.subtitle}
+                {content.hero?.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                <CTAButton 
+                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
                   className="bg-[#B99066] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-inter font-semibold hover:bg-[#A67A5A] transition-colors text-sm sm:text-base shadow-lg"
                 >
-                  {content.hero?.button || defaultContent.hero.button}
-                </button>
+                  {content.hero?.button}
+                </CTAButton>
               </div>
             </div>
           </div>
@@ -172,11 +180,11 @@ const defaultContent = {
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.quickStats?.title || defaultContent.quickStats.title}
+            title={content.quickStats?.title}
             subtitle="Comprendre les taux de prélèvement applicables"
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {(content.quickStats?.stats || defaultContent.quickStats.stats).map((stat, index) => (
+            {(content.quickStats?.stats || []).map((stat, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="relative z-10 text-center">
@@ -194,11 +202,11 @@ const defaultContent = {
       <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.regimesFiscaux?.title || defaultContent.regimesFiscaux.title}
-            subtitle={content.regimesFiscaux?.description || defaultContent.regimesFiscaux.description}
+            title={content.regimesFiscaux?.title}
+            subtitle={content.regimesFiscaux?.description}
           />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-            {(content.regimesFiscaux?.regimes || defaultContent.regimesFiscaux.regimes).map((regime, index) => (
+            {(content.regimesFiscaux?.regimes || []).map((regime, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 3 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-tr-full"></div>
@@ -212,7 +220,7 @@ const defaultContent = {
                     <div>
                       <h4 className="font-cairo font-semibold mb-2 text-sm">Caractéristiques :</h4>
                       <ul className="text-xs text-white/95 space-y-2">
-                        {regime.caracteristiques.map((carac, i) => (
+                        {(regime.caracteristiques || []).map((carac, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <div className={`w-4 h-4 ${index % 3 === 0 || index % 3 === 2 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
                               <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -244,11 +252,11 @@ const defaultContent = {
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.analysis?.title || defaultContent.analysis.title}
-            subtitle={content.analysis?.description || defaultContent.analysis.description}
+            title={content.analysis?.title}
+            subtitle={content.analysis?.description}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {(content.analysis?.criteria || defaultContent.analysis.criteria).map((criterion, index) => (
+            {(content.analysis?.criteria || []).map((criterion, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${index % 4 === 0 || index % 4 === 2 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'}`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="relative z-10 text-center">
@@ -268,18 +276,18 @@ const defaultContent = {
       <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.simulation?.title || defaultContent.simulation.title}
-            subtitle={content.simulation?.description || defaultContent.simulation.description}
+            title={content.simulation?.title}
+            subtitle={content.simulation?.description}
           />
           <p className="text-sm text-[#686868] italic text-center mb-8 max-w-3xl mx-auto">
-            {content.simulation?.note || defaultContent.simulation.note}
+            {content.simulation?.note}
           </p>
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-[#E5E7EB]">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white">
                   <tr>
-                    {(content.simulation?.table?.headers || defaultContent.simulation.table.headers).map((header, index) => (
+                    {(content.simulation?.table?.headers || []).map((header, index) => (
                       <th key={index} className="px-6 py-4 text-left font-cairo font-semibold">
                         {header}
                       </th>
@@ -287,7 +295,7 @@ const defaultContent = {
                   </tr>
                 </thead>
                 <tbody>
-                  {(content.simulation?.table?.rows || defaultContent.simulation.table.rows).map((row, index) => (
+                  {(content.simulation?.table?.rows || []).map((row, index) => (
                     <tr key={index} className={`border-b border-[#E5E7EB] hover:bg-[#F9FAFB] transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-[#F9FAFB]'}`}>
                       <td className="px-6 py-4 font-cairo font-semibold text-[#253F60]">{row.enveloppe}</td>
                       <td className="px-6 py-4 text-[#374151]">{row.fiscalite}</td>
@@ -312,17 +320,17 @@ const defaultContent = {
             
             <div className="relative z-10">
               <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                {content.cta?.title || defaultContent.cta.title}
+                {content.cta?.title}
               </h2>
               <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
-                {content.cta?.description || defaultContent.cta.description}
+                {content.cta?.description}
               </p>
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              <CTAButton 
+                externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
                 className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                {content.cta?.buttonText || defaultContent.cta.buttonText}
-              </button>
+                {content.cta?.buttonText}
+              </CTAButton>
             </div>
           </div>
         </div>
@@ -331,4 +339,4 @@ const defaultContent = {
       <Footer />
     </>
   );
-} 
+}

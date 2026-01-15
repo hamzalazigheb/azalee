@@ -21,3 +21,4 @@ export default function ObligationsFondsLayout({ children }) {
   return <>{children}</>;
 }
 
+

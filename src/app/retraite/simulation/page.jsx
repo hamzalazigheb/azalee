@@ -1,15 +1,41 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function SimulateurRetraitePage() {
+export const defaultContent = {
+  hero: {
+    title: "Simulateur Retraite : estimez vos droits et optimisez votre futur revenu",
+    subtitle: "Anticipez votre retraite et construisez une stratégie sur mesure avec Azalée Patrimoine.",
+    breadcrumb: {
+      parent: "Retraite",
+      current: "Simulateur Retraite"
+    }
+  },
+  introduction: {
+    paragraphs: [
+      "Préparer sa retraite, c'est anticiper la baisse de revenus qui survient au moment du départ de la vie active.",
+      "Grâce à un simulateur retraite, vous pouvez estimer vos droits, calculer votre taux de remplacement, et identifier les leviers à activer pour préserver votre niveau de vie."
+    ]
+  },
+  seo: {
+    metaTitle: "Simulateur Retraite | Azalée Patrimoine",
+    metaDescription: "Estimez vos droits et optimisez votre futur revenu avec notre simulateur retraite et l'accompagnement personnalisé d'Azalée Patrimoine."
+  }
+};
+
+export async function generateMetadata() {
+  const content = await getPageContent('retraite/simulation', defaultContent);
+  return {
+    title: content.seo?.metaTitle || defaultContent.seo.metaTitle,
+    description: content.seo?.metaDescription || defaultContent.seo.metaDescription,
+  };
+}
+
+export default async function SimulateurRetraitePage() {
+  const content = await getPageContent('retraite/simulation', defaultContent);
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[400px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,10 +50,10 @@ export default function SimulateurRetraitePage() {
             </nav>
             
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
-              Simulateur Retraite : estimez vos droits et optimisez votre futur revenu
+              {content.hero?.title || defaultContent.hero.title}
             </h1>
             <p className="text-lg sm:text-xl font-inter text-white/90 max-w-3xl">
-              Anticipez votre retraite et construisez une stratégie sur mesure avec Azalée Patrimoine.
+              {content.hero?.subtitle || defaultContent.hero.subtitle}
             </p>
           </div>
         </div>
@@ -37,12 +63,11 @@ export default function SimulateurRetraitePage() {
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-xl shadow-lg p-8 sm:p-10 border-2 border-[#253F60]/20">
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Préparer sa retraite, c'est anticiper la baisse de revenus qui survient au moment du départ de la vie active.
-            </p>
-            <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
-              Grâce à un simulateur retraite, vous pouvez estimer vos droits, calculer votre taux de remplacement, et identifier les leviers à activer pour préserver votre niveau de vie.
-            </p>
+            {content.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
+              <p key={index} className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
+                {paragraph}
+              </p>
+            ))}
             <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] rounded-xl p-6 sm:p-8 text-white mt-8">
               <p className="text-white text-base sm:text-lg font-inter leading-relaxed">
                 Chez <strong className="text-[#B99066]">Azalée Patrimoine</strong>, nous allons plus loin qu'un simple calcul automatique : nous analysons votre relevé de carrière retraite, vos régimes de cotisation, votre épargne retraite existante (PER, PERCO, Préfon Retraite, contrat Madelin) et vos indemnités de départ pour construire une stratégie sur mesure.
@@ -292,7 +317,7 @@ export default function SimulateurRetraitePage() {
 
             <div className="bg-[#F9FAFB] border-l-4 border-[#B99066] p-4 rounded mt-8">
               <p className="text-[#4B5563] text-sm font-inter">
-                Pour obtenir une "bonne retraite", il est donc essentiel d'évaluer le manque à gagner et de compenser cette différence grâce à l'<Link href="/retraite/independance-financiere" className="text-[#253F60] hover:text-[#B99066] font-bold underline">épargne individuelle</Link>.
+                Pour obtenir une "bonne retraite", il est donc essentiel d'évaluer le manque à gagner et de compenser cette différence grâce à l'<Link href="/retraite" className="text-[#253F60] hover:text-[#B99066] font-bold underline">épargne individuelle</Link>.
               </p>
             </div>
           </div>
@@ -418,7 +443,7 @@ export default function SimulateurRetraitePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-white text-[#253F60] px-6 py-3 rounded-lg font-inter font-bold hover:bg-[#F9FAFB] transition-colors"
               >
-                Prendre rendez-vous avec un conseiller Azalée Patrimoine
+                Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine
               </a>
             </div>
           </div>
@@ -447,7 +472,7 @@ export default function SimulateurRetraitePage() {
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mb-6">
                 Vous pouvez également transférer vos anciens contrats (PERCO, Madelin, PERP).
               </p>
-              <Link href="/placements/per" className="text-[#B99066] hover:text-[#D4A574] font-inter font-bold underline transition-colors">
+              <Link href="/placements/per-perp" className="text-[#B99066] hover:text-[#D4A574] font-inter font-bold underline transition-colors">
                 Découvrir le PER individuel
               </Link>
             </div>
