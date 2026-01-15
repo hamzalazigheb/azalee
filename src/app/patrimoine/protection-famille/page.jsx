@@ -124,6 +124,7 @@ export default function ProtectionFamillePage() {
                 );
               })}
             </div>
+          </>
           </div>
 
           {/* CTA Buttons */}
