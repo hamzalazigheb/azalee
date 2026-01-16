@@ -2,19 +2,19 @@
 
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/common/Header';
-import Footer from '../../components/common/Footer';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import CTAButton from '@/components/ui/CTAButton';
 import SchemaMarkup from '@/components/common/SchemaMarkup';
 
-export default function EquipeClient() {
+export default function EquipeClient({ content = {} }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setTimeout(() => setLoading(false), 500);
     }, []);
 
-    const teamMembers = [
+    // Use CMS content if available, otherwise fallback to default
+    const teamMembers = content?.team?.members || [
         {
             name: "Jean-Marc Dupont",
             role: "Fondateur & Directeur Associé",
@@ -41,6 +41,12 @@ export default function EquipeClient() {
         }
     ];
 
+    const heroTitle = content?.hero?.title || "Nos Experts";
+    const heroSubtitle = content?.hero?.subtitle || content?.hero?.description || "Une équipe pluridisciplinaire dédiée à votre réussite patrimoniale.";
+    const ctaTitle = content?.cta?.title || "Un projet ? Une question ?";
+    const ctaButtonText = content?.cta?.button || "Planifiez votre consultation gratuite";
+    const ctaButtonUrl = content?.cta?.url || "https://calendly.com/rdv-azalee-patrimoine/30min";
+
     if (loading) {
         return (
             <div className="w-full bg-white">
@@ -48,7 +54,6 @@ export default function EquipeClient() {
                 <div className="min-h-screen flex items-center justify-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#B99066]"></div>
                 </div>
-                <Footer />
             </div>
         );
     }
@@ -58,21 +63,25 @@ export default function EquipeClient() {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": member.name,
-        "jobTitle": member.role,
+        "jobTitle": member.role || member.position,
         "description": member.bio,
-        "image": `https://azalee-patrimoine.fr${member.image}`,
+        "image": `https://azalee-patrimoine.fr${member.image || member.photo || '/images/azalee-patrimoine-client1.webp'}`,
         "worksFor": {
             "@type": "Organization",
             "name": "Azalée Patrimoine"
         },
-        "alumniOf": member.diplomas.map(diploma => ({
-            "@type": "EducationalOrganization",
-            "name": diploma
-        })),
-        "hasCredential": member.certifications.map(cert => ({
-            "@type": "EducationalOccupationalCredential",
-            "credentialCategory": cert
-        }))
+        ...(member.diplomas && Array.isArray(member.diplomas) && member.diplomas.length > 0 ? {
+            "alumniOf": member.diplomas.map(diploma => ({
+                "@type": "EducationalOrganization",
+                "name": diploma
+            }))
+        } : {}),
+        ...(member.certifications && Array.isArray(member.certifications) && member.certifications.length > 0 ? {
+            "hasCredential": member.certifications.map(cert => ({
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": cert
+            }))
+        } : {})
     }));
 
     return (
@@ -84,9 +93,9 @@ export default function EquipeClient() {
             {/* Hero Section */}
             <section className="bg-[#253F60] text-white py-20 text-center">
                 <div className="max-w-[1368px] mx-auto px-4">
-                    <h1 className="text-4xl lg:text-6xl font-cairo font-bold mb-6">Nos Experts</h1>
+                    <h1 className="text-4xl lg:text-6xl font-cairo font-bold mb-6">{heroTitle}</h1>
                     <p className="text-xl max-w-2xl mx-auto text-white/90">
-                        Une équipe pluridisciplinaire dédiée à votre réussite patrimoniale.
+                        {heroSubtitle}
                     </p>
                 </div>
             </section>
@@ -99,7 +108,7 @@ export default function EquipeClient() {
                             <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group border border-gray-100 flex flex-col">
                                 <div className="relative h-80 overflow-hidden bg-gray-200">
                                     <img
-                                        src={member.image}
+                                        src={member.image || member.photo || '/images/azalee-patrimoine-client1.webp'}
                                         alt={member.name}
                                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                                         onError={(e) => e.target.src = '/images/azalee-patrimoine-client1.webp'}
@@ -107,7 +116,7 @@ export default function EquipeClient() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#253F60]/90 via-transparent to-transparent opacity-60"></div>
                                     <div className="absolute bottom-4 left-4 right-4">
                                         <h3 className="text-2xl font-cairo font-bold text-white mb-1">{member.name}</h3>
-                                        <p className="text-[#B99066] font-medium font-inter">{member.role}</p>
+                                        <p className="text-[#B99066] font-medium font-inter">{member.role || member.position}</p>
                                     </div>
                                 </div>
 
@@ -117,30 +126,36 @@ export default function EquipeClient() {
                                     </p>
 
                                     {/* Diplomas & Certifs */}
-                                    <div className="space-y-4 border-t border-gray-100 pt-6">
-                                        <div>
-                                            <h4 className="text-xs font-bold text-[#253F60] uppercase tracking-wider mb-2 flex items-center gap-2">
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
-                                                Diplômes
-                                            </h4>
-                                            <ul className="text-sm text-gray-500 space-y-1 ml-6">
-                                                {member.diplomas.map((d, i) => <li key={i}>• {d}</li>)}
-                                            </ul>
+                                    {(member.diplomas || member.certifications) && (
+                                        <div className="space-y-4 border-t border-gray-100 pt-6">
+                                            {member.diplomas && member.diplomas.length > 0 && (
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-[#253F60] uppercase tracking-wider mb-2 flex items-center gap-2">
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
+                                                        Diplômes
+                                                    </h4>
+                                                    <ul className="text-sm text-gray-500 space-y-1 ml-6">
+                                                        {member.diplomas.map((d, i) => <li key={i}>• {d}</li>)}
+                                                    </ul>
+                                                </div>
+                                            )}
+                                            {member.certifications && member.certifications.length > 0 && (
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-[#253F60] uppercase tracking-wider mb-2 flex items-center gap-2">
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                                        Certifications
+                                                    </h4>
+                                                    <div className="flex flex-wrap gap-2 ml-6">
+                                                        {member.certifications.map((c, i) => (
+                                                            <span key={i} className="bg-[#B99066]/10 text-[#B99066] px-2 py-1 rounded text-xs font-semibold">
+                                                                {c}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
-                                        <div>
-                                            <h4 className="text-xs font-bold text-[#253F60] uppercase tracking-wider mb-2 flex items-center gap-2">
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                Certifications
-                                            </h4>
-                                            <div className="flex flex-wrap gap-2 ml-6">
-                                                {member.certifications.map((c, i) => (
-                                                    <span key={i} className="bg-[#B99066]/10 text-[#B99066] px-2 py-1 rounded text-xs font-semibold">
-                                                        {c}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -150,14 +165,12 @@ export default function EquipeClient() {
 
             {/* CTA Bottom */}
             <section className="bg-white py-16 text-center">
-                <h2 className="text-3xl font-cairo font-bold text-[#253F60] mb-6">Un projet ? Une question ?</h2>
+                <h2 className="text-3xl font-cairo font-bold text-[#253F60] mb-6">{ctaTitle}</h2>
                 <div className="flex justify-center gap-4">
-                    <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="primary">Planifiez votre consultation gratuite</CTAButton>
+                    <CTAButton externalUrl={ctaButtonUrl} variant="primary">{ctaButtonText}</CTAButton>
                     <CTAButton href="/contact" variant="outline">Nous contacter</CTAButton>
                 </div>
             </section>
-
-            <Footer />
         </div>
     );
 }
