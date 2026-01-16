@@ -16,7 +16,7 @@ const allPagesContent = {
     content: {
       hero: {
         title: "Succession et héritage",
-        subtitle: "Comprendre les droits de succession et optimiser la transmission",
+        description: "Comprendre les droits de succession et optimiser la transmission de votre patrimoine",
         buttons: [
           { text: "Simuler ma succession", url: "https://calendly.com/rdv-azalee-patrimoine/30min" }
         ]
@@ -29,6 +29,136 @@ const allPagesContent = {
           { label: "Taux droits de succession", value: "5% à 45%" }
         ],
         image: "/images/azalee-patrimoine-succesion.webp"
+      },
+      definition: {
+        title: "Qu'est-ce que la succession ?",
+        subtitle: "La succession est l'ensemble des règles qui régissent la transmission du patrimoine après le décès",
+        blocks: [
+          {
+            title: "Réserve héréditaire",
+            description: "Part minimale du patrimoine réservée aux héritiers réservataires (enfants, conjoint survivant). Cette part varie selon le nombre d'enfants.",
+            items: [
+              "1 enfant : 50% de la succession",
+              "2 enfants : 66% de la succession",
+              "3 enfants ou plus : 75% de la succession"
+            ]
+          },
+          {
+            title: "Quotité disponible",
+            description: "Part du patrimoine dont vous pouvez disposer librement par testament ou donation. Elle complète la réserve héréditaire.",
+            items: [
+              "1 enfant : 50% disponible",
+              "2 enfants : 33% disponible",
+              "3 enfants ou plus : 25% disponible"
+            ]
+          }
+        ],
+        example: {
+          title: "Exemple concret",
+          cards: [
+            { label: "Patrimoine total", value: "500 000 €" },
+            { label: "Réserve (2 enfants)", value: "330 000 €" },
+            { label: "Quotité disponible", value: "170 000 €" }
+          ]
+        }
+      },
+      fiscalite: {
+        title: "Fiscalité des successions",
+        subtitle: "Les droits de succession varient selon le lien de parenté et le montant transmis",
+        tableTitle: "Barème des droits de succession 2024",
+        tableHeaders: ["Lien de parenté", "Abattement", "Taux"],
+        tableRows: [
+          { label: "Conjoint / Partenaire PACS", value: "Exonéré", rate: "0%", highlight: true },
+          { label: "Enfant / Parent", value: "100 000 €", rate: "5% à 45%" },
+          { label: "Petit-enfant", value: "31 865 €", rate: "5% à 45%" },
+          { label: "Frère / Sœur", value: "15 932 €", rate: "35% à 45%" },
+          { label: "Neveu / Nièce", value: "7 967 €", rate: "55%" },
+          { label: "Autres", value: "1 594 €", rate: "60%" }
+        ],
+        exampleTitle: "Exemple de calcul",
+        exampleSituationTitle: "Situation",
+        exampleSituation: "Transmission de 200 000 € à un enfant (abattement de 100 000 € applicable)",
+        exampleItems: [
+          { label: "Montant transmis", value: "200 000 €" },
+          { label: "Abattement", value: "- 100 000 €" },
+          { label: "Base taxable", value: "100 000 €" },
+          { label: "Droits de succession", value: "5 000 €" }
+        ],
+        exampleNote: "Taux effectif : 2,5% sur le montant total transmis"
+      },
+      regime: {
+        title: "Régime matrimonial et succession",
+        subtitle: "Votre régime matrimonial influence la transmission de votre patrimoine",
+        items: [
+          {
+            title: "Communauté universelle",
+            description: "En communauté universelle, tous les biens sont communs. Le conjoint survivant hérite de la totalité.",
+            note: "Avantage : transmission intégrale au conjoint sans droits de succession"
+          },
+          {
+            title: "Séparation de biens",
+            description: "Chaque époux conserve ses biens propres. La succession suit les règles légales.",
+            note: "Attention : les enfants héritent de leur part réservataire"
+          },
+          {
+            title: "Communauté réduite aux acquêts",
+            description: "Régime légal : biens propres + biens communs. Le conjoint peut hériter de l'usufruit.",
+            note: "Le conjoint survivant peut bénéficier de l'usufruit sur la part des enfants"
+          }
+        ],
+        bottomBlock: {
+          title: "Conseil important",
+          cards: [
+            {
+              title: "Anticiper",
+              description: "La planification successorale permet d'optimiser la transmission"
+            },
+            {
+              title: "Protéger",
+              description: "Le conjoint survivant peut être protégé par le choix du régime matrimonial"
+            },
+            {
+              title: "Optimiser",
+              description: "Les donations et l'assurance-vie permettent de réduire les droits de succession"
+            }
+          ]
+        }
+      },
+      optimisation: {
+        title: "Comment optimiser votre succession ?",
+        subtitle: "Plusieurs stratégies permettent de réduire les droits de succession et de mieux transmettre",
+        items: [
+          {
+            title: "Donations",
+            description: "Profiter de l'abattement de 100 000 € par parent et par enfant tous les 15 ans pour transmettre progressivement"
+          },
+          {
+            title: "Assurance-vie",
+            description: "Bénéficier d'un abattement de 152 500 € par bénéficiaire (versements avant 70 ans) pour transmettre hors succession"
+          },
+          {
+            title: "Démembrement",
+            description: "Transmettre la nue-propriété de son vivant et conserver l'usufruit pour réduire les droits de donation"
+          },
+          {
+            title: "Testament",
+            description: "Organiser la transmission selon vos souhaits tout en respectant la réserve héréditaire"
+          }
+        ]
+      },
+      finalCta: {
+        title: "Prêt à optimiser votre succession ?",
+        subtitle: "Nos experts en gestion de patrimoine vous accompagnent pour structurer votre transmission et réduire votre fiscalité successorale.",
+        listTitle: "Ce que nous vous proposons",
+        items: [
+          "Analyse de votre situation successorale",
+          "Stratégie d'optimisation personnalisée",
+          "Accompagnement dans la mise en œuvre"
+        ],
+        buttons: [
+          { text: "Prendre rendez-vous", url: "https://calendly.com/rdv-azalee-patrimoine/30min" },
+          { text: "En savoir plus", url: "/patrimoine" }
+        ]
       }
     }
   },
