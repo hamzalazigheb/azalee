@@ -60,39 +60,22 @@ export default async function CompteTitresPage() {
       {/* Hero Section */}
       <section className="relative w-full min-h-[500px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2 text-center lg:text-left">
-              <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-                {content?.hero?.title}
-              </h1>
-              <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                {content?.hero?.subtitle}
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
+              {content?.hero?.title}
+            </h1>
+            <p className="text-white text-lg font-inter leading-relaxed mb-8">
+              {content?.hero?.subtitle}
+            </p>
+            <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8 max-w-3xl mx-auto">
+              <p className="text-white text-sm font-inter">
+                {content?.hero?.description}
               </p>
-              <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
-                <p className="text-white text-sm font-inter">
-                  {content?.hero?.description}
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
-                  {content?.hero?.button}
-                </button>
-              </div>
             </div>
-
-            {/* Right: Abstract Visual */}
-            <div className="w-full lg:w-1/2 flex justify-center">
-              <div className="relative w-72 h-72 sm:w-96 sm:h-96">
-                <div className="absolute inset-0 bg-white opacity-10 rounded-full animate-pulse"></div>
-                <div className="absolute inset-4 bg-white opacity-20 rounded-full animate-ping"></div>
-                <div className="absolute inset-8 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full shadow-2xl flex items-center justify-center p-8">
-                  <div className="text-center text-white">
-                    <p className="text-3xl font-bold mb-2">CTO</p>
-                    <p className="text-sm opacity-90">Liberté totale d'investissement</p>
-                  </div>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
+                {content?.hero?.button}
+              </button>
             </div>
           </div>
         </div>
