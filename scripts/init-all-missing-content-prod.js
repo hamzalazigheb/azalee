@@ -856,6 +856,152 @@ const allPagesContent = {
         ]
       }
     }
+  },
+  'equipe': {
+    title: 'Notre Équipe - Azalée Patrimoine',
+    content: {
+      hero: {
+        title: "Notre équipe de conseillers",
+        subtitle: "Des experts passionnés à votre service",
+        description: "Chaque membre de notre équipe partage la même vision : vous accompagner avec excellence dans la gestion et la transmission de votre patrimoine."
+      },
+      team: {
+        members: [
+          {
+            name: "Jean-Marc Dupont",
+            position: "Fondateur & Directeur",
+            photo: "/images/azalee-patrimoine-jean.webp",
+            bio: "Fort de plus de 20 ans d'expérience dans le secteur financier, Jean-Marc a fondé Azalée Patrimoine avec la conviction que chaque client mérite un accompagnement sur-mesure. Son expertise couvre l'ensemble des domaines patrimoniaux, de l'optimisation fiscale à la transmission.",
+            certifications: ["CIF - Conseiller en Investissements Financiers", "Master en Gestion de Patrimoine"],
+            experience: "20+ ans"
+          },
+          {
+            name: "Sophie Martin",
+            position: "Conseillère en Gestion de Patrimoine",
+            photo: "/images/azalee-patrimoine-sophie.webp",
+            bio: "Sophie accompagne nos clients dans leurs projets d'investissement immobilier et financier. Sa double compétence juridique et financière lui permet d'apporter des solutions globales et adaptées à chaque situation.",
+            certifications: ["CIF - Conseiller en Investissements Financiers", "Diplôme de Notariat"],
+            experience: "15 ans"
+          },
+          {
+            name: "Thomas Bernard",
+            position: "Expert Fiscal",
+            photo: "/images/azalee-patrimoine-client1.webp",
+            bio: "Spécialiste de l'optimisation fiscale, Thomas aide nos clients à réduire leur imposition tout en construisant leur patrimoine. Il maîtrise parfaitement les dispositifs de défiscalisation immobilière et les stratégies d'investissement.",
+            certifications: ["Expert-Comptable Diplômé", "Certification AMF"],
+            experience: "12 ans"
+          },
+          {
+            name: "Marie Leroy",
+            position: "Conseillère Retraite & Prévoyance",
+            photo: "/images/azalee-patrimoine-client2.webp",
+            bio: "Marie accompagne nos clients dans la préparation de leur retraite et la protection de leur famille. Son approche pédagogique permet à chacun de comprendre les enjeux et de prendre des décisions éclairées.",
+            certifications: ["CIF - Conseiller en Investissements Financiers", "Spécialisation Retraite"],
+            experience: "10 ans"
+          }
+        ]
+      },
+      expertise: {
+        title: "Nos domaines d'expertise",
+        items: [
+          {
+            icon: "📊",
+            title: "Gestion de patrimoine",
+            description: "Stratégies personnalisées pour optimiser et développer votre patrimoine"
+          },
+          {
+            icon: "🏠",
+            title: "Investissement immobilier",
+            description: "Accompagnement complet dans vos projets immobiliers"
+          },
+          {
+            icon: "💰",
+            title: "Optimisation fiscale",
+            description: "Solutions légales pour réduire votre imposition"
+          },
+          {
+            icon: "🛡️",
+            title: "Protection & transmission",
+            description: "Sécurisez l'avenir de vos proches"
+          }
+        ]
+      },
+      cta: {
+        title: "Prêt à rencontrer votre conseiller ?",
+        subtitle: "Prenez rendez-vous pour un premier échange gratuit et sans engagement. Nous étudierons ensemble votre situation et vos objectifs.",
+        button: "Prendre rendez-vous",
+        url: "https://calendly.com/rdv-azalee-patrimoine/30min"
+      }
+    }
+  },
+  'qui-sommes-nous': {
+    title: 'Qui sommes-nous - Azalée Patrimoine',
+    content: {
+      hero: {
+        title: "Qui sommes-nous ?",
+        subtitle: "Azalée Patrimoine, votre partenaire de confiance pour la gestion de votre patrimoine",
+        description: "Depuis notre création, nous accompagnons les particuliers et les professionnels dans l'optimisation et la transmission de leur patrimoine."
+      },
+      histoire: {
+        title: "Notre histoire",
+        paragraphs: [
+          "Azalée Patrimoine est née de la conviction qu'une gestion patrimoniale de qualité ne devait pas être réservée aux grandes fortunes. Notre fondateur, fort de plusieurs années d'expérience dans le secteur bancaire et financier, a décidé de créer un cabinet indépendant, libre de tout conflit d'intérêt.",
+          "Depuis notre création, nous avons accompagné des centaines de familles dans la construction, la protection et la transmission de leur patrimoine. Chaque situation est unique, et c'est cette singularité qui guide notre approche personnalisée.",
+          "Aujourd'hui, Azalée Patrimoine est devenue une référence en matière de conseil patrimonial, reconnue pour son expertise, sa transparence et la qualité de son accompagnement sur le long terme."
+        ]
+      },
+      mission: {
+        title: "Notre mission",
+        intro: "Chez Azalée Patrimoine, notre mission est claire :",
+        points: [
+          {
+            title: "Accompagner",
+            description: "Nous accompagnons chaque client dans la réalisation de ses objectifs patrimoniaux, qu'il s'agisse de préparer sa retraite, de protéger sa famille ou d'optimiser sa fiscalité."
+          },
+          {
+            title: "Conseiller",
+            description: "Nous fournissons des conseils indépendants et objectifs, toujours dans l'intérêt exclusif de nos clients. Notre rémunération est transparente et alignée sur vos intérêts."
+          },
+          {
+            title: "Simplifier",
+            description: "Nous rendons accessibles les stratégies patrimoniales complexes grâce à une pédagogie claire et un accompagnement personnalisé tout au long de votre parcours."
+          }
+        ]
+      },
+      valeurs: {
+        title: "Nos valeurs",
+        items: [
+          {
+            icon: "🤝",
+            title: "Confiance",
+            description: "La confiance est au cœur de notre relation avec nos clients. Elle se construit sur la transparence, l'écoute et le respect de nos engagements."
+          },
+          {
+            icon: "🎯",
+            title: "Excellence",
+            description: "Nous visons l'excellence dans chaque conseil, chaque recommandation. Notre équipe se forme en permanence pour vous offrir les meilleures solutions."
+          },
+          {
+            icon: "🔒",
+            title: "Indépendance",
+            description: "Notre indépendance garantit des conseils objectifs, libres de tout conflit d'intérêt. Nous sélectionnons les solutions les plus adaptées à votre situation."
+          },
+          {
+            icon: "👥",
+            title: "Proximité",
+            description: "Nous privilégions une relation de proximité avec chaque client. Votre conseiller dédié vous accompagne sur le long terme."
+          }
+        ]
+      },
+      cta: {
+        title: "Envie d'en savoir plus ?",
+        subtitle: "Rencontrez notre équipe et découvrez comment nous pouvons vous accompagner dans la gestion de votre patrimoine.",
+        primaryButton: "Découvrir notre équipe",
+        primaryUrl: "/equipe",
+        secondaryButton: "Prendre rendez-vous",
+        secondaryUrl: "https://calendly.com/rdv-azalee-patrimoine/30min"
+      }
+    }
   }
 };
 
