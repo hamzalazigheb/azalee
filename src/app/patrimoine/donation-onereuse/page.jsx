@@ -16,7 +16,11 @@ const HeroSection = ({ data }) => {
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
               {data.title || 'Donation à titre onéreux'}
             </h1>
-            <p className="text-white text-lg font-inter leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+            {data.subtitle && typeof data.subtitle === 'string' ? (
+              <p className="text-white text-lg font-inter leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+            ) : (
+              <p className="text-white text-lg font-inter leading-relaxed mb-8">{data.subtitle}</p>
+            )}
             {data.highlight && (
               <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
                 <p className="text-white text-sm font-inter">
@@ -71,7 +75,11 @@ const DefinitionSection = ({ data }) => {
 
         <div className="max-w-4xl mx-auto space-y-6 text-lg leading-relaxed text-[#4B5563]">
           {data.content && data.content.map((p, i) => (
-            <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
+            p && typeof p === 'string' ? (
+              <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
+            ) : (
+              <p key={i}>{p}</p>
+            )
           ))}
 
           {data.features && (
@@ -110,7 +118,11 @@ const UseCasesSection = ({ data }) => {
                 </div>
                 <h3 className="text-[#253F60] text-xl font-semibold">{item.title}</h3>
               </div>
-              <p className="text-[#686868] text-sm leading-relaxed relative z-10" dangerouslySetInnerHTML={{ __html: item.description }} />
+              {item.description && typeof item.description === 'string' ? (
+                <p className="text-[#686868] text-sm leading-relaxed relative z-10" dangerouslySetInnerHTML={{ __html: item.description }} />
+              ) : (
+                <p className="text-[#686868] text-sm leading-relaxed relative z-10">{item.description}</p>
+              )}
             </div>
           ))}
         </div>
@@ -147,7 +159,11 @@ const TaxSection = ({ data }) => {
           <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-white">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-            <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.exampleTitle }} />
+            {data.exampleTitle && typeof data.exampleTitle === 'string' ? (
+              <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.exampleTitle }} />
+            ) : (
+              <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white">{data.exampleTitle}</h3>
+            )}
 
             <div className="space-y-4 relative z-10 text-white">
               {data.exampleItems && data.exampleItems.map((item, i) => (
@@ -160,7 +176,11 @@ const TaxSection = ({ data }) => {
 
             <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10 text-white">
               <p className="text-lg text-white">
-                <strong dangerouslySetInnerHTML={{ __html: data.exampleResult }} />
+                {data.exampleResult && typeof data.exampleResult === 'string' ? (
+                  <strong dangerouslySetInnerHTML={{ __html: data.exampleResult }} />
+                ) : (
+                  <strong>{data.exampleResult}</strong>
+                )}
               </p>
             </div>
           </div>
@@ -226,7 +246,11 @@ const VisionSection = ({ data }) => {
         </div>
 
         <div className="relative bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-center text-white">
-          <p className="text-lg font-semibold relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.ctaText }} />
+          {data.ctaText && typeof data.ctaText === 'string' ? (
+            <p className="text-lg font-semibold relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.ctaText }} />
+          ) : (
+            <p className="text-lg font-semibold relative z-10 text-white">{data.ctaText}</p>
+          )}
         </div>
       </div>
     </section>
