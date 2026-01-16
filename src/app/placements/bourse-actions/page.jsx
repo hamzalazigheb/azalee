@@ -73,7 +73,7 @@ export default async function BourseActionsPage() {
             <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8 max-w-4xl mx-auto">
                 <p className="text-white text-sm font-inter" dangerouslySetInnerHTML={{ __html: content.hero.note }} />
             </div>
-            )}
+          )}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton 
               externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
