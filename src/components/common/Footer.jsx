@@ -16,11 +16,15 @@ const Footer = () => {
     try {
       const response = await fetch(getApiPath('/cms/content?path=footer'));
       const data = await response.json();
-      if (data.success) {
+      if (data.success && data.data && Object.keys(data.data).length > 0) {
         setContent(data.data);
+      } else {
+        // If API returns empty object or no data, use null to trigger defaultContent
+        setContent(null);
       }
     } catch (error) {
       console.error('Error fetching footer content:', error);
+      setContent(null);
     } finally {
       setLoading(false);
     }

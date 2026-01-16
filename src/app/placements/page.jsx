@@ -1799,6 +1799,7 @@ export default function PlacementsPage() {
                           </tbody>
                         </table>
                       </div>
+                      </>
                     )}
                     {pageContent.section7?.consensus?.conclusion ? (
                       <p className="mt-6" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section7.consensus.conclusion) }} />

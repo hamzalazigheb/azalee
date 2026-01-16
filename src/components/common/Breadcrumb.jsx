@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import SchemaMarkup from './SchemaMarkup';
@@ -118,9 +119,14 @@ const breadcrumbNames = {
 
 export default function Breadcrumb({ className = '' }) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Ne pas afficher sur la page d'accueil
-  if (pathname === '/') return null;
+  if (pathname === '/' || !mounted) return null;
 
   const segments = pathname.split('/').filter(Boolean);
 

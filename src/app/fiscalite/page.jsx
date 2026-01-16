@@ -131,13 +131,6 @@ export default function FiscalitePage() {
             {/* Hero Section - Deux cartes */}
             <section className="relative w-full min-h-[650px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-20 sm:py-24 lg:py-32">
                 <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumb */}
-                    <nav className="flex items-center text-white/80 text-sm mb-6">
-                        <Link href="/" className="hover:text-white transition-colors underline">Accueil</Link>
-                        <span className="mx-2">{'>'}</span>
-                        <span className="text-[#B99066]">Fiscalité</span>
-                    </nav>
-
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
                         {/* Carte gauche */}
                         <div className="bg-white rounded-xl shadow-md p-8 sm:p-10 lg:p-12 border border-gray-100">
