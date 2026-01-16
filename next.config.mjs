@@ -128,8 +128,8 @@ const nextConfig = {
       
       // ==================== SEO RESTRUCTURATION - Fiscalité ====================
       {
-        source: '/fiscalite/reductions-impot-deficit-foncier',
-        destination: '/fiscalite/deficit-foncier',
+        source: '/fiscalite/deficit-foncier',
+        destination: '/fiscalite/reductions-impot-deficit-foncier',
         permanent: true,
       },
       {

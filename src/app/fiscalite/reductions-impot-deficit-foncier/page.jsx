@@ -27,19 +27,45 @@ export async function generateMetadata() {
 }
 
 export default async function ReductionsImpotDeficitFoncierPage() {
-  let content = await getPageContent('fiscalite/reductions-impot-deficit-foncier');
+  let content = {};
+  
+  try {
+    content = await getPageContent('fiscalite/reductions-impot-deficit-foncier');
+  } catch (e) {
+    console.error('[Deficit Foncier] getPageContent failed:', e);
+  }
 
   // Fallback: Try fetching via API if direct DB access returns nothing
   if (!content || Object.keys(content).length === 0) {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
-      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/reductions-impot-deficit-foncier`, { cache: 'no-store' });
-      const json = await res.json();
-      if (json.success && json.data?.content) {
-        content = json.data.content;
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                     process.env.NEXT_PUBLIC_API_URL || 
+                     'http://localhost:4028';
+      
+      // Try /api/cms/content first
+      const res = await fetch(`${baseUrl}/api/cms/content?path=fiscalite/reductions-impot-deficit-foncier`, { 
+        cache: 'no-store' 
+      });
+      
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && json.data) {
+          content = json.data;
+        }
+      } else {
+        // Fallback to /api/cms/pages
+        const res2 = await fetch(`${baseUrl}/api/cms/pages?path=fiscalite/reductions-impot-deficit-foncier`, { 
+          cache: 'no-store' 
+        });
+        if (res2.ok) {
+          const json2 = await res2.json();
+          if (json2.success && json2.data?.content) {
+            content = json2.data.content;
+          }
+        }
       }
     } catch (e) {
-      console.error('API fallback failed:', e);
+      console.error('[Deficit Foncier] API fallback failed:', e);
     }
   }
 
@@ -108,7 +134,7 @@ export default async function ReductionsImpotDeficitFoncierPage() {
             <table className="w-full">
               <thead className="bg-gradient-to-r from-[#253F60] to-[#1a2d47]">
                 <tr>
-                  {content.comparison.table.headers.map((header, index) => (
+                  {content.comparison?.table?.headers?.map((header, index) => (
                     <th key={index} className="px-6 py-4 text-left text-sm font-semibold text-white">
                       {header}
                     </th>
@@ -116,7 +142,7 @@ export default async function ReductionsImpotDeficitFoncierPage() {
                 </tr>
               </thead>
               <tbody>
-                {content.comparison.table.rows.map((row, index) => (
+                {content.comparison?.table?.rows?.map((row, index) => (
                   <tr key={index} className={`border-t ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                     <td className="px-6 py-4 text-sm font-medium text-[#253F60]">{row.mecanisme}</td>
                     <td className="px-6 py-4 text-sm text-[#686868]">{row.effet}</td>
@@ -138,7 +164,7 @@ export default async function ReductionsImpotDeficitFoncierPage() {
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {content.investorProfile.profiles.map((profile, index) => (
+            {content.investorProfile?.profiles?.map((profile, index) => (
               <div key={index} className={`relative bg-gradient-to-br ${index % 3 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#253F60]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="flex items-start relative z-10">
@@ -160,7 +186,7 @@ export default async function ReductionsImpotDeficitFoncierPage() {
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {content.conditions.conditions.map((condition, index) => (
+            {content.conditions?.conditions?.map((condition, index) => (
               <div key={index} className={`relative bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="flex items-start relative z-10">

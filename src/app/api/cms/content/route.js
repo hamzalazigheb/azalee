@@ -44,6 +44,21 @@ export async function GET(request) {
     }
 
     if (!page) {
+      // Return success with empty data instead of 404 for optional pages (header, footer, sara)
+      const optionalPages = ['header', 'footer', 'sara'];
+      if (optionalPages.includes(pathLower)) {
+        return NextResponse.json({
+          success: true,
+          data: {}
+        }, {
+          headers: {
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+      }
+      
       return NextResponse.json(
         { success: false, message: 'Page not found or not published' },
         { status: 404 }
