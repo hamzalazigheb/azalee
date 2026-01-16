@@ -114,7 +114,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-[#253F60] px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {/* Contact */}
           {footerContent.contact && (
             <div className="text-white">
@@ -268,9 +268,9 @@ const Footer = () => {
                 </div>
               )}
               {footerContent.bottom.links && footerContent.bottom.links.length > 0 && (
-                <div className="flex space-x-6">
+                <div className="flex flex-wrap gap-4 sm:gap-6 justify-center md:justify-end">
                   {footerContent.bottom.links.map((link, index) => (
-                    <Link key={index} href={link.path || "#"} className="hover:text-[#B99066] transition-colors">
+                    <Link key={index} href={link.path || "#"} className="hover:text-[#B99066] transition-colors text-sm">
                       {link.text || link}
                     </Link>
                   ))}

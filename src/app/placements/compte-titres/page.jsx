@@ -240,13 +240,14 @@ export default async function CompteTitresPage() {
             {content?.comparaison?.title}
           </h2>
 
-          <div className="overflow-x-auto bg-white rounded-xl shadow-xl">
+          {/* Desktop: Table */}
+          <div className="hidden md:block overflow-x-auto bg-white rounded-xl shadow-xl">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-[#253F60] text-white">
-                  <th className="p-4 sm:p-6 text-lg font-semibold border-b border-[#3A5A7A]">Critères</th>
-                  <th className="p-4 sm:p-6 text-lg font-semibold border-b border-[#3A5A7A]">Compte-Titres (CTO)</th>
-                  <th className="p-4 sm:p-6 text-lg font-semibold border-b border-[#3A5A7A]">Assurance-vie</th>
+                  <th className="p-4 sm:p-6 text-lg font-semibold border-b border-[#3A5A7A] whitespace-nowrap">Critères</th>
+                  <th className="p-4 sm:p-6 text-lg font-semibold border-b border-[#3A5A7A] whitespace-nowrap">Compte-Titres (CTO)</th>
+                  <th className="p-4 sm:p-6 text-lg font-semibold border-b border-[#3A5A7A] whitespace-nowrap">Assurance-vie</th>
                 </tr>
               </thead>
               <tbody>
@@ -259,6 +260,28 @@ export default async function CompteTitresPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile: Cards */}
+          <div className="md:hidden space-y-4">
+            {(content?.comparaison?.tableau || []).map((row, index) => (
+              <div key={index} className="bg-white rounded-xl shadow-xl p-6 border-l-4 border-[#253F60]">
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#253F60] mb-1">Critères</h3>
+                    <p className="text-base font-semibold text-[#253F60]">{row.critere}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#253F60] mb-1">Compte-Titres (CTO)</h3>
+                    <p className="text-sm text-[#374151]">{row.cto}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#253F60] mb-1">Assurance-vie</h3>
+                    <p className="text-sm text-[#374151]">{row.assurance}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           <div className="mt-8 bg-[#253F60] rounded-xl p-6 text-center text-white">

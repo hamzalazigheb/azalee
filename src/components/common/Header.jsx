@@ -309,6 +309,47 @@ const Header = () => {
               role="navigation"
             >
               
+              {/* Mobile: Contact & Espace Client Links */}
+              <div className="lg:hidden w-full border-b border-white/10 pb-4 mb-4 space-y-3">
+                {/* Contact Section */}
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-white/70 uppercase tracking-wider">Contact</h3>
+                  {topBar.contact?.phone && (
+                    <a 
+                      href={topBar.contact.phone.link || `tel:${topBar.contact.phone.number}`} 
+                      className="flex items-center gap-3 text-white hover:text-[#B99066] transition-colors py-2"
+                    >
+                      <div className="bg-white/10 p-2 rounded-full">
+                        <img src={getImagePath(topBar.contact.phone.icon || "/images/azalee-patrimoine-img-component-1.svg")} className="w-4 h-4 invert" alt="phone" />
+                      </div>
+                      <span className="text-sm font-medium">{topBar.contact.phone.number}</span>
+                    </a>
+                  )}
+                  {topBar.contact?.email && (
+                    <a 
+                      href={topBar.contact.email.link || `mailto:${topBar.contact.email.address}`} 
+                      className="flex items-center gap-3 text-white hover:text-[#B99066] transition-colors py-2"
+                    >
+                      <div className="bg-white/10 p-2 rounded-full">
+                        <img src={getImagePath(topBar.contact.email.icon || "/images/azalee-patrimoine-img-component-1-light-green-400.svg")} className="w-4 h-4 invert" alt="email" />
+                      </div>
+                      <span className="text-sm font-medium">{topBar.contact.email.address}</span>
+                    </a>
+                  )}
+                  <Link 
+                    href="/contact" 
+                    className="flex items-center gap-3 text-white hover:text-[#B99066] transition-colors py-2"
+                  >
+                    <div className="bg-white/10 p-2 rounded-full">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium">Page de contact</span>
+                  </Link>
+                </div>
+              </div>
+              
               {/* Menu Items */}
               {[
                 { name: 'gestion-patrimoine', label: 'Gestion de patrimoine', path: '/patrimoine', items: patrimoineMenuItems },

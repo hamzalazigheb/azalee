@@ -113,9 +113,9 @@ export default async function ReductionsImpotDeficitFoncierPage() {
             {content.quickStats.stats.map((stat, index) => (
               <div key={index} className={`relative bg-gradient-to-br ${index % 3 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#253F60]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
-                <div className="text-4xl font-bold mb-2 relative z-10">{stat.value}</div>
-                <div className="text-lg font-semibold mb-2 relative z-10">{stat.label}</div>
-                <div className="text-white/90 relative z-10">{stat.description}</div>
+                <div className="text-3xl sm:text-4xl font-bold mb-2 relative z-10">{stat.value}</div>
+                <div className="text-base sm:text-lg font-semibold mb-2 relative z-10">{stat.label}</div>
+                <div className="text-sm sm:text-base text-white/90 relative z-10">{stat.description}</div>
               </div>
             ))}
           </div>
@@ -130,27 +130,58 @@ export default async function ReductionsImpotDeficitFoncierPage() {
             subtitle={content?.comparison?.description}
           />
           
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-gradient-to-r from-[#253F60] to-[#1a2d47]">
-                <tr>
-                  {content.comparison?.table?.headers?.map((header, index) => (
-                    <th key={index} className="px-6 py-4 text-left text-sm font-semibold text-white">
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {content.comparison?.table?.rows?.map((row, index) => (
-                  <tr key={index} className={`border-t ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                    <td className="px-6 py-4 text-sm font-medium text-[#253F60]">{row.mecanisme}</td>
-                    <td className="px-6 py-4 text-sm text-[#686868]">{row.effet}</td>
-                    <td className="px-6 py-4 text-sm text-[#686868]">{row.benefice}</td>
+          {/* Desktop: Table */}
+          <div className="hidden md:block bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gradient-to-r from-[#253F60] to-[#1a2d47]">
+                  <tr>
+                    {content.comparison?.table?.headers?.map((header, index) => (
+                      <th key={index} className="px-6 py-4 text-left text-sm font-semibold text-white whitespace-nowrap">
+                        {header}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {content.comparison?.table?.rows?.map((row, index) => (
+                    <tr key={index} className={`border-t ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                      <td className="px-6 py-4 text-sm font-medium text-[#253F60]">{row.mecanisme}</td>
+                      <td className="px-6 py-4 text-sm text-[#686868]">{row.effet}</td>
+                      <td className="px-6 py-4 text-sm text-[#686868]">{row.benefice}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Mobile: Cards */}
+          <div className="md:hidden space-y-4">
+            {content.comparison?.table?.rows?.map((row, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#253F60]">
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#253F60] mb-1">
+                      {content.comparison?.table?.headers?.[0] || 'Mécanisme'}
+                    </h3>
+                    <p className="text-base font-medium text-[#253F60]">{row.mecanisme}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#253F60] mb-1">
+                      {content.comparison?.table?.headers?.[1] || 'Effet'}
+                    </h3>
+                    <p className="text-sm text-[#686868]">{row.effet}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#253F60] mb-1">
+                      {content.comparison?.table?.headers?.[2] || 'Bénéfice'}
+                    </h3>
+                    <p className="text-sm text-[#686868]">{row.benefice}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -168,8 +199,8 @@ export default async function ReductionsImpotDeficitFoncierPage() {
               <div key={index} className={`relative bg-gradient-to-br ${index % 3 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : index % 3 === 1 ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#253F60]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="flex items-start relative z-10">
-                  <div className="text-white mr-3 mt-1 text-xl font-bold">✓</div>
-                  <div className="text-lg font-semibold text-white leading-relaxed">{profile}</div>
+                  <div className="text-white mr-3 mt-1 text-lg sm:text-xl font-bold">✓</div>
+                  <div className="text-base sm:text-lg font-semibold text-white leading-relaxed">{profile}</div>
                 </div>
               </div>
             ))}
@@ -190,8 +221,8 @@ export default async function ReductionsImpotDeficitFoncierPage() {
               <div key={index} className={`relative bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
                 <div className="flex items-start relative z-10">
-                  <div className="text-white mr-3 mt-1 text-xl font-bold">✓</div>
-                  <div className="text-lg font-semibold text-white leading-relaxed">{condition}</div>
+                  <div className="text-white mr-3 mt-1 text-lg sm:text-xl font-bold">✓</div>
+                  <div className="text-base sm:text-lg font-semibold text-white leading-relaxed">{condition}</div>
                 </div>
               </div>
             ))}
@@ -204,10 +235,10 @@ export default async function ReductionsImpotDeficitFoncierPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 px-4">
             {content?.cta?.title}
           </h2>
-          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
             {content?.cta?.description}
           </p>
           <CTAButton 

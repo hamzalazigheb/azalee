@@ -200,25 +200,50 @@ const ComparisonSection = ({ data }) => {
           subtitle={data.subtitle}
         />
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-          <table className="w-full text-sm text-[#686868]">
-            <thead>
-              <tr className="bg-[#253F60] text-white">
-                <th className="px-6 py-4 text-left">Caractéristique</th>
-                <th className="px-6 py-4 text-center">Donation Gratuite</th>
-                <th className="px-6 py-4 text-center">Donation Onéreuse</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.rows && data.rows.map((row, i) => (
-                <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
-                  <td className="px-6 py-4 font-bold">{row.feature}</td>
-                  <td className="px-6 py-4 text-center">{row.gratuite}</td>
-                  <td className="px-6 py-4 text-center font-semibold text-[#B99066]">{row.onereuse}</td>
+        {/* Desktop: Table */}
+        <div className="hidden md:block bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-[#686868]">
+              <thead>
+                <tr className="bg-[#253F60] text-white">
+                  <th className="px-6 py-4 text-left whitespace-nowrap">Caractéristique</th>
+                  <th className="px-6 py-4 text-center whitespace-nowrap">Donation Gratuite</th>
+                  <th className="px-6 py-4 text-center whitespace-nowrap">Donation Onéreuse</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.rows && data.rows.map((row, i) => (
+                  <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <td className="px-6 py-4 font-bold">{row.feature}</td>
+                    <td className="px-6 py-4 text-center">{row.gratuite}</td>
+                    <td className="px-6 py-4 text-center font-semibold text-[#B99066]">{row.onereuse}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Mobile: Cards */}
+        <div className="md:hidden space-y-4">
+          {data.rows && data.rows.map((row, i) => (
+            <div key={i} className="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#253F60]">
+              <div className="space-y-3">
+                <div>
+                  <h3 className="text-sm font-semibold text-[#253F60] mb-1">Caractéristique</h3>
+                  <p className="text-base font-bold text-[#253F60]">{row.feature}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-[#253F60] mb-1">Donation Gratuite</h3>
+                  <p className="text-sm text-[#686868]">{row.gratuite}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-[#253F60] mb-1">Donation Onéreuse</h3>
+                  <p className="text-sm font-semibold text-[#B99066]">{row.onereuse}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

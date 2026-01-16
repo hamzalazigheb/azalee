@@ -116,13 +116,14 @@ const TaxScaleSection = ({ data }) => {
           subtitle={data.subtitle}
         />
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        {/* Desktop: Table */}
+        <div className="hidden md:block bg-white rounded-2xl shadow-xl p-8 mb-8">
           <div className="overflow-x-auto">
             <table className="w-full text-[#686868]">
               <thead>
                 <tr className="bg-[#253F60] text-white">
-                  <th className="px-6 py-4 text-left font-semibold">Part taxable</th>
-                  <th className="px-6 py-4 text-center font-semibold">Taux</th>
+                  <th className="px-6 py-4 text-left font-semibold whitespace-nowrap">Part taxable</th>
+                  <th className="px-6 py-4 text-center font-semibold whitespace-nowrap">Taux</th>
                 </tr>
               </thead>
               <tbody>
@@ -135,6 +136,24 @@ const TaxScaleSection = ({ data }) => {
               </tbody>
             </table>
           </div>
+        </div>
+
+        {/* Mobile: Cards */}
+        <div className="md:hidden space-y-4 mb-8">
+          {data.rows && data.rows.map((row, i) => (
+            <div key={i} className="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#253F60]">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-sm font-semibold text-[#253F60] mb-1">Part taxable</h3>
+                  <p className="text-base font-medium text-[#686868]">{row.label}</p>
+                </div>
+                <div className="text-right">
+                  <h3 className="text-sm font-semibold text-[#253F60] mb-1">Taux</h3>
+                  <p className="text-lg font-bold text-[#253F60]">{row.value}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {data.example && (

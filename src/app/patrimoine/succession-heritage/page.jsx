@@ -124,8 +124,9 @@ const TaxSection = ({ data }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {/* Table */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
+          {/* Desktop: Table */}
+          <div className="hidden md:block bg-white rounded-lg shadow-lg p-6 lg:p-8">
+            <h3 className="text-[#112033] text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-center">
               {data.tableTitle}
             </h3>
             <div className="overflow-x-auto">
@@ -133,7 +134,7 @@ const TaxSection = ({ data }) => {
                 <thead>
                   <tr className="bg-[#253F60] text-white">
                     {data.tableHeaders && data.tableHeaders.map((h, i) => (
-                      <th key={i} className={`px-4 py-3 ${i === 0 ? 'text-left' : 'text-center'}`}>{h}</th>
+                      <th key={i} className={`px-4 py-3 ${i === 0 ? 'text-left' : 'text-center'} whitespace-nowrap`}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -147,6 +148,35 @@ const TaxSection = ({ data }) => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Mobile: Cards */}
+          <div className="md:hidden bg-white rounded-lg shadow-lg p-6">
+            <h3 className="text-[#112033] text-lg font-semibold mb-4 text-center">
+              {data.tableTitle}
+            </h3>
+            <div className="space-y-4">
+              {data.tableRows && data.tableRows.map((row, i) => (
+                <div key={i} className={`border-l-4 ${row.highlight ? 'border-green-600 bg-green-50' : 'border-[#253F60]'} p-4 rounded-r-lg`}>
+                  <div className="space-y-2">
+                    <div>
+                      <h4 className="text-xs font-semibold text-[#253F60] mb-1">{data.tableHeaders?.[0] || 'Label'}</h4>
+                      <p className="text-sm font-medium text-[#112033]">{row.label}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-semibold text-[#253F60] mb-1">{data.tableHeaders?.[1] || 'Valeur'}</h4>
+                      <p className={`text-base font-bold ${row.highlight ? 'text-green-600' : 'text-[#253F60]'}`}>{row.value}</p>
+                    </div>
+                    {row.rate && (
+                      <div>
+                        <h4 className="text-xs font-semibold text-[#253F60] mb-1">{data.tableHeaders?.[2] || 'Taux'}</h4>
+                        <p className="text-xs opacity-80 text-[#112033]">{row.rate}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

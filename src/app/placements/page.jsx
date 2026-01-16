@@ -1718,40 +1718,68 @@ export default function PlacementsPage() {
                 <div className="px-6 sm:px-8 pb-6 sm:pb-8 border-t border-[#E5E7EB] pt-6">
                   <div className="space-y-6 text-[#4B5563] text-lg sm:text-xl font-inter leading-relaxed">
                     {Array.isArray(pageContent.section7?.consensus?.table) && pageContent.section7.consensus.table.length > 0 ? (
-                      <div className="overflow-x-auto">
-                        <table className="w-full bg-white rounded-lg shadow-lg border-collapse">
-                          <thead>
-                            <tr className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white">
-                              <th className="p-4 text-left font-bold">{pageContent.section7.consensus.tableHeaders?.actor || "Acteur"}</th>
-                              <th className="p-4 text-left font-bold">{pageContent.section7.consensus.tableHeaders?.benefit || "Ce qu'il y gagne"}</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-gray-200">
-                            {pageContent.section7.consensus.table
-                              .filter(row => row && (row.actor || row.acteur) && (row.benefit || row.gain || row.benefice))
-                              .map((row, index) => {
-                                const actor = row.actor || row.acteur || '';
-                                const benefit = row.benefit || row.gain || row.benefice || '';
-                                return (
-                                  <tr key={index} className={index % 2 === 1 ? "bg-gray-50" : ""}>
-                                    <td className="p-4 font-semibold text-[#253F60]">{actor}</td>
-                                    <td className="p-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(benefit) }} />
-                                  </tr>
-                                );
-                              })}
-                          </tbody>
-                        </table>
-                      </div>
+                      <>
+                        {/* Desktop: Table */}
+                        <div className="hidden md:block overflow-x-auto">
+                          <table className="w-full bg-white rounded-lg shadow-lg border-collapse">
+                            <thead>
+                              <tr className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white">
+                                <th className="p-4 text-left font-bold whitespace-nowrap">{pageContent.section7.consensus.tableHeaders?.actor || "Acteur"}</th>
+                                <th className="p-4 text-left font-bold whitespace-nowrap">{pageContent.section7.consensus.tableHeaders?.benefit || "Ce qu'il y gagne"}</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                              {pageContent.section7.consensus.table
+                                .filter(row => row && (row.actor || row.acteur) && (row.benefit || row.gain || row.benefice))
+                                .map((row, index) => {
+                                  const actor = row.actor || row.acteur || '';
+                                  const benefit = row.benefit || row.gain || row.benefice || '';
+                                  return (
+                                    <tr key={index} className={index % 2 === 1 ? "bg-gray-50" : ""}>
+                                      <td className="p-4 font-semibold text-[#253F60]">{actor}</td>
+                                      <td className="p-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(benefit) }} />
+                                    </tr>
+                                  );
+                                })}
+                            </tbody>
+                          </table>
+                        </div>
+                        {/* Mobile: Cards */}
+                        <div className="md:hidden space-y-4">
+                          {pageContent.section7.consensus.table
+                            .filter(row => row && (row.actor || row.acteur) && (row.benefit || row.gain || row.benefice))
+                            .map((row, index) => {
+                              const actor = row.actor || row.acteur || '';
+                              const benefit = row.benefit || row.gain || row.benefice || '';
+                              return (
+                                <div key={index} className="bg-white rounded-lg shadow-lg p-4 border-l-4 border-[#253F60]">
+                                  <div className="space-y-2">
+                                    <div>
+                                      <h4 className="text-xs font-semibold text-[#253F60] mb-1">{pageContent.section7.consensus.tableHeaders?.actor || "Acteur"}</h4>
+                                      <p className="text-sm font-semibold text-[#253F60]">{actor}</p>
+                                    </div>
+                                    <div>
+                                      <h4 className="text-xs font-semibold text-[#253F60] mb-1">{pageContent.section7.consensus.tableHeaders?.benefit || "Ce qu'il y gagne"}</h4>
+                                      <div className="text-sm" dangerouslySetInnerHTML={{ __html: processHTMLForRender(benefit) }} />
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </>
                     ) : (
-                      <div className="overflow-x-auto">
-                        <table className="w-full bg-white rounded-lg shadow-lg border-collapse">
-                          <thead>
-                            <tr className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white">
-                              <th className="p-4 text-left font-bold">Acteur</th>
-                              <th className="p-4 text-left font-bold">Ce qu'il y gagne</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-gray-200">
+                      <>
+                        {/* Desktop: Table */}
+                        <div className="hidden md:block overflow-x-auto">
+                          <table className="w-full bg-white rounded-lg shadow-lg border-collapse">
+                            <thead>
+                              <tr className="bg-gradient-to-r from-[#253F60] to-[#B99066] text-white">
+                                <th className="p-4 text-left font-bold whitespace-nowrap">Acteur</th>
+                                <th className="p-4 text-left font-bold whitespace-nowrap">Ce qu'il y gagne</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
                             <tr>
                               <td className="p-4 font-semibold text-[#253F60]">Assureur</td>
                               <td className="p-4">Un rendement attractif sans déséquilibrer son bilan</td>
