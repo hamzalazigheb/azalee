@@ -16,7 +16,9 @@ const HeroSection = ({ data }) => {
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
               {data.title || 'Donation à titre gratuit'}
             </h1>
-            <p className="text-white text-lg font-inter leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+            {data.subtitle && (
+              <p className="text-white text-lg font-inter leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+            )}
             {data.highlight && (
               <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
                 <p className="text-white text-sm font-inter">
@@ -84,9 +86,13 @@ const FormsSection = ({ data }) => {
               </div>
               <div className="space-y-3 relative z-10 text-[#686868]">
                 {item.descriptions && item.descriptions.map((desc, i) => (
-                  <p key={i} className="text-[#686868] text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: desc }} />
+                  desc && typeof desc === 'string' ? (
+                    <p key={i} className="text-[#686868] text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: desc }} />
+                  ) : (
+                    <p key={i} className="text-[#686868] text-sm leading-relaxed">{desc}</p>
+                  )
                 ))}
-                {item.note && (
+                {item.note && typeof item.note === 'string' && (
                   <div className={`bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60]/10 to-[#B99066]/10 border-[#253F60]' : 'from-[#B99066]/10 to-[#253F60]/10 border-[#B99066]'} p-3 rounded-lg border-l-2`}>
                     <p className="text-[#253F60] text-xs font-semibold" dangerouslySetInnerHTML={{ __html: item.note }} />
                   </div>
@@ -135,7 +141,11 @@ const TaxScaleSection = ({ data }) => {
           <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-white">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-            <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.example.title }} />
+            {data.example.title && typeof data.example.title === 'string' ? (
+              <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.example.title }} />
+            ) : (
+              <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white">{data.example.title}</h3>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 text-white">
               {data.example.cards && data.example.cards.map((card, i) => (
@@ -148,7 +158,11 @@ const TaxScaleSection = ({ data }) => {
 
             <div className="mt-6 bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10">
               <p className="text-lg">
-                <strong dangerouslySetInnerHTML={{ __html: data.example.result }} />
+                {data.example.result && typeof data.example.result === 'string' ? (
+                  <strong dangerouslySetInnerHTML={{ __html: data.example.result }} />
+                ) : (
+                  <strong>{data.example.result}</strong>
+                )}
               </p>
             </div>
           </div>
@@ -196,7 +210,11 @@ const UsufructSection = ({ data }) => {
             </h3>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/20 relative z-10 text-white">
-              <h4 className="font-semibold mb-4 text-center text-white" dangerouslySetInnerHTML={{ __html: data.rightSubtitle }} />
+              {data.rightSubtitle && typeof data.rightSubtitle === 'string' ? (
+                <h4 className="font-semibold mb-4 text-center text-white" dangerouslySetInnerHTML={{ __html: data.rightSubtitle }} />
+              ) : (
+                <h4 className="font-semibold mb-4 text-center text-white">{data.rightSubtitle}</h4>
+              )}
 
               <div className="space-y-4 text-white">
                 {data.rightItems && data.rightItems.map((item, i) => (
@@ -210,7 +228,11 @@ const UsufructSection = ({ data }) => {
 
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10 text-white">
               <p className="text-lg text-white">
-                <strong dangerouslySetInnerHTML={{ __html: data.rightResult }} />
+                {data.rightResult && typeof data.rightResult === 'string' ? (
+                  <strong dangerouslySetInnerHTML={{ __html: data.rightResult }} />
+                ) : (
+                  <strong>{data.rightResult}</strong>
+                )}
               </p>
               <p className="text-sm mt-2 opacity-90 text-white">
                 {data.rightResultNote}
@@ -267,7 +289,11 @@ const StrategySection = ({ data }) => {
               </h3>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/20 relative z-10 text-white">
-                <h4 className="font-semibold mb-4 text-center text-white" dangerouslySetInnerHTML={{ __html: data.rightSubtitle }} />
+                {data.rightSubtitle && typeof data.rightSubtitle === 'string' ? (
+                  <h4 className="font-semibold mb-4 text-center text-white" dangerouslySetInnerHTML={{ __html: data.rightSubtitle }} />
+                ) : (
+                  <h4 className="font-semibold mb-4 text-center text-white">{data.rightSubtitle}</h4>
+                )}
 
                 <div className="space-y-4 text-white">
                   {data.rightItems && data.rightItems.map((item, i) => (
@@ -281,7 +307,11 @@ const StrategySection = ({ data }) => {
 
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10 text-white">
                 <p className="text-lg">
-                  <strong dangerouslySetInnerHTML={{ __html: data.rightResult }} />
+                  {data.rightResult && typeof data.rightResult === 'string' ? (
+                    <strong dangerouslySetInnerHTML={{ __html: data.rightResult }} />
+                  ) : (
+                    <strong>{data.rightResult}</strong>
+                  )}
                 </p>
                 <p className="text-sm mt-2 opacity-90 text-white">
                   {data.rightResultNote}
@@ -319,7 +349,11 @@ const VisionSection = ({ data }) => {
         </div>
 
         <div className="relative bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-center text-white">
-          <h3 className="text-xl font-semibold mb-6 relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.highlight }} />
+          {data.highlight && typeof data.highlight === 'string' ? (
+            <h3 className="text-xl font-semibold mb-6 relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.highlight }} />
+          ) : (
+            <h3 className="text-xl font-semibold mb-6 relative z-10 text-white">{data.highlight}</h3>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 text-white">
             {data.cards && data.cards.map((card, i) => (
@@ -332,7 +366,11 @@ const VisionSection = ({ data }) => {
 
           <div className="mt-8 relative bg-white/10 border-l-4 border-white p-6 rounded-r-lg text-white">
             <p className="text-white text-center font-semibold leading-relaxed text-white">
-              <strong dangerouslySetInnerHTML={{ __html: data.ctaText }} />
+              {data.ctaText && typeof data.ctaText === 'string' ? (
+                <strong dangerouslySetInnerHTML={{ __html: data.ctaText }} />
+              ) : (
+                <strong>{data.ctaText}</strong>
+              )}
             </p>
           </div>
         </div>
