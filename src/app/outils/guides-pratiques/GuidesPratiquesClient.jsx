@@ -4,7 +4,7 @@ import Header from '../../../components/common/Header';
 import SectionHeader from '../../../components/common/SectionHeader';
 import CTAButton from '@/components/ui/CTAButton';
 
-export default function GuidesPratiquesClient({ content }) {
+export default function GuidesPratiquesClient({ content: initialContent }) {
   const [cmsContent, setCmsContent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -48,8 +48,8 @@ export default function GuidesPratiquesClient({ content }) {
     };
   }, []);
 
-  // Default content if CMS content is not available
-  const content = cmsContent || {
+  // Merge CMS content with initial content
+  const pageContent = cmsContent || initialContent || {
     hero: {
       title: "Guides pratiques partenaires",
       subtitle: "Supports pédagogiques de nos partenaires",
@@ -144,8 +144,8 @@ export default function GuidesPratiquesClient({ content }) {
   };
 
   const filteredPartners = selectedCategory === 'all' 
-    ? content.partners 
-    : content.partners.filter(partner => partner.category === selectedCategory);
+    ? pageContent.partners 
+    : pageContent.partners.filter(partner => partner.category === selectedCategory);
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
@@ -186,13 +186,13 @@ export default function GuidesPratiquesClient({ content }) {
               Guides pratiques
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
-              {content.hero.title}
+              {pageContent.hero.title}
             </h1>
             <p className="text-xl sm:text-2xl font-light mb-8 text-white/90">
-              {content.hero.subtitle}
+              {pageContent.hero.subtitle}
             </p>
             <p className="text-base sm:text-lg text-white/80 max-w-4xl mx-auto leading-relaxed">
-              {content.hero.description}
+              {pageContent.hero.description}
             </p>
           </div>
         </div>
@@ -203,18 +203,18 @@ export default function GuidesPratiquesClient({ content }) {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl p-8 text-white shadow-2xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-              <h2 className="text-2xl font-cairo font-bold">{content.featured.title}</h2>
+              <h2 className="text-2xl font-cairo font-bold">{pageContent.featured.title}</h2>
               <div className="flex items-center gap-2">
                 <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">
-                  {content.featured.guide.readTime}
+                  {pageContent.featured.guide.readTime}
                 </span>
-                <span className={`px-3 py-1 rounded-full text-sm ${getDifficultyColor(content.featured.guide.difficulty)}`}>
-                  {content.featured.guide.difficulty}
+                <span className={`px-3 py-1 rounded-full text-sm ${getDifficultyColor(pageContent.featured.guide.difficulty)}`}>
+                  {pageContent.featured.guide.difficulty}
                 </span>
               </div>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-cairo font-bold mb-4">{content.featured.guide.title}</h3>
-            <p className="text-lg text-white/90 mb-6">{content.featured.guide.description}</p>
+            <h3 className="text-2xl sm:text-3xl font-cairo font-bold mb-4">{pageContent.featured.guide.title}</h3>
+            <p className="text-lg text-white/90 mb-6">{pageContent.featured.guide.description}</p>
             <CTAButton variant="primary">
               Lire le guide →
             </CTAButton>
@@ -226,7 +226,7 @@ export default function GuidesPratiquesClient({ content }) {
       <section className="py-8">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-4">
-            {Object.entries(content.categories).map(([key, label]) => (
+            {Object.entries(pageContent.categories).map(([key, label]) => (
               <button
                 key={key}
                 onClick={() => setSelectedCategory(key)}
@@ -284,7 +284,7 @@ export default function GuidesPratiquesClient({ content }) {
                       <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                         index % 3 === 0 || index % 3 === 2 ? 'bg-[#B99066]/30 text-white' : 'bg-[#253F60]/30 text-white'
                       }`}>
-                        {content.categories[partner.category]}
+                        {pageContent.categories[partner.category]}
                       </span>
                     </div>
                   </div>
@@ -334,12 +334,12 @@ export default function GuidesPratiquesClient({ content }) {
       <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.benefits.title}
+            title={pageContent.benefits.title}
             subtitle="Découvrez pourquoi nos guides partenaires sont essentiels pour vos décisions d'investissement"
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {content.benefits.benefits.map((benefit, index) => (
+            {pageContent.benefits.benefits.map((benefit, index) => (
               <div key={index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${
                 index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
               }`}>
