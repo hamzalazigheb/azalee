@@ -238,7 +238,7 @@ export default function PatrimoinePage() {
       title: "Patrimoine – Protégez et transmettez votre héritage avec Azalée Patrimoine",
       description: "Votre expert en transmission patrimoniale depuis plus de 30 ans. Nous vous accompagnons pour protéger votre famille, optimiser la transmission de votre patrimoine, et sécuriser l'avenir de vos proches avec des solutions personnalisées.",
       ctaText: "Demander un bilan patrimonial gratuit",
-      image: "/images/pqtri;oine.webp"
+      image: "/images/azalee-patrimoine-pqtrioine.webp"
     },
     essentiel: {
       title: "L'essentiel",
@@ -303,7 +303,7 @@ export default function PatrimoinePage() {
         "Accompagnement complet",
         "Solutions sur mesure"
       ],
-      buttonText: "Contactez-nous"
+      buttonText: "Obtenez votre bilan patrimonial gratuit"
     },
     servicesGrid: {
       services: [
@@ -1351,11 +1351,11 @@ export default function PatrimoinePage() {
                     style={{ 
                       filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
                       background: 'linear-gradient(135deg, #253F60 0%, #4a6b8a 30%, #7a8a7a 60%, #B99066 100%)',
-                      WebkitMaskImage: 'url(/images/france.svg)',
+                      WebkitMaskImage: 'url(/images/azalee-patrimoine-france.svg)',
                       WebkitMaskSize: 'contain',
                       WebkitMaskRepeat: 'no-repeat',
                       WebkitMaskPosition: 'center',
-                      maskImage: 'url(/images/france.svg)',
+                      maskImage: 'url(/images/azalee-patrimoine-france.svg)',
                       maskSize: 'contain',
                       maskRepeat: 'no-repeat',
                       maskPosition: 'center',
@@ -1414,18 +1414,6 @@ export default function PatrimoinePage() {
                 </div>
               </div>
             </div>
-          </div>
-          
-          {/* CTA Button */}
-          <div className="mt-12 text-center">
-            <a
-              href={content.localisation?.ctaButtonUrl || "https://calendly.com/rdv-azalee-patrimoine/30min"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-10 py-5 rounded-lg shadow-xl font-inter font-bold text-lg sm:text-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
-            >
-              {content.localisation?.ctaButtonText || "Rencontrer un conseiller en gestion de patrimoine"}
-            </a>
           </div>
         </div>
       </section>

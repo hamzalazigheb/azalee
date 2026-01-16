@@ -3,137 +3,10 @@ import { getPageContent } from '@/lib/cms-server';
 import Footer from '../../../components/common/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 
-const defaultContent = {
-  hero: {
-    title: "VEFA (Vente en l'État Futur d'Achèvement)",
-    subtitle: "Investir dans l'immobilier neuf, et plus particulièrement en VEFA, consiste à acheter un logement sur plan, dont la construction est en cours ou à venir. Ce mode d'acquisition séduit de nombreux investisseurs qui souhaitent bénéficier d'un bien moderne, conforme aux normes énergétiques actuelles, et d'avantages fiscaux attractifs.",
-    button1: "L'essentiel",
-    button2: "Sommaire",
-  },
-  rightCard: {
-    title: "VEFA : investissez dans le neuf",
-    subtitle: "Bénéficiez d'avantages fiscaux, d'un financement adapté et d'une plus-value garantie.",
-    benefits: [
-      "Logements économes en énergie (RE2020)",
-      "Frais de notaire réduits (2-3% vs 7%)",
-      "Garanties constructeur sécurisées",
-      "Défiscalisation loi Pinel"
-    ],
-    button1: "Planifiez votre consultation gratuite",
-    button2: "Fiscalité",
-  },
-  essentiel: {
-    title: "L'essentiel",
-    items: [
-      "Des logements économes en énergie grâce aux normes RE2020, gage de valorisation à long terme.",
-      "Des frais de notaire réduits (2 à 3 % contre 7 % dans l'ancien).",
-      "Des garanties constructeur (parfait achèvement, décennale, biennale) qui sécurisent l'investissement.",
-      "La possibilité de bénéficier de dispositifs fiscaux comme la loi Pinel, réduisant significativement l'impôt.",
-      "Délais de livraison pouvant s'allonger, avec parfois des retards de chantier.",
-      "Surcote du neuf : le prix au m² est souvent plus élevé que dans l'ancien, ce qui limite la rentabilité."
-    ],
-  },
-  sommaire: {
-    title: "Sommaire",
-    items: [
-      "1. Qu'est-ce que la VEFA ?",
-      "2. Avantages de la VEFA",
-      "3. Inconvénients à anticiper",
-      "4. Exemple concret",
-      "5. Financement et étapes",
-      "6. Fiscalité et défiscalisation",
-      "7. Conseil Azalée Patrimoine",
-      "8. Risques et précautions",
-      "9. Comparaison avec l'existant"
-    ],
-  },
-  definition: {
-    title: "Qu'est-ce que la VEFA ?",
-    text1: "La Vente en l'État Futur d'Achèvement (VEFA) est un contrat de vente d'un bien immobilier neuf qui n'est pas encore terminé au moment de la signature.",
-    text2: "L'acheteur devient propriétaire du bien dès la signature du contrat, mais la livraison et le transfert de propriété effective se font à la fin des travaux.",
-    savoirTitle: "À savoir",
-    savoirItems: [
-      "Contrat de vente signé avant achèvement",
-      "Propriété acquise dès la signature",
-      "Livraison à la fin des travaux",
-      "Garanties constructeur obligatoires"
-    ],
-  },
-  avantages: {
-    title: "Avantages de la VEFA",
-    subtitle: "Les bénéfices d'un investissement en VEFA",
-    items: [
-      { title: "Économies d'énergie", description: "Logements conformes aux normes RE2020, gage de valorisation à long terme" },
-      { title: "Frais réduits", description: "Frais de notaire réduits (2 à 3 % contre 7 % dans l'ancien)" },
-      { title: "Garanties sécurisées", description: "Garanties constructeur (parfait achèvement, décennale, biennale)" },
-      { title: "Défiscalisation", description: "Dispositifs fiscaux comme la loi Pinel réduisant significativement l'impôt" }
-    ],
-  },
-  inconvenients: {
-    title: "Inconvénients",
-    subtitle: "Points de vigilance à considérer",
-    items: [
-      { title: "Délais de livraison", description: "Délais pouvant s'allonger, avec parfois des retards de chantier" },
-      { title: "Surcote du neuf", description: "Le prix au m² est souvent plus élevé que dans l'ancien, limitant la rentabilité" },
-      { title: "Plafonds de loyers", description: "En cas de Pinel, plafonds pouvant restreindre la cible de locataires" },
-      { title: "Risque de vacance", description: "Vacance locative si l'emplacement est mal choisi (zones saturées)" }
-    ],
-  },
-  exemple: {
-    title: "Exemple concret",
-    content: "Un investisseur acquiert un T2 en VEFA à Nantes pour 230 000 €. Grâce au dispositif Pinel, il bénéficie d'une réduction d'impôt de 4 600 €/an pendant 9 ans. Loué 650 €/mois, son bien lui permet de limiter son effort d'épargne à 150 €/mois tout en se constituant un patrimoine valorisé.",
-  },
-  financement: {
-    title: "Financement et étapes",
-    steps: [
-      { step: "1", title: "Signature du contrat", description: "Engagement d'achat avec un acompte de 5%" },
-      { step: "2", title: "Période de construction", description: "Paiement des intérêts uniquement" },
-      { step: "3", title: "Livraison", description: "Paiement du solde et transfert de propriété" },
-      { step: "4", title: "Possession", description: "Occupation et jouissance du bien" }
-    ],
-  },
-  fiscalite: {
-    title: "Fiscalité et défiscalisation",
-    content: "La VEFA offre plusieurs avantages fiscaux : TVA réduite, possibilité de déficit foncier, et éligibilité aux dispositifs de défiscalisation comme Pinel ou Malraux selon la localisation et le type de bien.",
-  },
-  conseil: {
-    title: "Conseil Azalée Patrimoine",
-    content: "La VEFA est particulièrement adaptée aux investisseurs qui recherchent sécurité et défiscalisation. Mais le choix de la ville, du quartier et de la demande locative réelle est primordial. Chez Azalée Patrimoine, nous vous aidons à sélectionner uniquement les programmes offrant un véritable potentiel locatif et patrimonial.",
-  },
-  risques: {
-    title: "Risques et précautions",
-    items: [
-      "Délais de livraison non respectés",
-      "Qualité des finitions",
-      "Évolution des prix du marché",
-      "Risques de défaillance du promoteur"
-    ],
-  },
-  comparaison: {
-    title: "VEFA vs Immobilier existant",
-    data: [
-      { critere: "TVA", vefa: "5,5%", existant: "20%" },
-      { critere: "Plus-value", vefa: "Élevée", existant: "Modérée" },
-      { critere: "Délai", vefa: "12-24 mois", existant: "Immédiat" },
-      { critere: "Risque", vefa: "Modéré", existant: "Faible" }
-    ],
-  },
-  finalCta: {
-    title: "Prêt à investir en VEFA ?",
-    subtitle: "Nos experts vous accompagnent dans votre projet d'investissement immobilier neuf avec une approche personnalisée.",
-    primaryButton: "Planifiez votre consultation gratuite",
-    secondaryButton: "Consulter un expert",
-  },
-  seo: {
-    metaTitle: "VEFA - Vente en l'État Futur d'Achèvement | Azalée Patrimoine",
-    metaDescription: "Investissez dans l'immobilier neuf en VEFA. Avantages fiscaux, garanties constructeur et accompagnement expert avec Azalée Patrimoine.",
-    keywords: ["VEFA", "immobilier neuf", "investissement", "défiscalisation", "Pinel"],
-  },
-};
+export const revalidate = 0;
 
 export async function generateMetadata() {
-  const content = await getPageContent('immobilier/vefa', defaultContent);
-  
+  const content = await getPageContent('immobilier/vefa');
   return {
     title: content?.seo?.metaTitle,
     description: content?.seo?.metaDescription,
@@ -142,8 +15,17 @@ export async function generateMetadata() {
 }
 
 export default async function VEFAPage() {
-  const content = await getPageContent('immobilier/vefa', defaultContent);
-  
+  let content = await getPageContent('immobilier/vefa');
+
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/vefa`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) content = json.data.content;
+    } catch (e) { console.error('API Fallback failed', e); }
+  }
+
   if (!content) {
     notFound();
   }
@@ -161,9 +43,8 @@ export default async function VEFAPage() {
               <p className="text-[#686868] text-base sm:text-lg font-inter leading-relaxed mb-6">
                 {content.hero?.subtitle}
               </p>
-              {/* Bouton de scroll supprimé - section juste en dessous */}
             </div>
-            
+
             {/* Right card */}
             <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 text-white">
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-source-sans font-semibold leading-tight mb-2">{content.rightCard?.title}</h2>
@@ -190,10 +71,10 @@ export default async function VEFAPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(content.essentiel?.items || []).map((item, i) => {
               const isBlue = i % 2 === 0;
-              const bgGradient = isBlue 
-                ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]' 
+              const bgGradient = isBlue
+                ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]'
                 : 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]';
-              
+
               return (
                 <div key={i} className={`${bgGradient} rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-200 border-2 border-transparent hover:border-white/20`}>
                   <p className="text-white text-sm font-inter leading-relaxed">
@@ -214,7 +95,7 @@ export default async function VEFAPage() {
             <p className="text-[#686868] font-inter mb-4">{content.definition?.text1}</p>
             <p className="text-[#686868] font-inter">{content.definition?.text2}</p>
           </div>
-          
+
           <div className="bg-gradient-to-r from-[#F8F9FA] to-[#E9ECEF] rounded-lg p-6 sm:p-8 border-l-4 border-[#B99066]">
             <h4 className="text-[#253F60] text-lg font-source-sans font-semibold mb-4">{content.definition?.savoirTitle}</h4>
             <ul className="space-y-2 text-[#686868] font-inter">
@@ -399,13 +280,13 @@ export default async function VEFAPage() {
             {content.finalCta?.subtitle}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <CTAButton 
+            <CTAButton
               externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
               variant="primary"
             >
               {content.finalCta?.primaryButton}
             </CTAButton>
-            <CTAButton 
+            <CTAButton
               externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
               variant="secondary"
             >

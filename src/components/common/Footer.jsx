@@ -65,6 +65,8 @@ const Footer = () => {
         { text: "Qui sommes-nous", path: "/qui-sommes-nous" },
         { text: "Notre équipe", path: "/equipe" },
         { text: "Notre approche", path: "/notre-approche" },
+        { text: "Blog", path: "/blog" },
+        { text: "Ressources", path: "/ressources" },
         { text: "Contact", path: "/contact" }
       ]
     },

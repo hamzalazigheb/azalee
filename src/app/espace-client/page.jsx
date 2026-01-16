@@ -31,7 +31,7 @@ export default function EspaceClientPage() {
             {/* Logo AZALEE */}
             <div className="text-center mb-8">
               <img 
-                src="/images/azale-patrimoine1.webp" 
+                src="/images/azalee-patrimoine-azale-patrimoine1.webp" 
                 alt="AZALEE Patrimoine" 
                 className="w-32 h-32 mx-auto mb-4"
               />

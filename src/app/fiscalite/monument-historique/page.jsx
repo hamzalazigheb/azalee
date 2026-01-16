@@ -4,71 +4,56 @@ import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from '@/components/ui/CTAButton';
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Monument Historique",
-    subtitle: "Investir dans le patrimoine historique français",
-    description: "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits. Il offre une réduction d'impôt de 22 à 30% du montant des travaux engagés.",
-    button: "En savoir plus",
-    image: "/images/monument-historique-hero.jpg"
-  },
-  overview: {
-    title: "Présentation du dispositif Monument Historique",
-    description: "Le dispositif Monument Historique est un mécanisme de défiscalisation qui permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits. Il vise à préserver le patrimoine historique français.",
-    keyPoints: [
-      "Réduction d'impôt de 22 à 30%",
-      "Sur le montant des travaux engagés",
-      "Monument classé ou inscrit",
-      "Travaux encadrés par architecte des Bâtiments de France"
-    ]
-  },
-  benefits: {
-    title: "Avantages fiscaux",
-    benefits: [
-      {
-        title: "Réduction d'impôt",
-        description: "22 à 30% du montant des travaux",
-        percentage: "22-30%"
-      },
-      {
-        title: "Plafond de travaux",
-        description: "400 000€ par période de 4 ans",
-        amount: "400k€"
-      },
-      {
-        title: "Durée d'engagement",
-        description: "9 ans minimum",
-        duration: "9 ans"
-      }
-    ]
-  },
-  conditions: {
-    title: "Conditions d'éligibilité",
-    description: "Pour bénéficier du dispositif Monument Historique, plusieurs conditions doivent être respectées :",
-    points: [
-      "Monument classé ou inscrit",
-      "Travaux encadrés par architecte des Bâtiments de France",
-      "Engagement de location de 9 ans minimum",
-      "Respect des normes patrimoniales"
-    ]
-  },
-  cta: {
-    title: "Besoin d'aide pour votre investissement ?",
-    description: "Nos experts vous accompagnent dans votre projet d'investissement Monument Historique.",
-    buttonText: "Demander une consultation gratuite"
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('fiscalite/monument-historique', defaultContent);
+  let content = await getPageContent('fiscalite/monument-historique');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/monument-historique`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Monument Historique | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits.",
+    title: content?.seo?.metaTitle || "Monument Historique | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits.",
   };
 }
 
 export default async function MonumentHistoriquePage() {
-  const content = await getPageContent('fiscalite/monument-historique', defaultContent);
+  let content = await getPageContent('fiscalite/monument-historique');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/monument-historique`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -78,13 +63,13 @@ export default async function MonumentHistoriquePage() {
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                {content.hero.title}
+                {content?.hero?.title}
               </h1>
               <p className="text-lg text-white mb-4 leading-relaxed">
-                {content.hero.subtitle}
+                {content?.hero?.subtitle}
               </p>
               <p className="text-white mb-8">
-                {content.hero.description}
+                {content?.hero?.description}
               </p>
             </div>
           </div>
@@ -95,8 +80,8 @@ export default async function MonumentHistoriquePage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.overview.title}
-            subtitle={content.overview.description}
+            title={content?.overview?.title}
+            subtitle={content?.overview?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -117,7 +102,7 @@ export default async function MonumentHistoriquePage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.benefits.title}
+            title={content?.benefits?.title}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -144,8 +129,8 @@ export default async function MonumentHistoriquePage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions.title}
-            subtitle={content.conditions.description}
+            title={content?.conditions?.title}
+            subtitle={content?.conditions?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -171,16 +156,16 @@ export default async function MonumentHistoriquePage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
-            {content.cta.title}
+            {content?.cta?.title}
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed">
-            {content.cta.description}
+            {content?.cta?.description}
           </p>
           <CTAButton 
             externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
             className="px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-semibold"
           >
-            {content.cta.buttonText}
+            {content?.cta?.buttonText}
           </CTAButton>
         </div>
       </section>

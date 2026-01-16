@@ -22,10 +22,7 @@ export const metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "/",
-    languages: {
-      'fr-FR': '/fr',
-    },
+    canonical: "https://azalee-patrimoine.fr",
   },
   icons: {
     icon: [
@@ -75,6 +72,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <head>
+        {/* Disable Google Translate auto-translation */}
+        <meta name="google" content="notranslate" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <link rel="icon" type="image/png" href="/images/azalee-patrimoine3.webp" />
         <link rel="shortcut icon" type="image/png" href="/images/azalee-patrimoine3.webp" />
         <link rel="apple-touch-icon" href="/images/azalee-patrimoine3.webp" />

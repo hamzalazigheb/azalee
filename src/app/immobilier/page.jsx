@@ -901,7 +901,7 @@ export default function ImmobilierPage() {
               <div className="relative">
                 <div className="bg-gradient-to-br from-[#F9FAFB] to-white rounded-xl p-4 sm:p-6 border-2 border-[#E5E7EB] shadow-xl overflow-hidden">
                   <img 
-                    src="/images/signat.webp" 
+                    src="/images/azalee-patrimoine-signat.webp" 
                     alt="Main signant un dossier de prêt" 
                     className="w-full h-auto rounded-lg object-cover"
                   />
@@ -2195,7 +2195,7 @@ export default function ImmobilierPage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
             >
-              Prenez rendez-vous avec un conseiller Azalée Patrimoine pour un audit personnalisé
+              Planifiez votre consultation gratuite avec un conseiller Azalée
             </button>
           </div>
         </div>

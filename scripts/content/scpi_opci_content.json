@@ -1,0 +1,216 @@
+{
+    "path": "placements/scpi-opci",
+    "title": "SCPI & OPCI",
+    "published": true,
+    "seo": {
+        "metaTitle": "SCPI et OPCI : Investissement Immobilier Collectif - Azalée Patrimoine",
+        "metaDescription": "Tout savoir sur les SCPI et OPCI : avantages, risques, fiscalité et les solutions Azalée Patrimoine pour diversifier votre patrimoine immobilier.",
+        "keywords": [
+            "SCPI",
+            "OPCI",
+            "immobilier",
+            "investissement",
+            "épargne",
+            "patrimoine"
+        ]
+    },
+    "content": {
+        "hero": {
+            "title": "SCPI / OPCI",
+            "subtitle": "Immobilier collectif : investir sans contrainte de gestion",
+            "intro": "Les SCPI (Sociétés Civiles de Placement Immobilier) et les OPCI (Organismes de Placement Collectif Immobilier) permettent d'investir dans l'immobilier sans acheter directement un bien.",
+            "description": "L'épargnant acquiert des parts gérées par une société de gestion, qui se charge de sélectionner les immeubles, de percevoir les loyers et de les redistribuer sous forme de revenus.",
+            "highlight": "Ce sont des solutions d'immobilier collectif qui offrent une diversification inaccessible à l'investisseur particulier en direct.",
+            "button": "Découvrir nos solutions",
+            "secondaryButton": "Marché secondaire",
+            "scpi_yield": "5.8%",
+            "opci_yield": "4.2%"
+        },
+        "chart": {
+            "title": "Performance des SCPI et OPCI",
+            "data": [
+                {
+                    "label": "Rendement moyen SCPI",
+                    "value": "5.8%"
+                },
+                {
+                    "label": "Durée moyenne d'investissement",
+                    "value": "8-10 ans"
+                },
+                {
+                    "label": "Ticket d'entrée moyen",
+                    "value": "€5,000"
+                },
+                {
+                    "label": "Frais d'entrée",
+                    "value": "10-15%"
+                },
+                {
+                    "label": "Performance sur 5 ans",
+                    "value": "+28.5%"
+                }
+            ]
+        },
+        "sections": {
+            "introduction": {
+                "title": "Introduction aux SCPI et OPCI",
+                "subtitle": "Découvrez les solutions d'investissement immobilier collectif adaptées à vos objectifs patrimoniaux",
+                "role": {
+                    "title": "Rôle économique",
+                    "description": "Ces solutions d'investissement immobilier collectif jouent un rôle essentiel dans le financement de l'économie française (logement social, collectivités, transition énergétique)."
+                }
+            },
+            "fiscalite": {
+                "title": "Intérêt fiscal des SCPI/OPCI",
+                "subtitle": "Optimisez votre fiscalité grâce aux différents modes de détention",
+                "modes": [
+                    {
+                        "title": "En détention directe",
+                        "description": "Les revenus des SCPI sont imposés comme des revenus fonciers, soumis au barème progressif + 17,2 % de prélèvements sociaux."
+                    },
+                    {
+                        "title": "Via assurance-vie",
+                        "description": "Fiscalité différée, plus douce, notamment sur les arbitrages."
+                    },
+                    {
+                        "title": "En nue-propriété",
+                        "description": "Pas de revenus pendant la durée du démembrement → donc pas d'imposition, avec un prix d'achat réduit."
+                    }
+                ]
+            },
+            "avantages": {
+                "title": "Avantages des SCPI/OPCI",
+                "subtitle": "Découvrez les atouts de l'investissement immobilier collectif",
+                "items": [
+                    {
+                        "title": "Accès simplifié",
+                        "description": "Accès simplifié à l'immobilier tertiaire (bureaux, commerces, logistique, santé…)."
+                    },
+                    {
+                        "title": "Diversification",
+                        "description": "Diversification géographique et sectorielle immédiate."
+                    },
+                    {
+                        "title": "Mutualisation des risques",
+                        "description": "Mutualisation des risques locatifs : un locataire qui part n'impacte qu'une petite fraction du patrimoine."
+                    },
+                    {
+                        "title": "Ticket d'entrée accessible",
+                        "description": "Ticket d'entrée accessible : à partir de quelques milliers d'euros."
+                    },
+                    {
+                        "title": "Effet de levier",
+                        "description": "Possibilité de financer à crédit avec effet de levier bancaire."
+                    }
+                ]
+            },
+            "inconvenients": {
+                "title": "Inconvénients et points de vigilance",
+                "subtitle": "Les points importants à connaître avant d'investir",
+                "items": [
+                    {
+                        "title": "Frais de souscription élevés",
+                        "description": "Autour de 10 % HT, ce qui oblige à investir long terme pour amortir ces frais. Certaines SCPI '0 % frais d'entrée' appliquent en réalité des frais de gestion internes plus élevés."
+                    },
+                    {
+                        "title": "Liquidité limitée",
+                        "description": "Depuis 2023, certaines SCPI historiques sont devenues illiquides, bloquant les rachats."
+                    },
+                    {
+                        "title": "Fiscalité lourde",
+                        "description": "Revenus fiscalisés lourdement en détention directe (hors enveloppes fiscales)."
+                    },
+                    {
+                        "title": "Revalorisation à la baisse",
+                        "description": "Revalorisation à la baisse des parts depuis 2023, destinée à réaligner les valeurs avec le marché immobilier."
+                    }
+                ]
+            },
+            "types": {
+                "title": "Les différents types de SCPI",
+                "subtitle": "Choisissez le type de SCPI adapté à vos objectifs d'investissement",
+                "items": [
+                    {
+                        "title": "SCPI de rendement",
+                        "description": "Objectif : générer des revenus réguliers. Investies dans les bureaux, commerces, santé, logistique."
+                    },
+                    {
+                        "title": "SCPI fiscales",
+                        "description": "Objectif : avantage fiscal immédiat (Pinel, Malraux, déficit foncier). Investies dans du résidentiel en France."
+                    },
+                    {
+                        "title": "SCPI patrimoniales (nue-propriété)",
+                        "description": "Objectif : optimiser fiscalité et transmission. Achat en nue-propriété avec une décote."
+                    },
+                    {
+                        "title": "SCPI internationales",
+                        "description": "Objectif : investir hors de France (Allemagne, Pays-Bas, Espagne…). Diversification économique, fiscalité souvent plus douce."
+                    }
+                ]
+            },
+            "azalee": {
+                "title": "L'action Azalée Patrimoine : retrouver de la liquidité",
+                "subtitle": "Notre solution innovante pour libérer votre épargne bloquée",
+                "intro": "Chez Azalée Patrimoine, nous avons constaté que de nombreux épargnants de notre Club sont immobilisés depuis 2023 dans des SCPI historiques devenues illiquides.",
+                "solution_title": "Notre solution : marché secondaire de gré à gré",
+                "steps": [
+                    {
+                        "num": "1",
+                        "title": "Mise en relation",
+                        "desc": "Acheteurs / vendeurs avec carnet d'ordres interne"
+                    },
+                    {
+                        "num": "2",
+                        "title": "Décote maîtrisée",
+                        "desc": "~10 % HT pour fluidifier les transactions"
+                    },
+                    {
+                        "num": "3",
+                        "title": "Accompagnement",
+                        "desc": "Fiscalité, transmission, sécurisation"
+                    }
+                ],
+                "objective": "Permettre à nos clients d'éviter d'être \"bloqués\" et de continuer à faire évoluer leur stratégie patrimoniale."
+            }
+        },
+        "classement": {
+            "title": "Classement des SCPI parmi les plus performantes (S1 2025)",
+            "description": "Voici un tableau actualisé des SCPI les plus performantes au 1er semestre 2025, avec les rendements déclarés, points forts, et mises en garde.",
+            "nuances_title": "Ce qu'il faut nuancer / risques à connaître",
+            "nuances": [
+                "Actualisation des chiffres : beaucoup de rendements sont ceux de 2024",
+                "Valeur des parts : certaines SCPI ont vu leur prix de souscription baisser",
+                "Liquidité : certaines SCPI peuvent avoir des difficultés à racheter des parts",
+                "Non garanti : les rendements projetés ne sont pas garantis"
+            ]
+        },
+        "comparatif": {
+            "title": "Comparatif SCPI en fonction de l'accès"
+        },
+        "opci": {
+            "title": "Les OPCI : une alternative plus liquide",
+            "caracteristiques": [
+                "OPCI (Organismes de Placement Collectif Immobilier) : proches des SCPI mais investis en immo et actifs financiers.",
+                "Objectif : offrir une meilleure liquidité (rachat sous quelques jours).",
+                "Contrepartie : plus de volatilité, car sensibles aux marchés financiers.",
+                "Fiscalité : similaire aux fonds classiques (OPCVM) en assurance-vie."
+            ],
+            "crise_title": "Crise de liquidité et ajustement du marché",
+            "crise_points": [
+                "La hausse des taux d'intérêt a fait baisser la valeur des actifs immobiliers",
+                "Les demandes de rachat se sont multipliées",
+                "Résultat : des revalorisations à la baisse des parts"
+            ]
+        },
+        "cta": {
+            "title": "En résumé",
+            "text": [
+                "Les SCPI restent un outil puissant de diversification immobilière, mais avec des frais, une fiscalité et une liquidité à surveiller.",
+                "Les OPCI offrent une alternative plus liquide mais plus volatile.",
+                "Avec son service de vente de gré à gré, Azalée Patrimoine offre une solution concrète et innovante pour aider ses clients à retrouver de la liberté dans leur allocation patrimoniale."
+            ],
+            "button": "Découvrir notre marché secondaire",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        }
+    }
+}

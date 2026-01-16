@@ -3,72 +3,56 @@ import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from "@/components/ui/CTAButton";
 import { getPageContent } from '@/lib/cms-server';
 
-// Default content structure
-export const defaultContent = {
-  hero: {
-    title: "Loi Girardin industriel",
-    subtitle: "Financer l'économie ultramarine via des investissements productifs",
-    description: "La loi Girardin industriel offre une réduction d'impôt \"one shot\" supérieure à l'investissement (jusqu'à 110% du montant investi). Un dispositif fiscal puissant pour contribuables très fortement imposés acceptant un placement à fonds perdus mais sûr juridiquement.",
-    button: "En savoir plus",
-    image: "/images/loi-girardin-hero.jpg"
-  },
-  overview: {
-    title: "Présentation de la loi Girardin",
-    description: "La loi Girardin est un dispositif de défiscalisation qui permet de réduire ses impôts en investissant dans les départements et collectivités d'outre-mer français (DOM-TOM).",
-    keyPoints: [
-      "Réduction d'impôt jusqu'à 25%",
-      "Investissement dans l'outre-mer français",
-      "Durée d'engagement de 5 ans",
-      "Contribution au développement local"
-    ]
-  },
-  benefits: {
-    title: "Avantages fiscaux",
-    benefits: [
-      {
-        title: "Réduction d'impôt",
-        description: "Jusqu'à 25% du montant investi",
-        percentage: "25%"
-      },
-      {
-        title: "Plafond d'investissement",
-        description: "Variable selon le projet",
-        amount: "Variable"
-      },
-      {
-        title: "Durée d'engagement",
-        description: "5 ans minimum",
-        duration: "5 ans"
-      }
-    ]
-  },
-  conditions: {
-    title: "Conditions d'éligibilité",
-    description: "Pour bénéficier de la Loi Girardin, plusieurs conditions doivent être respectées :",
-    points: [
-      "Investissement dans l'outre-mer français",
-      "Projet d'investissement productif",
-      "Engagement de 5 ans minimum",
-      "Respect des normes environnementales"
-    ]
-  },
-  cta: {
-    title: "Besoin d'aide pour votre investissement ?",
-    description: "Nos experts vous accompagnent dans votre projet d'investissement avec la Loi Girardin.",
-    buttonText: "Demander une consultation gratuite"
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('fiscalite/loi-girardin', defaultContent);
+  let content = await getPageContent('fiscalite/loi-girardin');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/loi-girardin`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Loi Girardin | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "La loi Girardin industriel pour défiscaliser en investissant dans les DOM-TOM.",
+    title: content?.seo?.metaTitle || "Loi Girardin | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "La loi Girardin industriel pour défiscaliser en investissant dans les DOM-TOM.",
   };
 }
 
 export default async function LoiGirardinPage() {
-  const content = await getPageContent('fiscalite/loi-girardin', defaultContent);
+  let content = await getPageContent('fiscalite/loi-girardin');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/loi-girardin`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -78,13 +62,13 @@ export default async function LoiGirardinPage() {
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-                {content.hero.title}
+                {content?.hero?.title}
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-white mb-3 sm:mb-4 leading-relaxed">
-                {content.hero.subtitle}
+                {content?.hero?.subtitle}
               </p>
               <p className="text-sm sm:text-base text-white mb-6 sm:mb-8">
-                {content.hero.description}
+                {content?.hero?.description}
               </p>
             </div>
           </div>
@@ -95,8 +79,8 @@ export default async function LoiGirardinPage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.overview.title}
-            subtitle={content.overview.description}
+            title={content?.overview?.title}
+            subtitle={content?.overview?.description}
           />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -114,7 +98,7 @@ export default async function LoiGirardinPage() {
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.benefits.title}
+            title={content?.benefits?.title}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -136,8 +120,8 @@ export default async function LoiGirardinPage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions.title}
-            subtitle={content.conditions.description}
+            title={content?.conditions?.title}
+            subtitle={content?.conditions?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
@@ -160,10 +144,10 @@ export default async function LoiGirardinPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
-            {content.cta.title}
+            {content?.cta?.title}
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
-            {content.cta.description}
+            {content?.cta?.description}
           </p>
           <CTAButton 
             externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"

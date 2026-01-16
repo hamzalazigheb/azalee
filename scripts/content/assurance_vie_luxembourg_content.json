@@ -1,0 +1,112 @@
+{
+    "path": "placements/assurance-vie-luxembourg",
+    "title": "Assurance-vie luxembourgeoise : la version haut de gamme",
+    "published": true,
+    "seo": {
+        "metaTitle": "Assurance-vie Luxembourgeoise : expatriés, neutralité fiscale | Azalée Patrimoine",
+        "metaDescription": "Découvrez l'assurance-vie luxembourgeoise : neutralité fiscale pour expatriés, multi-devises, fonds dédiés. Guide complet par Azalée Patrimoine."
+    },
+    "content": {
+        "hero": {
+            "title": "Assurance-vie luxembourgeoise : la version haut de gamme",
+            "subtitle": "Souvent perçue comme une \"assurance-vie haut de gamme\", l'assurance-vie luxembourgeoise est en réalité un outil patrimonial transfrontalier qui répond parfaitement aux besoins des investisseurs fortunés et des personnes susceptibles de s'expatrier.",
+            "description": "Si le discours marketing autour du triangle de sécurité est bien connu, il ne reflète pas toujours la réalité de la protection offerte selon les contrats. Le véritable atout de l'assurance-vie luxembourgeoise réside dans sa neutralité fiscale et sa souplesse en matière d'investissement et de mobilité internationale.",
+            "button": "Demander une étude patrimoniale gratuite",
+            "image": "/images/assurance-vie-luxembourg-hero.jpg"
+        },
+        "fonctionnement": {
+            "title": "Fonctionnement et spécificités",
+            "description": "L'assurance-vie luxembourgeoise est proche de l'assurance-vie française :",
+            "points": [
+                "Elle permet d'investir sur des fonds en euros (capital garanti) et des unités de compte (actions, obligations, ETF, SCPI, private equity, produits structurés…)",
+                "Elle est souscrite auprès d'un assureur luxembourgeois, mais peut être distribuée par des courtiers et CGP en France",
+                "Elle est ouverte aussi bien aux résidents français qu'aux non-résidents"
+            ],
+            "difference": "La grande différence tient à son régime fiscal et juridique : elle est conçue pour s'adapter à la résidence fiscale du souscripteur, même en cas de mobilité internationale."
+        },
+        "neutralite": {
+            "title": "L'atout majeur : la neutralité fiscale pour les expatriés",
+            "description": "Contrairement à l'assurance-vie française, dont la fiscalité est liée au droit français, l'assurance-vie luxembourgeoise s'adapte au pays de résidence fiscale du souscripteur.",
+            "points": [
+                "Tant que vous êtes résident fiscal français, elle suit les règles fiscales françaises (PFU, abattements après 8 ans)",
+                "Si vous devenez résident fiscal étranger, le contrat bascule automatiquement sous le régime fiscal de votre pays d'accueil",
+                "En cas de retour en France, l'antériorité fiscale du contrat est conservée"
+            ],
+            "exemple": {
+                "titre": "Exemple :",
+                "description": "Monsieur B souscrit une assurance-vie luxembourgeoise en France en 2025. En 2030, il part travailler au Canada : son contrat est reconnu fiscalement au Canada. Dix ans plus tard, il revient en France : il conserve son antériorité fiscale (plus de 8 ans).",
+                "conclusion": "C'est ce caractère \"portable\" qui en fait un produit unique pour les expatriés ou les personnes ayant un profil international."
+            }
+        },
+        "souplesse": {
+            "title": "Souplesse d'investissement : multi-devises et fonds dédiés",
+            "description": "Autre atout majeur : la souplesse des supports disponibles.",
+            "avantages": [
+                "Multi-devises : possibilité d'investir en euros, dollars, francs suisses, livres sterling… Un avantage clé pour les personnes ayant des revenus ou des projets dans plusieurs zones monétaires",
+                "Fonds internes dédiés (FID) : à partir d'un certain montant (souvent 250 000 €), il est possible de créer une gestion financière sur mesure, adaptée à votre profil",
+                "Large univers d'investissement : private equity, hedge funds, fonds alternatifs, produits structurés… L'éventail est beaucoup plus large qu'en assurance-vie française"
+            ],
+            "exemple": "Exemple : un expatrié au Qatar percevant ses revenus en dollars peut loger ses placements en USD pour éviter le risque de change, tout en gardant une gestion financière personnalisée."
+        },
+        "avantages": {
+            "title": "Les avantages de l'assurance-vie luxembourgeoise",
+            "points": [
+                "Neutralité fiscale : le contrat s'adapte à votre pays de résidence fiscale actuel",
+                "Souplesse d'investissement : accès à une gamme d'actifs bien plus large, avec une gestion sur mesure possible",
+                "Multi-devises : protection contre les fluctuations de change",
+                "Transmission internationale : possibilité de désigner des bénéficiaires situés dans différents pays, avec adaptation aux conventions fiscales",
+                "Protection renforcée : en cas de faillite de l'assureur, vos avoirs sont logés dans une banque dépositaire, séparés des fonds propres"
+            ]
+        },
+        "inconvenients": {
+            "title": "Les inconvénients et points de vigilance",
+            "points": [
+                "Ticket d'entrée élevé : la plupart des assureurs exigent un investissement minimum de 250 000 €, parfois 500 000 €",
+                "Complexité administrative : gestion plus lourde en raison des réglementations transfrontalières",
+                "Coûts de gestion : souvent supérieurs à ceux des contrats français classiques, surtout pour les fonds dédiés",
+                "Triangle de sécurité à relativiser : même si le Luxembourg impose une ségrégation stricte des actifs, la protection réelle varie selon le contrat et la banque dépositaire choisie"
+            ]
+        },
+        "transmission": {
+            "title": "Assurance-vie luxembourgeoise et transmission",
+            "description": "Comme en France, le contrat permet de désigner librement des bénéficiaires. L'intérêt est renforcé pour les familles vivant à l'étranger ou ayant des héritiers non-résidents.",
+            "points": [
+                "La fiscalité applicable dépendra de la résidence fiscale du défunt et des bénéficiaires",
+                "La clause bénéficiaire peut être adaptée aux particularités de chaque pays"
+            ],
+            "exemple": "Exemple : un résident français désigne ses enfants installés aux États-Unis et en Espagne comme bénéficiaires. À son décès, la fiscalité appliquée sera analysée au regard des conventions fiscales internationales."
+        },
+        "exemple": {
+            "title": "Exemple concret",
+            "description": "Madame X, cadre dirigeante, souscrit une assurance-vie luxembourgeoise en 2025 avec 500 000 €. En 2030, elle est expatriée à Singapour pour son travail.",
+            "points": [
+                "Son contrat continue sans rupture, fiscalisé selon la législation singapourienne",
+                "Elle conserve son antériorité fiscale en France",
+                "En 2040, elle revient en France : son contrat a plus de 15 ans, elle bénéficie donc des abattements fiscaux maximaux pour ses rachats"
+            ]
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "description": "L'assurance-vie luxembourgeoise est un produit d'exception, mais elle ne convient pas à tout le monde. Elle s'adresse principalement aux :",
+            "cibles": [
+                "Expatriés ou futurs expatriés, qui bénéficient de sa neutralité fiscale",
+                "Investisseurs fortunés, capables d'apporter un ticket d'entrée conséquent",
+                "Familles ayant des enjeux internationaux (héritiers dans plusieurs pays, projets d'installation à l'étranger)"
+            ],
+            "accompagnement": "Chez Azalée Patrimoine, nous accompagnons nos clients dans :",
+            "services": [
+                "La sélection du bon contrat luxembourgeois en fonction de leur mobilité internationale",
+                "Le choix des supports (multi-devises, fonds dédiés, SCPI, private equity)",
+                "L'optimisation fiscale et successorale, en coordination avec leur situation personnelle et leurs projets de vie"
+            ],
+            "conclusion": "L'assurance-vie luxembourgeoise n'est pas seulement un produit \"sécurisé\", c'est surtout un outil patrimonial international, pensé pour ceux dont la vie ne se limite pas à un seul pays."
+        },
+        "cta": {
+            "title": "Contactez un conseiller Azalée Patrimoine",
+            "subtitle": "pour savoir si l'assurance-vie luxembourgeoise peut s'intégrer à votre stratégie patrimoniale et anticiper vos projets d'expatriation",
+            "email": "contact@azalee-patrimoine.fr",
+            "primaryButton": "Demander une étude gratuite",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        }
+    }
+}

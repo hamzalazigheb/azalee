@@ -1,0 +1,110 @@
+{
+    "path": "placements/assurance-vie",
+    "title": "Assurance-vie : l'enveloppe incontournable",
+    "published": true,
+    "seo": {
+        "metaTitle": "Assurance-vie : fiscalité, transmission et stratégie | Azalée Patrimoine",
+        "metaDescription": "Découvrez l'assurance-vie : fiscalité des rachats, transmission optimisée, clause bénéficiaire. Guide complet par Azalée Patrimoine."
+    },
+    "content": {
+        "hero": {
+            "title": "Assurance-vie : l'enveloppe incontournable",
+            "subtitle": "L'assurance-vie est le placement préféré des Français, avec près de 1 900 milliards d'euros d'encours. Si elle est souvent présentée comme un simple produit d'épargne, elle est en réalité un véritable couteau suisse patrimonial.",
+            "description": "Son intérêt dépasse le rendement financier : il tient surtout à sa fiscalité avantageuse et à sa souplesse en matière de transmission.",
+            "button": "Demander une étude patrimoniale gratuite",
+            "image": "/images/assurance-vie-hero.jpg"
+        },
+        "enveloppe": {
+            "title": "L'assurance-vie comme enveloppe fiscale",
+            "description": "Une assurance-vie n'est pas un placement en soi mais une enveloppe qui peut contenir :",
+            "contenus": [
+                "un fonds en euros sécurisé (capital garanti)",
+                "des unités de compte (UC) : actions, ETF, SCPI, obligations, produits structurés…"
+            ],
+            "particularite": "La particularité est que cette enveloppe bénéficie d'un régime fiscal spécifique, plus favorable que celui des autres placements financiers."
+        },
+        "fiscalite": {
+            "title": "La fiscalité des rachats (retraits)",
+            "description": "Lorsque vous retirez de l'argent de votre contrat, seule la part des gains (intérêts, plus-values) est imposée. La fiscalité dépend de deux critères :",
+            "criteres": [
+                "La durée du contrat (moins ou plus de 8 ans)",
+                "La date des versements (avant ou après le 27 septembre 2017, entrée en vigueur du PFU)"
+            ],
+            "avant2017": {
+                "title": "Avant le 27/09/2017",
+                "options": [
+                    "Option pour le PFL (prélèvement forfaitaire libératoire) : 35% avant 4 ans, 15% entre 4 et 8 ans, 7,5% après 8 ans",
+                    "Ou imposition au barème de l'IR"
+                ]
+            },
+            "depuis2017": {
+                "title": "Depuis le 27/09/2017",
+                "options": [
+                    "Application du PFU (prélèvement forfaitaire unique, ou flat tax) de 30% (12,8% IR + 17,2% PS) pour les versements après cette date",
+                    "Après 8 ans, taux réduit de 7,5% (hors PS) dans la limite de 150 000€ de primes versées par assuré, puis 12,8% au-delà"
+                ]
+            },
+            "abattement": "Dans tous les cas : abattement annuel de 4 600€ (9 200€ pour un couple) sur les produits après 8 ans."
+        },
+        "transmission": {
+            "title": "Versements avant et après 70 ans : un impact majeur en transmission",
+            "description": "La fiscalité successorale de l'assurance-vie dépend de l'âge de l'assuré au moment des versements :",
+            "avant70": {
+                "title": "Avant 70 ans (article 990 I du CGI)",
+                "description": "chaque bénéficiaire profite d'un abattement de 152 500€, puis taxation forfaitaire (20% jusqu'à 700 000€, puis 31,25%)"
+            },
+            "apres70": {
+                "title": "Après 70 ans (article 757 B du CGI)",
+                "description": "abattement global de 30 500€ sur les primes versées (tous bénéficiaires confondus). Les primes excédentaires sont soumises aux droits de succession selon le lien de parenté."
+            },
+            "attention": "Mais attention : les produits (intérêts, plus-values) générés restent exonérés."
+        },
+        "clause": {
+            "title": "La clause bénéficiaire : souplesse et liberté",
+            "description": "L'un des atouts majeurs de l'assurance-vie est la clause bénéficiaire : l'épargnant choisit librement qui recevra le capital à son décès.",
+            "avantages": [
+                "Cela peut être le conjoint, les enfants, mais aussi un tiers (ami, concubin, association, etc.)",
+                "La clause est hors succession : les capitaux ne sont pas soumis aux règles classiques de réserve héréditaire"
+            ],
+            "exemple": "Exemple : une personne désigne son concubin comme bénéficiaire, alors que les enfants n'ont pas encore de droits sur ce capital. Cela en fait un outil puissant dans les familles recomposées."
+        },
+        "jurisprudence": {
+            "title": "Jurisprudence : primes manifestement exagérées et contentieux familiaux",
+            "description": "La liberté offerte par l'assurance-vie peut générer des conflits familiaux. Les héritiers écartés contestent parfois le contrat en invoquant le caractère \"manifestement exagéré\" des primes versées.",
+            "points": [
+                "La jurisprudence apprécie au cas par cas : âge du souscripteur, importance des primes par rapport à son patrimoine global, utilité économique du contrat",
+                "Exemple : un retraité de 85 ans qui verse 500 000€ en assurance-vie, alors que son patrimoine est de 600 000€, pourra voir son contrat partiellement réintégré dans la succession",
+                "Les juges examinent si les versements étaient proportionnés aux revenus et à la situation de l'assuré"
+            ],
+            "resultat": "Résultat : l'assurance-vie n'est pas \"hors succession absolue\", mais elle reste largement protectrice."
+        },
+        "exemple": {
+            "title": "Exemple concret",
+            "description": "Madame X, 68 ans, verse 200 000€ sur une assurance-vie en 2000. Elle désigne son neveu comme bénéficiaire.",
+            "points": [
+                "Fiscalité : ces versements, faits avant ses 70 ans, bénéficient de l'abattement de 152 500€ pour son neveu",
+                "Transmission : malgré la présence d'enfants, le capital ne tombe pas automatiquement dans la succession",
+                "Contestation : les enfants pourraient tenter une action pour primes exagérées si ces 200 000€ représentaient l'essentiel du patrimoine de Madame X"
+            ]
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "description": "L'assurance-vie est un outil polyvalent : épargne, investissement, optimisation fiscale, transmission. Mais ses subtilités (dates de versements, âge du souscripteur, rédaction de la clause bénéficiaire) en font un produit technique.",
+            "accompagnement": "Chez Azalée Patrimoine, nous accompagnons nos clients à :",
+            "services": [
+                "Rédiger une clause bénéficiaire adaptée à leur situation familiale (ex. : enfants d'un premier mariage, concubin, partenaire de PACS)",
+                "Arbitrer entre versements avant et après 70 ans",
+                "Sécuriser le contrat pour éviter les litiges familiaux",
+                "Optimiser la fiscalité en phase d'épargne et de transmission"
+            ],
+            "conclusion": "L'assurance-vie reste l'outil n°1 de la stratégie patrimoniale. Bien utilisée, elle combine rendement, souplesse et protection successorale."
+        },
+        "cta": {
+            "title": "Contactez un conseiller Azalée Patrimoine",
+            "subtitle": "pour auditer vos contrats d'assurance-vie et sécuriser votre transmission familiale",
+            "email": "contact@azalee-patrimoine.fr",
+            "primaryButton": "Demander un audit gratuit",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        }
+    }
+}

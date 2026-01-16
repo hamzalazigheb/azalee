@@ -18,7 +18,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
     
     // Convert Windows file paths to web paths
     // If user enters: C:\Users\...\public\images\reunion.webp
-    // Convert to: /images/reunion.webp
+    // Convert to: /images/azalee-patrimoine-reunion.webp
     if (url.includes('public\\images\\') || url.includes('public/images/')) {
       const match = url.match(/[\\/]images[\\/]([^\\/]+)$/);
       if (match) {
@@ -97,7 +97,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
           type="text"
           value={imageUrl}
           onChange={handleUrlChange}
-          placeholder="/images/reunion.webp ou https://example.com/image.jpg"
+          placeholder="/images/azalee-patrimoine-reunion.webp ou https://example.com/image.jpg"
           className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">

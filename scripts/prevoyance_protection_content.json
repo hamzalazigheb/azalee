@@ -1,0 +1,136 @@
+{
+    "path": "retraite/prevoyance-protection",
+    "title": "Prévoyance et Protection",
+    "published": true,
+    "content": {
+        "seo": {
+            "metaTitle": "Prévoyance et Protection | Azalée Patrimoine",
+            "metaDescription": "Sécurisez votre avenir et celui de vos proches avec les solutions de prévoyance et protection d'Azalée Patrimoine."
+        },
+        "hero": {
+            "title": "Prévoyance / Protection de la famille",
+            "subtitle": "La retraite ne se limite pas à l'épargne : il faut aussi protéger sa famille.",
+            "highlight": "Azalée Patrimoine propose une approche intégrée : anticiper les risques de la vie pour sécuriser la transmission et la stabilité financière de la famille.",
+            "breadcrumb": {
+                "parent": "Retraite",
+                "current": "Prévoyance et protection"
+            }
+        },
+        "introduction": {
+            "paragraphs": [
+                "Un accident, une maladie, un décès prématuré ou une perte temporaire de revenus peuvent fragiliser des années d'efforts et remettre en cause la stabilité financière de votre foyer ou de votre entreprise.",
+                "Chez **Azalée Patrimoine**, nous intégrons la prévoyance au cœur de chaque stratégie patrimoniale, pour garantir votre indépendance financière, celle de vos proches et la pérennité de vos projets."
+            ]
+        },
+        "pourquoi": {
+            "title": "Pourquoi la prévoyance est un pilier du patrimoine",
+            "intro": "La prévoyance ne se limite pas à l'assurance : c'est une stratégie de continuité patrimoniale. Elle permet de :",
+            "items": [
+                "Maintenir un revenu de remplacement en cas d'arrêt de travail,",
+                "Protéger votre famille en cas de décès,",
+                "Financer la dépendance ou les soins longue durée,",
+                "Préserver la valeur de votre entreprise,",
+                "Et éviter une vente précipitée d'actifs en cas d'imprévu."
+            ],
+            "note": "Une bonne stratégie de prévoyance assure la cohérence entre votre épargne, vos investissements et votre niveau de protection."
+        },
+        "casConcret": {
+            "title": "Cas concret : quand la prévoyance protège le patrimoine du dirigeant",
+            "scenario": "**Marc, 45 ans**, chef d'entreprise (PME conseil), 5 000 €/mois.\nAccident de moto : immobilisé 8 mois.",
+            "sansPrevoyance": {
+                "title": "Sans prévoyance professionnelle :",
+                "consequences": [
+                    "Trois salariés démissionnent,",
+                    "CA chute de 50%,",
+                    "Marc puise dans sa trésorerie personnelle."
+                ],
+                "conclusion": "Perte de revenus immédiate, désorganisation de l'entreprise."
+            },
+            "avecPrevoyance": {
+                "title": "Avec une prévoyance adaptée :",
+                "solutions": [
+                    "Indemnités journalières compensant le revenu,",
+                    "Financement d'un manager de transition,",
+                    "Trésorerie préservée."
+                ],
+                "conclusion": "Revenu protégé, entreprise pérennisée, famille sécurisée."
+            }
+        },
+        "focus": {
+            "title": "Focus Azalée Patrimoine — La prévoyance, un réflexe encore trop rare",
+            "stats": [
+                {
+                    "value": "40%",
+                    "desc": "des dirigeants n'ont aucune couverture adaptée."
+                },
+                {
+                    "value": "50%",
+                    "desc": "des dirigeants couverts ignorent le montant exact de leur indemnisation."
+                }
+            ],
+            "constat": "**La plupart** des entrepreneurs protègent mieux leur matériel que **leur propre revenu**.",
+            "accompagnement": [
+                "Identifier les besoins spécifiques,",
+                "Choisir les garanties adaptées,",
+                "Optimiser la fiscalité (Madelin),",
+                "Intégrer la prévoyance à la stratégie globale."
+            ]
+        },
+        "objectifs": {
+            "title": "Nos objectifs",
+            "items": [
+                "Identifier les risques réels (pro & perso),",
+                "Évaluer l'impact financier d'une absence,",
+                "Mettre en place une stratégie globale."
+            ],
+            "mission": "Notre mission : faire de la prévoyance un pilier de la stratégie patrimoniale du chef d'entreprise."
+        },
+        "solutions": {
+            "title": "Les solutions de prévoyance à connaître",
+            "items": [
+                {
+                    "title": "1. Prévoyance du chef d'entreprise (TNS)",
+                    "text": "Les régimes obligatoires sont insuffisants. Les contrats **Madelin** permettent de déduire les cotisations tout en garantissant un revenu de remplacement et une protection décès/invalidité.",
+                    "partenaires": [
+                        "ABEILLES VIE",
+                        "SWISSLIFE",
+                        "CARDIF",
+                        "MMA"
+                    ]
+                },
+                {
+                    "title": "2. Prévoyance salarié cadre",
+                    "text": "Audit des garanties existantes (Sécu + Prévoyance entreprise) pour combler les écarts : indemnités vs net réel, rente conjoint, invalidité partielle."
+                },
+                {
+                    "title": "3. Protection conjoint et héritiers",
+                    "text": "Clauses bénéficiaires optimisées, garanties décès, transmission assurance-vie, protection du conjoint (usufruit, donation)."
+                },
+                {
+                    "title": "4. Assurance emprunteur",
+                    "text": "Loi Lemoine : changer d'assurance pour réduire le coût et améliorer les garanties. Protège le patrimoine en remboursant les dettes."
+                },
+                {
+                    "title": "5. Dépendance",
+                    "text": "Anticiper la perte d'autonomie pour éviter la charge financière sur les proches (rente dépendance, maintien à domicile)."
+                }
+            ]
+        },
+        "accompagnementSection": {
+            "title": "L'accompagnement Azalée Patrimoine",
+            "intro": "Notre cabinet vous accompagne dans le bilan, l'analyse des risques et la mise en place de solutions sur mesure.",
+            "approches": [
+                "Constituer (Épargne)",
+                "Valoriser (Investissement)",
+                "Protéger (Prévoyance)"
+            ],
+            "conclusion": "La prévoyance n'est pas une option : c'est la garantie de continuité de votre indépendance financière."
+        },
+        "cta": {
+            "title": "Protégez votre famille dès aujourd'hui",
+            "subtitle": "Nos experts vous accompagnent dans le choix des solutions de protection les plus adaptées.",
+            "buttonText": "Demander une évaluation gratuite",
+            "contact": "contact@azalee-patrimoine.fr"
+        }
+    }
+}

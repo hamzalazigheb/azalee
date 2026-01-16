@@ -3,27 +3,56 @@ import Footer from "../../../components/common/Footer";
 import Link from "next/link";
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Comprendre les produits structurés",
-    subtitle: "Un contrat à géométrie maîtrisée pour votre patrimoine"
-  },
-  seo: {
-    metaTitle: "Produits Structurés | Azalée Patrimoine",
-    metaDescription: "Découvrez les produits structurés : UCS, Phoenix, Athena, Autocall. Un contrat à géométrie maîtrisée pour votre patrimoine."
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('placements/produits-structures', defaultContent);
+  let content = await getPageContent('placements/produits-structures');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/produits-structures`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Produits Structurés | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "Découvrez les produits structurés."
+    title: content?.seo?.metaTitle || "Produits Structurés | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Découvrez les produits structurés."
   };
 }
 
 export default async function ProduitsStructuresPage() {
-  const content = await getPageContent('placements/produits-structures', defaultContent);
+  let content = await getPageContent('placements/produits-structures');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/produits-structures`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* Hero Section */}

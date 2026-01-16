@@ -11,20 +11,23 @@ import { deepMerge } from './merge-content';
 export async function getPageContent(path, defaultContent = {}) {
   try {
     await connectDB();
-    
-    const page = await PageContent.findOne({ 
+    console.log(`[CMS SERVER] Querying DB for path: "${path.toLowerCase()}"`);
+
+    const page = await PageContent.findOne({
       path: path.toLowerCase(),
-      published: true 
+      published: true
     });
-    
+
+    console.log(`[CMS SERVER] DB query result: ${page ? 'Found' : 'Not Found'}`);
+
     if (!page || !page.content) {
       // Return default content if CMS page doesn't exist
       return defaultContent;
     }
-    
+
     // Deep merge CMS content with defaultContent
     const mergedContent = deepMerge(defaultContent, page.content);
-    
+
     return mergedContent;
   } catch (error) {
     console.error(`Error fetching CMS content for ${path}:`, error);
@@ -41,9 +44,9 @@ export async function getPageContent(path, defaultContent = {}) {
 export async function pageExists(path) {
   try {
     await connectDB();
-    const page = await PageContent.findOne({ 
+    const page = await PageContent.findOne({
       path: path.toLowerCase(),
-      published: true 
+      published: true
     });
     return !!page;
   } catch (error) {

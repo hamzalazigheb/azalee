@@ -1,0 +1,319 @@
+{
+    "path": "placements/bourse-actions",
+    "title": "Bourse & Actions",
+    "published": true,
+    "seo": {
+        "metaTitle": "Investir en Bourse : Actions, ETF, Indices - Guide Azalée Patrimoine",
+        "metaDescription": "Découvrez comment investir en Bourse (actions, CAC 40, S&P 500, ETF) pour diversifier votre patrimoine. Guide complet pour débuter.",
+        "keywords": [
+            "bourse",
+            "actions",
+            "etf",
+            "cac 40",
+            "investissement",
+            "patrimoine"
+        ]
+    },
+    "content": {
+        "hero": {
+            "title": "La Bourse (actions, CAC 40, indices, ETF…) : guide pour débuter",
+            "intro_bold_1": "attrait de la performance",
+            "intro_bold_2": "participer à la croissance des entreprises",
+            "intro": "Investir en Bourse attire de plus en plus d'épargnants français. Entre l'attrait de la performance (bien supérieure aux livrets ou fonds en euros) et la possibilité de participer à la croissance des entreprises, la Bourse est un passage obligé pour diversifier son patrimoine.",
+            "description": "Mais la Bourse peut sembler complexe : actions, dividendes, CAC 40, indices mondiaux, ETF, volatilité… Cette page vous aide à décrypter les bases pour investir de manière éclairée.",
+            "button": "Commencer à investir",
+            "secondaryButton": "Voir nos analyses"
+        },
+        "sections": {
+            "introduction": {
+                "title": "Introduction",
+                "subtitle": "Pourquoi investir en Bourse ?",
+                "description": "Investir en Bourse attire de plus en plus d'épargnants français. Entre l'attrait de la performance (bien supérieure aux livrets ou fonds en euros) et la possibilité de participer à la croissance des entreprises, la Bourse est un passage obligé pour diversifier son patrimoine.",
+                "cards": [
+                    {
+                        "title": "Performance supérieure",
+                        "description": "Rendement historique de 7% par an sur le S&P 500 depuis 50 ans, bien supérieur aux livrets."
+                    },
+                    {
+                        "title": "Participation à l'économie réelle",
+                        "description": "Investir dans la croissance des entreprises et participer à l'économie mondiale."
+                    }
+                ]
+            },
+            "definition": {
+                "title": "Qu'est-ce que la Bourse ?",
+                "subtitle": "La Bourse est un marché où s'échangent des titres financiers.",
+                "items": [
+                    {
+                        "title": "Actions",
+                        "description": "Parts de sociétés cotées"
+                    },
+                    {
+                        "title": "Obligations",
+                        "description": "Titres de dette"
+                    },
+                    {
+                        "title": "ETF et fonds",
+                        "description": "Panier de titres"
+                    },
+                    {
+                        "title": "Produits dérivés",
+                        "description": "Options, turbos, warrants (pour investisseurs avertis)"
+                    }
+                ],
+                "role": {
+                    "title": "Rôle de la Bourse",
+                    "entreprises": "Se financer en émettant des actions",
+                    "investisseurs": "Placer leur argent dans l'économie réelle"
+                }
+            },
+            "actions": {
+                "title": "Les actions : le cœur de la Bourse",
+                "definition": "Une action est une part du capital d'une société cotée.",
+                "droits": [
+                    {
+                        "title": "Droit de vote",
+                        "description": "En assemblée générale"
+                    },
+                    {
+                        "title": "Droit aux dividendes",
+                        "description": "Part des bénéfices distribuée aux actionnaires"
+                    },
+                    {
+                        "title": "Espérance de plus-value",
+                        "description": "Si le cours de l'action augmente"
+                    }
+                ],
+                "exemple": {
+                    "title": "Exemple concret : TotalÉnergies",
+                    "achat": "Vous achetez 100 actions de TotalÉnergies à 60 €",
+                    "positif": "Si le cours monte à 70 € → Plus-value de 1 000 €",
+                    "negatif": "Si le cours baisse à 50 € → Perte de 1 000 €",
+                    "conclusion": "L'action combine rendement (dividendes) et risque (fluctuation du cours)."
+                }
+            },
+            "indices": {
+                "title": "Les indices boursiers : CAC 40, S&P 500, MSCI World…",
+                "definition": "Les indices boursiers mesurent la performance d'un groupe d'actions représentatif d'un marché.",
+                "liste": [
+                    {
+                        "name": "CAC 40",
+                        "value": "7,245.69",
+                        "description": "Les 40 plus grandes entreprises françaises cotées à Paris.",
+                        "examples": [
+                            "TotalÉnergies",
+                            "LVMH",
+                            "Hermès",
+                            "L'Oréal"
+                        ]
+                    },
+                    {
+                        "name": "S&P 500",
+                        "value": "4,783.35",
+                        "description": "Les 500 plus grandes sociétés américaines.",
+                        "examples": [
+                            "Apple",
+                            "Microsoft",
+                            "Amazon",
+                            "Tesla"
+                        ]
+                    },
+                    {
+                        "name": "MSCI World",
+                        "value": "2,156.78",
+                        "description": "Environ 1 500 actions dans 23 pays développés.",
+                        "examples": [
+                            "Diversification mondiale",
+                            "Pays développés",
+                            "Large capitalisation",
+                            "Référence internationale"
+                        ]
+                    }
+                ],
+                "box": {
+                    "title": "Rôle des indices",
+                    "content": "Un indice est un thermomètre du marché. Il permet de suivre l'évolution de la Bourse sans s'attarder sur chaque titre."
+                }
+            },
+            "investir": {
+                "title": "Comment investir en Bourse ?",
+                "intro": "Il existe plusieurs façons d'investir en Bourse selon votre profil et vos objectifs.",
+                "options": [
+                    {
+                        "title": "En direct",
+                        "description": "Achat d'actions individuelles via un PEA ou CTO.",
+                        "points": [
+                            "Plus risqué",
+                            "Nécessite du temps",
+                            "Demande des connaissances",
+                            "Sélection manuelle"
+                        ]
+                    },
+                    {
+                        "title": "Via des fonds / ETF",
+                        "description": "Un ETF réplique la performance d'un indice (ex. CAC 40, S&P 500).",
+                        "points": [
+                            "Diversification automatique",
+                            "Coûts réduits",
+                            "Simplicité",
+                            "Exemple : ETF MSCI World = 1 500 actions mondiales"
+                        ]
+                    },
+                    {
+                        "title": "Produits structurés",
+                        "description": "Combinent actions et protection partielle du capital.",
+                        "points": [
+                            "Réservés aux investisseurs accompagnés",
+                            "Protection du capital",
+                            "Exposition aux marchés",
+                            "Complexité technique"
+                        ]
+                    }
+                ]
+            },
+            "enveloppes": {
+                "title": "PEA, CTO ou Assurance-vie : quelle enveloppe pour investir en Bourse ?",
+                "types": [
+                    {
+                        "name": "PEA",
+                        "description": "Enveloppe fiscale française, idéale pour investir en actions européennes et ETF éligibles.",
+                        "details": [
+                            "Exonération d'impôt après 5 ans",
+                            "Limité aux actions européennes",
+                            "Plafond : 150 000 €",
+                            "Prélèvements sociaux : 17,2%"
+                        ]
+                    },
+                    {
+                        "name": "CTO",
+                        "description": "Accès illimité à toutes les places boursières (USA, Asie…), mais fiscalité plus lourde.",
+                        "details": [
+                            "Accès mondial",
+                            "Pas de plafond",
+                            "PFU : 30%",
+                            "Flexibilité totale"
+                        ]
+                    },
+                    {
+                        "name": "Assurance-vie",
+                        "description": "Permet d'investir en ETF ou OPCVM tout en optimisant la fiscalité et la transmission.",
+                        "details": [
+                            "Fiscalité douce après 8 ans",
+                            "Abattement : 4 600 €/9 200 €",
+                            "Transmission optimisée",
+                            "Diversification"
+                        ]
+                    }
+                ],
+                "choix": {
+                    "title": "Le choix dépend de vos objectifs :",
+                    "pea": "Long terme fiscalement optimisé",
+                    "cto": "Flexibilité totale",
+                    "assurance": "Retraite et transmission"
+                }
+            },
+            "faq": {
+                "title": "FAQ – Investir en Bourse",
+                "items": [
+                    {
+                        "question": "1. Comment débuter en Bourse avec 1 000 € ?",
+                        "answer": "Oui, il est possible de commencer en Bourse avec 1 000 €. L'idéal est de privilégier un ETF (fonds indiciel), par exemple un ETF qui réplique le CAC 40 ou le MSCI World, afin d'obtenir une diversification immédiate sans devoir acheter plusieurs actions individuellement.",
+                        "tip": "Avec un PEA ou une assurance-vie, vous pouvez loger cet investissement dans un cadre fiscal optimisé."
+                    },
+                    {
+                        "question": "2. Le CAC 40 est-il un bon placement ?",
+                        "answer": "Le CAC 40 est l'indice phare de la Bourse de Paris, composé des 40 plus grandes entreprises françaises. Investir dans le CAC 40 via un ETF CAC 40 permet de miser sur l'économie française, mais la diversification reste limitée.",
+                        "tip": "Pour équilibrer votre portefeuille, il est conseillé de compléter avec des indices mondiaux (S&P 500, MSCI World)."
+                    },
+                    {
+                        "question": "3. Quelle est la différence entre un PEA et un CTO ?",
+                        "answer": "PEA : enveloppe fiscale française, très avantageuse après 5 ans, mais limitée aux actions et ETF européens.\nCTO : accès illimité à toutes les places boursières (USA, Asie, marchés émergents), mais fiscalité plus lourde (PFU 30 %).",
+                        "tip": "Le PEA est idéal pour le long terme, le CTO pour diversifier sans contrainte géographique."
+                    },
+                    {
+                        "question": "4. Peut-on perdre tout son argent en Bourse ?",
+                        "answer": "La Bourse comporte un risque de perte en capital. Si vous investissez dans une seule action, oui, vous pouvez perdre beaucoup si l'entreprise fait faillite. Mais en investissant via des ETF diversifiés, le risque de perte totale est extrêmement faible.",
+                        "tip": "Le secret : investir progressivement et diversifier."
+                    },
+                    {
+                        "question": "5. Quelle fiscalité sur les gains en Bourse ?",
+                        "answer": "CTO : gains taxés au PFU (30 %) ou au barème progressif.\nPEA : exonération d'impôt après 5 ans (hors prélèvements sociaux de 17,2 %).\nAssurance-vie : fiscalité douce après 8 ans avec abattement annuel (4 600 €/9 200 €)."
+                    },
+                    {
+                        "question": "6. Faut-il investir en actions ou en ETF ?",
+                        "answer": "Actions individuelles : plus risquées, demandent du temps et des connaissances.\nETF : fonds indiciels qui répliquent un indice (CAC 40, S&P 500, MSCI World), simples, peu chers, diversifiés.",
+                        "tip": "Pour un débutant, les ETF sont la meilleure porte d'entrée en Bourse."
+                    },
+                    {
+                        "question": "7. Combien de temps faut-il investir en Bourse ?",
+                        "answer": "La Bourse est un placement long terme. À court terme (1-2 ans), les marchés peuvent être très volatils. Sur 10 ans ou plus, l'histoire montre que la Bourse offre en moyenne 6-8 % de rendement annuel.",
+                        "tip": "Plus l'horizon est long, plus le risque est réduit."
+                    }
+                ],
+                "conclusion": "Chez Azalée Patrimoine, nous accompagnons les épargnants débutants comme les investisseurs confirmés pour construire une stratégie boursière adaptée à leurs objectifs de performance, fiscalité et transmission."
+            }
+        },
+        "avantages": {
+            "title": "Avantages de la Bourse",
+            "items": [
+                {
+                    "title": "Rendement historique supérieur",
+                    "description": "Sur longue durée, la Bourse bat largement les livrets et l'immobilier (moyenne de 7 %/an sur le S&P 500 depuis 50 ans)."
+                },
+                {
+                    "title": "Liquidité",
+                    "description": "Vous pouvez acheter/vendre vos titres rapidement."
+                },
+                {
+                    "title": "Diversification",
+                    "description": "Accès à tous les secteurs et pays."
+                },
+                {
+                    "title": "Accessibilité",
+                    "description": "Via un PEA, un CTO ou une assurance-vie en unités de compte."
+                }
+            ]
+        },
+        "inconvenients": {
+            "title": "Inconvénients et risques",
+            "items": [
+                {
+                    "title": "Volatilité",
+                    "description": "Les cours peuvent fortement fluctuer à court terme."
+                },
+                {
+                    "title": "Risque de perte en capital",
+                    "description": "Investir en actions n'est jamais garanti."
+                },
+                {
+                    "title": "Effet psychologique",
+                    "description": "Les débutants paniquent souvent en cas de baisse, et vendent au mauvais moment."
+                },
+                {
+                    "title": "Fiscalité",
+                    "description": "Hors PEA/assurance-vie, les gains sont taxés au PFU de 30 %."
+                }
+            ]
+        },
+        "approach": {
+            "title": "La Bourse et la stratégie patrimoniale",
+            "description": "Chez Azalée Patrimoine, nous voyons la Bourse non pas comme un casino, mais comme un levier de construction patrimoniale.",
+            "cards": [
+                {
+                    "title": "Allocation personnalisée",
+                    "description": "Selon votre profil (prudent, équilibré, dynamique)."
+                },
+                {
+                    "title": "Intégration patrimoniale",
+                    "description": "Avec vos autres actifs (immobilier, épargne retraite, SCPI)."
+                },
+                {
+                    "title": "Simulations sur mesure",
+                    "description": "De vos revenus futurs en intégrant Bourse + immobilier + retraite."
+                }
+            ],
+            "objectif": "Objectif",
+            "objectif_text": "Construire un patrimoine performant et diversifié, capable de traverser les crises et de générer de la valeur sur le long terme."
+        }
+    }
+}

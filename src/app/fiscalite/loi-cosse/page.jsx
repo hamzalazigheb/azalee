@@ -3,61 +3,56 @@ import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from "@/components/ui/CTAButton";
 import { getPageContent } from '@/lib/cms-server';
 
-// Default content structure
-export const defaultContent = {
-  hero: {
-    title: "Loi Cosse",
-    subtitle: "Dispositif de défiscalisation pour l'investissement immobilier locatif dans les zones tendues",
-    button: "En savoir plus",
-    image: "/images/loi-cosse-hero.jpg"
-  },
-  definition: {
-    title: "Qu'est-ce que la Loi Cosse ?",
-    description: "La Loi Cosse est un dispositif de défiscalisation qui permet de réduire son impôt sur le revenu en investissant dans l'immobilier locatif dans les zones tendues.",
-    details: [
-      "Réduction d'impôt de 12% du montant investi",
-      "Plafond de 300 000€ par an",
-      "Engagement de location de 9 ans minimum",
-      "Bien situé dans une zone tendue"
-    ]
-  },
-  conditions: {
-    title: "Conditions d'éligibilité",
-    description: "Pour bénéficier de la Loi Cosse, plusieurs conditions doivent être respectées :",
-    points: [
-      "Investissement dans un bien neuf ou en VEFA",
-      "Location à usage d'habitation principale",
-      "Engagement de location de 9 ans minimum",
-      "Bien situé dans une zone tendue"
-    ]
-  },
-  avantages: {
-    title: "Avantages du dispositif",
-    description: "Les principaux avantages de la Loi Cosse :",
-    points: [
-      "Réduction d'impôt immédiate",
-      "Plafond élevé (300 000€)",
-      "Pas de condition de ressources",
-      "Compatible avec d'autres dispositifs"
-    ]
-  },
-  cta: {
-    title: "Besoin d'aide pour votre investissement ?",
-    description: "Nos experts vous accompagnent dans votre projet d'investissement immobilier avec la Loi Cosse.",
-    buttonText: "Demander une consultation gratuite"
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('fiscalite/loi-cosse', defaultContent);
+  let content = await getPageContent('fiscalite/loi-cosse');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/loi-cosse`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Loi Cosse | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "La Loi Cosse est un dispositif de défiscalisation immobilier.",
+    title: content?.seo?.metaTitle || "Loi Cosse | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "La Loi Cosse est un dispositif de défiscalisation immobilier.",
   };
 }
 
 export default async function LoiCossePage() {
-  const content = await getPageContent('fiscalite/loi-cosse', defaultContent);
+  let content = await getPageContent('fiscalite/loi-cosse');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/loi-cosse`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -66,10 +61,10 @@ export default async function LoiCossePage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6">
-              {content.hero.title}
+              {content?.hero?.title}
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-white mb-6 sm:mb-8 leading-relaxed">
-              {content.hero.subtitle}
+              {content?.hero?.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <CTAButton 
@@ -87,8 +82,8 @@ export default async function LoiCossePage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.definition.title}
-            subtitle={content.definition.description}
+            title={content?.definition?.title}
+            subtitle={content?.definition?.description}
           />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -106,8 +101,8 @@ export default async function LoiCossePage() {
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions.title}
-            subtitle={content.conditions.description}
+            title={content?.conditions?.title}
+            subtitle={content?.conditions?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
@@ -125,8 +120,8 @@ export default async function LoiCossePage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.avantages.title}
-            subtitle={content.avantages.description}
+            title={content?.avantages?.title}
+            subtitle={content?.avantages?.description}
           />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -149,10 +144,10 @@ export default async function LoiCossePage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
-            {content.cta.title}
+            {content?.cta?.title}
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
-            {content.cta.description}
+            {content?.cta?.description}
           </p>
           <CTAButton 
             externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"

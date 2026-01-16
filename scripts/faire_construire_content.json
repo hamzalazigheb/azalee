@@ -1,0 +1,126 @@
+{
+    "path": "immobilier/faire-construire",
+    "title": "Faire Construire",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Faire construire votre projet immobilier",
+            "subtitle": "Accompagnement complet pour la construction de votre maison ou immeuble",
+            "description": "De la recherche du terrain à la livraison de votre bien, nous vous accompagnons dans toutes les étapes de votre projet de construction.",
+            "button": "Découvrir nos services",
+            "image": "/images/expertise.webp"
+        },
+        "servicesSection": {
+            "title": "Nos services de construction",
+            "subtitle": "Un accompagnement complet pour réussir votre projet de construction immobilière"
+        },
+        "services": [
+            {
+                "title": "Recherche de terrain",
+                "description": "Identification et sélection du terrain idéal pour votre projet",
+                "icon": "🏗️",
+                "features": [
+                    "Analyse de faisabilité",
+                    "Étude de sol",
+                    "Vérification des contraintes",
+                    "Négociation du prix"
+                ]
+            },
+            {
+                "title": "Architecture et plans",
+                "description": "Conception et réalisation des plans selon vos besoins",
+                "icon": "📐",
+                "features": [
+                    "Plans architecturaux",
+                    "Permis de construire",
+                    "Suivi des travaux",
+                    "Contrôle qualité"
+                ]
+            },
+            {
+                "title": "Financement",
+                "description": "Solutions de financement adaptées à votre projet",
+                "icon": "💰",
+                "features": [
+                    "Prêt construction",
+                    "Prêt relais",
+                    "Financement travaux",
+                    "Optimisation fiscale"
+                ]
+            },
+            {
+                "title": "Suivi des travaux",
+                "description": "Accompagnement pendant toute la durée du chantier",
+                "icon": "🔨",
+                "features": [
+                    "Planning travaux",
+                    "Contrôle qualité",
+                    "Gestion des artisans",
+                    "Livraison clés en main"
+                ]
+            }
+        ],
+        "processSection": {
+            "title": "Notre processus de construction",
+            "subtitle": "Un processus structuré en 5 étapes pour garantir la réussite de votre projet"
+        },
+        "process": [
+            {
+                "step": "1",
+                "title": "Étude de faisabilité",
+                "description": "Analyse de votre projet et de sa viabilité technique et financière"
+            },
+            {
+                "step": "2",
+                "title": "Recherche du terrain",
+                "description": "Identification et acquisition du terrain idéal pour votre construction"
+            },
+            {
+                "step": "3",
+                "title": "Conception architecturale",
+                "description": "Élaboration des plans et obtention des autorisations nécessaires"
+            },
+            {
+                "step": "4",
+                "title": "Financement du projet",
+                "description": "Mise en place des solutions de financement les plus avantageuses"
+            },
+            {
+                "step": "5",
+                "title": "Réalisation des travaux",
+                "description": "Suivi et contrôle de la construction jusqu'à la livraison"
+            }
+        ],
+        "advantagesSection": {
+            "title": "Les avantages de faire construire",
+            "subtitle": "Pourquoi choisir la construction neuve pour votre projet immobilier"
+        },
+        "advantages": [
+            {
+                "title": "Personnalisation totale",
+                "description": "Concevez votre maison selon vos goûts et vos besoins spécifiques"
+            },
+            {
+                "title": "Économies d'énergie",
+                "description": "Construisez avec les dernières normes environnementales et réduisez vos factures"
+            },
+            {
+                "title": "Valeur patrimoniale",
+                "description": "Un bien neuf qui prendra de la valeur et répondra aux standards actuels"
+            },
+            {
+                "title": "Garanties constructeur",
+                "description": "Bénéficiez des garanties légales et des assurances décennale"
+            }
+        ],
+        "cta": {
+            "title": "Prêt à construire votre projet ?",
+            "subtitle": "Nos experts vous accompagnent dans toutes les étapes de votre construction",
+            "button": "Demander un devis gratuit"
+        },
+        "seo": {
+            "metaTitle": "Faire Construire | Azalée Patrimoine",
+            "metaDescription": "Accompagnement complet pour la construction de votre maison ou immeuble avec Azalée Patrimoine."
+        }
+    }
+}

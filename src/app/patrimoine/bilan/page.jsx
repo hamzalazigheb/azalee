@@ -1,655 +1,432 @@
-"use client";
-import React, { useState } from "react";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
 import CTAButton from "@/components/ui/CTAButton";
+import { getPageContent } from '@/lib/cms-server';
+import BilanCalculator from "./BilanCalculator";
 
-export default function BilanPage() {
-  const [patrimoine, setPatrimoine] = useState("");
-  const [situationFamiliale, setSituationFamiliale] = useState("Célibataire");
-  const [age, setAge] = useState("");
-  const [economiesPotentielles, setEconomiesPotentielles] = useState(null);
-  const [calculEffectue, setCalculEffectue] = useState(false);
+export const revalidate = 0; // Ensure SSR
 
-  const calculerEconomies = () => {
-    if (!patrimoine || !age) {
-      alert("Veuillez remplir tous les champs obligatoires");
-      return;
-    }
-
-    const patrimoineValue = parseFloat(patrimoine.replace(/[^\d.]/g, "")) || 0;
-    const ageValue = parseInt(age) || 0;
-
-    // Calcul basé sur des règles simplifiées
-    let tauxOptimisation = 0.05; // 5% de base
-
-    // Ajustements selon la situation familiale
-    if (situationFamiliale === "Marié(e) avec enfants") {
-      tauxOptimisation = 0.08; // 8% pour famille avec enfants
-    } else if (situationFamiliale === "Marié(e) sans enfants") {
-      tauxOptimisation = 0.06; // 6% pour couple sans enfants
-    }
-
-    // Ajustement selon l'âge (plus on est jeune, plus on peut optimiser)
-    if (ageValue < 40) {
-      tauxOptimisation += 0.02; // +2% si moins de 40 ans
-    } else if (ageValue > 60) {
-      tauxOptimisation -= 0.01; // -1% si plus de 60 ans
-    }
-
-    // Calcul des économies potentielles
-    const economieAnnuelle = patrimoineValue * tauxOptimisation;
-    
-    setEconomiesPotentielles(Math.round(economieAnnuelle));
-    setCalculEffectue(true);
-  };
-  const chartData = [
-    { label: "Patrimoine moyen analysé", value: "€1,250,000" },
-    { label: "Optimisations identifiées", value: "8-12" },
-    { label: "Économies potentielles", value: "€85,000" },
-    { label: "Durée d'analyse", value: "2-3 semaines" },
-    { label: "Taux de satisfaction", value: "94.7%" }
-  ];
-
+const HeroSection = ({ data }) => {
+  if (!data) return null;
   return (
-    <>
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-              Bilan patrimonial
-            </h1>
-            <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              Un <strong>bilan patrimonial</strong> est l'équivalent d'une radiographie complète de votre situation financière, fiscale et familiale.
-            </p>
+    <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
+            {data.title || 'Bilan patrimonial'}
+          </h1>
+          <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
+            {data.subtitle}
+          </p>
+          {data.highlight && (
             <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
               <p className="text-white text-sm font-inter">
-                C'est le point de départ indispensable pour construire une <strong>stratégie patrimoniale sur mesure</strong>.
+                {data.highlight}
               </p>
             </div>
-            
-            {/* Bilan Image */}
+          )}
+
+          {data.image && (
             <div className="flex justify-center mb-8">
-              <img 
-                src="/images/bilan.webp" 
-                alt="Bilan patrimonial" 
+              <img
+                src={data.image}
+                alt={data.title}
                 className="max-w-full h-auto rounded-lg shadow-lg"
               />
             </div>
-          </div>
-          
-          {/* Bilan Statistics */}
+          )}
+        </div>
+
+        {data.stats && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <h3 className="text-[#686868] text-sm font-medium mb-2">Actifs analysés</h3>
-              <p className="text-[#253F60] text-3xl font-bold">€1.25M</p>
-              <p className="text-[#686868] text-sm">Patrimoine moyen</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <h3 className="text-[#686868] text-sm font-medium mb-2">Optimisations</h3>
-              <p className="text-[#B99066] text-3xl font-bold">8-12</p>
-              <p className="text-[#686868] text-sm">Solutions identifiées</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <h3 className="text-[#686868] text-sm font-medium mb-2">Économies</h3>
-              <p className="text-[#253F60] text-3xl font-bold">€85K</p>
-              <p className="text-[#686868] text-sm">Potentielles</p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <h3 className="text-[#686868] text-sm font-medium mb-2">Satisfaction</h3>
-              <p className="text-[#B99066] text-3xl font-bold">94.7%</p>
-              <p className="text-[#686868] text-sm">Clients satisfaits</p>
-            </div>
+            {data.stats.map((stat, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                <h3 className="text-[#686868] text-sm font-medium mb-2">{stat.label}</h3>
+                <p className={`${index % 2 === 0 ? 'text-[#253F60]' : 'text-[#B99066]'} text-3xl font-bold`}>{stat.value}</p>
+                <p className="text-[#686868] text-sm">{stat.description}</p>
+              </div>
+            ))}
           </div>
+        )}
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200"
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {data.buttons && data.buttons.map((btn, i) => (
+            <CTAButton
+              key={i}
+              externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+              variant={i === 0 ? "primary" : "secondary"}
             >
-              Réaliser mon bilan
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200"
-            >
-              Télécharger l'exemple
-            </button>
-          </div>
+              {btn.text}
+            </CTAButton>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
+  );
+};
 
+// Icons for the process steps
+const stepIcons = [
+  // Step 1: Listening/Understanding
+  <svg key="1" className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+  </svg>,
+  // Step 2: Analysis
+  <svg key="2" className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>,
+  // Step 3: Objectives/Target
+  <svg key="3" className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  </svg>,
+  // Step 4: Resources/Allocation
+  <svg key="4" className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>,
+  // Step 5: Strategy/Deployment
+  <svg key="5" className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+  </svg>,
+  // Step 6: Follow-up/Monitoring
+  <svg key="6" className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+  </svg>,
+];
 
-      {/* Pourquoi réaliser un bilan patrimonial Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-block mb-4">
-              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-              Pourquoi réaliser un bilan patrimonial ?
-            </h2>
-            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
-              Un <strong>bilan patrimonial</strong> est l'équivalent d'une radiographie complète de votre situation financière, fiscale et familiale.
-            </p>
+const ContentSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-block mb-4">
+            <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left: Pourquoi faire un bilan */}
-            <div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-8">
-                Il permet de :
-              </h3>
-              
-              <div className="space-y-8">
-                <div className="flex items-start gap-6">
-                  <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-xl">1</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-3">
-                      Faire un état des lieux de vos <strong>actifs</strong>
-                    </h4>
-                    <p className="text-[#686868] text-sm leading-relaxed">
-                      Immobilier, placements financiers, épargne professionnelle, parts sociales…
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-12 h-12 bg-[#B99066] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-xl">2</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-3">
-                      Identifier vos <strong>passifs</strong>
-                    </h4>
-                    <p className="text-[#686868] text-sm leading-relaxed">
-                      Emprunts, dettes fiscales, engagements
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-xl">3</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-3">
-                      Évaluer votre <strong>fiscalité actuelle</strong> et ses optimisations possibles
-                    </h4>
-                    <p className="text-[#686868] text-sm leading-relaxed">
-                      Identifier les leviers d'optimisation fiscale disponibles
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-12 h-12 bg-[#B99066] rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-xl">4</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-3">
-                      Mettre en cohérence vos <strong>objectifs de vie</strong>
-                    </h4>
-                    <p className="text-[#686868] text-sm leading-relaxed">
-                      Retraite, transmission, protection de la famille, projets immobiliers
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Bilan Calculator */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
-              <h3 className="text-[#112033] text-xl font-semibold mb-6">
-                Calculez votre potentiel d'optimisation
-              </h3>
-              
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-[#686868] text-sm font-medium mb-2">
-                    Valeur de votre patrimoine
-                  </label>
-                  <input 
-                    type="text" 
-                    placeholder="€1,250,000"
-                    value={patrimoine}
-                    onChange={(e) => setPatrimoine(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[#686868] text-sm font-medium mb-2">
-                    Situation familiale
-                  </label>
-                  <select 
-                    value={situationFamiliale}
-                    onChange={(e) => setSituationFamiliale(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent"
-                  >
-                    <option>Célibataire</option>
-                    <option>Marié(e) sans enfants</option>
-                    <option>Marié(e) avec enfants</option>
-                    <option>Divorcé(e)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-[#686868] text-sm font-medium mb-2">
-                    Âge
-                  </label>
-                  <input 
-                    type="number" 
-                    placeholder="45"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    min="18"
-                    max="100"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#253F60] focus:border-transparent"
-                  />
-                </div>
-
-                <button 
-                  onClick={calculerEconomies}
-                  className="w-full bg-[#253F60] text-white py-3 rounded-lg font-medium hover:bg-[#1A2F4A] transition-colors duration-200"
-                >
-                  Estimer mes économies
-                </button>
-
-                {calculEffectue && economiesPotentielles !== null ? (
-                  <div className="bg-[#F0F9FF] rounded-lg p-4 text-center border-2 border-[#253F60]">
-                    <p className="text-[#686868] text-sm mb-2">
-                      <strong>Économies potentielles :</strong>
-                    </p>
-                    <p className="text-[#253F60] text-2xl font-bold">
-                      €{economiesPotentielles.toLocaleString('fr-FR')}
-                    </p>
-                    <p className="text-[#686868] text-xs mt-2">par an</p>
-                  </div>
-                ) : (
-                  <div className="bg-[#F0F9FF] rounded-lg p-4 text-center opacity-50">
-                    <p className="text-[#686868] text-sm">
-                      <strong>Économies potentielles :</strong><br />
-                      <span className="text-[#253F60] text-xl font-bold">Remplissez le formulaire</span>
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Que contient un bilan patrimonial Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-              Que contient un bilan patrimonial ?
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Un rapport complet qui analyse :
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">1</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Situation familiale</h3>
-              </div>
-              <p className="text-sm mb-4 relative z-10">
-                Régime matrimonial, clauses bénéficiaires d'assurance-vie, protection du conjoint et des enfants.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#B99066] to-[#A67C52] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Situation financière</h3>
-              </div>
-              <p className="text-sm mb-4 relative z-10">
-                Placements existants, rendement, frais.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">3</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Situation immobilière</h3>
-              </div>
-              <p className="text-sm mb-4 relative z-10">
-                Résidence principale, locatif, SCI, valorisation et fiscalité.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">4</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Situation professionnelle</h3>
-              </div>
-              <p className="text-sm mb-4 relative z-10">
-                Statut social, épargne salariale, retraite (PER, PERCO, Article 83, Madelin).
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#B99066] to-[#A67C52] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">5</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Vos objectifs</h3>
-              </div>
-              <p className="text-sm mb-4 relative z-10">
-                Constitution d'un capital, transmission, optimisation fiscale, diversification.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">6</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Résultat</h3>
-              </div>
-              <p className="text-sm mb-4 relative z-10">
-                Un document clair, pédagogique et opérationnel qui propose des <strong>scénarios d'optimisation</strong> et des <strong>solutions concrètes</strong>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tarification du bilan patrimonial Section */}
-      <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-              Tarification du bilan patrimonial chez Azalée
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Club Azalée */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">1</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Club Azalée</h3>
-                <p className="text-lg font-bold mb-4">250 €/mois</p>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Le bilan patrimonial est <strong>inclus gratuitement</strong></p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Accompagnement personnalisé</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Suivi régulier</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Non-membres */}
-            <div className="bg-gradient-to-br from-[#B99066] to-[#A67C52] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] text-2xl font-bold">2</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Non-membres</h3>
-                <p className="text-lg font-bold mb-4">2 500 € HT</p>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Le bilan est facturé <strong>2 500 € HT</strong></p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Environ <strong>10 heures de travail d'expert</strong></p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Collecte des données, analyses, simulations, recommandations</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Club Azalée VIP */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              <div className="text-center mb-6 relative z-10">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] text-2xl font-bold">3</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Club Azalée VIP</h3>
-                <p className="text-lg font-bold mb-4">1 800 € HT/an</p>
-              </div>
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Offre premium à <strong>1 800 € HT/an</strong></p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Suivi patrimonial personnalisé pour l'ensemble des <strong>branches familiales</strong></p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-green-300 text-xl">✓</span>
-                  <p className="text-sm">Parents, enfants, grands-parents</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 bg-white border-l-4 border-[#253F60] p-6 rounded-r-lg">
-            <p className="text-[#112033] text-center font-semibold">
-              Idéal pour coordonner la stratégie patrimoniale d'une <strong>famille élargie</strong>, harmoniser les donations, préparer les successions et optimiser la fiscalité de plusieurs générations.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Exemple concret Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-              Exemple concret
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Un couple de 50 ans, avec deux enfants majeurs et des parents âgés de 75 ans :
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {/* Situation initiale */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
-              <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
-                Situation initiale
-              </h3>
-              
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between items-center p-4 bg-[#F0F9FF] rounded-lg">
-                  <span className="text-[#112033] font-medium">Résidence principale</span>
-                  <span className="text-[#253F60] font-bold text-lg">900 000 €</span>
-                </div>
-                <div className="flex justify-between items-center p-4 bg-[#FFF8E1] rounded-lg">
-                  <span className="text-[#112033] font-medium">Patrimoine financier</span>
-                  <span className="text-[#B99066] font-bold text-lg">600 000 €</span>
-                </div>
-                <div className="flex justify-between items-center p-4 bg-[#F0F9FF] rounded-lg">
-                  <span className="text-[#112033] font-medium">Parts d'entreprise</span>
-                  <span className="text-[#253F60] font-bold text-lg">1,5 M€</span>
-                </div>
-              </div>
-
-              <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
-                <h4 className="text-orange-800 font-semibold mb-2">Problématiques :</h4>
-                <ul className="text-orange-700 text-sm space-y-1">
-                  <li>• Retraite à préparer</li>
-                  <li>• Transmission anticipée aux enfants</li>
-                  <li>• Protection du conjoint</li>
-                  <li>• Gestion de l'IFI</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Solutions Azalée */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
-              <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
-                Grâce au <strong>bilan patrimonial Azalée</strong>
-              </h3>
-              
-              <div className="space-y-4 mb-6">
-                <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">1</span>
-                  <div>
-                    <p className="text-green-800 font-medium text-sm">Mise en place d'une donation-partage</p>
-                    <p className="text-green-700 text-xs">Pour réduire les droits futurs</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">2</span>
-                  <div>
-                    <p className="text-green-800 font-medium text-sm">Intégration d'un contrat de capitalisation</p>
-                    <p className="text-green-700 text-xs">Pour lisser la fiscalité</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">3</span>
-                  <div>
-                    <p className="text-green-800 font-medium text-sm">Préparation d'un pacte Dutreil</p>
-                    <p className="text-green-700 text-xs">Pour l'entreprise familiale</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 text-xl">4</span>
-                  <div>
-                    <p className="text-green-800 font-medium text-sm">Mise en place d'une prévoyance décès</p>
-                    <p className="text-green-700 text-xs">Pour sécuriser la transmission</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
-                <h4 className="text-green-800 font-semibold mb-2">Résultat :</h4>
-                <p className="text-green-700 text-sm">
-                  Une stratégie globale qui <strong>réduit de moitié les droits de succession</strong> et sécurise le patrimoine pour les générations futures.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white text-center">
-            <h3 className="text-xl font-semibold mb-6">
-              Résultat : une stratégie globale qui <strong>réduit de moitié les droits de succession</strong> et sécurise le patrimoine pour les générations futures.
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <p className="text-sm">
-                  <strong>Réduction des droits de succession</strong><br />
-                  De moitié grâce à l'anticipation
-                </p>
-              </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <p className="text-sm">
-                  <strong>Sécurisation du patrimoine</strong><br />
-                  Pour les générations futures
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="w-full bg-gradient-to-br from-[#253F60] to-[#B99066] py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            Prêt à réaliser votre bilan patrimonial ?
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+            {data.title}
           </h2>
-          <p className="text-white text-lg mb-8 max-w-3xl mx-auto">
-            Le bilan patrimonial n'est pas un simple document : c'est une <strong>feuille de route stratégique</strong>.
+          <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+            {data.subtitle}
           </p>
-          
-          <div className="bg-white bg-opacity-20 rounded-lg p-6 mb-8 max-w-4xl mx-auto">
-            <h3 className="text-white text-xl font-semibold mb-4">
-              Chez <strong>Azalée Patrimoine</strong>, nous vous apportons :
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h3 className="text-[#112033] text-xl font-semibold mb-8">
+              {data.listTitle}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <p className="text-white">
-                  Une analyse <strong>indépendante et complète</strong>
-                </p>
-              </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <p className="text-white">
-                  Des <strong>solutions concrètes et chiffrées</strong>
-                </p>
-              </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4">
-                <p className="text-white">
-                  Un <strong>accompagnement personnalisé</strong> dans le temps
-                </p>
-              </div>
+
+            <div className="space-y-8">
+              {data.items && data.items.map((item, index) => (
+                <div key={index} className="flex items-start gap-6">
+                  <div className={`w-12 h-12 ${index % 2 === 0 ? 'bg-[#253F60]' : 'bg-[#B99066]'} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                    {stepIcons[index] || <span className="text-white font-bold text-xl">{index + 1}</span>}
+                  </div>
+                  <div>
+                    <h4 className="text-[#112033] font-semibold mb-3">
+                      {item.title}
+                    </h4>
+                    <p className="text-[#686868] text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton 
-              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-              variant="primary"
-            >
-              Réaliser mon bilan
-            </CTAButton>
-            <CTAButton 
-              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-              variant="secondary"
-            >
-              Planifiez votre consultation gratuite
-            </CTAButton>
+          <BilanCalculator data={data.calculator} />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Component icons for the cards
+const componentIcons = [
+  // Assets/Patrimoine
+  <svg key="1" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+  </svg>,
+  // Family/Protection
+  <svg key="2" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+  </svg>,
+  // Taxes/Fiscalité
+  <svg key="3" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z" />
+  </svg>,
+  // Retirement
+  <svg key="4" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>,
+  // Investments
+  <svg key="5" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+  </svg>,
+  // Insurance/Protection
+  <svg key="6" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  </svg>,
+];
+
+const ComponentsSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+            {data.title}
+          </h2>
+          <p className="text-lg max-w-4xl mx-auto">
+            {data.subtitle}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-[#686868]">
+          {data.items && data.items.map((item, index) => (
+            <div key={index} className={`bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] to-[#3A5A7A]' : 'from-[#B99066] to-[#A67C52]'} rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group`}>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="text-center mb-6 relative z-10">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className={`${index % 2 === 0 ? 'text-[#253F60]' : 'text-[#B99066]'}`}>
+                    {componentIcons[index] || <span className="text-2xl font-bold">{index + 1}</span>}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-semibold mb-2">{item.title}</h3>
+              </div>
+              <p className="text-sm mb-4 relative z-10 opacity-90">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const PricingSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-[#F2F2F2] py-16 sm:py-20">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+            {data.title}
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {data.plans && data.plans.map((plan, index) => (
+            <div key={index} className={`bg-gradient-to-br ${index === 0 ? 'from-[#253F60] to-[#3A5A7A]' : index === 1 ? 'from-[#B99066] to-[#A67C52]' : 'from-[#253F60] to-[#B99066]'} rounded-lg shadow-lg p-8 text-white hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group`}>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div className="text-center mb-6 relative z-10">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className={`${index === 1 ? 'text-[#B99066]' : 'text-[#253F60]'} text-2xl font-bold`}>{index + 1}</span>
+                </div>
+                <h3 className="text-2xl font-semibold mb-2">{plan.name}</h3>
+                <p className="text-lg font-bold mb-4">{plan.price}</p>
+              </div>
+              <div className="space-y-4 relative z-10">
+                {plan.features && plan.features.map((feature, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <span className="text-green-300 text-xl font-bold">✓</span>
+                    <p className="text-sm opacity-90">{feature}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {data.bottomNote && (
+          <div className="mt-12 bg-white border-l-4 border-[#253F60] p-6 rounded-r-lg">
+            <p className="text-[#112033] text-center font-semibold text-lg">
+              {data.bottomNote}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+const ExampleSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-white py-16 sm:py-20">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-[#112033] text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+            {data.title}
+          </h2>
+          <p className="text-[#686868] text-lg max-w-4xl mx-auto">
+            {data.subtitle}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
+            <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
+              {data.leftTitle}
+            </h3>
+
+            <div className="space-y-4 mb-6">
+              {data.leftItems && data.leftItems.map((item, i) => (
+                <div key={i} className={`flex justify-between items-center p-4 ${i % 2 === 0 ? 'bg-[#F0F9FF]' : 'bg-[#FFF8E1]'} rounded-lg`}>
+                  <span className="text-[#112033] font-medium">{item.label}</span>
+                  <span className={`${i % 2 === 0 ? 'text-[#253F60]' : 'text-[#B99066]'} font-bold text-lg`}>{item.value}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+              <h4 className="text-orange-800 font-semibold mb-2">{data.leftNoteTitle}</h4>
+              <ul className="text-orange-700 text-sm space-y-1">
+                {data.leftNotes && data.leftNotes.map((note, i) => (
+                  <li key={i}>• {note}</li>
+                ))}
+              </ul>
+            </div>
           </div>
 
+          <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-100">
+            <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
+              {data.rightTitle}
+            </h3>
+
+            <div className="space-y-4 mb-6">
+              {data.rightItems && data.rightItems.map((item, i) => (
+                <div key={i} className="flex items-start gap-4 p-4 bg-green-50 rounded-lg">
+                  <span className="text-green-600 text-xl font-bold">{i + 1}</span>
+                  <div>
+                    <p className="text-green-800 font-medium text-sm">{item.title}</p>
+                    <p className="text-green-700 text-xs">{item.subtitle}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+              <h4 className="text-green-800 font-semibold mb-2">{data.rightNoteTitle}</h4>
+              <p className="text-green-700 text-sm">
+                {data.rightNote}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg p-8 text-white text-center">
+          <h3 className="text-xl font-semibold mb-6">
+            {data.conclusion}
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {data.conclusionCards && data.conclusionCards.map((card, i) => (
+              <div key={i} className="bg-white bg-opacity-20 rounded-lg p-4">
+                <p className="text-sm">
+                  <strong>{card.title}</strong><br />
+                  {card.subtitle}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const FinalCtaSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-br from-[#253F60] to-[#B99066] py-16 sm:py-20">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
+          {data.title}
+        </h2>
+        <p className="text-white text-lg mb-8 max-w-3xl mx-auto">
+          {data.subtitle}
+        </p>
+
+        <div className="bg-white bg-opacity-20 rounded-lg p-6 mb-8 max-w-4xl mx-auto">
+          <h3 className="text-white text-xl font-semibold mb-4 text-center">
+            {data.listTitle}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            {data.items && data.items.map((item, i) => (
+              <div key={i} className="bg-white bg-opacity-20 rounded-lg p-4">
+                <p className="text-white text-center font-medium">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {data.buttons && data.buttons.map((btn, i) => (
+            <CTAButton
+              key={i}
+              externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+              variant={i === 0 ? "primary" : "secondary"}
+            >
+              {btn.text}
+            </CTAButton>
+          ))}
+        </div>
+
+        {data.bottomNote && (
           <div className="mt-8 bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto">
             <p className="text-white text-center font-semibold">
-              <strong>Prenez rendez-vous dès aujourd'hui</strong> pour réaliser votre bilan patrimonial et préparer l'avenir avec sérénité.
+              <strong>{data.bottomNote}</strong>
             </p>
           </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default async function BilanPage() {
+  let content = await getPageContent('patrimoine/bilan');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/bilan`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">La page de Bilan Patrimonial n'est pas configurée.</p>
+          <CTAButton externalUrl="/" variant="white">Retour à l'accueil</CTAButton>
         </div>
-      </section>
-      
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <HeroSection data={content.hero} />
+      <ContentSection data={content.pourquoi} />
+      <ComponentsSection data={content.contenu} />
+      <PricingSection data={content.tarifs} />
+      <ExampleSection data={content.exemple} />
+      <FinalCtaSection data={content.finalCta} />
       <Footer />
     </>
   );

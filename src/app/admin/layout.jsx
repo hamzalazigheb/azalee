@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
 
 export default function AdminLayout({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -446,6 +447,9 @@ export default function AdminLayout({ children }) {
             </div>
           </div>
         </nav>
+        
+        {/* Breadcrumb */}
+        <AdminBreadcrumb />
         
         {/* Main Content */}
         <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">

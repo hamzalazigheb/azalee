@@ -3,34 +3,10 @@ import { getPageContent } from '@/lib/cms-server';
 import Footer from '../../../components/common/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 
-const defaultContent = {
-  hero: { 
-    title: "Investissement locatif : un levier puissant pour bâtir votre patrimoine", 
-    subtitle: "L'investissement locatif est la stratégie immobilière la plus répandue en France. Elle consiste à acquérir un bien immobilier – appartement, maison ou immeuble – dans le but de le louer, que ce soit en location nue (bail classique de 3 ans) ou en location meublée (plus flexible et fiscalement avantageuse).",
-    subtitle2: "Ce type d'investissement attire de nombreux épargnants car il permet à la fois de percevoir des revenus complémentaires, de réduire sa fiscalité et de constituer un patrimoine transmissible.",
-    button: "Calculer ma rentabilité" 
-  },
-  rightCard: { title: "Nos experts à votre service", floatingText: "Effet →\nde levier", benefits: ["Revenus complémentaires", "Effet de levier du crédit", "Patrimoine tangible et transmissible", "Optimisation fiscale"] },
-  pourquoi: { 
-    title: "Pourquoi investir dans l'immobilier locatif ?", 
-    subtitle: "Découvrez les bénéfices de cette stratégie d'investissement patrimonial", 
-    items: [
-      { title: "Génération de revenus réguliers", description: "L'un des premiers atouts de l'investissement locatif est la **génération de revenus réguliers**. Les loyers perçus peuvent financer une partie ou la totalité des mensualités de crédit, tout en offrant un revenu complémentaire à long terme." }, 
-      { title: "Effet de levier du crédit immobilier", description: "De plus, grâce à l'**effet de levier du crédit immobilier**, vous investissez avec peu d'apport personnel : ce sont vos locataires, associés aux avantages fiscaux, qui remboursent une grande partie du prêt." }, 
-      { title: "Valorisation patrimoniale", description: "Enfin, l'investissement locatif est une stratégie de **valorisation patrimoniale** : à mesure que le capital de votre emprunt diminue, la valeur de votre bien augmente, surtout si vous avez choisi un emplacement porteur." }
-    ], 
-    exemple: "Vous achetez un bien à **200 000 €** financé par un prêt de **180 000 €**. Avec un loyer de **900 €/mois** et une mensualité de crédit de **1 000 €**, votre effort d'épargne n'est que de **100 €/mois**. En contrepartie, vous construisez un patrimoine qui prendra de la valeur au fil des années." 
-  },
-  avantages: { title: "Les avantages de l'investissement locatif", subtitle: "Découvrez les bénéfices de cette stratégie d'investissement", items: [{ title: "Revenus complémentaires", description: "Source de revenus stable et prévisible." }, { title: "Effet de levier du crédit", description: "Patrimoine important sans immobiliser trop de capital." }, { title: "Patrimoine tangible", description: "Actif concret, sécurisant et transmissible." }, { title: "Optimisation fiscale", description: "Régime réel, déficit foncier, ou statut LMNP." }] },
-  inconvenients: { title: "Les inconvénients et risques à anticiper", subtitle: "Points de vigilance essentiels à connaître avant d'investir", items: [{ title: "Vacance locative", description: "Périodes sans locataire impactant la rentabilité." }, { title: "Impayés", description: "Risque de défaut de paiement des locataires." }, { title: "Entretien", description: "Travaux d'entretien et de réparation à prévoir." }, { title: "Fiscalité", description: "Loyers imposables pouvant alourdir la charge fiscale." }] },
-  exempleSection: { title: "Exemple concret", subtitle: "Un cas pratique pour mieux comprendre la rentabilité réelle" },
-  conseil: { title: "Conseil Azalée Patrimoine", subtitle: "Expertise et accompagnement personnalisé pour votre projet", content: "L'investissement locatif demande de la rigueur mais offre des perspectives de rentabilité solides. Chez Azalée Patrimoine, nous vous accompagnons dans la sélection, le financement et la gestion de vos biens." },
-  finalCta: { title: "Prêt à vous lancer dans l'investissement locatif ?", subtitle: "Nos experts vous accompagnent pour optimiser votre investissement.", primaryButton: "Calculer ma rentabilité", secondaryButton: "Planifiez votre consultation gratuite" },
-  seo: { metaTitle: "Investissement Locatif | Azalée Patrimoine", metaDescription: "Découvrez l'investissement locatif avec Azalée Patrimoine." }
-};
+export const revalidate = 0;
 
 export async function generateMetadata() {
-  const content = await getPageContent('immobilier/investissement-locatif', defaultContent);
+  const content = await getPageContent('immobilier/investissement-locatif');
   return {
     title: content?.seo?.metaTitle,
     description: content?.seo?.metaDescription,
@@ -38,8 +14,17 @@ export async function generateMetadata() {
 }
 
 export default async function InvestissementLocatifPage() {
-  const content = await getPageContent('immobilier/investissement-locatif', defaultContent);
-  
+  let content = await getPageContent('immobilier/investissement-locatif');
+
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/investissement-locatif`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) content = json.data.content;
+    } catch (e) { console.error('API Fallback failed', e); }
+  }
+
   if (!content) {
     notFound();
   }
@@ -54,22 +39,22 @@ export default async function InvestissementLocatifPage() {
               <h1 className="text-[#253F60] text-xs sm:text-2xl lg:text-4xl font-cairo font-semibold leading-tight mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.title}
               </h1>
-              
+
               <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.subtitle}
               </p>
-              
+
               <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.subtitle2}
               </p>
-              
+
               <div className="flex justify-center lg:justify-start">
                 <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min">
                   {content.hero?.button}
                 </CTAButton>
               </div>
             </div>
-            
+
             <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative">
               <div className="flex items-center gap-4 mb-4 sm:mb-6">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +64,7 @@ export default async function InvestissementLocatifPage() {
                   {content.rightCard?.title}
                 </h2>
               </div>
-              
+
               {content.rightCard?.floatingText && (
                 <div className="absolute -top-16 -right-8 w-[51.3px] h-[51.3px] sm:w-[202px] sm:h-[202px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center">
                   <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-base lg:text-xl leading-tight px-1 sm:px-0">
@@ -89,7 +74,7 @@ export default async function InvestissementLocatifPage() {
                   </div>
                 </div>
               )}
-              
+
               <div className="mt-8 sm:mt-12">
                 <ul className="space-y-2 sm:space-y-3 text-white text-xs sm:text-sm font-source-sans font-semibold leading-relaxed">
                   {(content.rightCard?.benefits || []).map((benefit, index) => (
@@ -115,25 +100,25 @@ export default async function InvestissementLocatifPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.pourquoi?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.pourquoi?.subtitle}</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {(content.pourquoi?.items || []).map((item, index) => {
               const isEven = index % 2 === 0;
               const gradientClass = isEven ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]' : 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]';
-              
+
               return (
                 <div key={index} className={`${gradientClass} rounded-2xl p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2`}>
                   <h3 className="font-cairo font-bold text-xl mb-4">{item.title}</h3>
-                  <p className="text-white/90 font-inter leading-relaxed" dangerouslySetInnerHTML={{__html: item.description?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || ''}} />
+                  <p className="text-white/90 font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: (item.description || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                 </div>
               );
             })}
           </div>
-          
+
           {content.pourquoi?.exemple && (
             <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-2xl p-8 text-white shadow-2xl">
               <h3 className="font-cairo font-bold text-xl mb-4 text-center">📊 Exemple concret</h3>
-              <p className="text-white/90 font-inter leading-relaxed text-center" dangerouslySetInnerHTML={{__html: content.pourquoi.exemple.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
+              <p className="text-white/90 font-inter leading-relaxed text-center" dangerouslySetInnerHTML={{ __html: content.pourquoi.exemple.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
             </div>
           )}
         </div>
@@ -149,7 +134,7 @@ export default async function InvestissementLocatifPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.avantages?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.avantages?.subtitle}</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {(content.avantages?.items || []).map((item, index) => (
               <div key={index} className={`rounded-2xl p-6 shadow-xl text-white ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]' : 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]'}`}>
@@ -171,7 +156,7 @@ export default async function InvestissementLocatifPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.inconvenients?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.inconvenients?.subtitle}</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {(content.inconvenients?.items || []).map((item, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
@@ -190,7 +175,7 @@ export default async function InvestissementLocatifPage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.conseil?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.conseil?.subtitle}</p>
           </div>
-          
+
           <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-2xl p-8 text-white shadow-xl">
             <p className="text-lg font-inter leading-relaxed text-center">{content.conseil?.content}</p>
           </div>

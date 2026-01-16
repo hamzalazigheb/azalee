@@ -12,7 +12,17 @@ export default function sitemap() {
     '/qui-sommes-nous',
     '/equipe',
     '/notre-approche',
+    '/blog',
+    '/ressources',
     '/outils/simulateur-investissement',
+
+    // Blog articles
+    '/blog/optimisation-fiscale-2025',
+    '/blog/preparer-retraite-50-ans',
+    '/blog/scpi-2025-guide-investissement',
+    '/blog/transmission-patrimoine-famille',
+    '/blog/assurance-vie-luxembourg-avantages',
+    '/blog/investissement-immobilier-lmnp',
 
     // Fiscalite subpages
     '/fiscalite/loi-pinel',

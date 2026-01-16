@@ -1,454 +1,322 @@
-import React from "react";
 import Footer from "../../../components/common/Footer";
 import PlacementChart from "../../../components/PlacementChart";
 import SectionHeader from "../../../components/common/SectionHeader";
-import CTAButton from '@/components/ui/CTAButton';
+import CTAButton from "@/components/ui/CTAButton";
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Donation à titre onéreux & donation de la nue-propriété",
-    subtitle: "Une donation à titre onéreux est une donation assortie de charges ou contreparties pour le bénéficiaire."
-  },
-  seo: {
-    metaTitle: "Donation à titre onéreux | Azalée Patrimoine",
-    metaDescription: "Découvrez la donation à titre onéreux et la donation de la nue-propriété pour optimiser votre transmission patrimoniale."
-  }
+export const revalidate = 0; // SSR
+
+const HeroSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24 text-white">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+          <div className="w-full lg:w-1/2">
+            <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
+              {data.title || 'Donation à titre onéreux'}
+            </h1>
+            <p className="text-white text-lg font-inter leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+            {data.highlight && (
+              <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
+                <p className="text-white text-sm font-inter">
+                  {data.highlight}
+                </p>
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-4">
+              {data.buttons && data.buttons.map((btn, i) => (
+                <CTAButton
+                  key={i}
+                  externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+                  variant={i === 0 ? "primary" : "secondary"}
+                >
+                  {btn.text}
+                </CTAButton>
+              ))}
+            </div>
+          </div>
+
+          <div className="w-full lg:w-1/2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-[#686868]">
+              {data.cards && data.cards.map((card, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <div className={`w-16 h-16 ${index % 2 === 0 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center mx-auto mb-4 hover:opacity-90 transition-colors duration-300 relative overflow-hidden`}>
+                    <span className="text-white text-2xl font-bold relative z-10">{index + 1}</span>
+                  </div>
+                  <h3 className="text-[#112033] text-lg font-semibold mb-2">{card.title}</h3>
+                  <p className="text-[#686868] text-sm mb-2">{card.subtitle}</p>
+                  <p className="text-[#B99066] text-xl font-bold">{card.value}</p>
+                  <p className="text-[#686868] text-xs">{card.footer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
-export async function generateMetadata() {
-  const content = await getPageContent('patrimoine/donation-onereuse', defaultContent);
-  return {
-    title: content.seo?.metaTitle || "Donation à titre onéreux | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "Découvrez la donation à titre onéreux."
-  };
-}
+const DefinitionSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="max-w-4xl mx-auto space-y-6 text-lg leading-relaxed text-[#4B5563]">
+          {data.content && data.content.map((p, i) => (
+            <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
+          ))}
+
+          {data.features && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+              {data.features.map((feature, i) => (
+                <div key={i} className="bg-white shadow-lg rounded-xl p-6 border-l-4 border-[#253F60]">
+                  <h4 className="font-bold text-[#253F60] mb-2">{feature.title}</h4>
+                  <p className="text-sm">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const UseCasesSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {data.items && data.items.map((item, index) => (
+            <div key={index} className={`relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 ${index % 2 === 0 ? 'border-[#253F60]' : 'border-[#B99066]'} transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+              <div className={`absolute top-0 right-0 w-32 h-32 ${index % 2 === 0 ? 'bg-[#253F60]/5' : 'bg-[#B99066]/5'} rounded-bl-full`}></div>
+              <div className="flex items-center gap-4 mb-6 relative z-10">
+                <div className={`w-12 h-12 bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] to-[#1a2d47]' : 'from-[#B99066] to-[#A67A5A]'} rounded-lg flex items-center justify-center shadow-lg text-white`}>
+                  <span className="text-white text-xl font-bold">{index + 1}</span>
+                </div>
+                <h3 className="text-[#253F60] text-xl font-semibold">{item.title}</h3>
+              </div>
+              <p className="text-[#686868] text-sm leading-relaxed relative z-10" dangerouslySetInnerHTML={{ __html: item.description }} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const TaxSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-[#F2F2F2] py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-[#686868]">
+          <div className="space-y-6 text-[#686868]">
+            {data.points && data.points.map((point, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0 text-white">
+                  <span className="font-bold">{i + 1}</span>
+                </div>
+                <div>
+                  <h4 className="text-[#112033] font-semibold mb-2">{point.title}</h4>
+                  <p className="text-[#686868] text-sm">{point.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-white">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
+            <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.exampleTitle }} />
+
+            <div className="space-y-4 relative z-10 text-white">
+              {data.exampleItems && data.exampleItems.map((item, i) => (
+                <div key={i} className="flex justify-between items-center text-white">
+                  <span className="text-white">{item.label}</span>
+                  <span className="font-bold text-white">{item.value}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10 text-white">
+              <p className="text-lg text-white">
+                <strong dangerouslySetInnerHTML={{ __html: data.exampleResult }} />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ComparisonSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+          <table className="w-full text-sm text-[#686868]">
+            <thead>
+              <tr className="bg-[#253F60] text-white">
+                <th className="px-6 py-4 text-left">Caractéristique</th>
+                <th className="px-6 py-4 text-center">Donation Gratuite</th>
+                <th className="px-6 py-4 text-center">Donation Onéreuse</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.rows && data.rows.map((row, i) => (
+                <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                  <td className="px-6 py-4 font-bold">{row.feature}</td>
+                  <td className="px-6 py-4 text-center">{row.gratuite}</td>
+                  <td className="px-6 py-4 text-center font-semibold text-[#B99066]">{row.onereuse}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const VisionSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-white">
+          {data.items && data.items.map((item, index) => (
+            <div key={index} className={`relative bg-gradient-to-br ${index === 1 ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#253F60]'} rounded-2xl shadow-xl hover:shadow-2xl p-8 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-white`}>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+              <h3 className="text-xl font-semibold mb-3 relative z-10 text-white">{item.title}</h3>
+              <p className="text-sm opacity-90 leading-relaxed relative z-10 text-white">{item.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="relative bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-center text-white">
+          <p className="text-lg font-semibold relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.ctaText }} />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const FinalCtaSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] py-16 sm:py-20 relative overflow-hidden text-white">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 text-white">
+        <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6 text-white">
+          {data.title}
+        </h2>
+        <p className="text-white text-lg mb-8 max-w-3xl mx-auto leading-relaxed text-white text-white">
+          {data.subtitle}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {data.buttons && data.buttons.map((btn, i) => (
+            <CTAButton
+              key={i}
+              externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+              variant={i === 0 ? "primary" : "secondary"}
+              className={i === 1 ? "bg-white/20 border-white/30 hover:bg-white/30" : ""}
+            >
+              {btn.text}
+            </CTAButton>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default async function DonationOnereusePage() {
-  const content = await getPageContent('patrimoine/donation-onereuse', defaultContent);
-  const chartData = [
-    { label: "Nue-propriété à 70 ans", value: "60%" },
-    { label: "Abattement par enfant", value: "€100,000" },
-    { label: "Taux fiscal après abattement", value: "5-45%" },
-    { label: "Renouvelable tous les", value: "15 ans" },
-    { label: "Donation avec charges", value: "Déductible" }
-  ];
+  let content = await getPageContent('patrimoine/donation-onereuse');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/donation-onereuse`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">La page de Donation Onéreuse n'est pas configurée.</p>
+          <CTAButton externalUrl="/" variant="white">Retour à l'accueil</CTAButton>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2">
-              <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-                {content.hero?.title || defaultContent.hero.title}
-              </h1>
-              <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                {content.hero?.subtitle || defaultContent.hero.subtitle}
-              </p>
-              <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                Contrairement à la donation à titre gratuit (sans aucune obligation), le donataire doit respecter certaines conditions fixées par le donateur : entretien du bien, prise en charge de dettes, obligation de conserver ou d'exploiter un actif transmis, etc.
-              </p>
-              <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
-                <p className="text-white text-sm font-inter">
-                  Ce mécanisme permet de <strong>transmettre</strong> tout en <strong>conservant un contrôle</strong> ou en <strong>fixant des conditions</strong> adaptées à la situation familiale et patrimoniale.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <CTAButton 
-                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-                  variant="primary"
-                  className="px-6 py-3"
-                >
-                  Évaluer ma donation
-                </CTAButton>
-                <CTAButton 
-                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-                  variant="secondary"
-                  className="px-6 py-3"
-                >
-                  Consulter un expert
-                </CTAButton>
-              </div>
-            </div>
-            
-            {/* Right: Key Features Cards */}
-            <div className="w-full lg:w-1/2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Avec charges</h3>
-                  <p className="text-[#686868] text-sm mb-2">Obligations pour le bénéficiaire</p>
-                  <p className="text-[#B99066] text-xl font-bold">Contrôle</p>
-                  <p className="text-[#686868] text-xs">Conservation du pouvoir</p>
-                </div>
-
-                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Nue-propriété</h3>
-                  <p className="text-[#686868] text-sm mb-2">Conservation de l'usufruit</p>
-                  <p className="text-[#B99066] text-xl font-bold">Loyers</p>
-                  <p className="text-[#686868] text-xs">Droit d'usage</p>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Optimisation fiscale</h3>
-                  <p className="text-[#686868] text-sm mb-2">Démembrement</p>
-                  <p className="text-[#B99066] text-xl font-bold">60-90%</p>
-                  <p className="text-[#686868] text-xs">Selon l'âge</p>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow-md p-6 text-center relative overflow-hidden">
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Transmission progressive</h3>
-                  <p className="text-[#686868] text-sm mb-2">Anticipation</p>
-                  <p className="text-[#B99066] text-xl font-bold">Sécurisée</p>
-                  <p className="text-[#686868] text-xs">Évite les conflits</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Chart Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Caractéristiques des donations à titre onéreux"
-            subtitle="Visualisez les paramètres clés des donations à titre onéreux"
-          />
-          
-          <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-xl">
-            <PlacementChart 
-              title="Caractéristiques des donations à titre onéreux"
-              data={chartData}
-              chartImage="/images/onereuse.webp"
+      <HeroSection data={content.hero} />
+      {content.chart && (
+        <section className="w-full bg-white py-16 sm:py-20 text-[#686868]">
+          <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              title={content.chart.title || "Données clés - Donation onéreuse"}
+              subtitle={content.chart.subtitle}
             />
-          </div>
-        </div>
-      </section>
-
-      {/* Les formes de donations à titre onéreux Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Les formes de donations à titre onéreux"
-            subtitle="Découvrez les 2 principales formes de donations à titre onéreux"
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Donation avec charges */}
-            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#253F60] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold">Donation avec charges</h3>
-                  <p className="text-[#B99066] font-bold">Obligations pour le bénéficiaire</p>
-                </div>
-              </div>
-              <div className="space-y-3 relative z-10">
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Le donateur transmet un bien mais impose au bénéficiaire des obligations (par exemple : prendre en charge un parent, assumer une dette, entretenir le bien).
-                </p>
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Juridiquement, la donation reste valable, mais la <strong>valeur des charges est déduite de la base taxable</strong>.
-                </p>
-                <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 p-3 rounded-lg border-l-2 border-[#253F60]">
-                  <p className="text-[#253F60] text-xs font-semibold">
-                    Exemple : un parent donne un bien immobilier de 400 000 € avec obligation pour l'enfant de rembourser un emprunt de 100 000 € lié au bien → base taxable = 300 000 €.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Donation de la nue-propriété */}
-            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#B99066] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/5 rounded-bl-full"></div>
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold">Donation de la nue-propriété avec conservation de l'usufruit</h3>
-                  <p className="text-[#B99066] font-bold">Démembrement de propriété</p>
-                </div>
-              </div>
-              <div className="space-y-3 relative z-10">
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Le donateur transmet uniquement la <strong>nue-propriété</strong> d'un bien, mais conserve :
-                </p>
-                <ul className="text-[#686868] text-sm ml-4 space-y-1">
-                  <li>• le <strong>droit de percevoir les loyers</strong> (usufruit),</li>
-                  <li>• le <strong>pouvoir de décision</strong> sur la gestion du bien.</li>
-                </ul>
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  À son décès, l'usufruit s'éteint, et le nu-propriétaire devient plein propriétaire <strong>sans droits supplémentaires</strong>.
-                </p>
-                <div className="bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 p-3 rounded-lg border-l-2 border-[#B99066]">
-                  <p className="text-[#253F60] text-xs font-semibold">
-                    C'est l'un des mécanismes les plus utilisés pour <strong>anticiper la transmission immobilière</strong>.
-                  </p>
-                </div>
-              </div>
+            <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-100">
+              <PlacementChart
+                title={content.chart.title || "Données clés - Donation onéreuse"}
+                data={content.chart.data}
+                chartImage={content.chart.image || "/images/azalee-patrimoine-donation.webp"}
+              />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Barème fiscal Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Barème fiscal (article 669 CGI)"
-            subtitle="La valeur de la nue-propriété dépend de l'âge du donateur"
-          />
-
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-[#253F60] text-white">
-                    <th className="px-6 py-4 text-left font-semibold">Âge du donateur</th>
-                    <th className="px-6 py-4 text-center font-semibold">Usufruit</th>
-                    <th className="px-6 py-4 text-center font-semibold">Nue-propriété</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">Moins de 51 ans</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">50 %</td>
-                    <td className="px-6 py-4 text-center text-[#B99066] font-bold">50 %</td>
-                  </tr>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">51 à 60 ans</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">50 %</td>
-                    <td className="px-6 py-4 text-center text-[#B99066] font-bold">50 %</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">61 à 70 ans</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">40 %</td>
-                    <td className="px-6 py-4 text-center text-[#B99066] font-bold">60 %</td>
-                  </tr>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">71 à 80 ans</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">30 %</td>
-                    <td className="px-6 py-4 text-center text-[#B99066] font-bold">70 %</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">81 à 90 ans</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">20 %</td>
-                    <td className="px-6 py-4 text-center text-[#B99066] font-bold">80 %</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-medium">Plus de 91 ans</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">10 %</td>
-                    <td className="px-6 py-4 text-center text-[#B99066] font-bold">90 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-            <h3 className="text-xl font-semibold mb-6 text-center relative z-10 leading-relaxed">
-              Exemple : à 70 ans, une donation de la nue-propriété d'un appartement de 500 000 € est taxée sur 300 000 € (60 %), réduisant considérablement les droits.
-            </h3>
-          </div>
-        </div>
-      </section>
-
-      {/* Coût fiscal d'une donation Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Coût fiscal d'une donation"
-            subtitle="Les droits de donation sont calculés par tranches après application des abattements (100 000 € par enfant tous les 15 ans)"
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left: Exemple de base */}
-            <div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-8">
-                Exemple de base
-              </h3>
-              
-              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white mb-8 overflow-hidden">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-[#B99066]/10 rounded-bl-full"></div>
-                <h4 className="text-lg font-semibold mb-6 text-center relative z-10">
-                  Donation de 200 000 € à un enfant, parent âgé de 70 ans
-                </h4>
-                
-                <div className="space-y-4 relative z-10">
-                  <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                    <span>Donation totale :</span>
-                    <span className="font-bold">200 000 €</span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                    <span>Abattement :</span>
-                    <span className="font-bold">100 000 €</span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                    <span>Base taxable :</span>
-                    <span className="font-bold">100 000 €</span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                    <span>Droits dus :</span>
-                    <span className="font-bold">≈ 20 000 €</span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                    <span>Taux :</span>
-                    <span className="font-bold">20 %</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Astuce patrimoniale */}
-            <div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-8">
-                Astuce patrimoniale
-              </h3>
-              
-              <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#B99066] transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#B99066]/5 rounded-bl-full"></div>
-                <p className="text-[#686868] text-sm mb-6 leading-relaxed relative z-10">
-                  Il peut être pertinent de <strong>dépasser volontairement l'abattement</strong> et de payer la tranche basse (5 % ou 10 %).
-                </p>
-                
-                <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-xl shadow-lg p-6 text-white mb-6 overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
-                  <h4 className="font-semibold mb-4 text-center relative z-10">Exemple : donner 120 000 € au lieu de 100 000 €</h4>
-                  
-                  <div className="space-y-3 relative z-10">
-                    <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                      <span>Donation supplémentaire :</span>
-                      <span className="font-bold">20 000 €</span>
-                    </div>
-                    
-                    <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                      <span>Taux d'imposition :</span>
-                      <span className="font-bold">5%</span>
-                    </div>
-                    
-                    <div className="flex justify-between items-center bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-                      <span>Droits supplémentaires :</span>
-                      <span className="font-bold">1 000 €</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 p-4 rounded-lg border-l-2 border-[#B99066] relative z-10">
-                  <p className="text-[#253F60] text-sm text-center font-semibold">
-                    Cela permet de <strong>gonfler la donation nette</strong> pour un coût fiscal très limité.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Intérêts de la donation à titre onéreux Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Intérêts de la donation à titre onéreux"
-            subtitle="Découvrez les 4 principaux avantages de la donation à titre onéreux"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { title: "Transmission progressive", desc: "Permet de transmettre progressivement son patrimoine sans tout donner d'un coup.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
-              { title: "Optimisation fiscale", desc: "Optimise la fiscalité grâce au démembrement de propriété.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" },
-              { title: "Maîtrise du bien", desc: "Conserve une maîtrise du bien (loyers, usage, décisions).", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
-              { title: "Sécurise la transmission", desc: "Sécurise la transmission en évitant les conflits ultérieurs.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" }
-            ].map((item, index) => (
-              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-md p-8 text-center text-white overflow-hidden`}>
-                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
-                <h3 className="text-xl font-semibold mb-3 relative z-10">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-white/90 leading-relaxed relative z-10">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* La vision Azalée Patrimoine Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="La vision Azalée Patrimoine"
-            subtitle="Chez Azalée Patrimoine, nous analysons chaque situation pour optimiser votre transmission patrimoniale"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {[
-              { title: "Déterminer la bonne forme", desc: "Gratuite, avec charges, nue-propriété : nous choisissons la forme la plus adaptée à votre situation.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
-              { title: "Chiffrer précisément", desc: "Impact fiscal par tranches et par abattements pour optimiser votre stratégie.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" },
-              { title: "Optimiser le transfert", desc: "Avec vos notaires et experts-comptables pour une approche coordonnée.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
-              { title: "Stratégie globale", desc: "Assurance-vie, immobilier, transmission d'entreprise : vision patrimoniale complète.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" }
-            ].map((item, index) => (
-              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-md p-6 sm:p-8 text-center text-white overflow-hidden`}>
-                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
-                <h3 className="text-xl font-semibold mb-3 relative z-10">{item.title}</h3>
-                <p className="text-sm text-white/90 leading-relaxed relative z-10">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-            <h3 className="text-xl font-semibold mb-6 text-center relative z-10">
-              La donation à titre onéreux est un outil puissant quand elle est <strong>anticipée et bien structurée</strong>.
-            </h3>
-            
-            <div className="mt-8 bg-white/10 backdrop-blur-sm border-l-4 border-white/30 p-6 rounded-r-lg relative z-10">
-              <p className="text-white text-center font-semibold leading-relaxed">
-                <strong>Contactez Azalée Patrimoine</strong> pour évaluer vos options et construire une stratégie de transmission adaptée à votre famille et à votre patrimoine.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="w-full bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] py-16 sm:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            Prêt à optimiser votre transmission patrimoniale ?
-          </h2>
-          <p className="text-white text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
-            Nos experts vous accompagnent pour mettre en place la stratégie de donation la plus adaptée à votre situation familiale et patrimoniale.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton 
-              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-              variant="primary"
-              className="px-8 py-4 font-semibold text-lg"
-            >
-              Évaluer ma donation
-            </CTAButton>
-            <CTAButton 
-              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-              variant="secondary"
-              className="px-8 py-4 font-semibold text-lg"
-            >
-              Planifiez votre consultation gratuite
-            </CTAButton>
-          </div>
-        </div>
-      </section>
-      
+        </section>
+      )}
+      <DefinitionSection data={content.definition} />
+      <UseCasesSection data={content.casUsage} />
+      <TaxSection data={content.fiscalite} />
+      <ComparisonSection data={content.comparaison} />
+      <VisionSection data={content.vision} />
+      <FinalCtaSection data={content.finalCta} />
       <Footer />
     </>
   );

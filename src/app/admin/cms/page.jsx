@@ -57,6 +57,48 @@ const safeStringValue = (value) => {
 
 // Fonction pour catégoriser les pages
 const categorizePages = (pages) => {
+  // Liste exacte des chemins présents dans la navigation (Navbar)
+  const navbarPaths = new Set([
+    'accueil', 'home', '/',
+    // Fiscalité
+    'fiscalite', 'fiscalite/impot-sur-le-revenu', 'fiscalite/declaration-impots', 'fiscalite/tranches-baremes-plafonds', 'fiscalite/lois-fiscales',
+    'fiscalite/loi-pinel', 'fiscalite/loi-girardin', 'fiscalite/loi-denormandie', 'fiscalite/loi-malraux', 'fiscalite/loi-cosse',
+    'fiscalite/monument-historique', 'fiscalite/reductions-impot-deficit-foncier', 'fiscalite/fiscalite-placements', 'fiscalite/pfu',
+    'fiscalite/tmi-prelevements-sociaux', 'fiscalite/defiscalisation-cas-specifiques', 'fiscalite/autre-fiscalite',
+    // Immobilier
+    'immobilier', 'immobilier/immobilier-neuf', 'immobilier/vefa', 'immobilier/scellier', 'immobilier/faire-construire',
+    'immobilier/investissement-locatif', 'immobilier/sci', 'immobilier/credit-immobilier-ptz', 'immobilier/plus-value-immobiliere',
+    'immobilier/lmnp', 'immobilier/immeubles-de-rapport',
+    // Placements
+    'placements', 'placements/assurance-vie', 'placements/assurance-vie-luxembourg', 'placements/compte-titres',
+    'placements/contrat-capitalisation', 'placements/livret', 'placements/bourse-actions', 'placements/scpi-opci',
+    'placements/pea-per', 'placements/taux-interets', 'placements/etf-produits-financiers', 'placements/autres',
+    // Retraite
+    'retraite', 'retraite/plan-retraite', 'retraite/rachat-trimestres', 'retraite/simulation', 'retraite/prevoyance-protection',
+    'retraite/retraite-progressive', 'retraite/autre',
+    // Patrimoine
+    'patrimoine', 'patrimoine/succession-heritage', 'patrimoine/donation-gratuite', 'patrimoine/donation-onereuse',
+    'patrimoine/transmission', 'patrimoine/protection-famille', 'patrimoine/bilan', 'patrimoine/conseils', 'patrimoine/autre',
+    // Outils
+    'outils-financiers', 'outils-financiers/guide-defiscalisation', 'outils/calculatrice-impots', 'outils/calculs-financiers',
+    'outils-financiers/assurance-vie-vs-per', 'outils/simulateur-investissement', 'outils/guides-pratiques',
+    // Institutionnel
+    'qui-sommes-nous', 'equipe', 'notre-approche', 'contact',
+    // Blog et Ressources
+    'blog', 'ressources'
+  ]);
+
+  // Fonction pour vérifier si une page doit être incluse
+  // UNIQUEMENT les pages explicitement listées dans navbarPaths
+  const shouldIncludePage = (path) => {
+    // Normaliser le path
+    const normalizedPath = path.toLowerCase().replace(/^\//, '');
+    
+    // UNIQUEMENT vérifier si le path exact est dans navbarPaths
+    // Ne pas inclure automatiquement toutes les sous-pages
+    return navbarPaths.has(normalizedPath) || navbarPaths.has(path);
+  };
+
   const categories = {
     'Accueil': { pages: [], icon: '🏠', color: 'from-blue-500 to-blue-600' },
     'Fiscalité': { pages: [], icon: '📊', color: 'from-purple-500 to-purple-600' },
@@ -65,52 +107,41 @@ const categorizePages = (pages) => {
     'Retraite': { pages: [], icon: '👴', color: 'from-orange-500 to-orange-600' },
     'Patrimoine': { pages: [], icon: '💼', color: 'from-indigo-500 to-indigo-600' },
     'Outils': { pages: [], icon: '🔧', color: 'from-gray-500 to-gray-600' },
-    'Institutionnel': { pages: [], icon: '🏛️', color: 'from-red-500 to-red-600' },
-    'Autres': { pages: [], icon: '📄', color: 'from-gray-400 to-gray-500' }
+    'Institutionnel': { pages: [], icon: '🏛️', color: 'from-red-500 to-red-600' }
   };
 
   pages.forEach(page => {
-    const path = page.path.toLowerCase();
-    let categorized = false;
+    if (!page.path) return; // Ignorer les pages sans path
+    const rawPath = page.path.toLowerCase().replace(/^\//, ''); // Normaliser le chemin
+    const path = rawPath === '' ? '/' : rawPath;
 
-    // Pages principales
-    if (path === 'accueil' || path === 'home') {
+    // Ne garder que les pages de la navbar et leurs sous-pages
+    if (!shouldIncludePage(path)) return;
+
+    if (path === 'accueil' || path === 'home' || path === '/') {
       categories['Accueil'].pages.push(page);
-      categorized = true;
-    } else if (path.startsWith('fiscalite') || path.startsWith('fiscalité')) {
+    } else if (path.startsWith('fiscalite')) {
       categories['Fiscalité'].pages.push(page);
-      categorized = true;
     } else if (path.startsWith('immobilier')) {
       categories['Immobilier'].pages.push(page);
-      categorized = true;
     } else if (path.startsWith('placements')) {
       categories['Placements'].pages.push(page);
-      categorized = true;
     } else if (path.startsWith('retraite')) {
       categories['Retraite'].pages.push(page);
-      categorized = true;
     } else if (path.startsWith('patrimoine')) {
       categories['Patrimoine'].pages.push(page);
-      categorized = true;
     } else if (path.startsWith('outils') || path.startsWith('outils-financiers')) {
       categories['Outils'].pages.push(page);
-      categorized = true;
-    } else if (path === 'qui-sommes-nous' || path === 'equipe' || path === 'notre-approche' || path === 'contact' || path === 'mentions-legales' || path === 'conditions-generales') {
+    } else if (['qui-sommes-nous', 'equipe', 'notre-approche', 'contact', 'blog', 'ressources'].includes(path)) {
       categories['Institutionnel'].pages.push(page);
-      categorized = true;
-    }
-
-    if (!categorized) {
-      categories['Autres'].pages.push(page);
     }
   });
 
-  // Trier les pages dans chaque catégorie par path
+  // Trier les pages dans chaque catégorie
   Object.keys(categories).forEach(key => {
     categories[key].pages.sort((a, b) => {
-      // Pages principales en premier
-      const aIsMain = !a.path.includes('/');
-      const bIsMain = !b.path.includes('/');
+      const aIsMain = !a.path.includes('/') || navbarPaths.has(a.path);
+      const bIsMain = !b.path.includes('/') || navbarPaths.has(b.path);
       if (aIsMain && !bIsMain) return -1;
       if (!aIsMain && bIsMain) return 1;
       return a.path.localeCompare(b.path);
@@ -138,8 +169,7 @@ export default function CMSManagementPage() {
     'Retraite': true,
     'Patrimoine': true,
     'Outils': true,
-    'Institutionnel': true,
-    'Autres': false
+    'Institutionnel': true
   });
   const [sortBy, setSortBy] = useState('path'); // 'path', 'date', 'title'
 
@@ -157,7 +187,7 @@ export default function CMSManagementPage() {
       try {
         // Fetch pages first
         await fetchPages();
-        
+
         // Check if there's a path parameter in the URL
         const urlParams = new URLSearchParams(window.location.search);
         const pathParam = urlParams.get('path');
@@ -173,7 +203,7 @@ export default function CMSManagementPage() {
         }, 300);
       }
     };
-    
+
     initializeCMS();
   }, []);
 
@@ -212,7 +242,7 @@ export default function CMSManagementPage() {
           tabContentKeys: content.tabContent ? Object.keys(content.tabContent) : [],
           hasConclusion: !!content.conclusion
         });
-        
+
         // Convert partners from string array to object array if needed
         if (content.partners && Array.isArray(content.partners) && content.partners.length > 0) {
           if (typeof content.partners[0] === 'string') {
@@ -225,7 +255,7 @@ export default function CMSManagementPage() {
             });
           }
         }
-        
+
         setFormData(content);
       }
     } catch (error) {
@@ -235,13 +265,13 @@ export default function CMSManagementPage() {
 
   const handleInputChange = (section, field, value) => {
     console.log('handleInputChange:', { section, field, value: typeof value === 'string' ? value.substring(0, 50) : value });
-    
+
     // Validate that section is not undefined or empty
     if (!section || section.trim() === '') {
       console.error('ERROR: handleInputChange called with invalid section:', section);
       return;
     }
-    
+
     setFormData(prev => {
       // Special case: if section is directly an array (e.g., "partners"), replace the entire section
       if (section === field && Array.isArray(value)) {
@@ -252,17 +282,17 @@ export default function CMSManagementPage() {
         console.log('Updated array section:', section, 'with', value.length, 'items');
         return newData;
       }
-      
+
       // Handle nested fields with dot notation (e.g., "hero.h1" or "section2.h3_inflation.title")
       // Also handle cases like section="solutions", field="solutions.solutions"
       const fieldParts = field.split('.');
-      
+
       // Check if the first part of field matches the section name (e.g., section="solutions", field="solutions.solutions")
       // In this case, we should skip the first part since it's redundant
-      const adjustedFieldParts = (fieldParts.length > 1 && fieldParts[0] === section) 
-        ? fieldParts.slice(1) 
+      const adjustedFieldParts = (fieldParts.length > 1 && fieldParts[0] === section)
+        ? fieldParts.slice(1)
         : fieldParts;
-      
+
       if (adjustedFieldParts.length === 1) {
         // Simple field - ensure we're updating the correct section
         const newData = {
@@ -279,7 +309,7 @@ export default function CMSManagementPage() {
         // Nested field - build nested object structure
         const newSection = { ...(prev[section] || {}) };
         let current = newSection;
-        
+
         // Navigate/create nested structure
         for (let i = 0; i < adjustedFieldParts.length - 1; i++) {
           const part = adjustedFieldParts[i];
@@ -288,10 +318,10 @@ export default function CMSManagementPage() {
           }
           current = current[part];
         }
-        
+
         // Set the final value
         current[adjustedFieldParts[adjustedFieldParts.length - 1]] = value;
-        
+
         return {
           ...prev,
           [section]: newSection
@@ -328,7 +358,7 @@ export default function CMSManagementPage() {
     // Get current array value - handle nested fields with dot notation
     const fieldParts = field.split('.');
     let currentArray = null;
-    
+
     if (fieldParts.length === 1) {
       // Simple field
       currentArray = formData[section]?.[field] || [];
@@ -345,7 +375,7 @@ export default function CMSManagementPage() {
       }
       currentArray = current?.[fieldParts[fieldParts.length - 1]] || [];
     }
-    
+
     // Remove item and update using handleInputChange
     const newArray = [...currentArray];
     newArray.splice(index, 1);
@@ -357,7 +387,7 @@ export default function CMSManagementPage() {
 
     try {
       console.log('Saving page:', selectedPage.path);
-      
+
       // Filter out menuItems section before saving (menu items are static)
       const contentToSave = Object.keys(formData).reduce((acc, key) => {
         if (key.toLowerCase() !== 'menuitems' && key.toLowerCase() !== 'menu items') {
@@ -365,7 +395,7 @@ export default function CMSManagementPage() {
         }
         return acc;
       }, {});
-      
+
       const response = await fetch('/api/cms/pages', {
         method: 'PUT',
         headers: {
@@ -379,13 +409,13 @@ export default function CMSManagementPage() {
 
       const data = await response.json();
       console.log('Save response:', data);
-      
+
       if (data.success) {
         setNotification({ isOpen: true, message: 'Page mise à jour avec succès !', type: 'success' });
         // Refresh the page content to show updated data
         await fetchPageContent(selectedPage.path);
         fetchPages();
-        
+
         // Dispatch custom event to notify other pages that content was updated
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('cmsContentUpdated', {
@@ -437,9 +467,9 @@ export default function CMSManagementPage() {
     // Filtre par recherche
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(page => 
-        page.title.toLowerCase().includes(query) || 
-        page.path.toLowerCase().includes(query)
+      filtered = filtered.filter(page =>
+        (page.title && page.title.toLowerCase().includes(query)) ||
+        (page.path && page.path.toLowerCase().includes(query))
       );
     }
 
@@ -490,7 +520,7 @@ export default function CMSManagementPage() {
 
   const renderFormField = (section, field, label, type = 'text', isArray = false) => {
     const currentPagePath = selectedPage?.path || '';
-    
+
     // Handle nested fields with dot notation
     const getNestedValue = (obj, path) => {
       const parts = path.split('.');
@@ -506,13 +536,13 @@ export default function CMSManagementPage() {
       }
       return current;
     };
-    
+
     const value = getNestedValue(formData[section], field);
-    
+
     if (isArray && Array.isArray(value)) {
       // Check if array contains objects
       const isObjectArray = value.length > 0 && typeof value[0] === 'object' && value[0] !== null && !Array.isArray(value[0]);
-      
+
       if (isObjectArray) {
         // Render object array with drag & drop support
         const handleDragEnd = (event) => {
@@ -558,8 +588,8 @@ export default function CMSManagementPage() {
                           {Object.keys(item || {}).map((key) => {
                             const fieldValue = item[key] || '';
                             const isTextField = typeof fieldValue === 'string' && (
-                              fieldValue.includes('<strong') || 
-                              fieldValue.includes('<em') || 
+                              fieldValue.includes('<strong') ||
+                              fieldValue.includes('<em') ||
                               fieldValue.includes('<b') ||
                               key.toLowerCase().includes('text') ||
                               key.toLowerCase().includes('description') ||
@@ -567,7 +597,7 @@ export default function CMSManagementPage() {
                               key.toLowerCase().includes('error') ||
                               key.toLowerCase().includes('title')
                             );
-                            
+
                             // Detect long text fields that should use textarea
                             const isLongTextField = key.toLowerCase().includes('details') ||
                               key.toLowerCase().includes('detail') ||
@@ -630,7 +660,7 @@ export default function CMSManagementPage() {
               type="button"
               onClick={() => {
                 // Add new object with same structure as first item
-                const newItem = value.length > 0 
+                const newItem = value.length > 0
                   ? Object.keys(value[0]).reduce((acc, key) => ({ ...acc, [key]: '' }), {})
                   : { title: '', description: '' };
                 // Use handleInputChange to properly handle nested fields like "enveloppes.items"
@@ -644,7 +674,7 @@ export default function CMSManagementPage() {
           </div>
         );
       }
-      
+
       // Render simple string array with drag & drop
       const handleDragEnd = (event) => {
         const { active, over } = event;
@@ -675,7 +705,7 @@ export default function CMSManagementPage() {
                   const itemValue = typeof item === 'string' ? item : '';
                   const hasHTML = containsHTML(itemValue);
                   const isParagraphField = field.toLowerCase().includes('paragraph') || label.toLowerCase().includes('paragraph');
-                  
+
                   return (
                     <SortableItem key={index} id={index.toString()}>
                       <div className="flex gap-2 items-start">
@@ -725,39 +755,39 @@ export default function CMSManagementPage() {
     }
 
     // Exclure les champs de lien (link, url, ctaLink, etc.) de la détection d'image
-    const isLinkField = field.toLowerCase().includes('link') || 
+    const isLinkField = field.toLowerCase().includes('link') ||
       field.toLowerCase().includes('url') ||
       field.toLowerCase() === 'href' ||
       (field.toLowerCase() === 'src' && !field.toLowerCase().includes('image')) ||
       label.toLowerCase().includes('link') ||
       label.toLowerCase().includes('url');
-    
+
     // Check if field is an image (but exclude fields that are specifically background images and link fields)
     const isImageField = !isLinkField && (
-      type === 'image' || 
-      (field.toLowerCase().includes('image') && !field.toLowerCase().includes('background')) || 
+      type === 'image' ||
+      (field.toLowerCase().includes('image') && !field.toLowerCase().includes('background')) ||
       field.toLowerCase().includes('photo') ||
       field.toLowerCase().includes('picture') ||
       (field.toLowerCase().includes('img') && !field.toLowerCase().includes('background')) ||
       (label.toLowerCase().includes('image') && !label.toLowerCase().includes('background')) ||
       label.toLowerCase().includes('photo') ||
       (typeof value === 'string' && (
-        value.startsWith('/images/') || 
+        value.startsWith('/images/') ||
         (value.startsWith('http') && (value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg') || value.includes('.gif'))) ||
-        value.includes('.jpg') || 
-        value.includes('.png') || 
-        value.includes('.webp') || 
+        value.includes('.jpg') ||
+        value.includes('.png') ||
+        value.includes('.webp') ||
         value.includes('.svg')
       ))
     );
-    
+
     // Check if field is specifically a background image
     const isBackgroundImage = field.toLowerCase().includes('background') || label.toLowerCase().includes('background');
 
     // Check if field contains HTML
     const fieldValue = value || '';
     const hasHTML = typeof fieldValue === 'string' && containsHTML(fieldValue);
-    
+
     // Use TextEditor for fields with HTML or description/text/paragraph fields
     // This ensures users never see raw HTML tags
     const shouldUseTextEditor = typeof fieldValue === 'string' && !isImageField && (
@@ -859,18 +889,18 @@ export default function CMSManagementPage() {
 
   const renderNestedSection = (sectionKey, sectionData, title) => {
     if (!sectionData) return null;
-    
+
     // Handle case where section is directly an array (e.g., "partners", "stats")
     if (Array.isArray(sectionData)) {
       // Special handling for partners - they should be objects with image and website
       const isPartnersSection = sectionKey.toLowerCase() === 'partners';
-      
-      const isImageArray = sectionData.length > 0 && typeof sectionData[0] === 'string' && 
+
+      const isImageArray = sectionData.length > 0 && typeof sectionData[0] === 'string' &&
         (sectionData[0].startsWith('/images/') || sectionData[0].startsWith('http') || sectionData[0].includes('.jpg') || sectionData[0].includes('.png') || sectionData[0].includes('.webp') || sectionData[0].includes('.svg') || sectionKey.toLowerCase().includes('partner'));
-      
+
       // Check if it's an array of objects (e.g., "stats" with {value, label} or "partners" with {image, website})
       const isObjectArray = sectionData.length > 0 && typeof sectionData[0] === 'object' && sectionData[0] !== null && !Array.isArray(sectionData[0]);
-      
+
       return (
         <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 mb-6 border-2 border-[#253F60]/20 dark:border-gray-700 shadow-lg">
           <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#B99066]/30 dark:border-gray-700">
@@ -883,14 +913,14 @@ export default function CMSManagementPage() {
               <>
                 {sectionData.map((partner, index) => {
                   // Handle both string and object formats
-                  const partnerObj = typeof partner === 'string' 
+                  const partnerObj = typeof partner === 'string'
                     ? { image: partner, website: '', name: '' }
-                    : { 
-                        image: partner?.image || partner?.url || '', 
-                        website: partner?.website || partner?.url || '', 
-                        name: partner?.name || '' 
-                      };
-                  
+                    : {
+                      image: partner?.image || partner?.url || '',
+                      website: partner?.website || partner?.url || '',
+                      name: partner?.name || ''
+                    };
+
                   return (
                     <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-5 border-2 border-gray-200 dark:border-gray-700 shadow-sm">
                       <div className="flex items-center justify-between mb-4">
@@ -924,7 +954,7 @@ export default function CMSManagementPage() {
                             />
                           </div>
                         </div>
-                        
+
                         {/* Website URL */}
                         <div>
                           <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
@@ -945,7 +975,7 @@ export default function CMSManagementPage() {
                             Laissez vide ou mettez "#" si le partenaire n'a pas de site web
                           </p>
                         </div>
-                        
+
                         {/* Partner Name (optional) */}
                         <div>
                           <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
@@ -1081,7 +1111,7 @@ export default function CMSManagementPage() {
                   type="button"
                   onClick={() => {
                     // Add new object with same structure as first item
-                    const newItem = sectionData.length > 0 
+                    const newItem = sectionData.length > 0
                       ? Object.keys(sectionData[0]).reduce((acc, key) => ({ ...acc, [key]: '' }), {})
                       : { value: '', label: '' };
                     const newArray = [...sectionData, newItem];
@@ -1099,7 +1129,7 @@ export default function CMSManagementPage() {
         </div>
       );
     }
-    
+
     if (typeof sectionData !== 'object') return null;
 
     return (
@@ -1112,12 +1142,12 @@ export default function CMSManagementPage() {
           {Object.keys(sectionData).map((field) => {
             const value = sectionData[field];
             const label = field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1');
-            
+
             if (Array.isArray(value)) {
               // Check if array contains image URLs
-              const isImageArray = value.length > 0 && typeof value[0] === 'string' && 
+              const isImageArray = value.length > 0 && typeof value[0] === 'string' &&
                 (value[0].startsWith('/images/') || value[0].startsWith('http') || value[0].includes('.jpg') || value[0].includes('.png') || value[0].includes('.webp') || value[0].includes('.svg') || field.toLowerCase().includes('background') || field.toLowerCase().includes('image') || field.toLowerCase().includes('partner'));
-              
+
               return (
                 <div key={field} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                   {isImageArray ? (
@@ -1175,12 +1205,12 @@ export default function CMSManagementPage() {
                   </div>
                 );
               }
-              
+
               // Check if object contains nested objects (objects within objects)
-              const hasNestedObjects = Object.values(value).some(v => 
+              const hasNestedObjects = Object.values(value).some(v =>
                 typeof v === 'object' && v !== null && !Array.isArray(v)
               );
-              
+
               if (hasNestedObjects) {
                 // Recursively render nested objects
                 return (
@@ -1190,37 +1220,37 @@ export default function CMSManagementPage() {
                       {Object.keys(value).map((subField) => {
                         const subValue = value[subField];
                         const subLabel = subField.charAt(0).toUpperCase() + subField.slice(1).replace(/([A-Z])/g, ' $1');
-                        
+
                         // Exclure les champs de lien (link, url, ctaLink, etc.) de la détection d'image
-                        const isSubLinkField = subField.toLowerCase().includes('link') || 
+                        const isSubLinkField = subField.toLowerCase().includes('link') ||
                           subField.toLowerCase().includes('url') ||
                           subField.toLowerCase() === 'href' ||
                           (subField.toLowerCase() === 'src' && !subField.toLowerCase().includes('image'));
-                        
+
                         // Check if sub field is an image (but exclude fields that are specifically background images and link fields)
                         const isSubImageField = !isSubLinkField && (
-                          (subField.toLowerCase().includes('image') && !subField.toLowerCase().includes('background')) || 
+                          (subField.toLowerCase().includes('image') && !subField.toLowerCase().includes('background')) ||
                           subField.toLowerCase().includes('photo') ||
                           subField.toLowerCase().includes('picture') ||
                           (subField.toLowerCase().includes('img') && !subField.toLowerCase().includes('background')) ||
                           (typeof subValue === 'string' && (
-                            subValue.startsWith('/images/') || 
+                            subValue.startsWith('/images/') ||
                             (subValue.startsWith('http') && (subValue.includes('.jpg') || subValue.includes('.png') || subValue.includes('.webp') || subValue.includes('.svg') || subValue.includes('.gif'))) ||
-                            subValue.includes('.jpg') || 
-                            subValue.includes('.png') || 
-                            subValue.includes('.webp') || 
+                            subValue.includes('.jpg') ||
+                            subValue.includes('.png') ||
+                            subValue.includes('.webp') ||
                             subValue.includes('.svg')
                           ))
                         );
-                        
+
                         // Check if sub field is specifically a background image
                         const isSubBackgroundImage = subField.toLowerCase().includes('background');
-                        
+
                         if (Array.isArray(subValue)) {
                           // Check if array contains image URLs
-                          const isSubImageArray = subValue.length > 0 && typeof subValue[0] === 'string' && 
+                          const isSubImageArray = subValue.length > 0 && typeof subValue[0] === 'string' &&
                             (subValue[0].startsWith('/images/') || subValue[0].startsWith('http') || subValue[0].includes('.jpg') || subValue[0].includes('.png') || subValue[0].includes('.webp') || subValue[0].includes('.svg'));
-                          
+
                           return (
                             <div key={subField}>
                               {isSubImageArray ? (
@@ -1284,7 +1314,7 @@ export default function CMSManagementPage() {
                                 {Object.keys(subValue).map((nestedField) => {
                                   const nestedValue = subValue[nestedField];
                                   const nestedLabel = nestedField.charAt(0).toUpperCase() + nestedField.slice(1).replace(/([A-Z])/g, ' $1');
-                                  
+
                                   if (Array.isArray(nestedValue)) {
                                     return (
                                       <div key={nestedField}>
@@ -1292,7 +1322,7 @@ export default function CMSManagementPage() {
                                       </div>
                                     );
                                   }
-                                  
+
                                   return (
                                     <div key={nestedField}>
                                       <label className="block text-xs font-cairo font-semibold text-[#253F60] mb-1">
@@ -1304,7 +1334,7 @@ export default function CMSManagementPage() {
                                           {Object.keys(nestedValue).map((objKey) => {
                                             const objValue = nestedValue[objKey];
                                             const objLabel = objKey.charAt(0).toUpperCase() + objKey.slice(1).replace(/([A-Z])/g, ' $1');
-                                            
+
                                             return (
                                               <div key={objKey}>
                                                 <label className="block text-xs font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-1">
@@ -1460,7 +1490,7 @@ export default function CMSManagementPage() {
                             </div>
                           );
                         }
-                        
+
                         // Simple string or number value
                         return (
                           <div key={subField}>
@@ -1538,7 +1568,7 @@ export default function CMSManagementPage() {
                   </div>
                 );
               }
-              
+
               // Simple object with only string/number values
               return (
                 <div key={field} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
@@ -1547,7 +1577,7 @@ export default function CMSManagementPage() {
                     {Object.keys(value).map((subField) => {
                       const subValue = value[subField];
                       const subLabel = subField.charAt(0).toUpperCase() + subField.slice(1).replace(/([A-Z])/g, ' $1');
-                      
+
                       if (Array.isArray(subValue)) {
                         return (
                           <div key={subField}>
@@ -1555,7 +1585,7 @@ export default function CMSManagementPage() {
                           </div>
                         );
                       }
-                      
+
                       return (
                         <div key={subField}>
                           <label className="block text-sm font-cairo font-semibold text-[#253F60] mb-2">
@@ -1675,30 +1705,30 @@ export default function CMSManagementPage() {
               );
             } else {
               const isLongText = typeof value === 'string' && value.length > 100;
-              
+
               // Exclure les champs de lien (link, url, ctaLink, etc.) de la détection d'image
-              const isLinkField = field.toLowerCase().includes('link') || 
+              const isLinkField = field.toLowerCase().includes('link') ||
                 field.toLowerCase().includes('url') ||
                 field.toLowerCase() === 'href' ||
                 field.toLowerCase() === 'src' && !field.toLowerCase().includes('image');
-              
+
               // Détecter les champs d'image uniquement si ce n'est PAS un champ de lien
               const isImageField = !isLinkField && (
-                field.toLowerCase().includes('image') || 
+                field.toLowerCase().includes('image') ||
                 field.toLowerCase().includes('background') ||
                 field.toLowerCase().includes('photo') ||
                 field.toLowerCase().includes('picture') ||
                 field.toLowerCase().includes('img') ||
                 (typeof value === 'string' && (
-                  value.startsWith('/images/') || 
+                  value.startsWith('/images/') ||
                   (value.startsWith('http') && (value.includes('.jpg') || value.includes('.png') || value.includes('.webp') || value.includes('.svg') || value.includes('.gif'))) ||
-                  value.includes('.jpg') || 
-                  value.includes('.png') || 
-                  value.includes('.webp') || 
+                  value.includes('.jpg') ||
+                  value.includes('.png') ||
+                  value.includes('.webp') ||
                   value.includes('.svg')
                 ))
               );
-              
+
               return (
                 <div key={field} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                   {renderFormField(sectionKey, field, label, isImageField ? 'image' : (isLongText ? 'textarea' : 'text'))}
@@ -1722,7 +1752,7 @@ export default function CMSManagementPage() {
           <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#A67C52]/20 rounded-full blur-3xl animate-orb-float-3"></div>
           <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-[#1a2d47]/25 rounded-full blur-3xl animate-orb-float-4"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#B99066]/15 rounded-full blur-3xl animate-orb-pulse"></div>
-          
+
           {/* Animated grid pattern */}
           <div className="absolute inset-0 opacity-[0.08]">
             <div className="absolute inset-0" style={{
@@ -1731,7 +1761,7 @@ export default function CMSManagementPage() {
               animation: 'grid-move 25s linear infinite'
             }}></div>
           </div>
-          
+
           {/* Particle effect */}
           <div className="absolute inset-0">
             {[...Array(15)].map((_, i) => (
@@ -1748,7 +1778,7 @@ export default function CMSManagementPage() {
             ))}
           </div>
         </div>
-        
+
         <div className="relative z-10 flex flex-col items-center justify-center">
           {/* Ultra-professional logo animation */}
           <div className="mb-12 relative">
@@ -1756,7 +1786,7 @@ export default function CMSManagementPage() {
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#B99066] via-[#A67C52] to-[#B99066] opacity-25 blur-3xl animate-glow-pulse scale-130"></div>
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#253F60] via-[#1a2d47] to-[#253F60] opacity-20 blur-2xl animate-glow-pulse-2 scale-120"></div>
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[#B99066] to-[#253F60] opacity-15 blur-xl animate-glow-pulse-3 scale-115"></div>
-            
+
             {/* Animated rotating gradient border */}
             <div className="absolute inset-0 rounded-3xl animate-border-rotate" style={{
               background: 'conic-gradient(from 0deg, #B99066, #253F60, #A67C52, #1a2d47, #B99066)',
@@ -1767,18 +1797,18 @@ export default function CMSManagementPage() {
             }}>
               <div className="w-full h-full rounded-3xl bg-transparent"></div>
             </div>
-            
+
             {/* Inner shadow ring */}
             <div className="absolute inset-2 rounded-3xl border-2 border-white/10 animate-inner-glow"></div>
-            
+
             {/* Logo container */}
             <div className="relative bg-gradient-to-br from-white via-gray-50 to-white rounded-3xl p-10 shadow-[0_20px_60px_rgba(0,0,0,0.3)] w-40 h-40 flex items-center justify-center transform animate-logo-premium">
               {/* Inner glow */}
               <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-[#B99066]/10 to-transparent"></div>
-              
-              <img 
-                src="/images/azalee-patrimoine3.webp" 
-                alt="Azalée Patrimoine Logo" 
+
+              <img
+                src="/images/azalee-patrimoine3.webp"
+                alt="Azalée Patrimoine Logo"
                 className="max-w-full max-h-full object-contain relative z-10 animate-logo-refined drop-shadow-2xl"
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -1793,7 +1823,7 @@ export default function CMSManagementPage() {
               </div>
             </div>
           </div>
-          
+
           {/* Ultra-professional loading text */}
           <div className="text-center animate-text-premium-fade">
             <h2 className="text-4xl font-cairo font-bold text-white mb-4 relative inline-block">
@@ -1816,7 +1846,7 @@ export default function CMSManagementPage() {
               <span className="ml-2">Préparation de votre espace</span>
             </p>
           </div>
-          
+
           {/* Ultra-professional spinner */}
           <div className="mt-12 relative">
             <div className="w-24 h-24 border-4 border-white/20 rounded-full relative">
@@ -1828,7 +1858,7 @@ export default function CMSManagementPage() {
             <div className="absolute inset-0 w-24 h-24 bg-[#B99066]/40 rounded-full blur-2xl animate-glow-premium"></div>
           </div>
         </div>
-        
+
         <style jsx global>{`
           @keyframes logo-premium {
             0%, 100% {
@@ -2227,348 +2257,345 @@ export default function CMSManagementPage() {
         onClose={() => setNotification({ ...notification, isOpen: false })}
       />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-3 sm:p-4 lg:p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl p-4 sm:p-5 lg:p-6 mb-4 sm:mb-5 lg:mb-6 text-white dark:text-gray-100">
-          <div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-1 sm:mb-2 flex items-center gap-2 sm:gap-3">
-              <svg className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-              </svg>
-              <span className="hidden sm:inline">Content Management System</span>
-              <span className="sm:hidden">CMS</span>
-            </h1>
-            <p className="text-xs sm:text-sm text-gray-200 dark:text-gray-300 hidden sm:block">Gérez tout le contenu de vos pages visuellement</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
-          {/* Pages List */}
-          <div className="lg:col-span-1 order-2 lg:order-1">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
-              <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl">
-                <h2 className="text-base sm:text-lg font-cairo font-bold text-white flex items-center gap-2 mb-3">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Pages ({pages.length})
-                </h2>
-                
-                {/* Barre de recherche */}
-                <div className="mb-3">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Rechercher une page..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-3 py-2 pl-10 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#B99066]"
-                    />
-                    <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Tri */}
-                <div className="mb-3">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#B99066]"
-                  >
-                    <option value="path">Trier par chemin</option>
-                    <option value="title">Trier par titre</option>
-                    <option value="date">Trier par date</option>
-                  </select>
-                </div>
-              </div>
-              <div className="max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] overflow-y-auto">
-                {pages.length === 0 ? (
-                  <div className="p-8 text-center">
-                    <svg className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <p className="text-gray-500 dark:text-gray-400 font-inter">Aucune page trouvée. Créez-en une pour commencer.</p>
-                  </div>
-                ) : searchQuery ? (
-                  // Mode recherche : afficher toutes les pages filtrées
-                  getFilteredAndSortedPages(pages).map((page) => (
-                    <div
-                      key={page._id}
-                      className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
-                        selectedPage?.path === page.path 
-                          ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
-                          : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
-                      }`}
-                      onClick={() => fetchPageContent(page.path)}
-                    >
-                      <div className="flex items-start sm:items-center justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">{page.title}</h3>
-                          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">{page.path}</p>
-                          <div className="flex items-center gap-2 mt-2 flex-wrap">
-                            <span
-                              className={`text-xs px-2 py-1 rounded font-inter ${
-                                page.published
-                                  ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
-                                  : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 border border-gray-200'
-                              }`}
-                            >
-                              {page.published ? 'Publié' : 'Brouillon'}
-                            </span>
-                            <span className="text-xs text-gray-400 dark:text-gray-500 font-inter">
-                              {new Date(page.lastModified).toLocaleDateString('fr-FR')}
-                            </span>
-                          </div>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(page.path);
-                          }}
-                          className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
-                          title="Supprimer"
-                        >
-                          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  // Mode catégories : afficher par catégories
-                  Object.entries(categorizePages(pages)).map(([categoryName, category]) => {
-                    if (category.pages.length === 0) return null;
-                    
-                    const isExpanded = expandedCategories[categoryName];
-                    const sortedPages = getFilteredAndSortedPages(category.pages);
-
-                    return (
-                      <div key={categoryName} className="border-b border-gray-200 dark:border-gray-700">
-                        {/* En-tête de catégorie */}
-                        <button
-                          onClick={() => toggleCategory(categoryName)}
-                          className="w-full p-3 sm:p-4 flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-700 dark:hover:to-gray-800 transition-all duration-200"
-                        >
-                          <div className="flex items-center gap-2 sm:gap-3">
-                            <span className="text-lg sm:text-xl">{category.icon}</span>
-                            <div className="text-left">
-                              <h3 className="font-cairo font-bold text-sm sm:text-base text-[#253F60] dark:text-white">
-                                {categoryName}
-                              </h3>
-                              <p className="text-xs text-gray-500 dark:text-gray-400 font-inter">
-                                {category.pages.length} page{category.pages.length > 1 ? 's' : ''}
-                              </p>
-                            </div>
-                          </div>
-                          <svg
-                            className={`w-5 h-5 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-
-                        {/* Pages de la catégorie */}
-                        {isExpanded && (
-                          <div className="bg-white dark:bg-gray-800">
-                            {sortedPages.map((page) => {
-                              const isSubPage = page.path.includes('/');
-                              return (
-                                <div
-                                  key={page._id}
-                                  className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${
-                                    isSubPage ? 'pl-6 sm:pl-8 bg-gray-50 dark:bg-gray-900/50' : ''
-                                  } ${
-                                    selectedPage?.path === page.path 
-                                      ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]' 
-                                      : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
-                                  }`}
-                                  onClick={() => fetchPageContent(page.path)}
-                                >
-                                  <div className="flex items-start sm:items-center justify-between gap-2">
-                                    <div className="flex-1 min-w-0">
-                                      <div className="flex items-center gap-2">
-                                        {isSubPage && (
-                                          <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                          </svg>
-                                        )}
-                                        <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">
-                                          {page.title}
-                                        </h3>
-                                      </div>
-                                      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">
-                                        {page.path}
-                                      </p>
-                                      <div className="flex items-center gap-2 mt-2 flex-wrap">
-                                        <span
-                                          className={`text-xs px-2 py-1 rounded font-inter ${
-                                            page.published
-                                              ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
-                                              : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 border border-gray-200'
-                                          }`}
-                                        >
-                                          {page.published ? 'Publié' : 'Brouillon'}
-                                        </span>
-                                        <span className="text-xs text-gray-400 dark:text-gray-500 font-inter">
-                                          {new Date(page.lastModified).toLocaleDateString('fr-FR')}
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDelete(page.path);
-                                      }}
-                                      className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
-                                      title="Supprimer"
-                                    >
-                                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })
-                )}
-              </div>
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl p-4 sm:p-5 lg:p-6 mb-4 sm:mb-5 lg:mb-6 text-white dark:text-gray-100">
+            <div>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-cairo font-bold mb-1 sm:mb-2 flex items-center gap-2 sm:gap-3">
+                <svg className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                  <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                </svg>
+                <span className="hidden sm:inline">Content Management System</span>
+                <span className="sm:hidden">CMS</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-gray-200 dark:text-gray-300 hidden sm:block">Gérez tout le contenu de vos pages visuellement</p>
             </div>
           </div>
 
-          {/* Visual Editor */}
-          <div className="lg:col-span-2 order-1 lg:order-2">
-            {selectedPage ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+            {/* Pages List */}
+            <div className="lg:col-span-1 order-2 lg:order-1">
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
-                <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl sticky top-0 z-10">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <div className="flex-1 min-w-0">
-                      <h2 className="text-lg sm:text-xl font-cairo font-bold text-white flex items-center gap-2">
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#B99066] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                        </svg>
-                        <span className="truncate">{selectedPage.title}</span>
-                      </h2>
-                      <p className="text-xs sm:text-sm text-gray-200 mt-1 font-inter truncate">{selectedPage.path}</p>
-                    </div>
-                    <button
-                      onClick={handleSave}
-                      className="w-full sm:w-auto bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold flex items-center justify-center gap-2 text-sm sm:text-base"
-                    >
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" />
+                <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl">
+                  <h2 className="text-base sm:text-lg font-cairo font-bold text-white flex items-center gap-2 mb-3">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                      <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Pages ({
+                      Object.values(categorizePages(pages)).reduce((sum, category) => sum + category.pages.length, 0)
+                    })
+                  </h2>
+
+                  {/* Barre de recherche */}
+                  <div className="mb-3">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="Rechercher une page..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full px-3 py-2 pl-10 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#B99066]"
+                      />
+                      <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
-                      <span className="hidden sm:inline">Enregistrer les modifications</span>
-                      <span className="sm:hidden">Enregistrer</span>
-                    </button>
+                    </div>
+                  </div>
+
+                  {/* Tri */}
+                  <div className="mb-3">
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#B99066]"
+                    >
+                      <option value="path">Trier par chemin</option>
+                      <option value="title">Trier par titre</option>
+                      <option value="date">Trier par date</option>
+                    </select>
                   </div>
                 </div>
-                <div className="p-3 sm:p-4 lg:p-6 max-h-[calc(100vh-180px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto">
-                  {formData && Object.keys(formData).length > 0 ? (
-                    Object.keys(formData)
-                      .filter((sectionKey) => sectionKey.toLowerCase() !== 'menuitems' && sectionKey.toLowerCase() !== 'menu items')
-                      .map((sectionKey) => {
-                        const section = formData[sectionKey];
-                        const sectionTitle = sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1).replace(/([A-Z])/g, ' $1');
-                        return (
-                          <div key={sectionKey}>
-                            {renderNestedSection(sectionKey, section, sectionTitle)}
-                          </div>
-                        );
-                      })
-                  ) : (
-                    <div className="text-center py-12">
-                      <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 rounded-xl p-8 border-2 border-[#253F60]/20 dark:border-gray-700">
-                        <svg className="w-16 h-16 text-[#253F60] dark:text-[#B99066] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <h3 className="text-lg font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-2">Aucune section de contenu trouvée</h3>
-                        <p className="text-gray-600 dark:text-gray-300 font-inter">Commencez l'édition pour ajouter du contenu</p>
-                      </div>
+                <div className="max-h-[400px] sm:max-h-[500px] lg:max-h-[600px] overflow-y-auto">
+                  {pages.length === 0 ? (
+                    <div className="p-8 text-center">
+                      <svg className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      <p className="text-gray-500 dark:text-gray-400 font-inter">Aucune page trouvée. Créez-en une pour commencer.</p>
                     </div>
+                  ) : searchQuery ? (
+                    // Mode recherche : afficher toutes les pages filtrées
+                    getFilteredAndSortedPages(pages).map((page) => (
+                      <div
+                        key={page._id}
+                        className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${selectedPage?.path === page.path
+                          ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]'
+                          : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
+                          }`}
+                        onClick={() => fetchPageContent(page.path)}
+                      >
+                        <div className="flex items-start sm:items-center justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">{page.title}</h3>
+                            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">{page.path}</p>
+                            <div className="flex items-center gap-2 mt-2 flex-wrap">
+                              <span
+                                className={`text-xs px-2 py-1 rounded font-inter ${page.published
+                                  ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
+                                  : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 border border-gray-200'
+                                  }`}
+                              >
+                                {page.published ? 'Publié' : 'Brouillon'}
+                              </span>
+                              <span className="text-xs text-gray-400 dark:text-gray-500 font-inter">
+                                {new Date(page.lastModified).toLocaleDateString('fr-FR')}
+                              </span>
+                            </div>
+                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDelete(page.path);
+                            }}
+                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
+                            title="Supprimer"
+                          >
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    // Mode catégories : afficher par catégories
+                    Object.entries(categorizePages(pages)).map(([categoryName, category]) => {
+                      if (category.pages.length === 0) return null;
+
+                      const isExpanded = expandedCategories[categoryName];
+                      const sortedPages = getFilteredAndSortedPages(category.pages);
+
+                      return (
+                        <div key={categoryName} className="border-b border-gray-200 dark:border-gray-700">
+                          {/* En-tête de catégorie */}
+                          <button
+                            onClick={() => toggleCategory(categoryName)}
+                            className="w-full p-3 sm:p-4 flex items-center justify-between bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-700 dark:hover:to-gray-800 transition-all duration-200"
+                          >
+                            <div className="flex items-center gap-2 sm:gap-3">
+                              <span className="text-lg sm:text-xl">{category.icon}</span>
+                              <div className="text-left">
+                                <h3 className="font-cairo font-bold text-sm sm:text-base text-[#253F60] dark:text-white">
+                                  {categoryName}
+                                </h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 font-inter">
+                                  {category.pages.length} page{category.pages.length > 1 ? 's' : ''}
+                                </p>
+                              </div>
+                            </div>
+                            <svg
+                              className={`w-5 h-5 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </button>
+
+                          {/* Pages de la catégorie */}
+                          {isExpanded && (
+                            <div className="bg-white dark:bg-gray-800">
+                              {sortedPages.map((page) => {
+                                const isSubPage = page.path.includes('/');
+                                return (
+                                  <div
+                                    key={page._id}
+                                    className={`p-3 sm:p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-all duration-200 ${isSubPage ? 'pl-6 sm:pl-8 bg-gray-50 dark:bg-gray-900/50' : ''
+                                      } ${selectedPage?.path === page.path
+                                        ? 'bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 border-l-4 border-[#B99066]'
+                                        : 'hover:bg-gradient-to-r hover:from-[#253F60]/5 hover:to-transparent dark:hover:from-gray-700 dark:hover:to-transparent'
+                                      }`}
+                                    onClick={() => fetchPageContent(page.path)}
+                                  >
+                                    <div className="flex items-start sm:items-center justify-between gap-2">
+                                      <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2">
+                                          {isSubPage && (
+                                            <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                          )}
+                                          <h3 className="font-cairo font-semibold text-sm sm:text-base text-[#253F60] dark:text-[#B99066] truncate">
+                                            {page.title}
+                                          </h3>
+                                        </div>
+                                        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-inter truncate">
+                                          {page.path}
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                          <span
+                                            className={`text-xs px-2 py-1 rounded font-inter ${page.published
+                                              ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'
+                                              : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 border border-gray-200'
+                                              }`}
+                                          >
+                                            {page.published ? 'Publié' : 'Brouillon'}
+                                          </span>
+                                          <span className="text-xs text-gray-400 dark:text-gray-500 font-inter">
+                                            {new Date(page.lastModified).toLocaleDateString('fr-FR')}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleDelete(page.path);
+                                        }}
+                                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex-shrink-0"
+                                        title="Supprimer"
+                                      >
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                      </button>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
                   )}
                 </div>
               </div>
-            ) : (
-              <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700 p-12 text-center">
-                <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] dark:from-gray-700 dark:to-gray-800 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-2">Sélectionnez une page à modifier</h3>
-                <p className="text-gray-600 dark:text-gray-300 font-inter">Choisissez une page dans la liste à gauche pour commencer l'édition</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+            </div>
 
-      {/* Create Modal */}
-      {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 sm:p-6 max-w-md w-full border-2 border-[#253F60]/20 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
-            <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 -m-4 sm:-m-6 mb-4 sm:mb-6 p-3 sm:p-4 rounded-t-xl">
-              <h2 className="text-lg sm:text-xl font-cairo font-bold text-white flex items-center gap-2">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-                </svg>
-                <span className="hidden sm:inline">Créer une nouvelle page</span>
-                <span className="sm:hidden">Nouvelle page</span>
-              </h2>
-            </div>
-            <div className="space-y-3 sm:space-y-4">
-              <div>
-                <label className="block text-xs sm:text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Chemin</label>
-                <input
-                  type="text"
-                  value={newPage.path}
-                  onChange={(e) => setNewPage({ ...newPage, path: e.target.value })}
-                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                  placeholder="ex: placements/assurance-vie"
-                />
-              </div>
-              <div>
-                <label className="block text-xs sm:text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Titre</label>
-                <input
-                  type="text"
-                  value={newPage.title}
-                  onChange={(e) => setNewPage({ ...newPage, title: e.target.value })}
-                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                  placeholder="Titre de la page"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4 sm:mt-6">
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-cairo font-semibold text-[#253F60] dark:text-gray-200 transition-colors"
-              >
-                Annuler
-              </button>
-              <button
-                onClick={handleCreate}
-                className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold"
-              >
-                Créer
-              </button>
+            {/* Visual Editor */}
+            <div className="lg:col-span-2 order-1 lg:order-2">
+              {selectedPage ? (
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700">
+                  <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-3 sm:p-4 rounded-t-xl sticky top-0 z-10">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h2 className="text-lg sm:text-xl font-cairo font-bold text-white flex items-center gap-2">
+                          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#B99066] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                          </svg>
+                          <span className="truncate">{selectedPage.title}</span>
+                        </h2>
+                        <p className="text-xs sm:text-sm text-gray-200 mt-1 font-inter truncate">{selectedPage.path}</p>
+                      </div>
+                      <button
+                        onClick={handleSave}
+                        className="w-full sm:w-auto bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:from-[#A67C52] hover:to-[#B99066] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold flex items-center justify-center gap-2 text-sm sm:text-base"
+                      >
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" />
+                        </svg>
+                        <span className="hidden sm:inline">Enregistrer les modifications</span>
+                        <span className="sm:hidden">Enregistrer</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-3 sm:p-4 lg:p-6 max-h-[calc(100vh-180px)] sm:max-h-[calc(100vh-200px)] overflow-y-auto">
+                    {formData && Object.keys(formData).length > 0 ? (
+                      Object.keys(formData)
+                        .filter((sectionKey) => sectionKey.toLowerCase() !== 'menuitems' && sectionKey.toLowerCase() !== 'menu items')
+                        .map((sectionKey) => {
+                          const section = formData[sectionKey];
+                          const sectionTitle = sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1).replace(/([A-Z])/g, ' $1');
+                          return (
+                            <div key={sectionKey}>
+                              {renderNestedSection(sectionKey, section, sectionTitle)}
+                            </div>
+                          );
+                        })
+                    ) : (
+                      <div className="text-center py-12">
+                        <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 dark:from-[#253F60]/20 dark:to-[#B99066]/20 rounded-xl p-8 border-2 border-[#253F60]/20 dark:border-gray-700">
+                          <svg className="w-16 h-16 text-[#253F60] dark:text-[#B99066] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          <h3 className="text-lg font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-2">Aucune section de contenu trouvée</h3>
+                          <p className="text-gray-600 dark:text-gray-300 font-inter">Commencez l'édition pour ajouter du contenu</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-xl border-2 border-[#253F60]/20 dark:border-gray-700 p-12 text-center">
+                  <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] dark:from-gray-700 dark:to-gray-800 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-10 h-10 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-2">Sélectionnez une page à modifier</h3>
+                  <p className="text-gray-600 dark:text-gray-300 font-inter">Choisissez une page dans la liste à gauche pour commencer l'édition</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Create Modal */}
+        {showCreateModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 flex items-center justify-center z-50 backdrop-blur-sm p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 sm:p-6 max-w-md w-full border-2 border-[#253F60]/20 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
+              <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 -m-4 sm:-m-6 mb-4 sm:mb-6 p-3 sm:p-4 rounded-t-xl">
+                <h2 className="text-lg sm:text-xl font-cairo font-bold text-white flex items-center gap-2">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                  </svg>
+                  <span className="hidden sm:inline">Créer une nouvelle page</span>
+                  <span className="sm:hidden">Nouvelle page</span>
+                </h2>
+              </div>
+              <div className="space-y-3 sm:space-y-4">
+                <div>
+                  <label className="block text-xs sm:text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Chemin</label>
+                  <input
+                    type="text"
+                    value={newPage.path}
+                    onChange={(e) => setNewPage({ ...newPage, path: e.target.value })}
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    placeholder="ex: placements/assurance-vie"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs sm:text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">Titre</label>
+                  <input
+                    type="text"
+                    value={newPage.title}
+                    onChange={(e) => setNewPage({ ...newPage, title: e.target.value })}
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    placeholder="Titre de la page"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4 sm:mt-6">
+                <button
+                  onClick={() => setShowCreateModal(false)}
+                  className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-cairo font-semibold text-[#253F60] dark:text-gray-200 transition-colors"
+                >
+                  Annuler
+                </button>
+                <button
+                  onClick={handleCreate}
+                  className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-cairo font-semibold"
+                >
+                  Créer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }

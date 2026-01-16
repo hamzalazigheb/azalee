@@ -1,84 +1,226 @@
-"use client";
 import React from "react";
 import Footer from "../../../components/common/Footer";
-export default function ContratCapitalisationPage() {
+import Accordion from "@/components/ui/Accordion";
+import { getPageContent } from '@/lib/cms-server';
+
+export const revalidate = 0;
+
+export async function generateMetadata() {
+  let content = await getPageContent('placements/contrat-capitalisation');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/contrat-capitalisation`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+  return {
+    title: content?.seo?.metaTitle || "Contrat de Capitalisation : Fonctionnement et Avantages | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Tout savoir sur le contrat de capitalisation : avantages successoraux, fiscalité, et intérêt pour les sociétés (SCI).",
+  };
+}
+
+export default async function ContratCapitalisationPage() {
+  let content = await getPageContent('placements/contrat-capitalisation');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/contrat-capitalisation`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       {/* Hero Section */}
-      <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2">
-              <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-                Le contrat de capitalisation : un outil patrimonial puissant et complémentaire à l'assurance-vie
-            </h1>
-              <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                Souvent éclipsé par la notoriété de l'assurance-vie, le <strong>contrat de capitalisation</strong> est pourtant un instrument patrimonial incontournable pour diversifier son épargne et optimiser sa fiscalité.
+      <section className="relative w-full overflow-hidden bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 transform skew-x-12 translate-x-20 bg-white" />
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="text-white space-y-8">
+              <h1 className="text-4xl lg:text-5xl font-bold font-cairo leading-tight">
+                {content?.hero?.title}
+              </h1>
+              <p className="text-lg opacity-90 leading-relaxed font-inter">
+                {content?.hero?.subtitle}
               </p>
-              <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#B99066] p-4 rounded-r-lg mb-8">
-                <p className="text-white text-sm font-inter">
-                  Bien maîtrisé, le contrat de capitalisation est un <strong>levier discret mais redoutablement efficace</strong> pour les investisseurs avertis.
-            </p>
-          </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200"
-                >
-                  Analyser mon patrimoine
+              <div className="p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+                <p className="text-sm font-medium">
+                  {content?.hero?.description}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <button className="px-8 py-4 bg-[#B99066] hover:bg-[#A67A5A] text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                  {content?.hero?.button}
                 </button>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-transparent border-2 border-[#B99066] text-[#B99066] px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#B99066] hover:text-white transition-colors duration-200"
-                >
-                  En savoir plus
+                <button className="px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-[#253F60] text-white rounded-lg font-semibold transition-all duration-300">
+                  {content?.hero?.secondaryButton}
                 </button>
               </div>
             </div>
 
-            {/* Right: Key Features Cards */}
-            <div className="w-full lg:w-1/2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white font-bold text-xl">1</span>
-              </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Complémentaire</h3>
-                  <p className="text-[#686868] text-sm mb-2">À l'assurance-vie</p>
-                  <p className="text-[#B99066] text-xl font-bold">Transmission</p>
-                  <p className="text-[#686868] text-xs">Continuité patrimoniale</p>
-          </div>
-          
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white font-bold text-xl">2</span>
-              </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Personnes morales</h3>
-                  <p className="text-[#686868] text-sm mb-2">SCI, holdings</p>
-                  <p className="text-[#B99066] text-xl font-bold">Trésorerie</p>
-                  <p className="text-[#686868] text-xs">Placement performant</p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-              <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-xl">3</span>
-              </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Supports identiques</h3>
-                  <p className="text-[#686868] text-sm mb-2">Fonds euros, UC</p>
-                  <p className="text-[#B99066] text-xl font-bold">Fiscalité</p>
-                  <p className="text-[#686868] text-xs">Même régime que AV</p>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white font-bold text-xl">4</span>
+            {/* Features Grid - Right Side */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {(content.features || []).map((feature, idx) => (
+                <div key={idx} className="bg-white/95 backdrop-blur rounded-xl p-6 shadow-xl hover:scale-105 transition-all duration-300 border-l-4 border-[#253F60]">
+                  <h3 className="text-[#253F60] font-bold text-lg mb-1">{feature.title}</h3>
+                  <p className="text-xs font-semibold text-[#B99066] uppercase tracking-wider mb-3">{feature.subtitle}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-green-500" />
+                    <p className="text-sm font-medium text-gray-800">{feature.value}</p>
                   </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Antériorité fiscale</h3>
-                  <p className="text-[#686868] text-sm mb-2">Conservée</p>
-                  <p className="text-[#B99066] text-xl font-bold">Héritiers</p>
-                  <p className="text-[#686868] text-xs">Reprennent le contrat</p>
+                  <p className="text-xs text-gray-500 mt-1">{feature.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Points Communs Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold text-[#253F60] mb-6">{content?.pointsCommuns?.title}</h2>
+            <p className="text-gray-600 text-lg">{content?.pointsCommuns?.description}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {(content?.pointsCommuns?.points || []).map((point, index) => (
+              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="w-12 h-12 bg-[#E8F4F8] rounded-xl flex items-center justify-center mb-6">
+                  <span className="text-2xl text-[#253F60] font-bold">{index + 1}</span>
+                </div>
+                <h3 className="text-xl font-bold text-[#253F60] mb-4">{point.title}</h3>
+                <ul className="space-y-3">
+                  {(point.items || []).map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-gray-600 text-sm">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#B99066] flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-[#253F60] rounded-xl p-6 text-center text-white max-w-2xl mx-auto shadow-lg">
+            <p className="font-medium text-lg">{content?.pointsCommuns?.conclusion}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Différences Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-12 items-start">
+            <div className="w-full md:w-1/3 sticky top-24">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#253F60] leading-tight mb-8">
+                {content?.differences?.title}
+              </h2>
+              <div className="bg-gray-50 rounded-xl p-6 border-l-4 border-[#B99066]">
+                <h4 className="font-bold text-[#253F60] mb-4">En résumé :</h4>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Assurance-vie</p>
+                    <p className="text-sm font-semibold text-gray-800">{content?.differences?.resume?.assuranceVie}</p>
+                  </div>
+                  <div className="h-px bg-gray-200" />
+                  <div>
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Contrat de Capitalisation</p>
+                    <p className="text-sm font-semibold text-gray-800">{content?.differences?.resume?.contratCapi}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full md:w-2/3 space-y-8">
+              {(content?.differences?.points || []).map((point, index) => (
+                <div key={index} className="group bg-white border border-gray-100 rounded-2xl p-8 hover:border-[#B99066] transition-colors duration-300 shadow-sm hover:shadow-md">
+                  <div className="flex items-center gap-4 mb-4">
+                    <span className="px-3 py-1 bg-[#F0F5F9] text-[#253F60] text-xs font-bold rounded-full uppercase tracking-wider">Différence {index + 1}</span>
+                    <h3 className="text-xl font-bold text-[#253F60]">{point.title}</h3>
+                  </div>
+                  <h4 className="text-[#B99066] font-semibold mb-3">{point.subtitle}</h4>
+                  <p className="text-gray-600 leading-relaxed mb-4">{point.description}</p>
+                  <div className="flex items-center gap-2 text-sm font-medium text-[#253F60] bg-gray-50 p-3 rounded-lg">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {point.note}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SCI Section */}
+      <section className="py-20 bg-[#112033] text-white">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">{content?.sci?.title}</h2>
+              <p className="text-gray-300 text-lg mb-8">{content?.sci?.description}</p>
+
+              <div className="space-y-6">
+                {(content?.sci?.avantages || []).map((av, idx) => (
+                  <div key={idx} className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 border border-white/20">
+                      <span className="text-xl font-bold text-[#B99066]">{idx + 1}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-1">{av.title}</h3>
+                      <p className="text-gray-400 text-sm">{av.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-3xl p-8 border border-white/10 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066] rounded-full filter blur-[100px] opacity-20" />
+              <div className="relative z-10">
+                <span className="px-3 py-1 bg-[#B99066] text-white text-xs font-bold rounded-full uppercase mb-6 inline-block">Cas pratique</span>
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Contexte</p>
+                    <p className="font-medium text-lg leading-relaxed">{content?.sci?.exemple?.contexte}</p>
+                  </div>
+                  <div className="h-px bg-white/10" />
+                  <div>
+                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Stratégie</p>
+                    <p className="text-gray-300 leading-relaxed">{content?.sci?.exemple?.action}</p>
+                  </div>
+                  <div className="bg-green-500/20 border border-green-500/30 rounded-xl p-4 mt-4">
+                    <p className="text-green-300 font-semibold text-sm">✓ {content?.sci?.exemple?.resultat}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -86,640 +228,116 @@ export default function ContratCapitalisationPage() {
         </div>
       </section>
 
-      {/* Points communs avec l'assurance-vie Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
+      {/* Exemple Concret Section */}
+      <section className="py-20 bg-[#F8F9FA]">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
-              Points communs avec l'assurance-vie
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Le contrat de capitalisation reprend <strong>tous les avantages financiers et fiscaux de l'assurance-vie</strong>.
-            </p>
+            <h2 className="text-3xl font-bold text-[#253F60] mb-4">{content?.exempleConcret?.title}</h2>
+            <p className="text-xl text-[#B99066] font-medium">{content?.exempleConcret?.scenario}</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Supports d'investissement */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] font-bold text-xl">1</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {(content?.exempleConcret?.comparaison || []).map((comp, idx) => (
+              <div key={idx} className={`bg-white rounded-2xl p-8 shadow-xl ${idx === 0 ? 'border-t-4 border-[#253F60]' : 'border-t-4 border-[#B99066]'}`}>
+                <h3 className="text-2xl font-bold text-[#253F60] text-center mb-8">{comp.type}</h3>
+                <div className="space-y-4">
+                  {comp.data.map((d, i) => (
+                    <div key={i} className="flex justify-between items-center py-3 border-b border-gray-100 last:border-0">
+                      <span className="text-gray-500 text-sm font-medium">{d.label}</span>
+                      <span className="text-gray-900 font-bold text-right">{d.value}</span>
+                    </div>
+                  ))}
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">Supports d'investissement identiques</h3>
-              </div>
-              <ul className="space-y-3 text-sm">
-                <li>• Fonds en euros sécurisés</li>
-                <li>• Unités de compte (UC) : actions, ETF, SCPI</li>
-                <li>• OPCI, produits structurés, obligations</li>
-              </ul>
-            </div>
-
-            {/* Fiscalité des rachats */}
-            <div className="bg-gradient-to-br from-[#B99066] to-[#D4A574] rounded-lg shadow-lg p-8 text-white">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#B99066] font-bold text-xl">2</span>
+                <div className={`mt-8 p-4 rounded-xl text-center text-sm font-medium ${idx === 0 ? 'bg-[#E8F4F8] text-[#253F60]' : 'bg-[#FFF4E6] text-[#B99066]'}`}>
+                  {content?.exempleConcret?.resultat[idx].description}
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">Fiscalité des rachats</h3>
               </div>
-              <ul className="space-y-3 text-sm">
-                <li>• Imposition uniquement sur les gains</li>
-                <li>• PFU de 30% ou barème progressif</li>
-                <li>• Abattement 4 600 €/9 200 € après 8 ans</li>
-              </ul>
-            </div>
-
-            {/* Souplesse */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-[#253F60] font-bold text-xl">3</span>
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Souplesse</h3>
-              </div>
-              <ul className="space-y-3 text-sm">
-                <li>• Versements libres ou programmés</li>
-                <li>• Durée illimitée</li>
-                <li>• Rachats partiels ou totaux à tout moment</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-8 bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#B99066] p-6 rounded-r-lg">
-            <p className="text-[#112033] text-lg font-semibold text-center">
-              Sur le plan fiscal et financier, un contrat de capitalisation <strong>fonctionne comme une assurance-vie</strong>.
-            </p>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Les différences fondamentales Section */}
-      <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
-              Les différences fondamentales avec l'assurance-vie
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Succession */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#B99066]">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">1</span>
-                </div>
-                <div>
-                  <h3 className="text-[#112033] text-xl font-semibold">Succession</h3>
-                  <p className="text-[#B99066] font-bold">Continuité patrimoniale</p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <p className="text-[#686868] text-sm">
-                  Contrairement à l'assurance-vie, le contrat de capitalisation <strong>ne s'éteint pas au décès</strong>.
-                </p>
-                  <p className="text-[#686868] text-sm">
-                  Il <strong>entre dans l'actif successoral</strong> et se transmet aux héritiers avec son antériorité fiscale.
-                </p>
-                <div className="bg-[#E8F4F8] p-3 rounded-lg">
-                  <p className="text-[#112033] text-xs">
-                    Pas d'abattement de 152 500 € par bénéficiaire, mais continuité fiscale intéressante.
-                  </p>
-                </div>
-                </div>
-              </div>
-
-            {/* Clause bénéficiaire */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#B99066]">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#B99066] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">2</span>
-                </div>
-                <div>
-                  <h3 className="text-[#112033] text-xl font-semibold">Clause bénéficiaire</h3>
-                  <p className="text-[#B99066] font-bold">Transmission classique</p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <p className="text-[#686868] text-sm">
-                  L'assurance-vie permet de désigner librement des bénéficiaires (même en dehors de la famille).
-                </p>
-                  <p className="text-[#686868] text-sm">
-                  Le contrat de capitalisation <strong>ne comporte pas de clause bénéficiaire</strong>.
-                </p>
-                <div className="bg-[#FFF8E1] p-3 rounded-lg">
-                  <p className="text-[#112033] text-xs">
-                    Transmission selon les règles classiques de la succession.
-                  </p>
-                </div>
-              </div>
-              </div>
-
-            {/* Souscription par personnes morales */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">3</span>
-                </div>
-                <div>
-                  <h3 className="text-[#112033] text-xl font-semibold">Souscription par personnes morales</h3>
-                  <p className="text-[#B99066] font-bold">LA grande différence</p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <p className="text-[#686868] text-sm">
-                  Une <strong>SCI à l'IS</strong> ou une société patrimoniale peut souscrire un contrat de capitalisation.
-                </p>
-                  <p className="text-[#686868] text-sm">
-                  Ce qui en fait un outil de <strong>placement de trésorerie</strong> idéal pour les structures familiales.
-                </p>
-                <div className="bg-[#E8F4F8] p-3 rounded-lg">
-                  <p className="text-[#112033] text-xs">
-                    Accessible aux sociétés : SCI, holdings patrimoniales, sociétés à l'IS.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-            <h3 className="text-xl font-semibold mb-6 text-center">
-              En résumé :
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <h4 className="font-semibold mb-2">Assurance-vie</h4>
-                <p className="text-sm">Outil de transmission hors succession, très souple</p>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <h4 className="font-semibold mb-2">Contrat de capitalisation</h4>
-                <p className="text-sm">Outil de continuité patrimoniale, transmissible et accessible aux sociétés</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SCI à l'IS et contrat de capitalisation Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
-              Contrat de capitalisation et SCI à l'IS : un atout discret
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Une <strong>SCI à l'IS</strong> peut souscrire un contrat de capitalisation pour placer sa trésorerie.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white mb-8">
-            <h3 className="text-xl font-semibold mb-6 text-center">
-              Avantages pour une SCI à l'IS
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h4 className="font-semibold mb-2">Accès à une grande variété de supports</h4>
-                <p className="text-sm">Fonds euros, UC, SCPI, produits structurés</p>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h4 className="font-semibold mb-2">Fiscalité maîtrisée à l'IS</h4>
-                <p className="text-sm">Amortissement des parts de SCPI, réintégration progressive</p>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-[#253F60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                </div>
-                <h4 className="font-semibold mb-2">Meilleure rentabilité</h4>
-                <p className="text-sm">Que des liquidités laissées sur un compte courant</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
-            <h3 className="text-[#112033] text-xl font-semibold mb-6">
-              Exemple concret
-            </h3>
-            
-            <div className="bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 p-6 rounded-lg mb-6">
-              <p className="text-[#112033] text-lg font-semibold mb-4">
-                Exemple : une SCI familiale à l'IS détient 300 000 € de trésorerie suite à une vente immobilière.
-              </p>
-              <p className="text-[#686868] mb-4">
-                Plutôt que de laisser dormir ces fonds sur un compte bancaire faiblement rémunéré, elle les place dans un contrat de capitalisation, diversifié entre fonds euros et SCPI.
-              </p>
-              <div className="bg-white p-4 rounded-lg">
-                <p className="text-[#112033] font-semibold text-center">
-                  Résultat : un rendement net supérieur, avec une gestion souple et adaptée à l'horizon patrimonial.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Avantages et inconvénients Section */}
-      <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
+      {/* Avantages/Inconvénients Grid */}
+      <section className="py-20 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Avantages */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-green-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8">
-                Les avantages du contrat de capitalisation
-                  </h3>
-              
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-[#253F60] mb-8 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                  <span className="text-green-600 font-bold">✓</span>
+                </div>
+                Avantages
+              </h3>
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
+                {(content?.avantagesInconvenients?.avantages || []).map((adv, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0" />
+                    <div>
+                      <p className="font-bold text-gray-800">{adv.title}</p>
+                      {adv.detail && <p className="text-sm text-gray-500 mt-1">{adv.detail}</p>}
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Souplesse fiscale identique à l'assurance-vie
-                    </h4>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Transmissibilité avec conservation de l'antériorité fiscale
-                    </h4>
-                    <p className="text-[#686868] text-sm">
-                      Les héritiers reprennent le contrat tel quel
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Adapté aux personnes morales
-                    </h4>
-                  <p className="text-[#686868] text-sm">
-                      SCI, holdings, sociétés à l'IS
-                  </p>
-                </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Diversification patrimoniale
-                    </h4>
-                    <p className="text-[#686868] text-sm">
-                      En complément de l'assurance-vie
-                    </p>
-                </div>
+                ))}
               </div>
+            </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Outil de trésorerie performant
-                    </h4>
-                    <p className="text-[#686868] text-sm">
-                      Pour les sociétés patrimoniales
-                    </p>
-                  </div>
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-[#253F60] mb-8 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                  <span className="text-red-500 font-bold">✕</span>
                 </div>
-              </div>
-                </div>
-
-            {/* Inconvénients */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-red-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8">
-                Les inconvénients et contre-indications
-                  </h3>
-              
+                Inconvénients
+              </h3>
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">⚠</span>
+                {(content?.avantagesInconvenients?.inconvenients || []).map((inc, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+                    <div>
+                      <p className="font-bold text-gray-800">{inc.title}</p>
+                      {inc.detail && <p className="text-sm text-gray-500 mt-1">{inc.detail}</p>}
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Pas d'abattement 152 500 €
-                    </h4>
-                  <p className="text-[#686868] text-sm">
-                      À la transmission, contrairement à l'assurance-vie
-                  </p>
-                </div>
-              </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">⚠</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Soumis aux droits de succession
-                    </h4>
-                  <p className="text-[#686868] text-sm">
-                      Comme tout autre actif
-                  </p>
-                </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">⚠</span>
-                  </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Moins connu que l'assurance-vie
-                    </h4>
-                    <p className="text-[#686868] text-sm">
-                      Certains investisseurs passent à côté de son intérêt stratégique
-                    </p>
-                </div>
-              </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">⚠</span>
-                </div>
-                  <div>
-                    <h4 className="text-[#112033] font-semibold mb-2">
-                      Nécessite une bonne anticipation
-                    </h4>
-                  <p className="text-[#686868] text-sm">
-                      Dans une stratégie globale, sinon usage peut sembler redondant avec une assurance-vie
-                  </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Exemple concret Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
-              Exemple concret
-            </h2>
-          </div>
+      {/* Conseil & CTA */}
+      <section className="py-20 bg-white border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-[#253F60] mb-8">{content?.conseil?.title}</h2>
 
-          <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white mb-8">
-            <h3 className="text-xl font-semibold mb-6 text-center">
-              Monsieur A, 68 ans, détient 400 000 € répartis entre assurance-vie et liquidités
-              </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white bg-opacity-20 rounded-lg p-6">
-                <h4 className="font-semibold mb-4 text-center">Assurance-vie</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span>Versement :</span>
-                    <span className="font-bold">200 000 €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Avantage :</span>
-                    <span className="text-sm">Transmission optimisée</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Bénéfice :</span>
-                    <span className="text-sm">Abattement 152 500 € par bénéficiaire</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-6">
-                <h4 className="font-semibold mb-4 text-center">Contrat de capitalisation</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span>Placement :</span>
-                    <span className="font-bold">200 000 €</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Avantage :</span>
-                    <span className="text-sm">Continuité patrimoniale</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Bénéfice :</span>
-                    <span className="text-sm">Antériorité fiscale conservée</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
+          <div className="bg-[#253F60] text-white rounded-2xl p-8 lg:p-12 shadow-2xl overflow-hidden relative">
 
-          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
-            <h3 className="text-[#112033] text-xl font-semibold mb-6">
-              Résultat de cette stratégie duale :
-              </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-[#E8F4F8] p-6 rounded-lg">
-                <h4 className="text-[#112033] font-semibold mb-3">Assurance-vie</h4>
-                <p className="text-[#686868] text-sm">
-                  Assure une <strong>transmission optimisée</strong> grâce à l'abattement de 152 500 € par bénéficiaire.
-                </p>
+            <div className="relative z-10">
+              <p className="text-lg mb-8 opacity-90">{content?.conseil?.intro}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                {(content?.conseil?.points || []).map((pt, i) => (
+                  <div key={i} className="bg-white/10 rounded-xl p-4 backdrop-blur font-medium text-sm">
+                    {pt.title}
+                  </div>
+                ))}
               </div>
-              
-              <div className="bg-[#E8F4F8] p-6 rounded-lg">
-                <h4 className="text-[#112033] font-semibold mb-3">Contrat de capitalisation</h4>
-              <p className="text-[#686868] text-sm">
-                  Permet aux héritiers de continuer à profiter de l'antériorité fiscale du contrat (abattement 4 600 €/9 200 € après 8 ans).
-                </p>
+
+              <h3 className="text-2xl font-bold mb-4">{content?.cta?.title}</h3>
+              <p className="mb-8 opacity-90">{content?.cta?.description}</p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="px-8 py-4 bg-[#B99066] hover:bg-[#A67A5A] text-white rounded-lg font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                  {content?.cta?.primaryButton}
+                </button>
+                <button className="px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-[#253F60] text-white rounded-lg font-bold transition-all">
+                  {content?.cta?.secondaryButton}
+                </button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Conseil Azalée Patrimoine Section */}
-      <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6 text-center">
-              Conseil Azalée Patrimoine
-            </h2>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
-              Le <strong>contrat de capitalisation</strong> est l'outil idéal pour :
-              </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h4 className="text-[#112033] font-semibold mb-2">Diversification des enveloppes fiscales</h4>
-              <p className="text-[#686868] text-sm">
-                  Les investisseurs souhaitant diversifier leurs enveloppes fiscales
-              </p>
-            </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                </div>
-                <h4 className="text-[#112033] font-semibold mb-2">Continuité patrimoniale</h4>
-              <p className="text-[#686868] text-sm">
-                  Les familles qui veulent assurer une continuité patrimoniale sans perdre l'antériorité fiscale
-              </p>
-            </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-                <h4 className="text-[#112033] font-semibold mb-2">Sociétés patrimoniales</h4>
-              <p className="text-[#686868] text-sm">
-                  Les sociétés patrimoniales (SCI à l'IS, holdings) qui cherchent un placement de trésorerie performant
-              </p>
-              </div>
-            </div>
-            </div>
-
-          <div className="bg-gradient-to-r from-[#253F60] to-[#3A5A7A] rounded-lg shadow-lg p-8 text-white">
-            <h3 className="text-xl font-semibold mb-6 text-center">
-              L'assurance-vie et le contrat de capitalisation ne s'opposent pas : ils se complètent.
-              </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <h4 className="font-semibold mb-2">L'assurance-vie</h4>
-                <p className="text-sm">L'outil phare de la transmission hors succession</p>
-              </div>
-              
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                <h4 className="font-semibold mb-2">Le contrat de capitalisation</h4>
-                <p className="text-sm">Un instrument de continuité patrimoniale et d'investissement sociétaire</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Contactez un conseiller Azalée Patrimoine
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Pour savoir comment intégrer un contrat de capitalisation dans votre stratégie patrimoniale ou dans la trésorerie de votre société.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <h3 className="text-[#112033] text-xl font-semibold mb-3">Appelez-nous</h3>
-                <p className="text-[#686868] text-sm mb-4">
-                  Un conseiller vous accompagne dans votre stratégie patrimoniale.
-                </p>
-                <a 
-                  href="tel:+33153458500"
-                  className="bg-[#253F60] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#1A2A4A] transition-colors duration-200 inline-block text-center"
-                >
-                  Planifiez votre consultation gratuite
-                </a>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-[#112033] text-xl font-semibold mb-3">Écrivez-nous</h3>
-                <p className="text-[#686868] text-sm mb-4">
-                  Obtenez une analyse personnalisée de votre patrimoine.
-                </p>
-                <a 
-                  href="mailto:contact@azalee-patrimoine.fr"
-                  className="inline-block bg-[#B99066] text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200"
-                >
-                  contact@azalee-patrimoine.fr
-                </a>
-              </div>
-            </div>
-            
-            <div className="mt-8 bg-gradient-to-r from-[#253F60]/10 to-[#B99066]/10 border-l-4 border-[#253F60] p-6 rounded-r-lg">
-              <p className="text-[#112033] text-center font-semibold">
-                <strong>Contactez un conseiller Azalée Patrimoine</strong> pour savoir comment intégrer un contrat de capitalisation dans votre stratégie patrimoniale ou dans la trésorerie de votre société.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="w-full bg-gradient-to-r from-[#B99066] to-[#253F60] py-12 sm:py-16 lg:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            Prêt à intégrer un contrat de capitalisation dans votre stratégie ?
-          </h2>
-          <p className="text-white text-lg mb-8 max-w-3xl mx-auto">
-            Nos experts vous accompagnent pour définir la meilleure stratégie patrimoniale en combinant assurance-vie et contrat de capitalisation, 
-            ou pour optimiser la trésorerie de votre société.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-              className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-gray-100 transition-colors duration-200"
-            >
-              Analyser mon patrimoine
-            </button>
-            <a 
-              href="tel:+33153458500"
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#253F60] transition-colors duration-200 inline-block text-center"
-            >
-              Planifiez votre consultation gratuite
-            </a>
-          </div>
-        </div>
-      </section>
-      
       <Footer />
     </>
   );
-} 
+}

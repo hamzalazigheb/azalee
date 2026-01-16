@@ -22,7 +22,14 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['react-icons', 'recharts'],
+    optimizePackageImports: ['react-icons', 'recharts', 'framer-motion', 'lodash'],
+  },
+  
+  // Modular imports for smaller bundles
+  modularizeImports: {
+    'react-icons': {
+      transform: 'react-icons/{{member}}',
+    },
   },
   
   // Image optimization
@@ -340,13 +347,34 @@ const nextConfig = {
       },
       {
         source: '/placements/per',
-        destination: '/placements/per-perp',
+        destination: '/placements/pea-per',
         permanent: true,
       },
       // Redirect pour page LLI manquante
       {
         source: '/fiscalite/lli',
         destination: '/fiscalite/lois-fiscales',
+        permanent: true,
+      },
+      // Redirections additionnelles SEO
+      {
+        source: '/placements/per-perp',
+        destination: '/placements/pea-per',
+        permanent: true,
+      },
+      {
+        source: '/placements/scpi',
+        destination: '/placements/scpi-opci',
+        permanent: true,
+      },
+      {
+        source: '/patrimoine/bilan-patrimonial',
+        destination: '/patrimoine/bilan',
+        permanent: true,
+      },
+      {
+        source: '/patrimoine/conseiller-patrimoine',
+        destination: '/patrimoine/conseils',
         permanent: true,
       },
     ];
@@ -374,15 +402,33 @@ const nextConfig = {
       },
     };
 
-    // Performance optimizations - Bundle into fewer chunks
+    // Performance optimizations - Bundle into optimized chunks
     if (!dev) {
       config.optimization = {
         ...config.optimization,
+        minimize: true,
         splitChunks: {
           chunks: 'all',
-          minSize: 0,
+          minSize: 20000,    // Minimum 20KB par chunk
+          maxSize: 250000,   // Maximum 250KB par chunk (évite les gros fichiers)
           cacheGroups: {
-            // Bundle all vendor code into a single chunk
+            // Groupe pour les bibliothèques de visualisation (chargées à la demande)
+            charts: {
+              test: /[\\/]node_modules[\\/](recharts|d3|victory)[\\-]/,
+              name: 'charts',
+              chunks: 'async',
+              priority: 30,
+              enforce: true,
+            },
+            // Groupe pour React et ses dépendances core
+            framework: {
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\-]/,
+              name: 'framework',
+              chunks: 'all',
+              priority: 40,
+              enforce: true,
+            },
+            // Bundle des bibliothèques tierces
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: 'vendor',
@@ -390,12 +436,12 @@ const nextConfig = {
               priority: 20,
               enforce: true,
             },
-            // Bundle all app code into a single chunk
-            default: {
-              minChunks: 1,
+            // Code commun partagé entre plusieurs pages
+            common: {
+              minChunks: 2,
               priority: 10,
               reuseExistingChunk: true,
-              name: 'app',
+              name: 'common',
             },
           },
         },

@@ -4,615 +4,428 @@ import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from "@/components/ui/CTAButton";
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Donation à titre gratuit",
-    description: "Transmettre de son vivant sans contrepartie : les règles et stratégies optimales."
-  },
-  seo: {
-    metaTitle: "Donation à Titre Gratuit | Azalée Patrimoine",
-    metaDescription: "Découvrez les différentes formes de donations à titre gratuit et optimisez votre transmission patrimoniale."
-  }
-};
+export const revalidate = 0; // SSR
 
-export async function generateMetadata() {
-  const content = await getPageContent('patrimoine/donation-gratuite', defaultContent);
-  return {
-    title: content.seo?.metaTitle || "Donation à Titre Gratuit | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "Découvrez les différentes formes de donations à titre gratuit."
-  };
-}
-
-const chartData = [
-  { label: "Abattement par enfant", value: "€100,000" },
-  { label: "Don Sarkozy supplémentaire", value: "€31,865" },
-  { label: "Taux fiscal après abattement", value: "5-45%" },
-  { label: "Renouvelable tous les", value: "15 ans" },
-  { label: "Nue-propriété à 70 ans", value: "60%" }
-];
-
-export default async function DonationGratuitePage() {
-  const content = await getPageContent('patrimoine/donation-gratuite', defaultContent);
-  
+const HeroSection = ({ data }) => {
+  if (!data) return null;
   return (
-    <>
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2">
-              <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-                {content.hero?.title || defaultContent.hero.title}
-              </h1>
-              <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                Une <strong>donation à titre gratuit</strong> est un transfert de patrimoine effectué <strong>sans contrepartie</strong>.
-              </p>
-              <p className="text-white text-lg font-inter leading-relaxed mb-8">
-                Elle permet de <strong>transmettre de son vivant</strong>, d'anticiper sa succession et de réduire la facture fiscale grâce aux <strong>abattements renouvelables tous les 15 ans</strong>.
-              </p>
+    <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24 text-white">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+          <div className="w-full lg:w-1/2">
+            <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
+              {data.title || 'Donation à titre gratuit'}
+            </h1>
+            <p className="text-white text-lg font-inter leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+            {data.highlight && (
               <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
                 <p className="text-white text-sm font-inter">
-                  Anticiper, c'est transmettre plus et payer moins.
+                  {data.highlight}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <CTAButton 
-                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-                  variant="primary"
+            )}
+            <div className="flex flex-col sm:flex-row gap-4">
+              {data.buttons && data.buttons.map((btn, i) => (
+                <CTAButton
+                  key={i}
+                  externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+                  variant={i === 0 ? "primary" : "secondary"}
                 >
-                  Simuler ma donation
+                  {btn.text}
                 </CTAButton>
-                <CTAButton 
-                  externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-                  variant="secondary"
-                >
-                  Consulter un notaire
-                </CTAButton>
-              </div>
+              ))}
             </div>
-            
-            {/* Right: Key Benefits Cards */}
-            <div className="w-full lg:w-1/2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">1</span>
-                  </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Abattement</h3>
-                  <p className="text-[#686868] text-sm mb-2">Par enfant</p>
-                  <p className="text-[#B99066] text-xl font-bold">€100,000</p>
-                  <p className="text-[#686868] text-xs">Tous les 15 ans</p>
-                </div>
+          </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
+          <div className="w-full lg:w-1/2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-[#686868]">
+              {data.cards && data.cards.map((card, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">2</span>
+                  <div className={`w-16 h-16 ${index % 2 === 0 ? 'bg-[#B99066]' : 'bg-[#253F60]'} rounded-full flex items-center justify-center mx-auto mb-4 hover:opacity-90 transition-colors duration-300 relative overflow-hidden`}>
+                    <span className="text-white text-2xl font-bold relative z-10">{index + 1}</span>
                   </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Don Sarkozy</h3>
-                  <p className="text-[#686868] text-sm mb-2">Abattement supplémentaire</p>
-                  <p className="text-[#B99066] text-xl font-bold">€31,865</p>
-                  <p className="text-[#686868] text-xs">En numéraire</p>
+                  <h3 className="text-[#112033] text-lg font-semibold mb-2">{card.title}</h3>
+                  <p className="text-[#686868] text-sm mb-2">{card.subtitle}</p>
+                  <p className="text-[#B99066] text-xl font-bold">{card.value}</p>
+                  <p className="text-[#686868] text-xs">{card.footer}</p>
                 </div>
-                
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">3</span>
-                  </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Renouvelable</h3>
-                  <p className="text-[#686868] text-sm mb-2">Tous les</p>
-                  <p className="text-[#B99066] text-xl font-bold">15 ans</p>
-                  <p className="text-[#686868] text-xs">Anticipation fiscale</p>
-                </div>
-                
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#1A2F4A] transition-colors duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span className="text-white text-2xl font-bold relative z-10">4</span>
-                  </div>
-                  <h3 className="text-[#112033] text-lg font-semibold mb-2">Taux fiscal</h3>
-                  <p className="text-[#686868] text-sm mb-2">Après abattement</p>
-                  <p className="text-[#B99066] text-xl font-bold">5-45%</p>
-                  <p className="text-[#686868] text-xs">Barème progressif</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+};
 
-      {/* Chart Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Caractéristiques des donations à titre gratuit"
-            subtitle="Visualisez les paramètres clés des donations à titre gratuit"
-          />
-          
-          <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-xl">
-            <PlacementChart 
-              title="Caractéristiques des donations à titre gratuit"
-              data={chartData}
-              chartImage="/images/donation.webp"
-            />
+const FormsSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {data.items && data.items.map((item, index) => (
+            <div key={index} className={`relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 ${index % 2 === 0 ? 'border-[#253F60]' : 'border-[#B99066]'} transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
+              <div className={`absolute top-0 right-0 w-32 h-32 ${index % 2 === 0 ? 'bg-[#253F60]/5' : 'bg-[#B99066]/5'} rounded-bl-full`}></div>
+              <div className="flex items-center gap-4 mb-6 relative z-10 text-[#686868]">
+                <div className={`w-12 h-12 bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] to-[#1a2d47]' : 'from-[#B99066] to-[#A67A5A]'} rounded-lg flex items-center justify-center shadow-lg`}>
+                  <span className="text-white text-xl font-bold">{index + 1}</span>
+                </div>
+                <div>
+                  <h3 className="text-[#253F60] text-xl font-semibold">{item.title}</h3>
+                  <p className="text-[#B99066] font-bold">{item.subtitle}</p>
+                </div>
+              </div>
+              <div className="space-y-3 relative z-10 text-[#686868]">
+                {item.descriptions && item.descriptions.map((desc, i) => (
+                  <p key={i} className="text-[#686868] text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: desc }} />
+                ))}
+                {item.note && (
+                  <div className={`bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60]/10 to-[#B99066]/10 border-[#253F60]' : 'from-[#B99066]/10 to-[#253F60]/10 border-[#B99066]'} p-3 rounded-lg border-l-2`}>
+                    <p className="text-[#253F60] text-xs font-semibold" dangerouslySetInnerHTML={{ __html: item.note }} />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const TaxScaleSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="overflow-x-auto">
+            <table className="w-full text-[#686868]">
+              <thead>
+                <tr className="bg-[#253F60] text-white">
+                  <th className="px-6 py-4 text-left font-semibold">Part taxable</th>
+                  <th className="px-6 py-4 text-center font-semibold">Taux</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.rows && data.rows.map((row, i) => (
+                  <tr key={i} className={`${i % 2 === 1 ? 'bg-gray-50' : ''} border-b border-gray-200`}>
+                    <td className="px-6 py-4 font-medium">{row.label}</td>
+                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
 
-      {/* Les différentes formes de donation Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Les différentes formes de donation à titre gratuit"
-            subtitle="Découvrez les 4 principales formes de donations à titre gratuit"
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Don manuel */}
-            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#253F60] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl font-bold">1</span>
-                </div>
-                <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold">Le don manuel</h3>
-                  <p className="text-[#B99066] font-bold">Transmission directe</p>
-                </div>
-              </div>
-              <div className="space-y-3 relative z-10">
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Transmission directe d'une somme d'argent, de bijoux, de titres financiers ou d'objets de valeur.
-                </p>
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Déclaration obligatoire au fisc via le formulaire n°2735.
-                </p>
-                <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 p-3 rounded-lg border-l-2 border-[#253F60]">
-                  <p className="text-[#253F60] text-xs font-semibold">
-                    Fiscalité : application des abattements (100 000 € par enfant, tous les 15 ans).
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Don familial d'argent */}
-            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#B99066] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/5 rounded-bl-full"></div>
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl font-bold">2</span>
-                </div>
-                <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold">Le don familial d'argent</h3>
-                  <p className="text-[#B99066] font-bold">"Don Sarkozy"</p>
-                </div>
-              </div>
-              <div className="space-y-3 relative z-10">
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Spécifique aux dons en numéraire (argent).
-                </p>
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Conditions : donateur &lt; 80 ans, donataire majeur.
-                </p>
-                <div className="bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 p-3 rounded-lg border-l-2 border-[#B99066]">
-                  <p className="text-[#253F60] text-xs font-semibold">
-                    Abattement supplémentaire de <strong>31 865 €</strong>, en plus des abattements classiques.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Présents d'usage */}
-            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#253F60] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#253F60]/5 rounded-bl-full"></div>
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl font-bold">3</span>
-                </div>
-                <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold">Les présents d'usage</h3>
-                  <p className="text-[#B99066] font-bold">Cadeaux d'occasion</p>
-                </div>
-              </div>
-              <div className="space-y-3 relative z-10">
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Cadeaux offerts à l'occasion d'événements particuliers (mariage, anniversaire, Noël…).
-                </p>
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Ils ne sont pas taxés <strong>s'ils restent proportionnés</strong> au patrimoine et aux revenus du donateur.
-                </p>
-                <div className="bg-gradient-to-br from-[#253F60]/10 to-[#B99066]/10 p-3 rounded-lg border-l-2 border-[#253F60]">
-                  <p className="text-[#253F60] text-xs font-semibold">
-                    Exemple : un chèque de 2 000 € pour un mariage peut être considéré comme présent d'usage pour un patrimoine de 500 000 €.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Donation-partage */}
-            <div className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-8 border-l-4 border-[#B99066] transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#B99066]/5 rounded-bl-full"></div>
-              <div className="flex items-center gap-4 mb-6 relative z-10">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl font-bold">4</span>
-                </div>
-                <div>
-                  <h3 className="text-[#253F60] text-xl font-semibold">La donation-partage</h3>
-                  <p className="text-[#B99066] font-bold">Répartition équitable</p>
-                </div>
-              </div>
-              <div className="space-y-3 relative z-10">
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Permet de <strong>répartir équitablement</strong> son patrimoine entre ses héritiers.
-                </p>
-                <p className="text-[#686868] text-sm leading-relaxed">
-                  Avantage : fige la valeur des biens au jour de la donation, évitant les contestations futures.
-                </p>
-                <div className="bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 p-3 rounded-lg border-l-2 border-[#B99066]">
-                  <p className="text-[#253F60] text-xs font-semibold">
-                    Fiscalité : application immédiate des abattements.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Barème fiscal des donations Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Barème fiscal des donations (après abattement)"
-            subtitle="En ligne directe (parents ↔ enfants)"
-          />
-
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-[#253F60] text-white">
-                    <th className="px-6 py-4 text-left font-semibold">Part taxable</th>
-                    <th className="px-6 py-4 text-center font-semibold">Taux</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">Jusqu'à 8 072 €</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">5 %</td>
-                  </tr>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">8 072 € – 12 109 €</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">10 %</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">12 109 € – 15 932 €</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">15 %</td>
-                  </tr>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">15 932 € – 552 324 €</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">20 %</td>
-                  </tr>
-                  <tr className="border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">552 324 € – 902 838 €</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">30 %</td>
-                  </tr>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <td className="px-6 py-4 font-medium">902 838 € – 1 805 677 €</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">40 %</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-4 font-medium">Au-delà</td>
-                    <td className="px-6 py-4 text-center text-[#253F60] font-bold">45 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden">
+        {data.example && (
+          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-white">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-            <h3 className="text-xl font-semibold mb-6 text-center relative z-10">
-              Exemple : un parent donne 200 000 € à son enfant
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                <h4 className="font-semibold mb-2">Donation totale</h4>
-                <p className="text-2xl font-bold">200 000 €</p>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                <h4 className="font-semibold mb-2">Abattement</h4>
-                <p className="text-2xl font-bold">100 000 €</p>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                <h4 className="font-semibold mb-2">Base taxable</h4>
-                <p className="text-2xl font-bold">100 000 €</p>
-              </div>
+            <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.example.title }} />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 text-white">
+              {data.example.cards && data.example.cards.map((card, i) => (
+                <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
+                  <h4 className="font-semibold mb-2">{card.label}</h4>
+                  <p className="text-2xl font-bold">{card.value}</p>
+                </div>
+              ))}
             </div>
-            
+
             <div className="mt-6 bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10">
               <p className="text-lg">
-                <strong>Droits à payer ≈ 20 000 €</strong> (taux de 20 %)
+                <strong dangerouslySetInnerHTML={{ __html: data.example.result }} />
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        )}
+      </div>
+    </section>
+  );
+};
 
-      {/* Donation de la nue-propriété Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Donation de la nue-propriété : optimiser la transmission"
-            subtitle="Le démembrement de propriété permet de transmettre la nue-propriété d'un bien en conservant l'usufruit (droit d'usage et perception des loyers)"
-          />
+const UsufructSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left: Barème fiscal */}
-            <div>
-              <h3 className="text-[#112033] text-xl font-semibold mb-8">
-                Barème fiscal (usufruit / nue-propriété) – Article 669 CGI :
-              </h3>
-              
-              <div className="space-y-6">
-                {[
-                  { age: "Moins de 51 ans", rate: "50% / 50%", desc: "usufruit = 50 % / nue-propriété = 50 %", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]", border: "border-[#253F60]" },
-                  { age: "61-70 ans", rate: "40% / 60%", desc: "usufruit = 40 % / nue-propriété = 60 %", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]", border: "border-[#B99066]" },
-                  { age: "71-80 ans", rate: "30% / 70%", desc: "usufruit = 30 % / nue-propriété = 70 %", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]", border: "border-[#253F60]" },
-                  { age: "Plus de 81 ans", rate: "20% / 80%", desc: "usufruit = 20 % / nue-propriété = 80 %", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]", border: "border-[#B99066]" }
-                ].map((item, index) => (
-                  <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-xl hover:shadow-2xl p-6 border-l-4 ${item.border} transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-white`}>
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
-                    <div className="flex justify-between items-center mb-2 relative z-10">
-                      <span className="font-semibold">{item.age}</span>
-                      <span className="font-bold text-xl">{item.rate}</span>
-                    </div>
-                    <p className="text-white/90 text-sm relative z-10">{item.desc}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div>
+            <h3 className="text-[#112033] text-xl font-semibold mb-8">
+              {data.leftTitle}
+            </h3>
+
+            <div className="space-y-6 text-white">
+              {data.leftItems && data.leftItems.map((item, index) => (
+                <div key={index} className={`relative bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60] border-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066] border-[#B99066]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 border-l-4 transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-white`}>
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                  <div className="flex justify-between items-center mb-2 relative z-10 text-white">
+                    <span className="font-semibold">{item.age}</span>
+                    <span className="font-bold text-xl">{item.rate}</span>
+                  </div>
+                  <p className="opacity-90 text-sm relative z-10 text-white">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-white">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#253F60]/10 rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-tr-full"></div>
+            <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white">
+              {data.rightTitle}
+            </h3>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/20 relative z-10 text-white">
+              <h4 className="font-semibold mb-4 text-center text-white" dangerouslySetInnerHTML={{ __html: data.rightSubtitle }} />
+
+              <div className="space-y-4 text-white">
+                {data.rightItems && data.rightItems.map((item, i) => (
+                  <div key={i} className="flex justify-between items-center text-white">
+                    <span className="text-white">{item.label}</span>
+                    <span className="font-bold text-white">{item.value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right: Exemple concret */}
-            <div className="relative bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066] rounded-2xl shadow-2xl p-8 text-white overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#253F60]/10 rounded-bl-full"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-tr-full"></div>
-              <h3 className="text-xl font-semibold mb-6 text-center relative z-10">
-                Exemple concret
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10 text-white">
+              <p className="text-lg text-white">
+                <strong dangerouslySetInnerHTML={{ __html: data.rightResult }} />
+              </p>
+              <p className="text-sm mt-2 opacity-90 text-white">
+                {data.rightResultNote}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const StrategySection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
+
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-[#686868]">
+            <div className="text-[#686868]">
+              <h3 className="text-[#112033] text-xl font-semibold mb-6">
+                {data.leftTitle}
               </h3>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/20 relative z-10">
-                <h4 className="font-semibold mb-4 text-center">Un bien immobilier de 500 000 € transmis en nue-propriété à 70 ans</h4>
-                
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span>Valeur du bien :</span>
-                    <span className="font-bold">500 000 €</span>
+
+              <div className="space-y-6 text-[#686868]">
+                {data.leftItems && data.leftItems.map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 text-[#686868]">
+                    <div className={`w-10 h-10 ${i % 2 === 0 ? 'bg-[#253F60]' : 'bg-[#B99066]'} rounded-full flex items-center justify-center flex-shrink-0`}>
+                      <span className="text-white font-bold">{i + 1}</span>
+                    </div>
+                    <div>
+                      <h4 className="text-[#112033] font-semibold mb-2">
+                        {item.title}
+                      </h4>
+                      <p className="text-[#686868] text-sm">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-                  
-                  <div className="flex justify-between items-center">
-                    <span>Usufruit (40%) :</span>
-                    <span className="font-bold">200 000 €</span>
-                  </div>
-                  
-                  <div className="flex justify-between items-center">
-                    <span>Nue-propriété (60%) :</span>
-                    <span className="font-bold">300 000 €</span>
-                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-white">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
+              <h3 className="text-xl font-semibold mb-6 text-center relative z-10 text-white">
+                {data.rightTitle}
+              </h3>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/20 relative z-10 text-white">
+                <h4 className="font-semibold mb-4 text-center text-white" dangerouslySetInnerHTML={{ __html: data.rightSubtitle }} />
+
+                <div className="space-y-4 text-white">
+                  {data.rightItems && data.rightItems.map((item, i) => (
+                    <div key={i} className="flex justify-between items-center text-white">
+                      <span>{item.label}</span>
+                      <span className="font-bold">{item.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10">
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10 text-white">
                 <p className="text-lg">
-                  <strong>Valeur taxable = 300 000 €</strong> (60 %)
+                  <strong dangerouslySetInnerHTML={{ __html: data.rightResult }} />
                 </p>
-                <p className="text-sm mt-2 text-white/90">
-                  Résultat : baisse significative des droits de donation
+                <p className="text-sm mt-2 opacity-90 text-white">
+                  {data.rightResultNote}
                 </p>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+};
 
-      {/* Intérêt de payer la tranche à 5% Section */}
-      <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="Intérêt de payer la tranche à 5 %"
-            subtitle="Un conseil souvent méconnu : payer volontairement une petite tranche taxable à 5 % peut permettre de gonfler la donation et de transmettre davantage en net"
-          />
+const VisionSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 text-[#686868]">
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          title={data.title}
+          subtitle={data.subtitle}
+        />
 
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left: Explanation */}
-              <div>
-                <h3 className="text-[#112033] text-xl font-semibold mb-6">
-                  La stratégie de la tranche à 5%
-                </h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">1</span>
-                    </div>
-                    <div>
-                      <h4 className="text-[#112033] font-semibold mb-2">
-                        Optimisation fiscale intelligente
-                      </h4>
-                      <p className="text-[#686868] text-sm">
-                        Au lieu de s'arrêter exactement à l'abattement, il peut être avantageux de dépasser légèrement pour utiliser la tranche à 5%.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#B99066] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">2</span>
-                    </div>
-                    <div>
-                      <h4 className="text-[#112033] font-semibold mb-2">
-                        Coût marginal faible
-                      </h4>
-                      <p className="text-[#686868] text-sm">
-                        Le coût fiscal supplémentaire est très faible comparé au patrimoine transmis en plus.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-[#253F60] rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold">3</span>
-                    </div>
-                    <div>
-                      <h4 className="text-[#112033] font-semibold mb-2">
-                        Maximisation du patrimoine transmis
-                      </h4>
-                      <p className="text-[#686868] text-sm">
-                        Cette stratégie permet de transmettre plus de patrimoine net aux bénéficiaires.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-white">
+          {data.items && data.items.map((item, index) => (
+            <div key={index} className={`relative bg-gradient-to-br ${index % 2 === 0 ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'from-[#B99066] via-[#A67A5A] to-[#B99066]'} rounded-2xl shadow-xl hover:shadow-2xl p-6 sm:p-8 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group text-white`}>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 border border-white/30 text-white">
+                <span className="text-white text-2xl font-bold">{index + 1}</span>
               </div>
-
-              {/* Right: Example */}
-              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-                <h3 className="text-xl font-semibold mb-6 text-center relative z-10">
-                  Exemple concret
-                </h3>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/20 relative z-10">
-                  <h4 className="font-semibold mb-4 text-center">Ajouter 20 000 € de donation au-delà de l'abattement</h4>
-                  
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span>Donation supplémentaire :</span>
-                      <span className="font-bold">20 000 €</span>
-                    </div>
-                    
-                    <div className="flex justify-between items-center">
-                      <span>Taux d'imposition :</span>
-                      <span className="font-bold">5%</span>
-                    </div>
-                    
-                    <div className="flex justify-between items-center">
-                      <span>Droits à payer :</span>
-                      <span className="font-bold">1 000 €</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 relative z-10">
-                  <p className="text-lg">
-                    <strong>Résultat :</strong> 1 000 € de droits génèrent 20 000 € de patrimoine transmis
-                  </p>
-                  <p className="text-sm mt-2 text-white/90">
-                    Soit un coût fiscal de seulement 5% pour transmettre 20 000 € supplémentaires
-                  </p>
-                </div>
-              </div>
+              <h3 className="text-xl font-semibold mb-3 relative z-10 text-white">{item.title}</h3>
+              <p className="text-sm opacity-90 leading-relaxed relative z-10 text-white">{item.description}</p>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
 
-      {/* La vision Azalée Patrimoine Section */}
-      <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title="La vision Azalée Patrimoine"
-            subtitle="Chez Azalée Patrimoine, nous analysons votre situation familiale et fiscale pour optimiser votre transmission"
-          />
+        <div className="relative bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-2xl shadow-2xl p-8 text-white overflow-hidden text-center text-white">
+          <h3 className="text-xl font-semibold mb-6 relative z-10 text-white" dangerouslySetInnerHTML={{ __html: data.highlight }} />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {[
-              { num: "1", title: "Déterminer la meilleure forme", desc: "Nous analysons votre situation pour choisir la forme de donation la plus adaptée à vos objectifs patrimoniaux.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" },
-              { num: "2", title: "Optimiser le timing", desc: "Nous planifions le calendrier optimal : avant 70 ans, tous les 15 ans, en fonction de votre situation.", color: "from-[#B99066] via-[#A67A5A] to-[#B99066]" },
-              { num: "3", title: "Solutions fiscales intelligentes", desc: "Démembrement, assurance-vie, donation-partage : nous combinons les outils pour maximiser votre transmission.", color: "from-[#253F60] via-[#1a2d47] to-[#253F60]" }
-            ].map((item, index) => (
-              <div key={index} className={`relative bg-gradient-to-br ${item.color} rounded-2xl shadow-xl hover:shadow-2xl p-6 sm:p-8 text-center text-white transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group`}>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
-                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 border border-white/30">
-                  <span className="text-white text-2xl font-bold">{item.num}</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-3 relative z-10">{item.title}</h3>
-                <p className="text-sm text-white/90 leading-relaxed relative z-10">{item.desc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 text-white">
+            {data.cards && data.cards.map((card, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20 text-white">
+                <h4 className="font-semibold mb-2 text-white">{card.title}</h4>
+                <p className="text-sm opacity-90 text-white">{card.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-2xl p-8 text-white overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#B99066]/10 rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#B99066]/10 rounded-tr-full"></div>
-            <h3 className="text-xl font-semibold mb-6 text-center relative z-10">
-              Notre rôle : vous aider à <strong>transmettre plus, en payant moins</strong>, dans un cadre familial sécurisé.
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                <h4 className="font-semibold mb-2">Transmettre plus</h4>
-                <p className="text-sm text-white/90">Optimisation fiscale et stratégies patrimoniales</p>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                <h4 className="font-semibold mb-2">Payer moins</h4>
-                <p className="text-sm text-white/90">Minimisation des droits de donation et de succession</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 relative bg-white border-l-4 border-[#253F60] p-6 rounded-r-lg shadow-lg">
-            <p className="text-[#253F60] text-center font-semibold leading-relaxed">
-              <strong>Prenez rendez-vous dès aujourd'hui</strong> : Azalée Patrimoine, le chef d'orchestre de votre transmission patrimoniale.
+          <div className="mt-8 relative bg-white/10 border-l-4 border-white p-6 rounded-r-lg text-white">
+            <p className="text-white text-center font-semibold leading-relaxed text-white">
+              <strong dangerouslySetInnerHTML={{ __html: data.ctaText }} />
             </p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+};
 
-      {/* CTA Section */}
-      <section className="w-full bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] py-16 sm:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            Prêt à optimiser votre transmission patrimoniale ?
-          </h2>
-          <p className="text-white text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
-            Nos experts vous accompagnent pour mettre en place la stratégie de donation la plus adaptée à votre situation familiale et fiscale.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton 
-              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-              variant="primary"
-              className="px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+const FinalCtaSection = ({ data }) => {
+  if (!data) return null;
+  return (
+    <section className="w-full bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] py-16 sm:py-20 relative overflow-hidden text-white">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066]/20 rounded-bl-full"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
+      <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 text-white">
+        <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold mb-6 text-white">
+          {data.title}
+        </h2>
+        <p className="text-white text-lg mb-8 max-w-3xl mx-auto leading-relaxed text-white">
+          {data.subtitle}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {data.buttons && data.buttons.map((btn, i) => (
+            <CTAButton
+              key={i}
+              externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+              variant={i === 0 ? "primary" : "secondary"}
+              className={i === 1 ? "bg-white/20 border-white/30 hover:bg-white/30" : ""}
             >
-              Simuler ma donation
+              {btn.text}
             </CTAButton>
-            <CTAButton 
-              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
-              variant="secondary"
-              className="bg-white/20 border-white/30 px-8 py-4 text-lg font-semibold hover:bg-white/30 transform hover:-translate-y-1 hover:shadow-2xl"
-            >
-              Planifiez votre consultation gratuite
-            </CTAButton>
-          </div>
+          ))}
         </div>
-      </section>
-      
+      </div>
+    </section>
+  );
+};
+
+export default async function DonationGratuitePage() {
+  let content = await getPageContent('patrimoine/donation-gratuite');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/donation-gratuite`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">La page de Donation Gratuite n'est pas configurée.</p>
+          <CTAButton externalUrl="/" variant="white">Retour à l'accueil</CTAButton>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <HeroSection data={content.hero} />
+      {content.chart && (
+        <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 text-[#686868]">
+          <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              title={content.chart.title || "Caractéristiques des donations à titre gratuit"}
+              subtitle={content.chart.subtitle}
+            />
+            <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-100">
+              <PlacementChart
+                title={content.chart.title || "Caractéristiques des donations à titre gratuit"}
+                data={content.chart.data}
+                chartImage={content.chart.image || "/images/azalee-patrimoine-donation.webp"}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+      <FormsSection data={content.formes} />
+      <TaxScaleSection data={content.fiscalite} />
+      <UsufructSection data={content.demembrement} />
+      <StrategySection data={content.strategie} />
+      <VisionSection data={content.vision} />
+      <FinalCtaSection data={content.finalCta} />
       <Footer />
     </>
   );

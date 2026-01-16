@@ -3,93 +3,28 @@ import { getPageContent } from '@/lib/cms-server';
 import Footer from '../../../components/common/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 
-const defaultContent = {
-  hero: { title: "Crédit immobilier et PTZ : le levier incontournable", subtitle: "Le crédit immobilier est au cœur de toute stratégie patrimoniale. Grâce à l'effet de levier du crédit, il est possible d'acheter un bien important avec un apport limité.", subtitle2: "En parallèle, l'État soutient les primo-accédants grâce au PTZ (Prêt à Taux Zéro).", button: "Simuler mon financement" },
-  rightCard: { title: "Financement optimisé", floatingText: "0% →\nPTZ sans intérêts", benefits: ["Meilleurs taux négociés", "PTZ éligibilité vérifiée", "Montage financier personnalisé", "Accompagnement complet"] },
-  credit: { 
-    title: "Le crédit immobilier", 
-    subtitle: "Découvrez les bénéfices de l'effet de levier financier", 
-    description: "Le crédit immobilier permet de financer l'acquisition d'un bien avec un apport limité.", 
-    advantages: [
-      { title: "Effet de levier financier", description: "Le crédit permet d'investir dans un bien immobilier d'une valeur bien supérieure à vos fonds propres. Avec 20 000 € d'apport, vous pouvez financer un projet de 200 000 € et bénéficier des loyers et de la valorisation du bien." },
-      { title: "Constitution de patrimoine", description: "Chaque mensualité rembourse une partie de votre emprunt. À terme, vous devenez pleinement propriétaire d'un bien qui peut être transmis à vos enfants ou revendu avec une plus-value." },
-      { title: "Optimisation fiscale", description: "Dans certains régimes (par exemple pour une SCI à l'IS), les intérêts d'emprunt sont déductibles, ce qui réduit l'imposition des loyers perçus." },
-      { title: "Sécurité du placement", description: "L'immobilier est un actif tangible. Contrairement aux placements financiers volatils, un bien immobilier conserve une valeur patrimoniale, surtout si son emplacement est bien choisi." }
-    ]
-  },
-  inconvenientsSection: { 
-    title: "Les inconvénients et risques du crédit immobilier", 
-    subtitle: "Points de vigilance essentiels à connaître avant de s'engager",
-    items: [
-      { title: "Endettement", description: "Un emprunt engage sur le long terme (15 à 25 ans), ce qui réduit la capacité d'emprunt future." },
-      { title: "Risque de taux", description: "La hausse des taux d'intérêt peut augmenter le coût total du crédit et réduire la rentabilité." },
-      { title: "Assurance emprunteur", description: "Souvent coûteuse, elle peut représenter une charge importante si elle n'est pas renégociée." },
-      { title: "Vacance locative", description: "Dans le cas d'un investissement locatif, l'absence de locataire peut déséquilibrer votre trésorerie." }
-    ]
-  },
-  ptz: { 
-    title: "Le Prêt à Taux Zéro (PTZ)", 
-    subtitle: "Un coup de pouce pour les primo-accédants", 
-    description: "Le **Prêt à Taux Zéro** est un dispositif de l'État destiné aux ménages achetant leur **résidence principale** pour la première fois. Il finance jusqu'à 40 % du prix du logement **sans intérêts**.",
-    cards: [
-      { icon: "40%", title: "Financement", description: "Jusqu'à 40% du prix du logement" },
-      { icon: "0%", title: "Taux d'intérêt", description: "Aucun intérêt à payer" },
-      { icon: "house", title: "Logements éligibles", description: "Neufs ou anciens avec travaux" }
-    ],
-    exempleTitle: "Exemple concret",
-    exempleContent: "Un couple achète un logement neuf à 220 000 € dans une zone éligible. Le PTZ finance 88 000 € sans intérêts, le reste est couvert par un crédit classique. Leur charge mensuelle est réduite, ce qui sécurise leur budget et facilite l'accession à la propriété.",
-    conditions: ["Primo-accédant", "Plafonds de ressources", "Acquisition dans le neuf ou l'ancien avec travaux"], 
-    avantages: ["Aucun intérêt à payer", "Différé de remboursement possible", "Complément idéal d'un prêt classique"] 
-  },
-  exempleSection: { 
-    title: "Exemple concret d'effet de levier", 
-    subtitle: "Illustration pratique du potentiel de l'investissement immobilier",
-    description: "Un investisseur achète un appartement de 200 000 € avec 20 000 € d'apport et un prêt de 180 000 € sur 20 ans.",
-    metrics: [
-      { label: "Loyer perçu", value: "900 €/mois" },
-      { label: "Mensualité crédit", value: "1 000 €/mois" },
-      { label: "Effort d'épargne", value: "100 €/mois" }
-    ],
-    resultTitle: "Résultat après 20 ans",
-    resultText1: "L'investisseur est pleinement propriétaire d'un bien valorisé **240 000 €** grâce à la revalorisation du marché.",
-    resultText2: "Son effort total d'épargne a été de **24 000 €**, pour un patrimoine net **dix fois supérieur**."
-  },
-  conseil: { 
-    title: "Conseil Azalée Patrimoine", 
-    subtitle: "Expertise et accompagnement personnalisé pour votre projet", 
-    content: "Le montage financier est crucial pour la réussite de votre projet. Nous analysons votre situation et négocions les meilleures conditions.",
-    introText: "Le crédit immobilier est un **outil de richesse incomparable**, mais il doit être utilisé avec prudence. La clé est d'adapter le montant emprunté, la durée et le type de crédit à votre situation et à vos objectifs patrimoniaux.",
-    introText2: "Chez **Azalée Patrimoine**, nous aidons nos clients à :",
-    services: [
-      { title: "Négocier les meilleures conditions", description: "De crédit (taux, assurance, durée)" },
-      { title: "Optimiser l'effet de levier", description: "Tout en gardant une trésorerie saine" },
-      { title: "Profiter des dispositifs d'aide", description: "Comme le PTZ lorsqu'ils sont éligibles" },
-      { title: "Intégrer le financement", description: "Dans une stratégie patrimoniale globale" }
-    ],
-    conclusionText: "Bien maîtrisé, le crédit immobilier n'est pas une charge : c'est un **levier patrimonial** qui vous permet de transformer une petite mise de départ en un patrimoine solide et transmissible."
-  },
-  finalCta: { 
-    title: "Optimisez votre financement immobilier", 
-    subtitle: "Nos experts Azalée Patrimoine vous accompagnent pour simuler votre capacité d'emprunt et découvrir la meilleure stratégie de financement pour vos projets immobiliers.",
-    primaryButton: "Simuler mon financement", 
-    secondaryButton: "Planifiez votre consultation gratuite" 
-  },
-  seo: { metaTitle: "Crédit Immobilier et PTZ | Azalée Patrimoine", metaDescription: "Optimisez votre financement immobilier avec Azalée Patrimoine." }
-};
+export const revalidate = 0;
 
 export async function generateMetadata() {
-  const content = await getPageContent('immobilier/credit-immobilier-ptz', defaultContent);
-  
+  const content = await getPageContent('immobilier/credit-immobilier-ptz');
   return {
-    title: content?.seo?.metaTitle || defaultContent.seo.metaTitle,
-    description: content?.seo?.metaDescription || defaultContent.seo.metaDescription,
+    title: content?.seo?.metaTitle,
+    description: content?.seo?.metaDescription,
   };
 }
 
 export default async function CreditImmobilierPTZPage() {
-  const content = await getPageContent('immobilier/credit-immobilier-ptz', defaultContent);
-  
-  // If no content at all (shouldn't happen with defaultContent fallback, but safety check)
+  let content = await getPageContent('immobilier/credit-immobilier-ptz');
+
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/credit-immobilier-ptz`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) content = json.data.content;
+    } catch (e) { console.error('API Fallback failed', e); }
+  }
+
   if (!content) {
     notFound();
   }
@@ -105,24 +40,24 @@ export default async function CreditImmobilierPTZPage() {
               <h1 className="text-[#112033] text-xs sm:text-2xl lg:text-4xl font-cairo font-semibold leading-tight mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.title}
               </h1>
-              
+
               <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.subtitle}
               </p>
-              
+
               <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.subtitle2}
               </p>
-              
+
               <div className="flex justify-center lg:justify-start">
-                <CTAButton 
+                <CTAButton
                   externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
                 >
                   {content.hero?.button}
                 </CTAButton>
               </div>
             </div>
-            
+
             {/* Right Card */}
             <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative">
               <div className="flex items-center gap-4 mb-4 sm:mb-6">
@@ -135,10 +70,10 @@ export default async function CreditImmobilierPTZPage() {
                   {content.rightCard?.title}
                 </h2>
               </div>
-              
+
               {content.rightCard?.floatingText && (
-              <div className="absolute -top-16 -right-8 w-[51.3px] h-[51.3px] sm:w-[202px] sm:h-[202px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center">
-                <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-base lg:text-xl leading-tight px-1 sm:px-0">
+                <div className="absolute -top-16 -right-8 w-[51.3px] h-[51.3px] sm:w-[202px] sm:h-[202px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center">
+                  <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-base lg:text-xl leading-tight px-1 sm:px-0">
                     {content.rightCard.floatingText.split('\n').map((line, index, arr) => (
                       <span key={index} className={index === 0 && arr.length > 1 ? "hidden sm:block" : index === 1 ? "sm:hidden" : "hidden sm:block"}>
                         {line}
@@ -148,18 +83,18 @@ export default async function CreditImmobilierPTZPage() {
                   </div>
                 </div>
               )}
-              
+
               {content.rightCard?.benefits && (
-              <div className="mt-8 sm:mt-12">
-                <ul className="space-y-2 sm:space-y-3 text-white text-xs sm:text-sm font-source-sans font-semibold leading-relaxed">
-                    {content.rightCard.benefits.map((benefit, index) => (
+                <div className="mt-8 sm:mt-12">
+                  <ul className="space-y-2 sm:space-y-3 text-white text-xs sm:text-sm font-source-sans font-semibold leading-relaxed">
+                    {(content.rightCard.benefits || []).map((benefit, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <span className="text-white mt-1">•</span>
                         <span>{benefit}</span>
-                  </li>
+                      </li>
                     ))}
-                </ul>
-              </div>
+                  </ul>
+                </div>
               )}
             </div>
           </div>
@@ -169,7 +104,7 @@ export default async function CreditImmobilierPTZPage() {
       {/* Content Section */}
       <section className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Les avantages du crédit immobilier */}
           <div className="mb-12 sm:mb-16">
             <div className="text-center mb-12 sm:mb-16">
@@ -184,28 +119,28 @@ export default async function CreditImmobilierPTZPage() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {content.credit?.advantages?.map((advantage, index) => {
+              {(content.credit?.advantages || []).map((advantage, index) => {
                 const isEven = index % 2 === 0;
-                const gradientClass = isEven 
-                  ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' 
+                const gradientClass = isEven
+                  ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]'
                   : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]';
-                const iconGradientClass = isEven 
-                  ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]' 
+                const iconGradientClass = isEven
+                  ? 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]'
                   : 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]';
                 const bgClass = isEven ? 'bg-[#B99066]/20' : 'bg-[#253F60]/20';
-                
+
                 return (
                   <div key={index} className={`group relative ${gradientClass} rounded-2xl p-8 shadow-xl text-white overflow-hidden`}>
                     <div className={`absolute top-0 right-0 w-24 h-24 ${bgClass} rounded-bl-full`}></div>
-                <div className="relative z-10">
+                    <div className="relative z-10">
                       <div className={`w-16 h-16 ${iconGradientClass} rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                         <span className="text-white text-2xl font-bold">{index + 1}</span>
-                  </div>
+                      </div>
                       <h3 className="text-white font-cairo font-bold text-xl mb-4 text-center">{advantage.title}</h3>
-                  <p className="text-white text-base font-inter leading-relaxed">
+                      <p className="text-white text-base font-inter leading-relaxed">
                         {advantage.description}
-                  </p>
-                </div>
+                      </p>
+                    </div>
                   </div>
                 );
               })}
@@ -214,26 +149,26 @@ export default async function CreditImmobilierPTZPage() {
         </div>
       </section>
 
-          {/* Les inconvénients et risques */}
-          <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <div className="inline-block mb-4">
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
-                </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+      {/* Les inconvénients et risques */}
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               {content.inconvenientsSection?.title}
-                </h2>
-                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+            </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               {content.inconvenientsSection?.subtitle}
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {content.inconvenientsSection?.items?.map((item, index) => {
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {(content.inconvenientsSection?.items || []).map((item, index) => {
               const isEven = index % 2 === 0;
               const borderClass = isEven ? 'hover:border-[#253F60]' : 'hover:border-[#B99066]';
               const bgClass = isEven ? 'bg-[#253F60]/5' : 'bg-[#B99066]/5';
-              
+
               return (
                 <div key={index} className={`group relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 border-2 border-[#E5E7EB] ${borderClass} transition-all duration-500 hover:shadow-xl transform hover:-translate-y-2 overflow-hidden`}>
                   <div className={`absolute top-0 right-0 w-20 h-20 ${bgClass} rounded-bl-full`}></div>
@@ -247,41 +182,41 @@ export default async function CreditImmobilierPTZPage() {
                 </div>
               );
             })}
-              </div>
-            </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          {/* Le PTZ */}
-          <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
-            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <div className="inline-block mb-4">
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
-                </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+      {/* Le PTZ */}
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               {content.ptz?.title}
-                </h2>
-                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+            </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               {content.ptz?.subtitle}
-                </p>
-              </div>
-              <div className="relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 sm:p-10 lg:p-12 shadow-lg border-2 border-[#E5E7EB] overflow-hidden">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/5 rounded-bl-full"></div>
-            <p className="text-[#686868] text-lg sm:text-xl font-inter leading-relaxed mb-8 text-center" dangerouslySetInnerHTML={{__html: content.ptz?.description?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
-              {content.ptz?.cards?.map((card, index) => {
+            </p>
+          </div>
+          <div className="relative bg-gradient-to-br from-white via-[#F9FAFB] to-white rounded-2xl p-8 sm:p-10 lg:p-12 shadow-lg border-2 border-[#E5E7EB] overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[#253F60]/5 rounded-bl-full"></div>
+            <p className="text-[#686868] text-lg sm:text-xl font-inter leading-relaxed mb-8 text-center" dangerouslySetInnerHTML={{ __html: (content.ptz?.description || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8">
+              {(content.ptz?.cards || []).map((card, index) => {
                 const isEven = index % 2 === 0;
                 const borderClass = isEven ? 'hover:border-[#253F60]' : 'hover:border-[#B99066]';
                 const gradientClass = isEven ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]' : 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]';
-                
+
                 return (
                   <div key={index} className={`group bg-white rounded-2xl p-8 shadow-xl text-center border-2 border-[#E5E7EB] ${borderClass} transition-all duration-300 transform hover:-translate-y-1`}>
                     <div className={`w-20 h-20 ${gradientClass} rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       {card.icon === "house" ? (
-                      <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                      </svg>
+                        <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
                       ) : (
                         <span className="text-white text-2xl font-bold">{card.icon}</span>
                       )}
@@ -291,128 +226,128 @@ export default async function CreditImmobilierPTZPage() {
                   </div>
                 );
               })}
-                </div>
-                
+            </div>
+
             {content.ptz?.exempleContent && (
-                <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-xl p-6 sm:p-8 text-white shadow-xl overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-[#B99066]/20 rounded-bl-full"></div>
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
+              <div className="relative bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-xl p-6 sm:p-8 text-white shadow-xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#B99066]/20 rounded-bl-full"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-1 h-8 bg-gradient-to-b from-[#B99066] to-[#A67A5A] rounded-full"></div>
                     <h3 className="text-2xl sm:text-3xl font-cairo font-bold">{content.ptz.exempleTitle}</h3>
-                    </div>
-                    <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                    <p className="text-base sm:text-lg leading-relaxed" dangerouslySetInnerHTML={{__html: content.ptz.exempleContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
+                    <p className="text-base sm:text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: content.ptz.exempleContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                   </div>
                 </div>
               </div>
             )}
-              </div>
-            </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          {/* Exemple concret d'effet de levier */}
-          <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12 sm:mb-16">
-                <div className="inline-block mb-4">
-                  <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
-                </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+      {/* Exemple concret d'effet de levier */}
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
               {content.exempleSection?.title}
-                </h2>
-                <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+            </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               {content.exempleSection?.subtitle}
-                </p>
-              </div>
-            <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 text-white">
-              <h3 className="text-xl font-semibold mb-6">
+            </p>
+          </div>
+          <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 text-white">
+            <h3 className="text-xl font-semibold mb-6">
               {content.exempleSection?.description}
-              </h3>
-              
+            </h3>
+
             {content.exempleSection?.metrics && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 {content.exempleSection.metrics.map((metric, index) => (
                   <div key={index} className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
                     <h4 className="font-semibold mb-2">{metric.label}</h4>
                     <p className="text-lg font-bold">{metric.value}</p>
-                </div>
+                  </div>
                 ))}
               </div>
             )}
-              
+
             {content.exempleSection?.resultTitle && (
               <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
                 <h4 className="font-semibold mb-2">{content.exempleSection.resultTitle}</h4>
                 {content.exempleSection.resultText1 && (
-                  <p className="text-sm mb-2" dangerouslySetInnerHTML={{__html: content.exempleSection.resultText1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
+                  <p className="text-sm mb-2" dangerouslySetInnerHTML={{ __html: content.exempleSection.resultText1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                 )}
                 {content.exempleSection.resultText2 && (
-                  <p className="text-sm" dangerouslySetInnerHTML={{__html: content.exempleSection.resultText2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
+                  <p className="text-sm" dangerouslySetInnerHTML={{ __html: content.exempleSection.resultText2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                 )}
               </div>
             )}
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-          {/* Conseil Azalée Patrimoine */}
-          <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
-            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Conseil Azalée Patrimoine */}
+      <section className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-lg p-6 sm:p-8 lg:p-10 shadow-lg">
             <h2 className="text-[#112033] text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-6 sm:mb-8 text-center">
               {content.conseil?.title}
             </h2>
             <div className="space-y-6">
               {content.conseil?.introText && (
-                <p className="text-[#686868] text-lg" dangerouslySetInnerHTML={{__html: content.conseil.introText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
+                <p className="text-[#686868] text-lg" dangerouslySetInnerHTML={{ __html: content.conseil.introText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
               )}
-              
+
               {content.conseil?.introText2 && (
-                <p className="text-[#686868] text-lg" dangerouslySetInnerHTML={{__html: content.conseil.introText2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
+                <p className="text-[#686868] text-lg" dangerouslySetInnerHTML={{ __html: content.conseil.introText2.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
               )}
-              
+
               {content.conseil?.services && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {content.conseil.services.map((service, index) => (
                     <div key={index} className="bg-[#253F60] rounded-lg p-4">
                       <h3 className="font-semibold mb-2 text-white">{service.title}</h3>
                       <p className="text-sm text-white">{service.description}</p>
-                </div>
+                    </div>
                   ))}
                 </div>
               )}
-              
+
               {content.conseil?.conclusionText && (
-              <div className="bg-[#253F60] rounded-lg p-4 text-center">
-                  <p className="text-sm text-white" dangerouslySetInnerHTML={{__html: content.conseil.conclusionText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}} />
-              </div>
+                <div className="bg-[#253F60] rounded-lg p-4 text-center">
+                  <p className="text-sm text-white" dangerouslySetInnerHTML={{ __html: content.conseil.conclusionText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                </div>
               )}
             </div>
           </div>
-            </div>
-          </section>
+        </div>
+      </section>
 
-          {/* CTA Final */}
-          <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* CTA Final */}
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-8 sm:p-10 lg:p-12 text-center shadow-xl">
             <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-cairo font-semibold mb-4 sm:mb-6">
               {content.finalCta?.title}
             </h2>
             {content.finalCta?.subtitle && (
-            <p className="text-white text-base sm:text-lg font-inter mb-6 sm:mb-8 max-w-2xl mx-auto">
+              <p className="text-white text-base sm:text-lg font-inter mb-6 sm:mb-8 max-w-2xl mx-auto">
                 {content.finalCta.subtitle}
-            </p>
+              </p>
             )}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTAButton 
+              <CTAButton
                 externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
                 variant="white"
               >
                 {content.finalCta?.primaryButton}
               </CTAButton>
-              <CTAButton 
+              <CTAButton
                 externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
                 variant="secondary"
               >
@@ -420,9 +355,9 @@ export default async function CreditImmobilierPTZPage() {
               </CTAButton>
             </div>
           </div>
-            </div>
-          </section>
-      
+        </div>
+      </section>
+
       <Footer />
     </>
   );

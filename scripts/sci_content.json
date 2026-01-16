@@ -1,0 +1,116 @@
+{
+    "path": "immobilier/sci",
+    "title": "SCI - Société Civile Immobilière",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "SCI : un outil de gestion et de transmission patrimoniale",
+            "subtitle": "La Société Civile Immobilière (SCI) est une structure juridique très utilisée par les familles et les investisseurs pour acheter, gérer et transmettre un bien immobilier à plusieurs.",
+            "subtitle2": "La SCI est ainsi devenue un véritable outil de stratégie patrimoniale, que ce soit pour acquérir un bien avec des proches, préparer sa succession ou optimiser la fiscalité de ses revenus immobiliers.",
+            "rightCard": {
+                "title": "SCI : gérez et transmettez",
+                "subtitle": "Outil puissant de gestion et de transmission patrimoniale",
+                "benefits": [
+                    "Souplesse familiale",
+                    "Gestion simplifiée",
+                    "Optimisation fiscale IR/IS"
+                ],
+                "button1": "Conseil expert"
+            }
+        },
+        "avantages": {
+            "title": "Les avantages de la SCI",
+            "subtitle": "Découvrez les bénéfices de cette structure patrimoniale",
+            "items": [
+                {
+                    "title": "Souplesse familiale",
+                    "description": "La SCI facilite la transmission d'un patrimoine. Les associés peuvent donner progressivement des parts sociales à leurs enfants, tout en bénéficiant de l'abattement de 100 000 € par parent et par enfant, renouvelable tous les 15 ans."
+                },
+                {
+                    "title": "Gestion simplifiée",
+                    "description": "Contrairement à l'indivision, source fréquente de blocages entre héritiers, la SCI offre une gouvernance claire : un gérant est désigné, et les règles de prise de décision sont fixées dans les statuts."
+                },
+                {
+                    "title": "Optimisation fiscale",
+                    "description": "La SCI offre la possibilité de choisir entre deux régimes fiscaux : SCI à l'IR (revenus imposés directement chez les associés) ou SCI à l'IS (amortissement possible du bien)."
+                }
+            ]
+        },
+        "inconvenients": {
+            "title": "Les inconvénients de la SCI",
+            "subtitle": "Points de vigilance essentiels à connaître avant de créer une SCI",
+            "items": [
+                {
+                    "title": "Formalités de création et de gestion",
+                    "description": "Une SCI nécessite des statuts, une assemblée générale annuelle et une comptabilité plus stricte qu'une détention en direct."
+                },
+                {
+                    "title": "Responsabilité des associés",
+                    "description": "Chacun est indéfiniment responsable des dettes sociales, à hauteur de sa participation."
+                },
+                {
+                    "title": "Choix fiscal piégeux",
+                    "description": "Le passage à l'IS peut sembler attractif, mais il entraîne une fiscalité lourde sur la plus-value à la revente."
+                }
+            ]
+        },
+        "fiscalite": {
+            "title": "SCI à l'IR ou SCI à l'IS : quel régime choisir ?",
+            "subtitle": "Comparez les deux régimes fiscaux pour choisir celui qui vous convient",
+            "ir": {
+                "title": "SCI à l'IR",
+                "description": "Adaptée pour des investisseurs qui perçoivent des loyers modestes ou qui souhaitent profiter du déficit foncier.",
+                "avantages": "Fiscalité simple, déficit foncier possible",
+                "inconvenients": "Fiscalité lourde si revenus élevés"
+            },
+            "is": {
+                "title": "SCI à l'IS",
+                "description": "Intéressante pour des projets générant beaucoup de loyers ou nécessitant d'importants travaux.",
+                "avantages": "Amortissement possible, réduction du bénéfice imposable",
+                "inconvenients": "Sortie pénalisante, plus-value calculée sur valeur réduite"
+            }
+        },
+        "exemple": {
+            "title": "Exemple concret",
+            "subtitle": "Un cas pratique pour mieux comprendre l'utilité de la SCI",
+            "description": "Deux frères héritent d'un immeuble évalué à 600 000 €",
+            "sansSci": [
+                "Chaque décision doit être prise à l'unanimité",
+                "Risque de blocages familiaux",
+                "Gestion complexe",
+                "Transmission difficile"
+            ],
+            "avecSci": [
+                "Création d'une SCI avec statuts clairs",
+                "Choix du régime IR (abattements durée)",
+                "Gérant désigné avec pouvoirs définis",
+                "Évite les blocages familiaux"
+            ],
+            "conclusion": "Les statuts définissent les pouvoirs du gérant et évitent les blocages familiaux. Les frères peuvent anticiper la transmission progressive à leurs enfants."
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "subtitle": "Expertise et accompagnement personnalisé pour votre projet",
+            "paragraphs": [
+                "La SCI est un outil puissant de gestion et de transmission, mais elle doit être maniée avec précaution.",
+                "Chez Azalée Patrimoine, nous accompagnons nos clients pour :"
+            ],
+            "items": [
+                "Créer leur SCI avec des statuts adaptés à leur situation familiale",
+                "Choisir le régime fiscal le plus pertinent (IR ou IS)",
+                "Anticiper la transmission de leurs biens immobiliers"
+            ],
+            "conclusion": "La SCI n'est pas une simple boîte à outils juridique : bien pensée, elle devient un véritable levier patrimonial."
+        },
+        "finalCta": {
+            "title": "Prêt à créer votre SCI ?",
+            "subtitle": "Nos experts vous accompagnent pour définir la fiscalité la plus avantageuse.",
+            "primaryButton": "Planifiez votre consultation gratuite",
+            "secondaryButton": "Nous écrire"
+        },
+        "seo": {
+            "metaTitle": "SCI - Société Civile Immobilière | Azalée Patrimoine",
+            "metaDescription": "La SCI est un outil de gestion et de transmission patrimoniale. Découvrez ses avantages avec Azalée Patrimoine."
+        }
+    }
+}

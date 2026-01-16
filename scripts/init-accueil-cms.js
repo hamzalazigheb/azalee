@@ -50,9 +50,9 @@ const accueilContent = {
       heroButton1: "Prenez rendez-vous en toute confidentialité",
       heroButton2: "Commencez à explorer les sujets",
       heroBackgrounds: [
-        "/images/home.webp",
-        "/images/image2.webp",
-        "/images/image3.webp"
+        "/images/azalee-patrimoine-paris-luxury-office.webp",
+        "/images/azalee-patrimoine-family-trust-meeting.webp",
+        "/images/azalee-patrimoine-private-banking-consultation.webp"
       ]
     },
     intro: {
@@ -64,7 +64,7 @@ const accueilContent = {
       teamTitle: "Qui sommes-nous",
       teamSubtitle: "Une équipe passionnée à votre service",
       teamDescription: "Chez Azalée Patrimoine, nous croyons que la réussite de votre stratégie patrimoniale repose sur la qualité humaine de l'accompagnement. Notre équipe pluridisciplinaire combine expertise technique et approche personnalisée pour vous offrir des solutions sur-mesure.",
-      teamImage: "/images/quiss.jpg",
+      teamImage: "/images/azalee-patrimoine-azalee-team-meeting.webp",
       teamButton: "Découvrir notre approche",
       teamValues: [
         { title: "Confidentialité", desc: "Nous protégeons vos informations et garantissons une totale discrétion dans la gestion de votre patrimoine.", icon: "" },
@@ -99,8 +99,8 @@ const accueilContent = {
       investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
       investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
       investmentButton: 'Vous avez des questions, nous avons des réponses',
-      investmentImage1: '/images/img_image_1222.png',
-      investmentImage2: '/images/img_image_1220.png',
+      investmentImage1: '/images/azalee-patrimoine-img-image-1229.webp',
+      investmentImage2: '/images/azalee-patrimoine-img-image-1230.webp',
       investmentItems: [
         { 
           title: "Comprendre la fiscalité avant de défiscaliser", 
@@ -140,23 +140,54 @@ const accueilContent = {
         }
       ]
     },
+    testimonials: {
+      title: "Ce que disent nos clients",
+      subtitle: "La confiance de nos clients est notre plus grande fierté. Découvrez leurs témoignages.",
+      items: [
+        {
+          text: "Grâce à Azalée Patrimoine, j'ai optimisé mon investissement locatif tout en réduisant mon impôt sur le revenu. Leur accompagnement va bien au-delà du simple conseil financier.",
+          author: "Laurent D.",
+          situation: "Chef d'entreprise, Lyon",
+          rating: 5
+        },
+        {
+          text: "Un accompagnement exceptionnel pour notre projet de transmission familiale. L'équipe a su comprendre nos enjeux et nous proposer des solutions adaptées.",
+          author: "Marie-Claire P.",
+          situation: "Retraitée, Paris",
+          rating: 5
+        },
+        {
+          text: "J'avais un projet LMNP, ils m'ont aidée à le rendre rentable, sécurisé et transmissible. Une équipe à l'écoute et très professionnelle.",
+          author: "Sophie B.",
+          situation: "Cadre supérieure, Nantes",
+          rating: 5
+        },
+        {
+          text: "Enfin un cabinet qui prend le temps d'expliquer et de nous accompagner sur le long terme. Je recommande vivement leurs services.",
+          author: "Philippe M.",
+          situation: "Médecin libéral, Marseille",
+          rating: 5
+        }
+      ]
+    },
     partners: [
-      { image: '/images/selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
-      { image: '/images/cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
-      { image: '/images/SL-Logo-svg.svg', website: '#', name: 'SL' },
-      { image: '/images/vieplus.svg', website: '#', name: 'Vie Plus' },
-      { image: '/images/intencial-1.png', website: '#', name: 'Intencial' },
-      { image: '/images/img_header_logo.png', website: '#', name: 'Partenaire' }
+      { image: '/images/azalee-patrimoine-selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
+      { image: '/images/azalee-patrimoine-cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
+      { image: '/images/azalee-patrimoine-sl-logo-svg.svg', website: '#', name: 'SL' },
+      { image: '/images/azalee-patrimoine-vieplus.svg', website: '#', name: 'Vie Plus' },
+      { image: '/images/azalee-patrimoine-intencial-1.webp', website: '#', name: 'Intencial' },
+      { image: '/images/azalee-patrimoine-img-header-logo.webp', website: '#', name: 'Partenaire' }
     ],
     finalCta: {
       finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
       finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Prenez rendez-vous avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
-      finalCtaImage: '/images/img_image_1227.png'
+      finalCtaImage: '/images/azalee-patrimoine-img-image-1231.webp'
     },
     sectionOrder: [
       'hero',
       'intro',
       'team',
+      'testimonials',
       'stats',
       'investment',
       'partners',
@@ -178,19 +209,24 @@ async function initializeAccueil() {
       
       if (existing) {
         console.log('📝 Page "accueil" (path: "home") already exists. Updating content structure...');
-        // Deep merge content
+        // Deep merge content (arrays from source replace target arrays completely)
         function deepMerge(target, source) {
           for (const key in source) {
-            if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+            if (Array.isArray(source[key])) {
+              // Arrays from source completely replace target arrays
+              target[key] = source[key];
+            } else if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
               if (!target[key]) target[key] = {};
               deepMerge(target[key], source[key]);
             } else {
+              // Primitive values from source override target
               target[key] = source[key];
             }
           }
           return target;
         }
-        existing.content = deepMerge(existing.content || {}, accueilContent.content);
+        // Completely replace content to ensure all image paths are updated
+        existing.content = accueilContent.content;
         existing.title = accueilContent.title;
         existing.published = true;
         existing.lastModified = new Date();

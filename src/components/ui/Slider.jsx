@@ -5,7 +5,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const slides = [
   {
-    image: '/images/img_vector_1.webp',
+    image: '/images/azalee-patrimoine-img-vector-1.webp',
     title: "VOTRE PARTENAIRE DE CONFIANCE EN MATIÈRE DE GESTION DE PATRIMOINE, DE FISCALITÉ ET DE CONSEIL EN INVESTISSEMENT.",
     description: (
       <>
@@ -17,13 +17,13 @@ const slides = [
     image: '/images/img_image_1221.png',
     title: "Optimisez votre fiscalité et développez votre patrimoine.",
     description: "Nos experts vous accompagnent à chaque étape pour maximiser vos investissements et sécuriser votre avenir.",
-    quoteIcon: '/images/img_vector.svg',
+    quoteIcon: '/images/azalee-patrimoine-img-vector.svg',
   },
   {
     image: '/images/img_image_1222.png',
     title: "Des solutions sur-mesure pour chaque projet immobilier.",
     description: "Bénéficiez d'un accompagnement personnalisé pour réussir vos investissements immobiliers et financiers.",
-    quoteIcon: '/images/img_vector.svg',
+    quoteIcon: '/images/azalee-patrimoine-img-vector.svg',
   },
   {
     image: '/images/new_uploaded_image.jpg', // Make sure to place the image in the public/images folder with this name

@@ -37,7 +37,10 @@
     "build": "next build",
     "start": "next dev -p 4028",
     "format": "prettier --write \"src/**/*.{js,jsx,css,md,json}\"",
-    "serve": "next start"
+    "serve": "next start",
+    "audit:dom": "node scripts/audit-dom-nesting.js",
+    "audit:links": "node scripts/test-unique-links.js",
+    "audit:all": "npm run audit:dom && npm run audit:links"
   },
   "dependencies": {
     "@dhiwise/component-tagger": "^1.0.10",

@@ -3,119 +3,54 @@ import { getPageContent } from '@/lib/cms-server';
 import Footer from "../../../components/common/Footer";
 import CTAButton from '@/components/ui/CTAButton';
 
-const defaultContent = {
-  hero: {
-    title: "Autres solutions patrimoniales",
-    subtitle: "En dehors des placements classiques (immobilier, assurance-vie, produits financiers), il existe des solutions patrimoniales originales permettant de :",
-    benefits: [
-      {
-        title: "Diversifier son patrimoine",
-        description: "Solutions originales et méconnues",
-        icon: "1"
-      },
-      {
-        title: "Bénéficier d'avantages fiscaux",
-        description: "IFI, IR, transmission",
-        icon: "2"
-      },
-      {
-        title: "S'impliquer dans l'économie réelle",
-        description: "Agriculture, forêt, vigne",
-        icon: "3"
-      }
-    ],
-    highlight: "Ces véhicules collectifs sont souvent méconnus, mais peuvent jouer un rôle stratégique dans une gestion patrimoniale équilibrée.",
-    buttons: [
-      { text: "Découvrir les solutions", type: "primary" },
-      { text: "Planifiez votre consultation gratuite", type: "secondary" }
-    ]
-  },
-  solutions: {
-    title: "Les solutions patrimoniales originales",
-    solutions: [
-      {
-        id: "gfa",
-        title: "GFA",
-        subtitle: "Groupement Foncier Agricole",
-        icon: "1",
-        color: "from-[#253F60] to-[#3A5A7A]",
-        definition: "Société civile permettant de détenir collectivement des terres agricoles, louées à des exploitants.",
-        advantages: [
-          "Exonération partielle d'IFI (jusqu'à 75%)",
-          "Transmission facilitée",
-          "Soutien à l'agriculture française"
-        ],
-        disadvantages: [
-          "Rendement faible (1-2%/an)",
-          "Liquidité limitée",
-          "Dépendance à l'exploitant"
-        ],
-        ticketMinimum: "À partir de 5 000 à 15 000 € selon les groupements."
-      },
-      {
-        id: "gfi",
-        title: "GFI",
-        subtitle: "Groupement Forestier d'Investissement",
-        icon: "2",
-        color: "from-[#B99066] to-[#A67C52]",
-        definition: "Permet d'investir dans des forêts françaises (plantation, exploitation, entretien).",
-        advantages: [
-          "Exonération d'IFI (jusqu'à 75%)",
-          "Rendement potentiel (2-4%/an)",
-          "Impact environnemental positif"
-        ],
-        disadvantages: [
-          "Investissement long terme (15-20 ans)",
-          "Risque climatique",
-          "Gestion forestière complexe"
-        ],
-        ticketMinimum: "À partir de 10 000 à 25 000 € selon les projets."
-      },
-      {
-        id: "gfv",
-        title: "GFV",
-        subtitle: "Groupement Foncier Viticole",
-        icon: "3",
-        color: "from-[#253F60] to-[#B99066]",
-        definition: "Investissement dans des vignobles français (achat, exploitation, commercialisation).",
-        advantages: [
-          "Exonération d'IFI (jusqu'à 75%)",
-          "Rendement attractif (3-6%/an)",
-          "Prestige et passion"
-        ],
-        disadvantages: [
-          "Investissement élevé (50 000 € minimum)",
-          "Risque climatique et commercial",
-          "Gestion viticole spécialisée"
-        ],
-        ticketMinimum: "À partir de 50 000 € pour les grands crus."
-      }
-    ]
-  },
-  cta: {
-    title: "Prêt à découvrir ces solutions ?",
-    subtitle: "Nos experts vous accompagnent dans le choix des solutions patrimoniales les plus adaptées à votre profil et vos objectifs.",
-    buttonText: "Planifiez votre consultation gratuite"
-  },
-  seo: {
-    metaTitle: "Autres Solutions Patrimoniales | Azalée Patrimoine",
-    metaDescription: "Découvrez les solutions patrimoniales alternatives avec Azalée Patrimoine."
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('patrimoine/autre', defaultContent);
+  let content = await getPageContent('patrimoine/autre');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/autre`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content?.seo?.metaTitle || defaultContent.seo.metaTitle,
-    description: content?.seo?.metaDescription || defaultContent.seo.metaDescription,
+    title: content?.seo?.metaTitle,
+    description: content?.seo?.metaDescription,
   };
 }
 
 export default async function AutrePatrimoinePage() {
-  const content = await getPageContent('patrimoine/autre', defaultContent);
+  let content = await getPageContent('patrimoine/autre');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/autre`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   
-  if (!content) {
-    notFound();
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -125,13 +60,13 @@ export default async function AutrePatrimoinePage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-              {content.hero?.title}
+              {content?.hero?.title}
             </h1>
             <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
-              {content.hero?.subtitle}
+              {content?.hero?.subtitle}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
-              {(content.hero?.benefits || []).map((benefit, index) => (
+              {(content?.hero?.benefits || []).map((benefit, index) => (
                 <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   <div className="w-12 h-12 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-[#A67C52] transition-colors duration-300 relative overflow-hidden">
@@ -145,14 +80,14 @@ export default async function AutrePatrimoinePage() {
             </div>
             <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg max-w-4xl mx-auto mb-8">
               <p className="text-white text-sm font-inter">
-                {content.hero?.highlight}
+                {content?.hero?.highlight}
               </p>
             </div>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {(content.hero?.buttons || []).map((button, index) => (
+            {(content?.hero?.buttons || []).map((button, index) => (
               <CTAButton 
                 key={index}
                 externalUrl={button.text === "Planifiez votre consultation gratuite" ? "https://calendly.com/rdv-azalee-patrimoine/30min" : undefined}
@@ -178,7 +113,7 @@ export default async function AutrePatrimoinePage() {
                 {/* Image */}
                 <div className="relative z-10">
                   <img
-                    src="/images/fleur.webp"
+                    src="/images/azalee-patrimoine-fleur.webp"
                     alt="Solutions patrimoniales alternatives - Conseils Azalée Patrimoine"
                     className="w-full h-auto rounded-lg object-cover"
                   />
@@ -197,7 +132,7 @@ export default async function AutrePatrimoinePage() {
               <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
-              {content.solutions?.title}
+              {content?.solutions?.title}
             </h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
               Découvrez les solutions alternatives pour diversifier votre patrimoine
@@ -205,7 +140,7 @@ export default async function AutrePatrimoinePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-            {(content.solutions?.solutions || []).map((solution, index) => (
+            {(content?.solutions?.solutions || []).map((solution, index) => (
               <div key={index} className={`group relative bg-gradient-to-br ${solution.color?.includes('from-[#253F60]') ? 'from-[#253F60] via-[#1a2d47] to-[#253F60]' : solution.color?.includes('from-[#B99066]') ? 'from-[#B99066] via-[#A67A5A] to-[#B99066]' : 'from-[#253F60] via-[#1a2d47] to-[#B99066]'} rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500`}>
                 <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-bl-full"></div>
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-tr-full"></div>
@@ -271,16 +206,16 @@ export default async function AutrePatrimoinePage() {
             
             <div className="relative z-10">
               <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                {content.cta?.title}
+                {content?.cta?.title}
               </h2>
               <p className="text-white text-lg sm:text-xl mb-8 max-w-3xl mx-auto opacity-90">
-                {content.cta?.subtitle}
+                {content?.cta?.subtitle}
               </p>
               <CTAButton 
                 externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
                 className="bg-[#B99066] text-white px-8 py-4 rounded-full font-source-sans font-semibold text-lg hover:bg-[#A67C52] transition-colors"
               >
-                {content.cta?.buttonText}
+                {content?.cta?.buttonText}
               </CTAButton>
             </div>
           </div>

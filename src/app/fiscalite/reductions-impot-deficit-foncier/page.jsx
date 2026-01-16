@@ -4,77 +4,56 @@ import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from '@/components/ui/CTAButton';
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Déficit foncier et réductions d'impôt",
-    subtitle: "Un levier fiscal puissant pour investisseurs avertis",
-    description: "Pour les investisseurs disposant de revenus fonciers imposables ou d'une tranche marginale d'imposition (TMI) élevée, le déficit foncier permet une double optimisation : réduction de l'impôt sur le revenu et diminution des prélèvements sociaux (CSG/CRDS à 17,2%) sur les revenus fonciers.",
-    button: "Calculer mon déficit foncier",
-    image: "/images/fiscalite-deficit-foncier-hero.jpg"
-  },
-  quickStats: {
-    title: "Chiffres clés",
-    stats: [
-      { label: "Déficit foncier", value: "10 700€", description: "Plafond annuel déductible" },
-      { label: "Report", value: "10 ans", description: "Sur revenus fonciers" },
-      { label: "Rendement fiscal", value: "58%", description: "TMI 41% + CSG/CRDS" }
-    ]
-  },
-  comparison: {
-    title: "Réduction d'impôt ou déduction du revenu ?",
-    description: "Comprendre la différence entre les deux mécanismes fiscaux",
-    table: {
-      headers: ["Mécanisme", "Effet fiscal", "Bénéfice"],
-      rows: [
-        {
-          mecanisme: "Réduction d'impôt",
-          effet: "Soustraction directe de l'impôt à payer",
-          benefice: "1 000 € réduits = 1 000 € gagnés"
-        },
-        {
-          mecanisme: "Déficit foncier",
-          effet: "Diminution de la base imposable",
-          benefice: "Effet amplifié selon la TMI + économie de CSG/CRDS"
-        }
-      ]
-    }
-  },
-  investorProfile: {
-    title: "Qui peut en profiter ?",
-    description: "Le déficit foncier s'adresse à des investisseurs spécifiques",
-    profiles: [
-      "Propriétaires de biens locatifs déjà imposables au régime réel (hors micro-foncier)",
-      "Contribuables avec une TMI élevée (30% ou plus)",
-      "Investisseurs souhaitant valoriser des biens anciens avec travaux"
-    ]
-  },
-  conditions: {
-    title: "Conditions pour créer un déficit foncier",
-    description: "Les conditions spécifiques à respecter pour bénéficier du déficit foncier",
-    conditions: [
-      "Bien en location nue (non meublée), soumis au régime réel",
-      "Travaux éligibles : entretien, réparation, amélioration",
-      "Pas d'agrandissement ni de construction neuve",
-      "Travaux réellement payés et effectués avant d'être mis en location"
-    ]
-  },
-  cta: {
-    title: "Besoin d'aide pour optimiser votre fiscalité ?",
-    description: "Nos experts vous accompagnent dans votre stratégie de déficit foncier et réductions d'impôt.",
-    buttonText: "Demander une consultation gratuite"
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('fiscalite/reductions-impot-deficit-foncier', defaultContent);
+  let content = await getPageContent('fiscalite/reductions-impot-deficit-foncier');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/reductions-impot-deficit-foncier`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Déficit Foncier et Réductions d'Impôt | Azalée Patrimoine",
+    title: content?.seo?.metaTitle || "Déficit Foncier et Réductions d'Impôt | Azalée Patrimoine",
     description: "Le déficit foncier permet une double optimisation : réduction de l'impôt sur le revenu et diminution des prélèvements sociaux sur les revenus fonciers.",
   };
 }
 
 export default async function ReductionsImpotDeficitFoncierPage() {
-  const content = await getPageContent('fiscalite/reductions-impot-deficit-foncier', defaultContent);
+  let content = await getPageContent('fiscalite/reductions-impot-deficit-foncier');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/reductions-impot-deficit-foncier`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -84,13 +63,13 @@ export default async function ReductionsImpotDeficitFoncierPage() {
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                {content.hero.title}
+                {content?.hero?.title}
               </h1>
               <p className="text-lg text-white mb-4 leading-relaxed">
-                {content.hero.subtitle}
+                {content?.hero?.subtitle}
               </p>
               <p className="text-white mb-8">
-                {content.hero.description}
+                {content?.hero?.description}
               </p>
             </div>
           </div>
@@ -101,7 +80,7 @@ export default async function ReductionsImpotDeficitFoncierPage() {
       <section className="py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.quickStats.title}
+            title={content?.quickStats?.title}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -121,8 +100,8 @@ export default async function ReductionsImpotDeficitFoncierPage() {
       <section className="py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.comparison.title}
-            subtitle={content.comparison.description}
+            title={content?.comparison?.title}
+            subtitle={content?.comparison?.description}
           />
           
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -154,8 +133,8 @@ export default async function ReductionsImpotDeficitFoncierPage() {
       <section className="py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.investorProfile.title}
-            subtitle={content.investorProfile.description}
+            title={content?.investorProfile?.title}
+            subtitle={content?.investorProfile?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -176,8 +155,8 @@ export default async function ReductionsImpotDeficitFoncierPage() {
       <section className="py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions.title}
-            subtitle={content.conditions.description}
+            title={content?.conditions?.title}
+            subtitle={content?.conditions?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -200,10 +179,10 @@ export default async function ReductionsImpotDeficitFoncierPage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            {content.cta.title}
+            {content?.cta?.title}
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            {content.cta.description}
+            {content?.cta?.description}
           </p>
           <CTAButton 
             externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"

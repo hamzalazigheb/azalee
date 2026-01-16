@@ -18,7 +18,7 @@ export default function EquipeClient() {
         {
             name: "Jean-Marc Dupont",
             role: "Fondateur & Directeur Associé",
-            image: "/images/jean.webp",
+            image: "/images/azalee-patrimoine-jean.webp",
             bio: "Passionné par la finance et l'humain, Jean-Marc a fondé Azalée Patrimoine pour offrir une alternative aux banques privées traditionnelles.",
             diplomas: ["Master 2 Gestion de Patrimoine (Dauphine)", "Diplôme Universitaire Droit Civil"],
             certifications: ["CIF", "Courtier en Assurance (ORIAS)"]
@@ -26,7 +26,7 @@ export default function EquipeClient() {
         {
             name: "Sophie Martin",
             role: "Conseillère Senior - Expert Immobilier",
-            image: "/images/sophie.webp",
+            image: "/images/azalee-patrimoine-sophie.webp",
             bio: "Sophie accompagne nos clients dans la structuration de leur parc immobilier. Sa double compétence technique et fiscale est un atout majeur.",
             diplomas: ["Master Droit de l'Immobilier", "Licence Économie"],
             certifications: ["Carte T (Transaction)", "Certification AM"]
@@ -34,7 +34,7 @@ export default function EquipeClient() {
         {
             name: "Thomas Bernard",
             role: "Expert Investissements Financiers",
-            image: "/images/client1.webp",
+            image: "/images/azalee-patrimoine-client1.webp",
             bio: "Analyste rigoureux, Thomas sélectionne les fonds les plus performants pour dynamiser votre épargne en maîtrisant les risques.",
             diplomas: ["MSc Finance de Marché", "CFA Level 1"],
             certifications: ["Certification AMF", "CIF"]
@@ -102,7 +102,7 @@ export default function EquipeClient() {
                                         src={member.image}
                                         alt={member.name}
                                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                                        onError={(e) => e.target.src = '/images/client1.webp'}
+                                        onError={(e) => e.target.src = '/images/azalee-patrimoine-client1.webp'}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#253F60]/90 via-transparent to-transparent opacity-60"></div>
                                     <div className="absolute bottom-4 left-4 right-4">

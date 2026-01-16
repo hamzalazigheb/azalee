@@ -1,0 +1,112 @@
+{
+    "path": "retraite/retraite-progressive",
+    "title": "Retraite progressive",
+    "published": true,
+    "content": {
+        "seo": {
+            "metaTitle": "Retraite Progressive | Azalée Patrimoine",
+            "metaDescription": "Découvrez comment la retraite progressive vous permet de travailler moins pour partir mieux avec Azalée Patrimoine."
+        },
+        "hero": {
+            "title": "Retraite progressive : travailler moins pour partir mieux",
+            "subtitle": "La retraite progressive séduit de plus en plus de cadres et de dirigeants désireux de lever le pied sans cesser totalement leur activité.",
+            "breadcrumb": {
+                "parent": "Retraite",
+                "current": "Retraite progressive"
+            }
+        },
+        "introduction": {
+            "text": "Ce dispositif permet de percevoir une partie de sa pension de retraite tout en continuant à travailler, offrant ainsi une transition douce entre vie active et retraite complète.",
+            "highlight": "Chez **Azalée Patrimoine**, nous aidons nos clients à optimiser cette phase clé, pour qu'elle devienne un levier de transmission, de sérénité et de stratégie patrimoniale."
+        },
+        "definition": {
+            "title": "Qu'est-ce que la retraite progressive ?",
+            "text": "La retraite progressive permet de cumuler une activité à temps partiel et une fraction de pension de retraite.\n\n**L'objectif :** aménager la fin de carrière sans rompre brutalement avec le monde professionnel.",
+            "conditionsTitle": "Conditions principales :",
+            "conditions": [
+                "Être âgé d'au moins 60 ans,",
+                "Justifier d'au moins 150 trimestres validés,",
+                "Exercer une activité à temps partiel (entre 40% et 80%),",
+                "Être affilié à un régime autorisant cette forme de retraite."
+            ],
+            "note": "Les périodes travaillées à temps partiel continuent de générer des droits à la retraite."
+        },
+        "avantages": {
+            "title": "Les avantages de la retraite progressive",
+            "items": [
+                {
+                    "title": "Un revenu sécurisé",
+                    "description": "Vous cumulez à la fois votre salaire à temps partiel et une partie de votre pension (souvent 30 à 60% du montant total). Cela permet de préserver votre pouvoir d'achat."
+                },
+                {
+                    "title": "Une optimisation fiscale et patrimoniale",
+                    "description": "Possibilité de maintenir un revenu imposable maîtrisé, de continuer à alimenter votre **PER** et d'anticiper une sortie en capital.\n\nEn combinant retraite progressive et stratégie d'épargne retraite, il est possible de lisser la fiscalité."
+                },
+                {
+                    "title": "Un levier pour transmettre et former",
+                    "description": "Pour les chefs d'entreprise : formation du successeur, vente partielle de parts, accompagnement opérationnel."
+                }
+            ]
+        },
+        "calcul": {
+            "title": "Comment est calculée la pension de retraite progressive ?",
+            "intro": "Le montant de la pension versée dépend du temps de travail conservé.",
+            "examples": [
+                {
+                    "title": "Exemple 1",
+                    "desc": "Si vous travaillez à **60 %**, vous percevez **40 %** de votre retraite."
+                },
+                {
+                    "title": "Exemple 2",
+                    "desc": "Si vous travaillez à **40 %**, vous percevez **60 %** de votre retraite."
+                }
+            ],
+            "base": "Le calcul est basé sur les droits acquis, votre régime, et le montant retraite minimum applicable.",
+            "note": "Lors de la liquidation définitive, une nouvelle estimation est effectuée pour intégrer les droits supplémentaires."
+        },
+        "fonctionnaires": {
+            "title": "Et pour les fonctionnaires ?",
+            "text": "La retraite progressive est ouverte aux fonctionnaires depuis 2023 : cumul d'activité partielle et pension partielle, calcul sur le dernier traitement indiciaire, maintien de la possibilité d'épargner (Préfon, RAFP).",
+            "note": "Une façon efficace d'équilibrer la fin de carrière tout en anticipant la fiscalité."
+        },
+        "indemnites": {
+            "title": "Retraite progressive et indemnités de départ",
+            "text": "Dans le privé, le passage en retraite progressive n'interrompt pas le contrat de travail. L'indemnité de départ n'est versée qu'à la retraite définitive, ce qui permet d'optimiser la gestion des revenus."
+        },
+        "planification": {
+            "title": "Retraite progressive et planification patrimoniale",
+            "intro": "Une phase de retraite progressive est souvent l'occasion de :",
+            "items": [
+                "Rééquilibrer son patrimoine,",
+                "Arbitrer ses contrats (assurance vie, PER),",
+                "Préparer la transmission,",
+                "Repenser ses besoins de prévoyance."
+            ],
+            "objectif": "**Objectif Azalée Patrimoine** : transformer cette période de transition en levier de stabilité et de liberté financière."
+        },
+        "erreurs": {
+            "title": "Les erreurs à éviter",
+            "items": [
+                "Croire que cela diminue vos droits futurs (au contraire).",
+                "Négliger la fiscalité (changement de tranche).",
+                "Oublier de vérifier votre relevé de carrière.",
+                "Ne pas prévoir de PER ou d'assurance vie pour lisser les revenus."
+            ]
+        },
+        "conclusion": {
+            "title": "Conclusion : un tremplin vers une retraite choisie",
+            "text": "La retraite progressive permet de réduire le rythme sans perdre le lien avec son activité. Azalée Patrimoine vous accompagne pour transformer cette étape en stratégie d'indépendance financière."
+        },
+        "cta": {
+            "title": "Passez à l'action",
+            "subtitle": "Simulez votre retraite progressive avec un expert Azalée Patrimoine.",
+            "list": [
+                "Découvrez votre pension estimée,",
+                "Votre taux de remplacement,",
+                "Et les leviers fiscaux à activer."
+            ],
+            "buttonText": "Planifiez votre consultation gratuite",
+            "contact": "contact@azalee-patrimoine.fr"
+        }
+    }
+}

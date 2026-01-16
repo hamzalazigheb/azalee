@@ -4,30 +4,54 @@ import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from '@/components/ui/CTAButton';
 
-const defaultContent = {
-  hero: {
-    title: "Autres Solutions de Placement",
-    subtitle: "Découvrez nos solutions d'investissement alternatives et spécialisées"
-  },
-  seo: {
-    metaTitle: "Autres Solutions de Placement | Azalée Patrimoine",
-    metaDescription: "Découvrez nos solutions d'investissement alternatives et spécialisées avec Azalée Patrimoine."
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('placements/autres', defaultContent);
+  let content = await getPageContent('placements/autres');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/autres`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content?.seo?.metaTitle || defaultContent.seo.metaTitle,
-    description: content?.seo?.metaDescription || defaultContent.seo.metaDescription,
+    title: content?.seo?.metaTitle,
+    description: content?.seo?.metaDescription,
   };
 }
 
 export default async function AutresPage() {
-  const content = await getPageContent('placements/autres', defaultContent);
+  let content = await getPageContent('placements/autres');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/autres`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   
-  if (!content) {
-    notFound();
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -37,10 +61,10 @@ export default async function AutresPage() {
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-6">
-              {content.hero?.title || defaultContent.hero.title}
+              {content?.hero?.title}
             </h1>
             <p className="text-white text-lg sm:text-xl lg:text-2xl font-inter leading-relaxed max-w-4xl mx-auto">
-              {content.hero?.subtitle || defaultContent.hero.subtitle}
+              {content?.hero?.subtitle}
             </p>
           </div>
           

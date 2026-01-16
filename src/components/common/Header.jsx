@@ -35,12 +35,12 @@ const Header = () => {
       phone: {
         number: "01 53 45 85 00",
         link: "tel:+33153458500",
-        icon: "/images/img_component_1.svg" // Pas de getImagePath ici, sera appliqué lors du rendu
+        icon: "/images/azalee-patrimoine-img-component-1.svg" // Pas de getImagePath ici, sera appliqué lors du rendu
       },
       email: {
         address: "contact@azalee-patrimoine.fr",
         link: "mailto:contact@azalee-patrimoine.fr",
-        icon: "/images/img_component_1_light_green_400.svg" // Pas de getImagePath ici, sera appliqué lors du rendu
+        icon: "/images/azalee-patrimoine-img-component-1-light-green-400.svg" // Pas de getImagePath ici, sera appliqué lors du rendu
       }
     },
     social: {
@@ -173,15 +173,16 @@ const Header = () => {
         <div className="max-w-[1368px] mx-auto p-8">
           <div className={`grid grid-cols-1 md:grid-cols-${cols} gap-8`}>
             {chunkItems(items, Math.ceil(items.length / cols)).map((chunk, colIndex) => (
-              <div key={colIndex} className="flex flex-col gap-3">
+              <div key={colIndex} className="flex flex-col gap-3" role="group">
                 {chunk.map((item, index) => (
                   <Link 
                     key={index}
                     href={item.path}
                     className="group flex items-center gap-2 text-sm font-inter text-[#4A5568] hover:text-[#B99066] transition-colors p-2 rounded-lg hover:bg-gray-50"
                     onClick={closeDropdown}
+                    role="menuitem"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#B99066] opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B99066] opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></span>
                     {item.title}
                   </Link>
                 ))}
@@ -215,7 +216,7 @@ const Header = () => {
               {topBar.contact?.phone && (
                 <div className="flex items-center gap-2 group">
                   <div className="bg-white/10 p-1.5 rounded-full group-hover:bg-[#B99066] transition-colors">
-                    <img src={getImagePath(topBar.contact.phone.icon || "/images/img_component_1.svg")} className="w-3.5 h-3.5 invert sm:invert-0" alt="phone" />
+                    <img src={getImagePath(topBar.contact.phone.icon || "/images/azalee-patrimoine-img-component-1.svg")} className="w-3.5 h-3.5 invert sm:invert-0" alt="phone" />
                   </div>
                   <a href={topBar.contact.phone.link || `tel:${topBar.contact.phone.number}`} className="text-sm font-segoe text-white hover:text-white/80 transition-colors">
                     {topBar.contact.phone.number}
@@ -226,7 +227,7 @@ const Header = () => {
               {topBar.contact?.email && (
                 <div className="flex items-center gap-2 group">
                   <div className="bg-white/10 p-1.5 rounded-full group-hover:bg-[#B99066] transition-colors">
-                    <img src={getImagePath(topBar.contact.email.icon || "/images/img_component_1_light_green_400.svg")} className="w-3.5 h-3.5 invert sm:invert-0" alt="email" />
+                    <img src={getImagePath(topBar.contact.email.icon || "/images/azalee-patrimoine-img-component-1-light-green-400.svg")} className="w-3.5 h-3.5 invert sm:invert-0" alt="email" />
                   </div>
                   <a href={topBar.contact.email.link || `mailto:${topBar.contact.email.address}`} className="text-sm font-inter text-white hover:text-white/80 transition-colors hidden xl:block">
                     {topBar.contact.email.address}
@@ -288,18 +289,25 @@ const Header = () => {
               <button 
                 className="p-2 text-white hover:text-[#B99066]"
                 onClick={() => setMenuOpen(!menuOpen)}
-                aria-label="Menu"
+                aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                aria-expanded={menuOpen}
+                aria-controls="mobile-navigation"
               >
                 {menuOpen ? (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 ) : (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
                 )}
               </button>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className={`${menuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row absolute lg:relative top-full left-0 w-full lg:w-auto bg-[#253F60] lg:bg-transparent shadow-xl lg:shadow-none p-4 lg:p-0 gap-4 lg:gap-8 items-stretch lg:items-center z-50`}>
+            <nav 
+              id="mobile-navigation"
+              className={`${menuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row absolute lg:relative top-full left-0 w-full lg:w-auto bg-[#253F60] lg:bg-transparent shadow-xl lg:shadow-none p-4 lg:p-0 gap-4 lg:gap-8 items-stretch lg:items-center z-50`}
+              aria-label="Navigation principale"
+              role="navigation"
+            >
               
               {/* Menu Items */}
               {[
@@ -310,7 +318,7 @@ const Header = () => {
                 { name: 'retraite', label: 'Retraite', path: '/retraite', items: retraiteMenuItems },
                 { name: 'outils', label: 'Outils financiers', path: '/outils-financiers', items: outilsMenuItems },
               ].map((menu) => (
-                <div key={menu.name} className="header-nav-item lg:static relative">
+                <div key={menu.name} className="header-nav-item lg:static relative" role="none">
                   <div className="flex items-center gap-1">
                     <button
                       onClick={(e) => {
@@ -328,6 +336,9 @@ const Header = () => {
                       }}
                       className={`flex items-center text-lg lg:text-base font-inter font-medium transition-colors py-2 lg:py-4 border-b lg:border-none border-white/10
                         ${activeDropdown === menu.name ? 'text-[#B99066]' : 'text-white hover:text-[#B99066]'}`}
+                      aria-haspopup="true"
+                      aria-expanded={activeDropdown === menu.name}
+                      aria-controls={`submenu-${menu.name}`}
                     >
                       {menu.label}
                     </button>
@@ -338,21 +349,31 @@ const Header = () => {
                         toggleDropdown(menu.name); 
                       }}
                       className="lg:ml-1 p-1 hover:bg-white/10 rounded transition-colors"
-                      aria-label={`Toggle ${menu.label} menu`}
+                      aria-label={`Ouvrir le sous-menu ${menu.label}`}
+                      aria-expanded={activeDropdown === menu.name}
                     >
-                      <svg className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === menu.name ? 'rotate-180' : ''} text-white`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === menu.name ? 'rotate-180' : ''} text-white`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                   </div>
                   
                   {/* Mega Menu Dropdown (Desktop) */}
-                  <div className="hidden lg:block text-left">
+                  <div 
+                    id={`submenu-${menu.name}`}
+                    className="hidden lg:block text-left"
+                    role="menu"
+                    aria-label={`Sous-menu ${menu.label}`}
+                  >
                     {activeDropdown === menu.name && renderMegaMenu(menu.items, menu.name === 'fiscalite' || menu.name === 'immobilier' ? 4 : 3)}
                   </div>
                   
                   {/* Simple Dropdown (Mobile) */}
-                  <div className={`lg:hidden overflow-hidden transition-all duration-300 ${activeDropdown === menu.name ? 'max-h-[1000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                  <div 
+                    className={`lg:hidden overflow-hidden transition-all duration-300 ${activeDropdown === menu.name ? 'max-h-[1000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}
+                    role="menu"
+                    aria-label={`Sous-menu ${menu.label} (mobile)`}
+                  >
                     <div className="bg-[#1A2A4A] rounded-lg p-2 space-y-1">
                       {menu.items.map((item, idx) => (
                         <Link 
@@ -360,6 +381,7 @@ const Header = () => {
                           href={item.path}
                           className="block text-sm text-gray-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded transition-colors"
                           onClick={() => setMenuOpen(false)}
+                          role="menuitem"
                         >
                           {item.title}
                         </Link>
@@ -368,6 +390,22 @@ const Header = () => {
                   </div>
                 </div>
               ))}
+              
+              {/* Standalone Links */}
+              <Link
+                href="/blog"
+                className="text-lg lg:text-base font-inter font-medium text-white hover:text-[#B99066] transition-colors py-2 lg:py-4 border-b lg:border-none border-white/10"
+                onClick={() => setMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link
+                href="/ressources"
+                className="text-lg lg:text-base font-inter font-medium text-white hover:text-[#B99066] transition-colors py-2 lg:py-4 border-b lg:border-none border-white/10"
+                onClick={() => setMenuOpen(false)}
+              >
+                Ressources
+              </Link>
               
             </nav>
           </div>

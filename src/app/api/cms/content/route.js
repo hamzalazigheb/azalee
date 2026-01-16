@@ -20,16 +20,16 @@ export async function GET(request) {
     }
 
     const pathLower = path.toLowerCase();
-    
+
     // For homepage, try multiple possible paths
     let page = null;
     if (pathLower === 'home' || pathLower === '/' || pathLower === '') {
       // Try different possible paths for homepage
       const possiblePaths = ['home', 'accueil', 'accueil - azalée patrimoine'];
       for (const possiblePath of possiblePaths) {
-        page = await PageContent.findOne({ 
+        page = await PageContent.findOne({
           path: possiblePath.toLowerCase(),
-          published: true 
+          published: true
         });
         if (page) {
           console.log(`[CMS API] Found homepage with path: ${page.path}`);
@@ -37,12 +37,12 @@ export async function GET(request) {
         }
       }
     } else {
-      page = await PageContent.findOne({ 
+      page = await PageContent.findOne({
         path: pathLower,
-        published: true 
+        published: true
       });
     }
-    
+
     if (!page) {
       return NextResponse.json(
         { success: false, message: 'Page not found or not published' },

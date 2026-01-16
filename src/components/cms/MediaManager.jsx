@@ -11,9 +11,9 @@ export default function MediaManager({ onSelect, isOpen, onClose }) {
     '/images/patrimoine-hero.webp',
     '/images/retraite-hero.webp',
     '/images/outils-hero.webp',
-    '/images/paris-luxury-office.webp',
-    '/images/family-trust-meeting.webp',
-    '/images/private-banking-consultation.webp'
+    '/images/azalee-patrimoine-paris-luxury-office.webp',
+    '/images/azalee-patrimoine-family-trust-meeting.webp',
+    '/images/azalee-patrimoine-private-banking-consultation.webp'
   ]);
 
   const handleImageSelect = (imageUrl) => {

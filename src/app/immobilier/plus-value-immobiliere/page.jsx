@@ -3,26 +3,10 @@ import { getPageContent } from '@/lib/cms-server';
 import Footer from '../../../components/common/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 
-const defaultContent = {
-  hero: { 
-    title: "Plus-value immobilière : comprendre la fiscalité et optimiser sa revente", 
-    subtitle: "Lorsqu'un particulier revend un bien immobilier, il réalise souvent une **plus-value** : c'est la différence entre le prix de vente et le prix d'acquisition (majoré des frais et des travaux). En France, cette plus-value est soumise à une fiscalité spécifique, avec des **abattements pour durée de détention** qui allègent progressivement l'impôt.", 
-    subtitle2: "Connaître les règles de la plus-value immobilière est essentiel pour **anticiper la fiscalité de vos ventes**, choisir le bon moment pour céder un bien et intégrer la revente dans une stratégie patrimoniale globale.", 
-    button: "Calculer ma plus-value" 
-  },
-  rightCard: { title: "Optimisation fiscale", floatingText: "22 ans →\nExonération IR", benefits: ["Calcul personnalisé", "Stratégies d'exonération", "Abattements pour durée", "Accompagnement expert"] },
-  definition: { title: "Qu'est-ce que la plus-value immobilière ?", subtitle: "Comprendre la fiscalité applicable lors de la revente d'un bien immobilier", description: "La plus-value est la différence entre le prix de vente et le prix d'acquisition. Elle est soumise à l'impôt sur le revenu (19%) et aux prélèvements sociaux (17,2%)." },
-  calcul: { title: "Comment calculer la plus-value ?", etapes: [{ titre: "Prix de vente", description: "Prix net vendeur après déduction des frais." }, { titre: "Prix d'acquisition", description: "Prix d'achat majoré des frais de notaire et travaux." }, { titre: "Plus-value brute", description: "Prix de vente - Prix d'acquisition." }, { titre: "Abattements", description: "Réduction selon la durée de détention." }] },
-  abattements: { title: "Abattements pour durée de détention", subtitle: "La fiscalité diminue à mesure que vous conservez le bien", description: "La plus-value est progressivement réduite selon la durée de détention.", ir: "Exonération totale après 22 ans de détention pour l'impôt sur le revenu.", ps: "Exonération totale après 30 ans pour les prélèvements sociaux." },
-  exonerations: { title: "Cas d'exonération", subtitle: "Situations spécifiques bénéficiant d'exonérations ou d'avantages fiscaux", items: ["Résidence principale : exonération totale", "Première vente d'un logement autre que RP (sous conditions)", "Vente inférieure à 15 000 €", "Expropriation avec remploi"] },
-  exempleSection: { title: "Exemple concret", subtitle: "Un cas pratique pour mieux comprendre le calcul de la plus-value" },
-  conseil: { title: "Conseil Azalée Patrimoine", subtitle: "Expertise et accompagnement personnalisé pour votre projet", content: "Anticiper la fiscalité de la revente est essentiel. Nous vous accompagnons pour optimiser le timing de vente et maximiser votre gain net." },
-  finalCta: { title: "Optimisez votre plus-value immobilière", subtitle: "Nos experts vous aident à calculer et anticiper la fiscalité de votre revente.", primaryButton: "Calculer ma plus-value", secondaryButton: "Planifiez votre consultation gratuite" },
-  seo: { metaTitle: "Plus-value Immobilière | Azalée Patrimoine", metaDescription: "Comprenez et optimisez votre plus-value immobilière avec Azalée Patrimoine." }
-};
+export const revalidate = 0;
 
 export async function generateMetadata() {
-  const content = await getPageContent('immobilier/plus-value-immobiliere', defaultContent);
+  const content = await getPageContent('immobilier/plus-value-immobiliere');
   return {
     title: content?.seo?.metaTitle,
     description: content?.seo?.metaDescription,
@@ -30,8 +14,17 @@ export async function generateMetadata() {
 }
 
 export default async function PlusValueImmobilierePage() {
-  const content = await getPageContent('immobilier/plus-value-immobiliere', defaultContent);
-  
+  let content = await getPageContent('immobilier/plus-value-immobiliere');
+
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/plus-value-immobiliere`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) content = json.data.content;
+    } catch (e) { console.error('API Fallback failed', e); }
+  }
+
   if (!content) {
     notFound();
   }
@@ -46,18 +39,18 @@ export default async function PlusValueImmobilierePage() {
               <h1 className="text-[#253F60] text-xs sm:text-2xl lg:text-4xl font-cairo font-semibold leading-tight mb-6 sm:mb-8 text-center lg:text-left">
                 {content.hero?.title}
               </h1>
-              
-              <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left" dangerouslySetInnerHTML={{__html: content.hero?.subtitle?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || ''}} />
-              
-              <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left" dangerouslySetInnerHTML={{__html: content.hero?.subtitle2?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || ''}} />
-              
+
+              <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left" dangerouslySetInnerHTML={{ __html: (content.hero?.subtitle || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+
+              <p className="text-[#686868] text-xs sm:text-base lg:text-lg font-inter leading-relaxed mb-6 sm:mb-8 text-center lg:text-left" dangerouslySetInnerHTML={{ __html: (content.hero?.subtitle2 || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+
               <div className="flex justify-center lg:justify-start">
                 <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min">
                   {content.hero?.button}
                 </CTAButton>
               </div>
             </div>
-            
+
             <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative">
               <div className="flex items-center gap-4 mb-4 sm:mb-6">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +60,7 @@ export default async function PlusValueImmobilierePage() {
                   {content.rightCard?.title}
                 </h2>
               </div>
-              
+
               {content.rightCard?.floatingText && (
                 <div className="absolute -top-16 -right-8 w-[51.3px] h-[51.3px] sm:w-[202px] sm:h-[202px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center">
                   <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-base lg:text-xl leading-tight px-1 sm:px-0">
@@ -77,7 +70,7 @@ export default async function PlusValueImmobilierePage() {
                   </div>
                 </div>
               )}
-              
+
               <div className="mt-8 sm:mt-12">
                 <ul className="space-y-2 sm:space-y-3 text-white text-xs sm:text-sm font-source-sans font-semibold leading-relaxed">
                   {(content.rightCard?.benefits || []).map((benefit, index) => (
@@ -103,7 +96,7 @@ export default async function PlusValueImmobilierePage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.definition?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.definition?.subtitle}</p>
           </div>
-          
+
           <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-2xl p-8 text-white shadow-xl">
             <p className="text-lg font-inter leading-relaxed text-center">{content.definition?.description}</p>
           </div>
@@ -116,7 +109,7 @@ export default async function PlusValueImmobilierePage() {
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.calcul?.title}</h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {(content.calcul?.etapes || []).map((etape, index) => (
               <div key={index} className={`rounded-2xl p-6 shadow-lg text-white ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]' : 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]'}`}>
@@ -138,7 +131,7 @@ export default async function PlusValueImmobilierePage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.abattements?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.abattements?.subtitle}</p>
           </div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-2xl p-8 text-white shadow-xl">
               <h3 className="font-cairo font-bold text-xl mb-4">Impôt sur le revenu (IR)</h3>
@@ -159,7 +152,7 @@ export default async function PlusValueImmobilierePage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.exonerations?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.exonerations?.subtitle}</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {(content.exonerations?.items || []).map((item, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
@@ -177,7 +170,7 @@ export default async function PlusValueImmobilierePage() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">{content.conseil?.title}</h2>
             <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">{content.conseil?.subtitle}</p>
           </div>
-          
+
           <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-2xl p-8 text-white shadow-xl">
             <p className="text-lg font-inter leading-relaxed text-center">{content.conseil?.content}</p>
           </div>

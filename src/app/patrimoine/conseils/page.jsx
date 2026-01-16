@@ -3,28 +3,56 @@ import Footer from "../../../components/common/Footer";
 import CTAButton from '@/components/ui/CTAButton';
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Conseils patrimoniaux",
-    subtitle: "Le patrimoine n'est pas qu'une addition de biens immobiliers et financiers.",
-    description: "C'est un ensemble cohérent qui doit être construit, protégé, optimisé fiscalement et transmis."
-  },
-  seo: {
-    metaTitle: "Conseils Patrimoniaux | Azalée Patrimoine",
-    metaDescription: "Bénéficiez de conseils patrimoniaux personnalisés pour construire, protéger et transmettre votre patrimoine."
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('patrimoine/conseils', defaultContent);
+  let content = await getPageContent('patrimoine/conseils');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/conseils`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Conseils Patrimoniaux | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "Bénéficiez de conseils patrimoniaux personnalisés."
+    title: content?.seo?.metaTitle || "Conseils Patrimoniaux | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Bénéficiez de conseils patrimoniaux personnalisés."
   };
 }
 
 export default async function ConseilsPage() {
-  const content = await getPageContent('patrimoine/conseils', defaultContent);
+  let content = await getPageContent('patrimoine/conseils');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=patrimoine/conseils`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -83,7 +111,7 @@ export default async function ConseilsPage() {
       <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <img
-            src="/images/balance.webp"
+            src="/images/azalee-patrimoine-balance.webp"
             alt="Balance patrimoniale - Conseils Azalée Patrimoine"
             className="w-full h-auto rounded-lg object-cover"
           />
@@ -403,7 +431,7 @@ export default async function ConseilsPage() {
             
             <div className="mt-8 bg-white bg-opacity-20 border-l-4 border-white p-6 rounded-r-lg">
               <p className="text-white text-center font-semibold">
-                <strong>Prenez rendez-vous dès aujourd'hui</strong> pour bénéficier d'un conseil patrimonial personnalisé avec Azalée Patrimoine.
+                <strong>Planifiez votre consultation gratuite</strong> pour bénéficier d'un conseil patrimonial personnalisé avec Azalée Patrimoine.
               </p>
             </div>
           </div>

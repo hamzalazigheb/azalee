@@ -369,12 +369,12 @@ const PartnersCarousel = ({ content }) => {
 const defaultContent = {
   heroTitle: "Préserver. Optimiser. Transmettre.",
   heroSubtitle: "Depuis plus de 20 ans, Azalée Patrimoine accompagne les dirigeants, cadres supérieurs, professions libérales et familles fortunées dans la gestion et la transmission de leur patrimoine.",
-  heroButton1: "Prenez rendez-vous en toute confidentialité",
+  heroButton1: "Planifiez votre consultation gratuite",
   heroButton2: "Commencez à explorer les sujets",
   heroBackgrounds: [
-    "/images/paris-luxury-office.webp",
-    "/images/family-trust-meeting.webp",
-    "/images/private-banking-consultation.webp"
+    "/images/azalee-patrimoine-paris-luxury-office.webp",
+    "/images/azalee-patrimoine-family-trust-meeting.webp",
+    "/images/azalee-patrimoine-private-banking-consultation.webp"
   ],
   introTitle: "Gérer un patrimoine conséquent exige plus qu'une expertise financière : cela nécessite une vision, une stratégie, et un partenaire de confiance.",
   introParagraph: "Notre mission : protéger vos intérêts, valoriser votre patrimoine et organiser sa transmission pour les générations futures. Chez Azalée Patrimoine, nous privilégions la discrétion, l'indépendance et un accompagnement sur-mesure qui s'adapte à chaque étape de votre vie.",
@@ -402,12 +402,12 @@ const defaultContent = {
   testimonialText: "Grâce à Azalée Patrimoine, nous avons retrouvé sérénité et visibilité sur notre avenir.\n\nNotre conseiller a structuré notre patrimoine et nous a accompagnés dans l'acquisition d'un nouveau bien immobilier. L'intervention coordonnée de spécialistes en investissement immobilier et en expertise comptable nous a permis de repenser notre stratégie financière avec confiance. Une équipe à recommander sans hésiter.",
   testimonialAuthor: "néon.",
   processSteps: [
-    { label: 'ÉTAPE 1', desc: 'Comprendre vos besoins', contentTitle: 'Comprendre vos besoins', contentText: 'Nous prenons le temps d\'écouter vos attentes et vos priorités.', button: 'Découvrez Comment Nos Courtiers Travaillent Pour Vous', image: '/images/consultation-needs-assessment.webp' },
-    { label: 'ÉTAPE 2', desc: 'Analyser votre situation' },
-    { label: 'ÉTAPE 3', desc: 'Définir vos objectifs' },
-    { label: 'ÉTAPE 4', desc: 'Affecter les moyens nécessaires' },
-    { label: 'ÉTAPE 5', desc: 'Déployer la stratégie patrimoniale' },
-    { label: 'ÉTAPE 6', desc: 'Assurer un suivi continu' }
+    { label: 'ÉTAPE 1', desc: 'Comprendre vos besoins', icon: 'chat', contentTitle: 'Comprendre vos besoins', contentText: 'Nous prenons le temps d\'écouter vos attentes et vos priorités.', button: 'Découvrez Comment Nos Courtiers Travaillent Pour Vous', image: '/images/azalee-patrimoine-consultation-needs-assessment.webp' },
+    { label: 'ÉTAPE 2', desc: 'Analyser votre situation', icon: 'chart' },
+    { label: 'ÉTAPE 3', desc: 'Définir vos objectifs', icon: 'target' },
+    { label: 'ÉTAPE 4', desc: 'Affecter les moyens nécessaires', icon: 'money' },
+    { label: 'ÉTAPE 5', desc: 'Déployer la stratégie patrimoniale', icon: 'rocket' },
+    { label: 'ÉTAPE 6', desc: 'Assurer un suivi continu', icon: 'clipboard' }
   ],
   stats: [
     { value: '1996', label: 'Création d\'AGORA PATRIMOINE' },
@@ -421,26 +421,26 @@ const defaultContent = {
   investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
   investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
   investmentButton: 'Vous avez des questions, nous avons des réponses',
-  investmentImage1: '/images/investment-strategy-meeting.webp',
-  investmentImage2: '/images/financial-strategy-planning.webp',
+  investmentImage1: '/images/azalee-patrimoine-investment-strategy-meeting.webp',
+  investmentImage2: '/images/azalee-patrimoine-financial-strategy-planning.webp',
   taxTitle: 'Pourquoi choisir la défiscalisation immobilière ?',
   taxText: "L'immobilier reste un investissement de référence pour les investisseurs français, surtout lorsqu'il est accompagné d'avantages fiscaux attractifs. En choisissant des biens éligibles à des dispositifs légaux de défiscalisation, vous pouvez réduire significativement votre imposition tout en développant votre patrimoine. Le gouvernement encourage ainsi l'investissement dans certains secteurs ou types de logements — anciens ou neufs, location longue durée ou saisonnière — grâce à des lois fiscales spécifiques. Ces mesures permettent non seulement de dynamiser l'offre immobilière mais aussi de soutenir les investisseurs en leur offrant des avantages concrets. Que vous souhaitiez constituer un patrimoine, optimiser vos revenus locatifs ou préparer votre avenir, nos solutions de défiscalisation s'adaptent à votre situation et à vos objectifs.",
   taxCards: [
-    { title: 'Le statut LMNP', image: '/images/lmnp-fiscal-advantage.webp', text: 'Vous possédez un logement meublé en location ? Le statut de loueur en Meublé Non Professionnel (LMNP) vous permet de décaler vos loyers dans la catégorie des Bénéfices Industriels et Commerciaux (BIC), un régime fiscal souvent plus avantageux que celui des revenus fonciers.\n\nAccessible tant que vos loyers annuels restent sous un certain seuil, il offre la possibilité d\'amortir la valeur du bien et du mobilier, ce qui réduit sensiblement l\'imposition sur vos revenus.', link: 'En savoir plus sur le régime LMNP →' },
-    { title: 'Le statut LMP', image: '/images/lmp-professional-status.webp', text: 'Si vos revenus locatifs issus de la location meublée dépassent la moitié des revenus de votre foyer fiscal, vous relevez du statut de Loueur en Meublé Professionnel (LMP). Ce régime offre des avantages fiscaux significatifs : exonération des plus-values après une certaine durée de détention, et possibilité d\'imputer vos déficits sur le revenu global du foyer.\n\nUn levier puissant pour optimiser la fiscalité de vos investissements immobiliers.', link: '' },
-    { title: 'La loi Pinel', image: '/images/pinel-law-investment.webp', text: 'Vous souhaitez investir dans l\'immobilier neuf ou rénové tout en allégeant votre fiscalité ? Le dispositif Pinel vous permet de bénéficier d\'une réduction d\'impôt calculée en fonction de votre durée d\'engagement locatif (6, 9 ou 12 ans). Pour en profiter, certaines conditions doivent être respectées : des loyers plafonnés et des locataires répondant à des critères de ressources, selon la zone géographique du logement.', link: 'En savoir plus sur la loi Pinel →' },
+    { title: 'Le statut LMNP', image: '/images/azalee-patrimoine-lmnp-fiscal-advantage.webp', text: 'Vous possédez un logement meublé en location ? Le statut de loueur en Meublé Non Professionnel (LMNP) vous permet de décaler vos loyers dans la catégorie des Bénéfices Industriels et Commerciaux (BIC), un régime fiscal souvent plus avantageux que celui des revenus fonciers.\n\nAccessible tant que vos loyers annuels restent sous un certain seuil, il offre la possibilité d\'amortir la valeur du bien et du mobilier, ce qui réduit sensiblement l\'imposition sur vos revenus.', link: 'En savoir plus sur le régime LMNP →' },
+    { title: 'Le statut LMP', image: '/images/azalee-patrimoine-lmp-professional-status.webp', text: 'Si vos revenus locatifs issus de la location meublée dépassent la moitié des revenus de votre foyer fiscal, vous relevez du statut de Loueur en Meublé Professionnel (LMP). Ce régime offre des avantages fiscaux significatifs : exonération des plus-values après une certaine durée de détention, et possibilité d\'imputer vos déficits sur le revenu global du foyer.\n\nUn levier puissant pour optimiser la fiscalité de vos investissements immobiliers.', link: '' },
+    { title: 'La loi Pinel', image: '/images/azalee-patrimoine-pinel-law-investment.webp', text: 'Vous souhaitez investir dans l\'immobilier neuf ou rénové tout en allégeant votre fiscalité ? Le dispositif Pinel vous permet de bénéficier d\'une réduction d\'impôt calculée en fonction de votre durée d\'engagement locatif (6, 9 ou 12 ans). Pour en profiter, certaines conditions doivent être respectées : des loyers plafonnés et des locataires répondant à des critères de ressources, selon la zone géographique du logement.', link: 'En savoir plus sur la loi Pinel →' },
   ],
   partners: [
-    { image: '/images/selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
-    { image: '/images/cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
-    { image: '/images/SL-Logo-svg.svg', website: '#', name: 'SL' },
-    { image: '/images/vieplus.svg', website: '#', name: 'Vie Plus' },
-    { image: '/images/intencial-1.webp', website: '#', name: 'Intencial' },
-    { image: '/images/img_header_logo.webp', website: '#', name: 'Partenaire' }
+    { image: '/images/azalee-patrimoine-selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
+    { image: '/images/azalee-patrimoine-cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
+    { image: '/images/azalee-patrimoine-sl-logo-svg.svg', website: '#', name: 'SL' },
+    { image: '/images/azalee-patrimoine-vieplus.svg', website: '#', name: 'Vie Plus' },
+    { image: '/images/azalee-patrimoine-intencial-1.webp', website: '#', name: 'Intencial' },
+    { image: '/images/azalee-patrimoine-img-header-logo.webp', website: '#', name: 'Partenaire' }
   ],
   finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
-  finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Prenez rendez-vous avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
-  finalCtaImage: '/images/wealth-management-agreement.webp',
+  finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
+  finalCtaImage: '/images/azalee-patrimoine-wealth-management-agreement.webp',
   // Section Équipe Preview
   teamPreview: {
     title: "Rencontrez votre équipe de gestion",
@@ -449,19 +449,19 @@ const defaultContent = {
       {
         name: "Jean-Marc Dupont",
         position: "Fondateur & Directeur",
-        photo: "/images/jean.webp",
+        photo: "/images/azalee-patrimoine-jean.webp",
         experience: "20+ ans"
       },
       {
         name: "Sophie Martin",
         position: "Conseillère en Gestion de Patrimoine",
-        photo: "/images/sophie.webp",
+        photo: "/images/azalee-patrimoine-sophie.webp",
         experience: "15 ans"
       },
       {
         name: "Thomas Bernard",
         position: "Expert Fiscal",
-        photo: "/images/client1.webp",
+        photo: "/images/azalee-patrimoine-client1.webp",
         experience: "12 ans"
       }
     ],
@@ -533,32 +533,43 @@ export default function HomePage() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        setLoading(true);
+        // Only set loading on initial load (when content is still default)
+        const isInitialLoad = contentSource === 'default' || !contentSource;
+        if (isInitialLoad) {
+          setLoading(true);
+        }
         // Add cache-busting parameter to force fresh data
-        const response = await fetch(getApiPath(`/cms/content?path=home&t=${Date.now()}`), {
+        // Use a more aggressive cache-busting with random number
+        const cacheBuster = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
+        const response = await fetch(getApiPath(`/cms/content?path=home&t=${cacheBuster}`), {
           cache: 'no-store',
           headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
             'Pragma': 'no-cache',
+            'Expires': '0',
           }
         });
         if (response.ok) {
           const data = await response.json();
           // Use same pattern as fiscalite and immobilier pages
           if (data.data) {
-            // Deep merge function to handle nested objects
+            // Deep merge function to handle nested objects (preserves arrays from CMS)
             const deepMerge = (target, source) => {
               const output = { ...target };
               if (isObject(target) && isObject(source)) {
                 Object.keys(source).forEach(key => {
-                  if (isObject(source[key]) && !Array.isArray(source[key])) {
+                  // Arrays from CMS should replace default arrays completely
+                  if (Array.isArray(source[key])) {
+                    output[key] = source[key];
+                  } else if (isObject(source[key]) && !Array.isArray(source[key])) {
                     if (!(key in target) || !isObject(target[key])) {
                       Object.assign(output, { [key]: source[key] });
                     } else {
                       output[key] = deepMerge(target[key], source[key]);
                     }
                   } else {
-                    Object.assign(output, { [key]: source[key] });
+                    // Primitive values from CMS override defaults
+                    output[key] = source[key];
                   }
                 });
               }
@@ -627,20 +638,25 @@ export default function HomePage() {
             setContent(mergedContent);
             setSectionOrder(finalSectionOrder);
             setContentSource('cms');
+            hasLoadedCMS = true; // Mark that CMS content was successfully loaded
           } else if (data.content) {
-            // Same deep merge for alternative format
+            // Same deep merge for alternative format (preserves arrays from CMS)
             const deepMerge = (target, source) => {
               const output = { ...target };
               if (isObject(target) && isObject(source)) {
                 Object.keys(source).forEach(key => {
-                  if (isObject(source[key]) && !Array.isArray(source[key])) {
+                  // Arrays from CMS should replace default arrays completely
+                  if (Array.isArray(source[key])) {
+                    output[key] = source[key];
+                  } else if (isObject(source[key]) && !Array.isArray(source[key])) {
                     if (!(key in target) || !isObject(target[key])) {
                       Object.assign(output, { [key]: source[key] });
                     } else {
                       output[key] = deepMerge(target[key], source[key]);
                     }
                   } else {
-                    Object.assign(output, { [key]: source[key] });
+                    // Primitive values from CMS override defaults
+                    output[key] = source[key];
                   }
                 });
               }
@@ -690,24 +706,38 @@ export default function HomePage() {
             setContent(mergedContent);
             setSectionOrder(finalSectionOrder);
             setContentSource('cms');
+            hasLoadedCMS = true; // Mark that CMS content was successfully loaded
           } else {
-            // Fallback to default content
-            console.log('Using default content');
-            setContent(defaultContent);
-            setSectionOrder(defaultSectionOrder);
-            setContentSource('default');
+            // Fallback to default content only if we don't have CMS content already
+            setContent(prevContent => {
+              // Only reset to default if current content is still default
+              const isStillDefault = Object.keys(prevContent).every(key => 
+                JSON.stringify(prevContent[key]) === JSON.stringify(defaultContent[key])
+              );
+              if (isStillDefault) {
+                console.log('Using default content');
+                return defaultContent;
+              } else {
+                console.log('⚠️ No CMS data in response, keeping existing content');
+                return prevContent;
+              }
+            });
+            setSectionOrder(prevOrder => {
+              // Only reset if order is still default
+              if (JSON.stringify(prevOrder) === JSON.stringify(defaultSectionOrder)) {
+                return defaultSectionOrder;
+              }
+              return prevOrder;
+            });
+            setContentSource(prev => prev === 'cms' ? 'cms' : 'default');
           }
         } else {
-          console.log('API response not OK, using default content');
-          setContent(defaultContent);
-          setSectionOrder(defaultSectionOrder);
-          setContentSource('default');
+          console.log('API response not OK, keeping existing content');
+          // Don't reset to default - keep what we have
         }
       } catch (error) {
         console.error('Error fetching homepage content:', error);
-        setContent(defaultContent);
-        setSectionOrder(defaultSectionOrder);
-        setContentSource('default');
+        // Don't reset to default - keep what we have
       } finally {
         setLoading(false);
       }
@@ -728,12 +758,13 @@ export default function HomePage() {
 
     window.addEventListener('cmsContentUpdated', handleCMSUpdate);
 
-    // Polling fallback: check for updates every 10 seconds when page is visible
+    // Polling fallback: check for updates every 30 seconds when page is visible (reduced frequency to prevent flashing)
+    let hasLoadedCMS = false;
     const pollInterval = setInterval(() => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' && hasLoadedCMS) {
         fetchContent();
       }
-    }, 10000);
+    }, 30000);
 
     return () => {
       window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
@@ -803,13 +834,13 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src={getImagePath(content.team?.teamImage || content.teamImage || "/images/azalee-team-meeting.webp")}
+                src={getImagePath(content.team?.teamImage || content.teamImage || "/images/azalee-patrimoine-azalee-team-meeting.webp")}
                 alt="Équipe Azalée Patrimoine - Vision d'ensemble équipe diversifiée (4 personnes)"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.log('Team image failed to load:', e.target.src);
                   console.log('Trying fallback to image4.webp');
-                  e.target.src = getImagePath("/images/image4.webp");
+                  e.target.src = getImagePath("/images/azalee-patrimoine-image4.webp");
                 }}
                 onLoad={() => console.log('Team image loaded successfully')}
                 style={{
@@ -904,7 +935,7 @@ export default function HomePage() {
 
                     {/* Main image */}
                     <img
-                      src={getImagePath("/images/expertise.webp")}
+                      src={getImagePath("/images/azalee-patrimoine-expertise.webp")}
                       alt="Conseiller Azalée en discussion avec un couple dans un bureau élégant"
                       className="relative z-10 w-full max-w-md lg:max-w-lg rounded-2xl shadow-md object-cover border-4 border-white"
                       style={{ aspectRatio: '3/2' }}
@@ -953,7 +984,7 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src={getImagePath("/images/azalee-garden-separator.webp")}
+                src={getImagePath("/images/azalee-patrimoine-azalee-garden-separator.webp")}
                 alt="Jardin sophistiqué avec azalées blanches et roses en premier-plan - Jardin à la française avec allée de graviers et perspective élégante"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -1093,7 +1124,7 @@ export default function HomePage() {
                 {/* Right Image */}
                 <div className="w-full lg:w-[50%] relative">
                   <img
-                    src={getImagePath(content.investment?.investmentImage2 || content.investmentImage2 || '/images/financial-strategy-planning.webp')}
+                    src={getImagePath(content.investment?.investmentImage2 || content.investmentImage2 || '/images/azalee-patrimoine-financial-strategy-planning.webp')}
                     className="w-full h-full object-cover"
                     alt="Financial planning consultation"
                   />
@@ -1125,12 +1156,12 @@ export default function HomePage() {
                   <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-md group">
                     <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#253F60] to-[#B99066]">
                       <img
-                        src={getImagePath(member.photo || '/images/client1.webp')}
+                        src={getImagePath(member.photo || '/images/azalee-patrimoine-client1.webp')}
                         alt={member.name}
                         className="w-full h-full object-cover"
                         loading="lazy"
                         onError={(e) => {
-                          e.target.src = getImagePath('/images/client1.webp');
+                          e.target.src = getImagePath('/images/azalee-patrimoine-client1.webp');
                         }}
                       />
                       <div className="absolute bottom-4 right-4 bg-[#B99066] text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -1223,7 +1254,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <img
-                  src={getImagePath(content.finalCta?.finalCtaImage || content.finalCtaImage || '/images/expertise.webp')}
+                  src={getImagePath(content.finalCta?.finalCtaImage || content.finalCtaImage || '/images/azalee-patrimoine-expertise.webp')}
                   className="w-full lg:w-[34%] h-[490px] object-cover"
                   alt="Expert consultation"
                 />
@@ -1266,11 +1297,11 @@ export default function HomePage() {
                     title="Azalée Patrimoine - Conseillers en gestion de patrimoine disponibles dans toutes les villes de France"
                     style={{
                       background: 'linear-gradient(135deg, #253F60 0%, #4a6b8a 30%, #7a8a7a 60%, #B99066 100%)',
-                      WebkitMaskImage: 'url(/images/france.svg)',
+                      WebkitMaskImage: 'url(/images/azalee-patrimoine-france.svg)',
                       WebkitMaskSize: 'contain',
                       WebkitMaskRepeat: 'no-repeat',
                       WebkitMaskPosition: 'center',
-                      maskImage: 'url(/images/france.svg)',
+                      maskImage: 'url(/images/azalee-patrimoine-france.svg)',
                       maskSize: 'contain',
                       maskRepeat: 'no-repeat',
                       maskPosition: 'center',

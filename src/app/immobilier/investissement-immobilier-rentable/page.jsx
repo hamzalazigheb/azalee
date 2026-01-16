@@ -3,39 +3,56 @@ import Footer from '../../../components/common/Footer';
 import CTAButton from '@/components/ui/CTAButton';
 import { getPageContent } from '@/lib/cms-server';
 
-export const defaultContent = {
-  hero: {
-    title: "Investissement immobilier rentable : comment bâtir une stratégie durable",
-    breadcrumb: {
-      parent: "Immobilier",
-      current: "Investissement immobilier rentable"
-    }
-  },
-  introduction: {
-    title: "Pourquoi l'immobilier reste le pilier d'un patrimoine rentable",
-    paragraphs: [
-      "En 2025, plus de 60 % des Français détiennent un bien immobilier. Malgré les variations du marché, l'immobilier demeure l'un des placements les plus appréciés, car il conjugue valeur refuge, rendement régulier et effet de levier.",
-      "Mais un investissement immobilier rentable ne se résume pas à acheter un appartement à louer. C'est une stratégie complète qui tient compte de la fiscalité, du financement, de la gestion et du temps.",
-      "Chez Azalée Patrimoine, nous accompagnons les investisseurs particuliers dans la construction d'un patrimoine immobilier équilibré, mêlant immobilier direct, pierre papier (SCPI) et produits hybrides.",
-      "Notre objectif : transformer chaque projet en un levier de liberté financière."
-    ]
-  },
-  seo: {
-    metaTitle: "Investissement Immobilier Rentable | Azalée Patrimoine",
-    metaDescription: "Découvrez comment bâtir une stratégie d'investissement immobilier rentable et durable avec Azalée Patrimoine."
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('immobilier/investissement-immobilier-rentable', defaultContent);
+  let content = await getPageContent('immobilier/investissement-immobilier-rentable');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/investissement-immobilier-rentable`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || defaultContent.seo.metaTitle,
-    description: content.seo?.metaDescription || defaultContent.seo.metaDescription,
+    title: content?.seo?.metaTitle,
+    description: content?.seo?.metaDescription,
   };
 }
 
 export default async function InvestissementImmobilierRentablePage() {
-  const content = await getPageContent('immobilier/investissement-immobilier-rentable', defaultContent);
+  let content = await getPageContent('immobilier/investissement-immobilier-rentable');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/investissement-immobilier-rentable`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
@@ -46,7 +63,7 @@ export default async function InvestissementImmobilierRentablePage() {
               Immobilier
             </Link>
             <span className="text-[#6B7280]">/</span>
-            <span className="text-[#253F60] font-semibold">{content.hero?.breadcrumb?.current || defaultContent.hero.breadcrumb.current}</span>
+            <span className="text-[#253F60] font-semibold">{content?.hero?.breadcrumb?.current}</span>
           </nav>
         </div>
       </div>
@@ -56,15 +73,15 @@ export default async function InvestissementImmobilierRentablePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <article>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-8">
-              {content.hero?.title || defaultContent.hero.title}
+              {content?.hero?.title}
             </h1>
 
             {/* Introduction */}
             <div className="prose prose-lg max-w-none mb-12">
               <h2 className="text-2xl sm:text-3xl font-cairo font-bold text-[#253F60] mb-6">
-                {content.introduction?.title || defaultContent.introduction.title}
+                {content?.introduction?.title}
               </h2>
-              {content.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
+              {content?.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
                 <p key={index} className={`text-lg font-inter text-[#374151] leading-relaxed ${index < content.introduction.paragraphs.length - 1 ? 'mb-4' : ''} ${paragraph.includes('Notre objectif') ? 'text-[#253F60] font-semibold' : ''}`}>
                   {paragraph.includes('60 %') ? (
                     <>
@@ -359,7 +376,7 @@ export default async function InvestissementImmobilierRentablePage() {
                   Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
                 </a>
                 <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="white" className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300">
-                  Prenez rendez-vous avec un conseiller Azalée Patrimoine
+                  Planifiez votre consultation gratuite
                 </CTAButton>
               </div>
             </div>

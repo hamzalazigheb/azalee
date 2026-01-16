@@ -3,72 +3,56 @@ import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from "@/components/ui/CTAButton";
 import { getPageContent } from '@/lib/cms-server';
 
-// Default content structure
-export const defaultContent = {
-  hero: {
-    title: "Loi Denormandie",
-    subtitle: "Relancer la rénovation dans les centres-villes anciens",
-    description: "La loi Denormandie offre la même réduction d'impôt que Pinel, mais pour de l'ancien avec travaux. Un dispositif fiscal attractif pour investisseurs actifs ou appuyés par un bon promoteur, fiscalement efficace mais technique.",
-    button: "En savoir plus",
-    image: "/images/loi-denormandie-hero.jpg"
-  },
-  overview: {
-    title: "Présentation de la loi Denormandie",
-    description: "La loi Denormandie est un dispositif de défiscalisation qui permet de réduire ses impôts en investissant dans la rénovation de logements anciens situés dans des zones de revitalisation urbaine. Elle vise à relancer la rénovation dans les centres-villes anciens.",
-    keyPoints: [
-      "Même réduction d'impôt que Pinel",
-      "Mais pour de l'ancien avec travaux",
-      "Travaux = ≥ 25% du coût total",
-      "Location nue à loyer plafonné"
-    ]
-  },
-  benefits: {
-    title: "Avantages fiscaux",
-    benefits: [
-      {
-        title: "Réduction d'impôt",
-        description: "12% du montant investi par an pendant 9 ans",
-        percentage: "12%"
-      },
-      {
-        title: "Plafond d'investissement",
-        description: "300 000€ par an",
-        amount: "300k€"
-      },
-      {
-        title: "Durée d'engagement",
-        description: "9 ans minimum",
-        duration: "9 ans"
-      }
-    ]
-  },
-  conditions: {
-    title: "Conditions d'éligibilité",
-    description: "Pour bénéficier de la Loi Denormandie, plusieurs conditions doivent être respectées :",
-    points: [
-      "Bien situé dans une zone de revitalisation urbaine",
-      "Travaux représentant au moins 25% du coût total",
-      "Location nue à loyer plafonné",
-      "Engagement de location de 9 ans minimum"
-    ]
-  },
-  cta: {
-    title: "Besoin d'aide pour votre investissement ?",
-    description: "Nos experts vous accompagnent dans votre projet d'investissement avec la Loi Denormandie.",
-    buttonText: "Demander une consultation gratuite"
-  }
-};
-
 export async function generateMetadata() {
-  const content = await getPageContent('fiscalite/loi-denormandie', defaultContent);
+  let content = await getPageContent('fiscalite/loi-denormandie');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/loi-denormandie`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
   return {
-    title: content.seo?.metaTitle || "Loi Denormandie | Azalée Patrimoine",
-    description: content.seo?.metaDescription || "La loi Denormandie pour investir dans l'ancien avec travaux.",
+    title: content?.seo?.metaTitle || "Loi Denormandie | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "La loi Denormandie pour investir dans l'ancien avec travaux.",
   };
 }
 
 export default async function LoiDenormandiePage() {
-  const content = await getPageContent('fiscalite/loi-denormandie', defaultContent);
+  let content = await getPageContent('fiscalite/loi-denormandie');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/loi-denormandie`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -78,13 +62,13 @@ export default async function LoiDenormandiePage() {
           <div className="max-w-4xl mx-auto">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-                {content.hero.title}
+                {content?.hero?.title}
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-white mb-3 sm:mb-4 leading-relaxed">
-                {content.hero.subtitle}
+                {content?.hero?.subtitle}
               </p>
               <p className="text-sm sm:text-base text-white mb-6 sm:mb-8">
-                {content.hero.description}
+                {content?.hero?.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <CTAButton 
@@ -103,8 +87,8 @@ export default async function LoiDenormandiePage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.overview.title}
-            subtitle={content.overview.description}
+            title={content?.overview?.title}
+            subtitle={content?.overview?.description}
           />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -122,7 +106,7 @@ export default async function LoiDenormandiePage() {
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.benefits.title}
+            title={content?.benefits?.title}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -144,8 +128,8 @@ export default async function LoiDenormandiePage() {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader 
-            title={content.conditions.title}
-            subtitle={content.conditions.description}
+            title={content?.conditions?.title}
+            subtitle={content?.conditions?.description}
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
@@ -168,10 +152,10 @@ export default async function LoiDenormandiePage() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#B99066]/10 rounded-tr-full"></div>
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
-            {content.cta.title}
+            {content?.cta?.title}
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
-            {content.cta.description}
+            {content?.cta?.description}
           </p>
           <CTAButton 
             externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
