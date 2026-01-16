@@ -337,7 +337,7 @@ export default async function SuccessionHeritagePage() {
   return (
     <>
       <HeroSection data={content.hero} />
-      {content.chart && (
+      {content.chart && content.chart.data && Array.isArray(content.chart.data) && content.chart.data.length > 0 && (
         <PlacementChart
           title={content.chart.title || "Indicateurs de succession"}
           data={content.chart.data}

@@ -4,6 +4,16 @@ import React from 'react';
 import Image from 'next/image';
 
 const PlacementChart = ({ title, data, chartImage }) => {
+  // Vérifier que data est un tableau valide
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return null;
+  }
+
+  // Vérifier que chartImage existe
+  if (!chartImage) {
+    return null;
+  }
+
   return (
     <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
       <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,7 +22,7 @@ const PlacementChart = ({ title, data, chartImage }) => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
             <div className="w-[45px] h-[1.5px] bg-[#4EBBBD] rounded-full"></div>
             <h2 className="text-[#112033] text-xl sm:text-2xl lg:text-3xl font-normal uppercase leading-tight">
-              {title}
+              {title || 'Indicateurs'}
             </h2>
           </div>
         </div>
@@ -23,7 +33,7 @@ const PlacementChart = ({ title, data, chartImage }) => {
             <div className="relative w-full h-[450px] sm:h-[550px] lg:h-[650px]">
               <Image
                 src={chartImage}
-                alt={`${title} Chart`}
+                alt={`${title || 'Chart'} Chart`}
                 fill
                 className="object-contain object-center"
                 quality={100}
@@ -50,13 +60,13 @@ const PlacementChart = ({ title, data, chartImage }) => {
               </h3>
               
               <div className="space-y-4">
-                {data.map((item, index) => (
+                {data && Array.isArray(data) && data.map((item, index) => (
                   <div key={index} className="flex justify-between items-center py-3 border-b border-gray-200 last:border-b-0">
                     <span className="text-[#686868] font-source-sans font-medium">
-                      {item.label}
+                      {item?.label || ''}
                     </span>
                     <span className="text-[#112033] font-source-sans font-semibold">
-                      {item.value}
+                      {item?.value || ''}
                     </span>
                   </div>
                 ))}
