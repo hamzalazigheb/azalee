@@ -47,6 +47,9 @@ COPY --from=builder /app/next.config.mjs ./next.config.mjs
 # Copy source code (needed for API routes and dynamic pages)
 COPY --from=builder --chown=nextjs:nodejs /app/src ./src
 
+# Create pdfs directory with correct permissions (will be overridden by volume mount)
+RUN mkdir -p /app/public/pdfs && chown -R nextjs:nodejs /app/public/pdfs
+
 # Set correct permissions
 RUN chown -R nextjs:nodejs /app
 

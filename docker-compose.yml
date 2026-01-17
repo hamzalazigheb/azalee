@@ -35,6 +35,8 @@ services:
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       - STOCK_API_PROVIDER=${STOCK_API_PROVIDER:-RAPIDAPI_YH_FINANCE}
       - STOCK_API_KEY=${STOCK_API_KEY:-}
+    volumes:
+      - ./public/pdfs:/app/public/pdfs  # Volume persistant pour les PDFs uploadés
     depends_on:
       mongo:
         condition: service_healthy
@@ -58,6 +60,8 @@ services:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost/api}
       - STOCK_API_PROVIDER=${STOCK_API_PROVIDER:-RAPIDAPI_YH_FINANCE}
       - STOCK_API_KEY=${STOCK_API_KEY:-}
+    volumes:
+      - ./public/pdfs:/app/public/pdfs  # Volume persistant pour les PDFs uploadés
     depends_on:
       mongo:
         condition: service_healthy
