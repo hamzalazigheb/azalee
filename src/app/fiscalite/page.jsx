@@ -9,6 +9,22 @@ import VignetteInvestisseurImmobilier from "../../components/fiscalite/VignetteI
 import VignetteHeritier from "../../components/fiscalite/VignetteHeritier";
 import { processHTMLForRender } from "../../lib/utils/htmlConverter";
 import SchemaMarkup from "../../components/common/SchemaMarkup";
+import { getImagePath } from '@/lib/paths';
+
+// Helper pour normaliser les anciens chemins d'images du CMS
+const normalizeImagePath = (imagePath) => {
+    if (!imagePath) return null;
+    
+    // Mapper les anciens chemins vers les nouveaux
+    const imageMappings = {
+        '/images/I6644.jpg': '/images/azalee-patrimoine-i6644.webp',
+        '/images/i6644.jpg': '/images/azalee-patrimoine-i6644.webp',
+        '/images/I6644.webp': '/images/azalee-patrimoine-i6644.webp',
+        '/images/i6644.webp': '/images/azalee-patrimoine-i6644.webp',
+    };
+    
+    return imageMappings[imagePath] || imagePath;
+};
 
 export default function FiscalitePage() {
     const [content, setContent] = useState({});
@@ -455,7 +471,7 @@ export default function FiscalitePage() {
                             {/* Image de l'infographie */}
                             <div className="rounded-lg overflow-hidden shadow-lg border-2 border-gray-200">
                                 <img
-                                    src={pageContent.bareme?.infographie?.image || "/images/azalee-patrimoine-i6644.webp"}
+                                    src={getImagePath(normalizeImagePath(pageContent.bareme?.infographie?.image) || "/images/azalee-patrimoine-i6644.webp")}
                                     alt={pageContent.bareme?.infographie?.imageAlt || "Barème de l'impôt sur le revenu 2025 - Tranches et taux d'imposition"}
                                     className="w-full h-auto"
                                 />
