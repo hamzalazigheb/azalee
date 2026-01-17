@@ -21,9 +21,34 @@ const normalizeImagePath = (imagePath) => {
         '/images/i6644.jpg': '/images/azalee-patrimoine-i6644.webp',
         '/images/I6644.webp': '/images/azalee-patrimoine-i6644.webp',
         '/images/i6644.webp': '/images/azalee-patrimoine-i6644.webp',
+        '/images/azalee-patrimoine-I6644.webp': '/images/azalee-patrimoine-i6644.webp',
+        'azalee-patrimoine-I6644.webp': '/images/azalee-patrimoine-i6644.webp',
     };
     
-    return imageMappings[imagePath] || imagePath;
+    // Vérifier d'abord dans le mapping
+    if (imageMappings[imagePath]) {
+        return imageMappings[imagePath];
+    }
+    
+    // Vérifier aussi si le chemin contient I6644 (majuscule) et le remplacer
+    if (imagePath && typeof imagePath === 'string') {
+        // Remplacer I6644 par i6644 dans le chemin
+        const normalized = imagePath.replace(/I6644/g, 'i6644');
+        if (normalized !== imagePath) {
+            // Si le chemin ne commence pas par /images, l'ajouter
+            if (!normalized.startsWith('/images/') && !normalized.startsWith('http')) {
+                return '/images/azalee-patrimoine-i6644.webp';
+            }
+            // Si le chemin contient azalee-patrimoine mais avec I6644, le corriger
+            if (normalized.includes('azalee-patrimoine') && normalized.includes('6644')) {
+                return '/images/azalee-patrimoine-i6644.webp';
+            }
+            // Sinon, retourner le chemin normalisé
+            return normalized;
+        }
+    }
+    
+    return imagePath;
 };
 
 export default function FiscalitePage() {
