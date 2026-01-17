@@ -5,6 +5,14 @@ import ClientProviders from "../components/common/ClientProviders";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Helper pour obtenir le basePath côté serveur
+function getBasePath() {
+  return process.env.STAGING === 'true' ? '/staging' : '';
+}
+
+const basePath = getBasePath();
+const faviconPath = `${basePath}/images/azalee-patrimoine3.webp`;
+
 export const metadata = {
   metadataBase: new URL('https://azalee-patrimoine.fr'),
   title: {
@@ -26,13 +34,13 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/images/azalee-patrimoine3.webp', type: 'image/png', sizes: '32x32' },
-      { url: '/images/azalee-patrimoine3.webp', type: 'image/png', sizes: '16x16' },
+      { url: faviconPath, type: 'image/webp', sizes: '32x32' },
+      { url: faviconPath, type: 'image/webp', sizes: '16x16' },
     ],
     apple: [
-      { url: '/images/azalee-patrimoine3.webp', sizes: '180x180', type: 'image/png' },
+      { url: faviconPath, sizes: '180x180', type: 'image/webp' },
     ],
-    shortcut: '/images/azalee-patrimoine3.webp',
+    shortcut: faviconPath,
   },
   openGraph: {
     type: "website",
@@ -42,7 +50,7 @@ export const metadata = {
     title: "Azalée Patrimoine - Votre partenaire de confiance",
     description: "Expert en gestion de patrimoine, optimisation fiscale et conseil financier. Solutions personnalisées pour sécuriser et faire croître votre patrimoine.",
     images: [{
-      url: "/images/og-image.jpg", // Ensure this image exists or use a fallback
+      url: `${basePath}/images/og-image.jpg`,
       width: 1200,
       height: 630,
       alt: "Azalée Patrimoine - Gestion de patrimoine"
@@ -52,7 +60,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Azalée Patrimoine - Gestion de patrimoine",
     description: "Expert en gestion de patrimoine et optimisation fiscale.",
-    images: ["/images/og-image.jpg"],
+    images: [`${basePath}/images/og-image.jpg`],
     creator: "@azalee_patrimoine"
   },
   robots: {
@@ -75,9 +83,9 @@ export default function RootLayout({ children }) {
         {/* Disable Google Translate auto-translation */}
         <meta name="google" content="notranslate" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <link rel="icon" type="image/png" href="/images/azalee-patrimoine3.webp" />
-        <link rel="shortcut icon" type="image/png" href="/images/azalee-patrimoine3.webp" />
-        <link rel="apple-touch-icon" href="/images/azalee-patrimoine3.webp" />
+        <link rel="icon" type="image/webp" href={faviconPath} />
+        <link rel="shortcut icon" type="image/webp" href={faviconPath} />
+        <link rel="apple-touch-icon" href={faviconPath} />
         <Script
           id="schema-organization"
           type="application/ld+json"
@@ -87,7 +95,7 @@ export default function RootLayout({ children }) {
               "@type": ["FinancialService", "LocalBusiness", "Organization"],
               "name": "Azalée Patrimoine",
               "url": "https://azalee-patrimoine.fr",
-              "logo": "https://azalee-patrimoine.fr/images/azalee-patrimoine3.webp",
+              "logo": `https://azalee-patrimoine.fr${faviconPath}`,
               "description": "Expert en gestion de patrimoine, optimisation fiscale et conseil financier. Solutions personnalisées pour sécuriser et faire croître votre patrimoine.",
               "address": {
                 "@type": "PostalAddress",

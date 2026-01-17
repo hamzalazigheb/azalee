@@ -56,6 +56,11 @@ const Header = () => {
   };
 
   const topBar = headerContent?.topBar || defaultTopBar;
+  
+  // Logo statique - ne dépend plus du CMS
+  const logoPath = getImagePath("/images/azalee-patrimoine3.webp");
+  const logoAlt = "Azalée Patrimoine Logo";
+  
   const [menuOpen, setMenuOpen] = useState(false);
   
   // State for active dropdown
@@ -270,13 +275,13 @@ const Header = () => {
           {/* Main Navigation Bar */}
           <div className="relative flex items-center justify-between py-2 lg:py-3">
             
-            {/* Logo */}
+            {/* Logo - STATIQUE */}
             <div className="flex-shrink-0 relative z-20">
               <Link href="/">
                 <img 
-                    src={getImagePath(headerContent?.logo?.src || "/images/azalee-patrimoine3.webp")} 
-                    className="w-[90px] h-auto sm:w-[120px] lg:w-[140px] object-contain hover:opacity-90 transition-opacity" 
-                  alt={headerContent?.logo?.alt || "Azalée Patrimoine Logo"} 
+                  src={logoPath}
+                  className="w-[90px] h-auto sm:w-[120px] lg:w-[140px] object-contain hover:opacity-90 transition-opacity" 
+                  alt={logoAlt}
                 />
               </Link>
             </div>
