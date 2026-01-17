@@ -206,10 +206,10 @@ const Header = () => {
       
       {/* Header Container - Sticky */}
       <header className="sticky top-0 z-50 w-full bg-[#253F60] lg:bg-gradient-to-r lg:from-[#253F60] lg:to-[#B99066] shadow-lg transition-all duration-300">
-        <div className="px-4 sm:px-6 lg:px-[100px] py-2 lg:py-0">
+        <div className="px-4 sm:px-6 lg:px-4 py-1 lg:py-0">
           
           {/* Top Header Bar */}
-          <div className="flex flex-col lg:flex-row justify-end items-start lg:items-center gap-2 lg:gap-4 py-2 border-b border-white/10 lg:border-none">
+          <div className="flex flex-col lg:flex-row justify-end items-start lg:items-center gap-2 lg:gap-4 py-1 border-b border-white/10 lg:border-none">
             {/* Contact & Social & Espace Client - Tout aligné à droite */}
             <div className="hidden lg:flex flex-row items-center gap-4 sm:gap-6 ml-auto">
               {/* Phone */}
@@ -268,14 +268,14 @@ const Header = () => {
           </div>
 
           {/* Main Navigation Bar */}
-          <div className="relative flex items-center justify-between py-4 lg:py-6">
+          <div className="relative flex items-center justify-between py-2 lg:py-3">
             
             {/* Logo */}
             <div className="flex-shrink-0 relative z-20">
               <Link href="/">
                 <img 
                     src={getImagePath(headerContent?.logo?.src || "/images/azalee-patrimoine3.webp")} 
-                    className="w-[100px] h-auto sm:w-[130px] lg:w-[150px] object-contain hover:opacity-90 transition-opacity" 
+                    className="w-[90px] h-auto sm:w-[120px] lg:w-[140px] object-contain hover:opacity-90 transition-opacity" 
                   alt={headerContent?.logo?.alt || "Azalée Patrimoine Logo"} 
                 />
               </Link>
@@ -304,7 +304,7 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav 
               id="mobile-navigation"
-              className={`${menuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row absolute lg:relative top-full left-0 w-full lg:w-auto bg-[#253F60] lg:bg-transparent shadow-xl lg:shadow-none p-4 lg:p-0 gap-4 lg:gap-8 items-stretch lg:items-center z-50`}
+              className={`${menuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row absolute lg:relative top-full left-0 w-full lg:w-auto bg-[#253F60] lg:bg-transparent shadow-xl lg:shadow-none p-4 lg:p-0 gap-4 lg:gap-8 items-stretch lg:items-center z-50 max-h-[calc(100vh-80px)] lg:max-h-none overflow-y-auto lg:overflow-visible`}
               aria-label="Navigation principale"
               role="navigation"
             >

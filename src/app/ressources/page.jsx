@@ -1,23 +1,12 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import Link from 'next/link';
+import { getApiPath } from '@/lib/paths';
 
-export const metadata = {
-  title: 'Ressources & Guides PDF | Azalée Patrimoine',
-  description: 'Téléchargez nos guides gratuits sur la gestion de patrimoine, l\'optimisation fiscale, les placements financiers et la préparation de la retraite.',
-  keywords: 'guides patrimoine PDF, ressources financières, téléchargement gratuit, conseils patrimoniaux',
-  alternates: {
-    canonical: 'https://www.azalee-patrimoine.fr/ressources',
-  },
-  openGraph: {
-    title: 'Ressources & Guides PDF | Azalée Patrimoine',
-    description: 'Guides gratuits sur la gestion de patrimoine et l\'optimisation fiscale.',
-    url: 'https://www.azalee-patrimoine.fr/ressources',
-    type: 'website',
-  },
-};
-
-const guides = [
+// Default content fallback
+const defaultGuides = [
   {
     id: 1,
     title: 'Guide Complet de la Gestion de Patrimoine',
@@ -27,6 +16,7 @@ const guides = [
     icon: '📊',
     color: 'from-[#253F60] to-[#1a2d47]',
     featured: true,
+    pdfUrl: ''
   },
   {
     id: 2,
@@ -37,6 +27,7 @@ const guides = [
     icon: '💰',
     color: 'from-[#B99066] to-[#8a6b4d]',
     featured: true,
+    pdfUrl: ''
   },
   {
     id: 3,
@@ -47,6 +38,7 @@ const guides = [
     icon: '🏖️',
     color: 'from-[#4a6b8a] to-[#253F60]',
     featured: false,
+    pdfUrl: ''
   },
   {
     id: 4,
@@ -57,6 +49,7 @@ const guides = [
     icon: '🏢',
     color: 'from-[#6b8a4a] to-[#4a6b3a]',
     featured: false,
+    pdfUrl: ''
   },
   {
     id: 5,
@@ -67,6 +60,7 @@ const guides = [
     icon: '👨‍👩‍👧‍👦',
     color: 'from-[#8a4a6b] to-[#6b3a4a]',
     featured: false,
+    pdfUrl: ''
   },
   {
     id: 6,
@@ -77,14 +71,100 @@ const guides = [
     icon: '🛡️',
     color: 'from-[#4a8a6b] to-[#3a6b4a]',
     featured: false,
+    pdfUrl: ''
   },
 ];
 
-const categories = ['Tous', 'Patrimoine', 'Fiscalité', 'Placements', 'Retraite'];
+const defaultCategories = ['Tous', 'Patrimoine', 'Fiscalité', 'Placements', 'Retraite'];
 
 export default function RessourcesPage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState('Tous');
+
+  useEffect(() => {
+    fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'ressources') {
+        fetchContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+    return () => window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+  }, []);
+
+  const fetchContent = async () => {
+    try {
+      const response = await fetch(getApiPath(`/cms/content?path=ressources&t=${Date.now()}`), {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        }
+      });
+      const data = await response.json();
+      if (data.success && data.data && Object.keys(data.data).length > 0) {
+        setContent(data.data);
+      } else {
+        // Fallback to default content
+        setContent({
+          hero: {
+            title: "Ressources & Guides",
+            subtitle: "Téléchargez gratuitement nos guides experts pour maîtriser la gestion de votre patrimoine et optimiser votre fiscalité."
+          },
+          guides: defaultGuides,
+          categories: defaultCategories
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching ressources:', error);
+      setContent({
+        hero: {
+          title: "Ressources & Guides",
+          subtitle: "Téléchargez gratuitement nos guides experts pour maîtriser la gestion de votre patrimoine et optimiser votre fiscalité."
+        },
+        guides: defaultGuides,
+        categories: defaultCategories
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#B99066] mx-auto mb-4"></div>
+            <p className="text-gray-600">Chargement des ressources...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const guides = content?.guides || defaultGuides;
+  const categories = content?.categories || defaultCategories;
   const featuredGuides = guides.filter(g => g.featured);
   const otherGuides = guides.filter(g => !g.featured);
+  const filteredGuides = selectedCategory === 'Tous' 
+    ? otherGuides 
+    : otherGuides.filter(g => g.category === selectedCategory);
+
+  const handleDownload = (guide) => {
+    if (guide.pdfUrl) {
+      window.open(guide.pdfUrl, '_blank');
+    } else {
+      // Fallback: could show a modal or redirect to contact
+      alert('Le PDF sera bientôt disponible. Contactez-nous pour plus d\'informations.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -96,66 +176,70 @@ export default function RessourcesPage() {
           <div className="text-center">
             <div className="w-16 h-1 bg-[#B99066] mx-auto mb-6"></div>
             <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6">
-              Ressources & Guides
+              {content?.hero?.title || "Ressources & Guides"}
             </h1>
             <p className="text-white/90 text-lg sm:text-xl font-inter max-w-3xl mx-auto leading-relaxed">
-              Téléchargez gratuitement nos guides experts pour maîtriser la gestion 
-              de votre patrimoine et optimiser votre fiscalité.
+              {content?.hero?.subtitle || "Téléchargez gratuitement nos guides experts pour maîtriser la gestion de votre patrimoine et optimiser votre fiscalité."}
             </p>
           </div>
         </div>
       </section>
 
       {/* Featured Guides */}
-      <section className="py-16 lg:py-20 bg-gray-50">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-12 h-1 bg-[#B99066]"></div>
-            <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold">
-              Guides Essentiels
-            </h2>
-          </div>
+      {featuredGuides.length > 0 && (
+        <section className="py-16 lg:py-20 bg-gray-50">
+          <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-12 h-1 bg-[#B99066]"></div>
+              <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold">
+                Guides Essentiels
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {featuredGuides.map((guide) => (
-              <div
-                key={guide.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className={`h-48 bg-gradient-to-br ${guide.color} flex items-center justify-center relative overflow-hidden`}>
-                  <span className="text-8xl opacity-30 group-hover:scale-110 transition-transform duration-500">
-                    {guide.icon}
-                  </span>
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
-                      {guide.category}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {featuredGuides.map((guide) => (
+                <div
+                  key={guide.id}
+                  className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className={`h-48 bg-gradient-to-br ${guide.color} flex items-center justify-center relative overflow-hidden`}>
+                    <span className="text-8xl opacity-30 group-hover:scale-110 transition-transform duration-500">
+                      {guide.icon}
                     </span>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        {guide.category}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-4 right-4">
+                      <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
+                        {guide.pages} pages
+                      </span>
+                    </div>
                   </div>
-                  <div className="absolute bottom-4 right-4">
-                    <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
-                      {guide.pages} pages
-                    </span>
+                  <div className="p-6 lg:p-8">
+                    <h3 className="text-[#253F60] text-xl lg:text-2xl font-cairo font-semibold mb-3">
+                      {guide.title}
+                    </h3>
+                    <p className="text-gray-600 font-inter leading-relaxed mb-6">
+                      {guide.description}
+                    </p>
+                    <button 
+                      onClick={() => handleDownload(guide)}
+                      className="w-full bg-[#253F60] hover:bg-[#1a2d47] text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                      Télécharger Gratuitement
+                    </button>
                   </div>
                 </div>
-                <div className="p-6 lg:p-8">
-                  <h3 className="text-[#253F60] text-xl lg:text-2xl font-cairo font-semibold mb-3">
-                    {guide.title}
-                  </h3>
-                  <p className="text-gray-600 font-inter leading-relaxed mb-6">
-                    {guide.description}
-                  </p>
-                  <button className="w-full bg-[#253F60] hover:bg-[#1a2d47] text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Télécharger Gratuitement
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* All Guides */}
       <section className="py-16 lg:py-20">
@@ -165,8 +249,9 @@ export default function RessourcesPage() {
             {categories.map((category) => (
               <button
                 key={category}
+                onClick={() => setSelectedCategory(category)}
                 className={`px-5 py-2 rounded-full font-inter text-sm font-medium transition-all duration-200 ${
-                  category === 'Tous'
+                  category === selectedCategory
                     ? 'bg-[#253F60] text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-[#253F60] hover:text-white'
                 }`}
@@ -177,42 +262,51 @@ export default function RessourcesPage() {
           </div>
 
           {/* Guides Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {otherGuides.map((guide) => (
-              <div
-                key={guide.id}
-                className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className={`h-32 bg-gradient-to-br ${guide.color} flex items-center justify-center relative`}>
-                  <span className="text-5xl opacity-40 group-hover:scale-110 transition-transform duration-500">
-                    {guide.icon}
-                  </span>
-                  <div className="absolute top-3 right-3">
-                    <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded">
-                      {guide.pages} pages
+          {filteredGuides.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredGuides.map((guide) => (
+                <div
+                  key={guide.id}
+                  className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className={`h-32 bg-gradient-to-br ${guide.color} flex items-center justify-center relative`}>
+                    <span className="text-5xl opacity-40 group-hover:scale-110 transition-transform duration-500">
+                      {guide.icon}
                     </span>
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded">
+                        {guide.pages} pages
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <span className="text-[#B99066] text-xs font-semibold uppercase">
+                      {guide.category}
+                    </span>
+                    <h3 className="text-[#253F60] text-lg font-cairo font-semibold mt-2 mb-2">
+                      {guide.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm font-inter leading-relaxed mb-4 line-clamp-2">
+                      {guide.description}
+                    </p>
+                    <button 
+                      onClick={() => handleDownload(guide)}
+                      className="w-full bg-gray-100 hover:bg-[#253F60] text-[#253F60] hover:text-white py-2 px-4 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                      Télécharger
+                    </button>
                   </div>
                 </div>
-                <div className="p-5">
-                  <span className="text-[#B99066] text-xs font-semibold uppercase">
-                    {guide.category}
-                  </span>
-                  <h3 className="text-[#253F60] text-lg font-cairo font-semibold mt-2 mb-2">
-                    {guide.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm font-inter leading-relaxed mb-4 line-clamp-2">
-                    {guide.description}
-                  </p>
-                  <button className="w-full bg-gray-100 hover:bg-[#253F60] text-[#253F60] hover:text-white py-2 px-4 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Télécharger
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500">Aucun guide disponible dans cette catégorie.</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -275,4 +369,3 @@ export default function RessourcesPage() {
     </div>
   );
 }
-

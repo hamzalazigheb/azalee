@@ -9,7 +9,7 @@ const adminBreadcrumbNames = {
   'cms': 'Gestion du contenu',
   'contacts': 'Demandes de contact',
   'users': 'Gestion des utilisateurs',
-  'chatbot': 'Chatbot SARA',
+  'chatbot': 'Chatbot SARAH',
   'seo': 'Gestion SEO',
   'settings': 'Paramètres',
   'newsletter': 'Newsletter - Abonnés',

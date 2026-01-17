@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../../../components/common/Footer";
 import Accordion from "@/components/ui/Accordion";
+import CompteTitresButtons from "./CompteTitresButtons";
 import { getPageContent } from '@/lib/cms-server';
 
 export const revalidate = 0;
@@ -73,9 +74,7 @@ export default async function CompteTitresPage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
-                {content?.hero?.button}
-              </button>
+              <CompteTitresButtons content={content} variant="hero" />
             </div>
           </div>
         </div>
@@ -340,14 +339,7 @@ export default async function CompteTitresPage() {
           <div className="bg-white/10 rounded-2xl p-8 lg:p-12 backdrop-blur-sm max-w-3xl mx-auto border border-white/20">
             <h3 className="text-2xl font-bold mb-4">{content?.cta?.title}</h3>
             <p className="opacity-90 mb-8">{content?.cta?.subtitle}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                {content?.cta?.primaryButton}
-              </button>
-              <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200">
-                {content?.cta?.secondaryButton}
-              </button>
-            </div>
+            <CompteTitresButtons content={content} variant="cta" />
           </div>
         </div>
       </section>

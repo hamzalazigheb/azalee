@@ -384,7 +384,10 @@ export default function InvestissementImmobilierPage() {
               </p>
               
               {/* CTA Button */}
-              <button className="bg-[#B99066] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg font-inter font-medium text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200">
+              <button 
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                className="bg-[#B99066] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg font-inter font-medium text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200"
+              >
                 {content.hero?.ctaButton || "Demander une étude patrimoniale gratuite"}
               </button>
             </div>
@@ -820,7 +823,10 @@ export default function InvestissementImmobilierPage() {
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
-            <button className="bg-[#B99066] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-lg shadow-lg font-source-sans font-semibold text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200 transform hover:scale-105">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-[#B99066] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-lg shadow-lg font-source-sans font-semibold text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200 transform hover:scale-105"
+            >
               En savoir plus
             </button>
           </div>
@@ -948,7 +954,10 @@ export default function InvestissementImmobilierPage() {
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1258px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
-            <button className="bg-[#B99066] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-lg shadow-lg font-source-sans font-semibold text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200 transform hover:scale-105">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-[#B99066] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-lg shadow-lg font-source-sans font-semibold text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200 transform hover:scale-105"
+            >
               En savoir plus
             </button>
           </div>
@@ -1097,7 +1106,10 @@ export default function InvestissementImmobilierPage() {
       <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1258px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
-            <button className="bg-[#B99066] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-lg shadow-lg font-source-sans font-semibold text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200 transform hover:scale-105">
+            <button 
+              onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+              className="bg-[#B99066] text-white px-8 sm:px-12 py-3 sm:py-4 rounded-lg shadow-lg font-source-sans font-semibold text-sm sm:text-base hover:bg-[#A67A5A] transition-colors duration-200 transform hover:scale-105"
+            >
               En savoir plus
             </button>
           </div>
@@ -1585,7 +1597,7 @@ export default function InvestissementImmobilierPage() {
 
           {/* Discover All News Button */}
           <div className="flex justify-center mt-8 lg:mt-12">
-            <a href="#" className="flex items-center gap-2 text-[#4EBBBD] text-sm font-source-sans hover:underline">
+            <a href="/blog" className="flex items-center gap-2 text-[#4EBBBD] text-sm font-source-sans hover:underline">
               <span>Discover all the news</span>
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 12 12">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="0.7" d="M0.44 0.47L11.9 6L0.44 11.53"/>

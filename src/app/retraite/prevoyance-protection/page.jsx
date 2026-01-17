@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Footer from "../../../components/common/Footer";
 import { getPageContent } from '@/lib/cms-server';
 
@@ -47,13 +46,6 @@ export default async function PrevoyancePage() {
       <section className="relative w-full min-h-[400px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-white">
-            <nav className="flex items-center text-white/80 text-sm mb-6">
-              <Link href="/" className="hover:text-white transition-colors">Accueil</Link>
-              <span className="mx-2">{'>'}</span>
-              <Link href="/retraite" className="hover:text-white transition-colors">Retraite</Link>
-              <span className="mx-2">{'>'}</span>
-              <span className="text-[#B99066]">{content.hero?.breadcrumb?.current || "Prévoyance"}</span>
-            </nav>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold mb-6 leading-tight">
               {content.hero?.title}
             </h1>

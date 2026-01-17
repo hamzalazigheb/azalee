@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "../../../components/common/Footer";
+import AssuranceVieLuxembourgButtons from "./AssuranceVieLuxembourgButtons";
 import { getPageContent } from '@/lib/cms-server';
 
 export const revalidate = 0;
@@ -74,9 +75,7 @@ export default async function AssuranceVieLuxembourgPage() {
 
               {/* CTA Button */}
               <div className="flex justify-center lg:justify-start">
-                <button className="bg-[#B99066] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg font-inter font-medium text-xs sm:text-base hover:bg-[#A67A5A] transition-colors duration-200">
-                  {content?.hero?.button}
-                </button>
+                <AssuranceVieLuxembourgButtons content={content} variant="hero" />
               </div>
             </div>
 
@@ -336,14 +335,7 @@ export default async function AssuranceVieLuxembourgPage() {
               </h3>
               <p className="text-sm opacity-90">Stratégie patrimoniale internationale</p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 text-lg">
-                {content?.cta?.primaryButton}
-              </button>
-              <button className="border-2 border-[#B99066] text-[#B99066] px-8 py-4 rounded-lg font-medium hover:bg-[#B99066] hover:text-white transition-colors duration-200 text-lg">
-                {content?.cta?.secondaryButton}
-              </button>
-            </div>
+            <AssuranceVieLuxembourgButtons content={content} variant="cta" />
           </div>
         </div>
       </section>

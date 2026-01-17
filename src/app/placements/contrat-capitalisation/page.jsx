@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../../../components/common/Footer";
 import Accordion from "@/components/ui/Accordion";
+import ContratCapitalisationButtons from "./ContratCapitalisationButtons";
 import { getPageContent } from '@/lib/cms-server';
 
 export const revalidate = 0;
@@ -74,14 +75,7 @@ export default async function ContratCapitalisationPage() {
                   {content?.hero?.description}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-4">
-                <button className="px-8 py-4 bg-[#B99066] hover:bg-[#A67A5A] text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  {content?.hero?.button}
-                </button>
-                <button className="px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-[#253F60] text-white rounded-lg font-semibold transition-all duration-300">
-                  {content?.hero?.secondaryButton}
-                </button>
-              </div>
+              <ContratCapitalisationButtons content={content} variant="hero" />
             </div>
 
             {/* Features Grid - Right Side */}
@@ -324,14 +318,7 @@ export default async function ContratCapitalisationPage() {
               <h3 className="text-2xl font-bold mb-4">{content?.cta?.title}</h3>
               <p className="mb-8 opacity-90">{content?.cta?.description}</p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-8 py-4 bg-[#B99066] hover:bg-[#A67A5A] text-white rounded-lg font-bold transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  {content?.cta?.primaryButton}
-                </button>
-                <button className="px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-[#253F60] text-white rounded-lg font-bold transition-all">
-                  {content?.cta?.secondaryButton}
-                </button>
-              </div>
+              <ContratCapitalisationButtons content={content} variant="cta" />
             </div>
           </div>
         </div>

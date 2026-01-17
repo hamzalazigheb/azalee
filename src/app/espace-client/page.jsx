@@ -53,12 +53,6 @@ export default function EspaceClientPage() {
               </CTAButton>
             </div>
 
-            {/* Liens supplémentaires */}
-            <div className="mt-6 text-center space-y-3">
-              <Link href="#" className="block text-[#253F60] text-sm hover:text-[#1A2A4A] transition-colors">
-                Mot de passe oublié ?
-              </Link>
-            </div>
 
             {/* Informations supplémentaires */}
             <div className="mt-8 p-4 bg-gray-50 rounded-lg">

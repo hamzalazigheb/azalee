@@ -616,6 +616,20 @@ export default function HomePage() {
 
             // Ensure testimonials is in sectionOrder (only if testimonials exist in CMS)
             let finalSectionOrder = data.data.sectionOrder || defaultSectionOrder;
+            
+            // Ensure teamPreview is in sectionOrder if it exists in content (default or CMS)
+            if (mergedContent.teamPreview && (!finalSectionOrder.includes('teamPreview'))) {
+              // Insert teamPreview after team if present, otherwise after intro
+              const insertIndex = finalSectionOrder.indexOf('team') !== -1 
+                ? finalSectionOrder.indexOf('team') + 1
+                : finalSectionOrder.indexOf('intro') !== -1
+                ? finalSectionOrder.indexOf('intro') + 1
+                : 1;
+              finalSectionOrder = [...finalSectionOrder];
+              finalSectionOrder.splice(insertIndex, 0, 'teamPreview');
+              console.log('✅ teamPreview added to sectionOrder');
+            }
+            
             if (mergedContent.testimonials && mergedContent.testimonials.items && mergedContent.testimonials.items.length > 0) {
               if (!finalSectionOrder.includes('testimonials')) {
                 // Insert testimonials after teamPreview if present, otherwise after intro
@@ -685,6 +699,20 @@ export default function HomePage() {
 
             // Ensure testimonials is in sectionOrder (only if testimonials exist in CMS)
             let finalSectionOrder = data.content.sectionOrder || defaultSectionOrder;
+            
+            // Ensure teamPreview is in sectionOrder if it exists in content (default or CMS)
+            if (mergedContent.teamPreview && (!finalSectionOrder.includes('teamPreview'))) {
+              // Insert teamPreview after team if present, otherwise after intro
+              const insertIndex = finalSectionOrder.indexOf('team') !== -1 
+                ? finalSectionOrder.indexOf('team') + 1
+                : finalSectionOrder.indexOf('intro') !== -1
+                ? finalSectionOrder.indexOf('intro') + 1
+                : 1;
+              finalSectionOrder = [...finalSectionOrder];
+              finalSectionOrder.splice(insertIndex, 0, 'teamPreview');
+              console.log('✅ teamPreview added to sectionOrder');
+            }
+            
             if (mergedContent.testimonials && mergedContent.testimonials.items && mergedContent.testimonials.items.length > 0) {
               if (!finalSectionOrder.includes('testimonials')) {
                 // Insert testimonials after teamPreview if present, otherwise after intro
@@ -779,7 +807,7 @@ export default function HomePage() {
         return <HeroCarousel key="hero" content={content} />;
       case 'intro':
         return (
-          <section key="intro" className="w-full px-4 sm:px-6 lg:px-[100px] py-12 sm:py-16 lg:py-28">
+          <section key="intro" className="w-full px-4 sm:px-6 lg:px-4 py-12 sm:py-16 lg:py-28">
             <div className="max-w-[1368px] mx-auto">
               <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
                 <div className="w-full lg:w-[58%]">

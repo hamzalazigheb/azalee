@@ -1,48 +1,53 @@
-import React from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import Footer from "../../../components/common/Footer";
 import SectionHeader from "../../../components/common/SectionHeader";
 import CTAButton from '@/components/ui/CTAButton';
-import { getPageContent } from '@/lib/cms-server';
+import { getApiPath } from '@/lib/paths';
 
-export async function generateMetadata() {
-  let content = await getPageContent('fiscalite/monument-historique');
-  
-  // Fallback: Try fetching via API
-  if (!content || Object.keys(content).length === 0) {
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
-      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/monument-historique`, { cache: 'no-store' });
-      const json = await res.json();
-      if (json.success && json.data?.content) {
-        content = json.data.content;
+export default function MonumentHistoriquePage() {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(getApiPath(`/cms/content?path=fiscalite/monument-historique&t=${Date.now()}`), {
+          cache: 'no-store',
+        });
+        const data = await response.json();
+        if (data.success && data.data && Object.keys(data.data).length > 0) {
+          setContent(data.data);
+        } else {
+          // Try API fallback
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+          const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/monument-historique`, { cache: 'no-store' });
+          const json = await res.json();
+          if (json.success && json.data?.content) {
+            setContent(json.data.content);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (e) {
-      console.error('API fallback failed:', e);
-    }
+    };
+
+    fetchContent();
+  }, []);
+
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-xl">Chargement...</p>
+        </div>
+      </div>
+    );
   }
-  return {
-    title: content?.seo?.metaTitle || "Monument Historique | Azalée Patrimoine",
-    description: content?.seo?.metaDescription || "Le dispositif Monument Historique permet de réduire ses impôts en investissant dans la rénovation de monuments historiques classés ou inscrits.",
-  };
-}
-
-export default async function MonumentHistoriquePage() {
-  let content = await getPageContent('fiscalite/monument-historique');
-
-  // Fallback: Try fetching via API if direct DB access returns nothing
-  if (!content || Object.keys(content).length === 0) {
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
-      const res = await fetch(`${apiUrl}/api/cms/pages?path=fiscalite/monument-historique`, { cache: 'no-store' });
-      const json = await res.json();
-      if (json.success && json.data?.content) {
-        content = json.data.content;
-      }
-    } catch (e) {
-      console.error('API fallback failed:', e);
-    }
-  }
-
 
   if (!content || Object.keys(content).length === 0) {
     return (

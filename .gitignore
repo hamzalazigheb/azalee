@@ -72,3 +72,7 @@ logs/
 *.tmp
 *.temp
 .cache/
+
+# Uploaded PDFs (keep directory structure with .gitkeep)
+public/pdfs/*.pdf
+!public/pdfs/.gitkeep

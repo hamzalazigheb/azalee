@@ -166,7 +166,7 @@ export default function Breadcrumb({ className = '' }) {
         aria-label="Fil d'Ariane" 
         className={`w-full bg-gradient-to-r from-[#253F60] to-[#B99066] ${className}`}
       >
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-[100px] py-4">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-4 py-4">
           <ol className="flex flex-wrap items-center gap-2 text-sm">
             <li>
               <Link

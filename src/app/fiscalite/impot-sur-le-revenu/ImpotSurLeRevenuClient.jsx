@@ -242,7 +242,7 @@ export default function ImpotSurLeRevenuClient({ content }) {
                 </p>
                 <div className="flex justify-center">
                   <a 
-                    href="https://calendly.com/azalee-patrimoine"
+                    href="https://calendly.com/rdv-azalee-patrimoine/30min"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-white border-2 border-[#253F60] text-[#253F60] px-6 py-3 rounded-lg font-semibold hover:bg-[#253F60] hover:text-white transition-colors duration-200"
