@@ -19,6 +19,7 @@ import SortableItem from '../../../components/admin/SortableItem';
 import ImageUpload from '../../../components/admin/CloudinaryUpload';
 import Notification from '../../../components/admin/Notification';
 import TextEditor from '../../../components/admin/TextEditor';
+import { getImagePath } from '@/lib/paths';
 
 // Helper function to strip HTML tags and show only text
 const stripHTML = (html) => {
@@ -1807,7 +1808,7 @@ export default function CMSManagementPage() {
               <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-[#B99066]/10 to-transparent"></div>
 
               <img
-                src="/images/azalee-patrimoine3.webp"
+                src={getImagePath("/images/azalee-patrimoine3.webp")}
                 alt="Azalée Patrimoine Logo"
                 className="max-w-full max-h-full object-contain relative z-10 animate-logo-refined drop-shadow-2xl"
                 onError={(e) => {

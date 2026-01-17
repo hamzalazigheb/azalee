@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
+import { getImagePath } from '@/lib/paths';
 
 export default function AdminLayout({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -250,7 +251,7 @@ export default function AdminLayout({ children }) {
                 {/* Logo */}
                 <div className="bg-white rounded-xl p-2 shadow-lg">
                   <img 
-                    src="/images/azalee-patrimoine3.webp" 
+                    src={getImagePath("/images/azalee-patrimoine3.webp")}
                     alt="Azalée Patrimoine Logo" 
                     className="w-10 h-10 object-contain"
                     onError={(e) => {

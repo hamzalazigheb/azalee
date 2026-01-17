@@ -39,8 +39,8 @@ const headerContent = {
     }
   },
   logo: {
-    src: "/images/azalee-patrimoine3.png",
-    alt: "Azalee Wealth Logo"
+    src: "/images/azalee-patrimoine3.webp",
+    alt: "Azalée Patrimoine Logo"
   },
   menuItems: {
     fiscalite: {

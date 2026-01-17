@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getImagePath } from '@/lib/paths';
 
 function ChatbotStatsCard() {
   const [chatbotStats, setChatbotStats] = useState({
@@ -97,7 +98,7 @@ export default function AdminDashboardPage() {
             <div className="flex items-center gap-6">
               <div className="bg-white rounded-xl p-3 shadow-lg">
                 <img 
-                  src="/images/azalee-patrimoine3.webp" 
+                  src={getImagePath("/images/azalee-patrimoine3.webp")}
                   alt="Azalée Patrimoine Logo" 
                   className="w-20 h-20 object-contain"
                   onError={(e) => {
