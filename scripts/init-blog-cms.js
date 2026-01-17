@@ -58,7 +58,6 @@ const blogContent = {
         author: 'Équipe Azalée',
         date: '2025-01-15',
         readTime: '8 min',
-        image: '/images/azalee-patrimoine-fiscalite.webp',
         featured: true,
         socialLinks: {
           linkedin: '',
@@ -76,7 +75,6 @@ const blogContent = {
         author: 'Équipe Azalée',
         date: '2025-01-10',
         readTime: '12 min',
-        image: '/images/azalee-patrimoine-retraite.webp',
         featured: true,
         socialLinks: {
           linkedin: '',
@@ -94,7 +92,6 @@ const blogContent = {
         author: 'Équipe Azalée',
         date: '2025-01-05',
         readTime: '10 min',
-        image: '/images/azalee-patrimoine-scpi.webp',
         featured: false,
         socialLinks: {
           linkedin: '',
@@ -112,7 +109,6 @@ const blogContent = {
         author: 'Équipe Azalée',
         date: '2024-12-28',
         readTime: '15 min',
-        image: '/images/azalee-patrimoine-transmission.webp',
         featured: false,
         socialLinks: {
           linkedin: '',
@@ -130,7 +126,6 @@ const blogContent = {
         author: 'Équipe Azalée',
         date: '2024-12-20',
         readTime: '9 min',
-        image: '/images/azalee-patrimoine-assurance-vie.webp',
         featured: false,
         socialLinks: {
           linkedin: '',
@@ -148,7 +143,6 @@ const blogContent = {
         author: 'Équipe Azalée',
         date: '2024-12-15',
         readTime: '11 min',
-        image: '/images/azalee-patrimoine-lmnp.webp',
         featured: false,
         socialLinks: {
           linkedin: '',
