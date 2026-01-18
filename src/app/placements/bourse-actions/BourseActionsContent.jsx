@@ -5,9 +5,9 @@ import CTAButton from "@/components/ui/CTAButton";
 export default function BourseActionsContent({ content }) {
   const [activeTab, setActiveTab] = useState("introduction");
   const [marketData, setMarketData] = useState({
-    cac40: { value: 0, change: 0, loading: true },
-    sp500: { value: 0, change: 0, loading: true },
-    msciWorld: { value: 0, change: 0, loading: true },
+    cac40: { value: 0, change: 0, loading: true, isMarketOpen: false, marketState: 'UNKNOWN' },
+    sp500: { value: 0, change: 0, loading: true, isMarketOpen: false, marketState: 'UNKNOWN' },
+    msciWorld: { value: 0, change: 0, loading: true, isMarketOpen: false, marketState: 'UNKNOWN' },
     averageReturn: 7.0,
     loading: true
   });
@@ -26,9 +26,24 @@ export default function BourseActionsContent({ content }) {
         const result = await response.json();
         if (result.success && result.data) {
           setMarketData({
-            cac40: { ...result.data.cac40, loading: false },
-            sp500: { ...result.data.sp500, loading: false },
-            msciWorld: { ...result.data.msciWorld, loading: false },
+            cac40: { 
+              ...result.data.cac40, 
+              loading: false,
+              isMarketOpen: result.data.cac40?.isMarketOpen ?? false,
+              marketState: result.data.cac40?.marketState ?? 'UNKNOWN'
+            },
+            sp500: { 
+              ...result.data.sp500, 
+              loading: false,
+              isMarketOpen: result.data.sp500?.isMarketOpen ?? false,
+              marketState: result.data.sp500?.marketState ?? 'UNKNOWN'
+            },
+            msciWorld: { 
+              ...result.data.msciWorld, 
+              loading: false,
+              isMarketOpen: result.data.msciWorld?.isMarketOpen ?? false,
+              marketState: result.data.msciWorld?.marketState ?? 'UNKNOWN'
+            },
             averageReturn: result.data.averageReturn,
             loading: false
           });
@@ -40,10 +55,12 @@ export default function BourseActionsContent({ content }) {
   };
 
   useEffect(() => {
+    // Charger immédiatement
     fetchMarketData();
+    // ✅ Mise à jour toutes les 20 secondes pour données quasi temps réel
     const interval = setInterval(() => {
       fetchMarketData();
-    }, 60000);
+    }, 20000); // 20 secondes au lieu de 60
 
     return () => clearInterval(interval);
   }, []);
@@ -56,7 +73,19 @@ export default function BourseActionsContent({ content }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {/* CAC 40 Card */}
             <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-[#253F60]/20">
-              <h3 className="text-[#253F60] text-sm font-cairo font-semibold mb-3 uppercase tracking-wide">CAC 40</h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-[#253F60] text-sm font-cairo font-semibold uppercase tracking-wide">CAC 40</h3>
+                {!marketData.cac40.loading && marketData.cac40.isMarketOpen !== undefined && (
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-2 h-2 rounded-full ${
+                      marketData.cac40.isMarketOpen ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
+                    }`}></div>
+                    <span className="text-xs text-gray-500 font-medium">
+                      {marketData.cac40.isMarketOpen ? 'Ouvert' : 'Fermé'}
+                    </span>
+                  </div>
+                )}
+              </div>
               {marketData.cac40.loading ? (
                 <div className="animate-pulse">
                   <div className="h-8 bg-gray-200 rounded mb-2"></div>
@@ -77,7 +106,19 @@ export default function BourseActionsContent({ content }) {
 
             {/* S&P 500 Card */}
             <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-[#253F60]/20">
-              <h3 className="text-[#253F60] text-sm font-cairo font-semibold mb-3 uppercase tracking-wide">S&P 500</h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-[#253F60] text-sm font-cairo font-semibold uppercase tracking-wide">S&P 500</h3>
+                {!marketData.sp500.loading && marketData.sp500.isMarketOpen !== undefined && (
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-2 h-2 rounded-full ${
+                      marketData.sp500.isMarketOpen ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
+                    }`}></div>
+                    <span className="text-xs text-gray-500 font-medium">
+                      {marketData.sp500.isMarketOpen ? 'Ouvert' : 'Fermé'}
+                    </span>
+                  </div>
+                )}
+              </div>
               {marketData.sp500.loading ? (
                 <div className="animate-pulse">
                   <div className="h-8 bg-gray-200 rounded mb-2"></div>
@@ -98,7 +139,19 @@ export default function BourseActionsContent({ content }) {
 
             {/* MSCI World Card */}
             <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-[#253F60]/20">
-              <h3 className="text-[#253F60] text-sm font-cairo font-semibold mb-3 uppercase tracking-wide">MSCI World</h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-[#253F60] text-sm font-cairo font-semibold uppercase tracking-wide">MSCI World</h3>
+                {!marketData.msciWorld.loading && marketData.msciWorld.isMarketOpen !== undefined && (
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-2 h-2 rounded-full ${
+                      marketData.msciWorld.isMarketOpen ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
+                    }`}></div>
+                    <span className="text-xs text-gray-500 font-medium">
+                      {marketData.msciWorld.isMarketOpen ? 'Ouvert' : 'Fermé'}
+                    </span>
+                  </div>
+                )}
+              </div>
               {marketData.msciWorld.loading ? (
                 <div className="animate-pulse">
                   <div className="h-8 bg-gray-200 rounded mb-2"></div>

@@ -2,9 +2,52 @@ import { NextResponse } from 'next/server';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import jwt from 'jsonwebtoken';
+import connectDB from '@/lib/mongodb';
+import User from '@/lib/models/User';
 
 export async function POST(request) {
   try {
+    // ============================================
+    // AUTHENTIFICATION - Vérifier le token JWT
+    // ============================================
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { success: false, message: 'Non autorisé. Token requis.' },
+        { status: 401 }
+      );
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    
+    // Vérifier le token
+    let decoded;
+    try {
+      decoded = jwt.verify(
+        token,
+        process.env.JWT_SECRET || 'your-secret-key-change-in-production'
+      );
+    } catch (error) {
+      return NextResponse.json(
+        { success: false, message: 'Token invalide ou expiré' },
+        { status: 401 }
+      );
+    }
+
+    // Vérifier que l'utilisateur existe et est admin
+    await connectDB();
+    const user = await User.findById(decoded.userId);
+    if (!user || user.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, message: 'Accès admin requis' },
+        { status: 403 }
+      );
+    }
+
+    // ============================================
+    // UPLOAD - Traitement du fichier
+    // ============================================
     const formData = await request.formData();
     const file = formData.get('file');
     const folder = formData.get('folder') || 'uploads';

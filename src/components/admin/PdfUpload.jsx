@@ -63,19 +63,32 @@ export default function PdfUpload({ onUploadSuccess, initialPdfUrl = '' }) {
     setUploading(true);
 
     try {
+      // Récupérer le token d'authentification
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        throw new Error('Vous devez être connecté pour uploader un fichier. Veuillez vous reconnecter.');
+      }
+
       // Create FormData for file upload
       const formData = new FormData();
       formData.append('file', file);
       formData.append('folder', 'pdfs'); // Store PDFs in pdfs folder
 
-      // Upload to API endpoint
+      // Upload to API endpoint avec authentification
       const response = await fetch('/api/upload', {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'upload');
+        const errorData = await response.json().catch(() => ({}));
+        if (response.status === 401 || response.status === 403) {
+          throw new Error(errorData.message || 'Session expirée. Veuillez vous reconnecter.');
+        }
+        throw new Error(errorData.message || 'Erreur lors de l\'upload');
       }
 
       const data = await response.json();
@@ -85,28 +98,15 @@ export default function PdfUpload({ onUploadSuccess, initialPdfUrl = '' }) {
         if (onUploadSuccess) {
           onUploadSuccess(data.url);
         }
+        // Message de succès
+        alert('PDF uploadé avec succès !');
       } else {
         throw new Error(data.message || 'Erreur lors de l\'upload');
       }
     } catch (error) {
       console.error('Error uploading PDF:', error);
-      alert('Erreur lors de l\'upload du PDF. Veuillez utiliser l\'URL manuelle ou placer le fichier dans public/pdfs/');
-      
-      // Fallback: convert to base64 (not ideal for large PDFs)
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64Url = reader.result;
-        setPdfUrl(base64Url);
-        if (onUploadSuccess) {
-          console.warn('⚠️ Using base64 PDF - consider using /pdfs/ path instead');
-          onUploadSuccess(base64Url);
-        }
-      };
-      reader.onerror = () => {
-        alert('Erreur lors de la lecture du fichier');
-        e.target.value = '';
-      };
-      reader.readAsDataURL(file);
+      // Message d'erreur simple
+      alert(error.message || 'Erreur lors de l\'upload du PDF. Veuillez réessayer.');
     } finally {
       setUploading(false);
       e.target.value = '';

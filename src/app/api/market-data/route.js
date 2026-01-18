@@ -12,7 +12,8 @@ const SYMBOLS = {
 
 async function fetchYahooFinanceData(symbol) {
   try {
-    const url = `${YAHOO_FINANCE_BASE}/${symbol}?interval=1d&range=2d`;
+    // Utiliser interval=1m pour des données plus fréquentes (1 minute)
+    const url = `${YAHOO_FINANCE_BASE}/${symbol}?interval=1m&range=1d`;
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -20,7 +21,8 @@ async function fetchYahooFinanceData(symbol) {
         'Accept-Language': 'en-US,en;q=0.9',
         'Referer': 'https://finance.yahoo.com/'
       },
-      next: { revalidate: 60 } // Cache for 60 seconds
+      // ✅ Désactiver le cache pour données en temps réel
+      cache: 'no-store'
     });
 
     if (!response.ok) {
@@ -41,18 +43,34 @@ async function fetchYahooFinanceData(symbol) {
       throw new Error('Invalid data structure');
     }
 
-    // Get current price
-    const currentPrice = meta.regularMarketPrice || meta.previousClose || 0;
+    // ✅ Prioriser le prix réel du marché (regularMarketPrice)
+    // Si le marché est fermé, utiliser le dernier prix disponible
+    const currentPrice = meta.regularMarketPrice || 
+                        meta.previousClose || 
+                        meta.chartPreviousClose || 
+                        0;
     
-    // Get previous close for calculating change
-    const previousClose = meta.previousClose || currentPrice;
+    // ✅ Prix de clôture précédent pour calculer le changement
+    const previousClose = meta.previousClose || meta.chartPreviousClose || currentPrice;
     const change = currentPrice - previousClose;
     const changePercent = previousClose !== 0 ? (change / previousClose) * 100 : 0;
+
+    // ✅ Vérifier si le marché est ouvert
+    // REGULAR = marché ouvert, CLOSED = fermé, PRE/POST = avant/après heures
+    const isMarketOpen = meta.marketState === 'REGULAR' || 
+                        meta.marketState === 'PRE' || 
+                        meta.marketState === 'POST';
+    
+    const marketState = meta.marketState || 'UNKNOWN';
 
     return {
       value: currentPrice,
       change: changePercent,
-      previousClose: previousClose
+      previousClose: previousClose,
+      isMarketOpen: isMarketOpen,
+      marketState: marketState,
+      // Timestamp de la dernière mise à jour
+      lastUpdate: meta.regularMarketTime || Date.now()
     };
   } catch (error) {
     console.error(`Error fetching data for ${symbol}:`, error);
@@ -75,11 +93,18 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       data: {
-        cac40: cac40Data || { value: 0, change: 0 },
-        sp500: sp500Data || { value: 0, change: 0 },
-        msciWorld: msciWorldData || { value: 0, change: 0 },
+        cac40: cac40Data || { value: 0, change: 0, isMarketOpen: false, marketState: 'UNKNOWN' },
+        sp500: sp500Data || { value: 0, change: 0, isMarketOpen: false, marketState: 'UNKNOWN' },
+        msciWorld: msciWorldData || { value: 0, change: 0, isMarketOpen: false, marketState: 'UNKNOWN' },
         averageReturn: averageReturn,
         lastUpdated: new Date().toISOString()
+      }
+    }, {
+      // ✅ Désactiver le cache côté réponse
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     });
   } catch (error) {
