@@ -159,7 +159,14 @@ export default function RessourcesPage() {
 
   const handleDownload = (guide) => {
     if (guide.pdfUrl) {
-      window.open(guide.pdfUrl, '_blank');
+      // Si c'est un PDF local, utiliser la route API pour l'ouvrir directement
+      if (guide.pdfUrl.startsWith('/pdfs/')) {
+        const filename = guide.pdfUrl.replace('/pdfs/', '');
+        window.open(`/api/pdf/${filename}`, '_blank');
+      } else {
+        // Pour les URLs externes ou base64, ouvrir normalement
+        window.open(guide.pdfUrl, '_blank');
+      }
     } else {
       // Fallback: could show a modal or redirect to contact
       alert('Le PDF sera bientôt disponible. Contactez-nous pour plus d\'informations.');
