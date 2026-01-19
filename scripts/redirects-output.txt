@@ -1,0 +1,127 @@
+// ==================== REDIRECTIONS SEO - Générées depuis Feedback-URL-v2.csv ====================
+// Total: 20 redirections valides
+// Couverture: 91%
+
+// ==================== IMMOBILIER (15) ====================
+// Inversé: CSV demandait /immobilier/sci → /investissement-immobilier/sci mais seul /immobilier/sci existe
+{
+  source: '/investissement-immobilier/sci',
+  destination: '/immobilier/sci',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/lmnp → /investissement-immobilier/lmnp mais seul /immobilier/lmnp existe
+{
+  source: '/investissement-immobilier/lmnp',
+  destination: '/immobilier/lmnp',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/plus-value-immobiliere → /investissement-immobilier/plus-value-immobiliere mais seul /immobilier/plus-value-immobiliere existe
+{
+  source: '/investissement-immobilier/plus-value-immobiliere',
+  destination: '/immobilier/plus-value-immobiliere',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/pinel → /investissement-immobilier/pinel mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/pinel',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/malraux → /investissement-immobilier/malraux mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/malraux',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/scpi → /investissement-immobilier/scpi mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/scpi',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/denormandie → /investissement-immobilier/denormandie mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/denormandie',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/credit-immobilier → /investissement-immobilier/credit-immobilier mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/credit-immobilier',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/usufruit-locatif → /investissement-immobilier/usufruit-locatif mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/usufruit-locatif',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/nue-propriete → /investissement-immobilier/nue-propriete mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/nue-propriete',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/robien → /investissement-immobilier/robien mais seul /immobilier/robien existe
+{
+  source: '/investissement-immobilier/robien',
+  destination: '/immobilier/robien',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/borloo → /investissement-immobilier/borloo mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/borloo',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/investissement-locatif → /investissement-immobilier/locatif mais seul /immobilier/investissement-locatif existe
+{
+  source: '/investissement-immobilier/locatif',
+  destination: '/immobilier/investissement-locatif',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/viager → /investissement-immobilier/viager mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/viager',
+  destination: '/immobilier',
+  permanent: true,
+},
+// Inversé: CSV demandait /immobilier/location-saisonniere → /investissement-immobilier/saisonnie mais seul /immobilier existe
+{
+  source: '/investissement-immobilier/saisonnie',
+  destination: '/immobilier',
+  permanent: true,
+},
+
+// ==================== PLACEMENTS (1) ====================
+{
+  source: '/placements/livrets-epargne',
+  destination: '/placements',
+  permanent: true,
+},
+
+// ==================== RETRAITE (2) ====================
+{
+  source: '/retraite/plan-epargne-retraite',
+  destination: '/retraite',
+  permanent: true,
+},
+{
+  source: '/retraite/retraite-complementaire',
+  destination: '/retraite',
+  permanent: true,
+},
+
+// ==================== PATRIMOINE (2) ====================
+{
+  source: '/patrimoine/holding-patrimoniale',
+  destination: '/patrimoine',
+  permanent: true,
+},
+{
+  source: '/patrimoine/dementelement-propriete',
+  destination: '/patrimoine',
+  permanent: true,
+},
+

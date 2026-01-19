@@ -14,6 +14,11 @@ export function getImagePath(path) {
     return '';
   }
   
+  // ✅ CORRECTION : Les images base64 (data:image) doivent être retournées telles quelles
+  if (path.startsWith('data:image/') || path.startsWith('data:image%2F')) {
+    return path; // Retourner le base64 tel quel, sans modification
+  }
+  
   // Nettoyer le chemin
   let cleanPath = path.startsWith('/') ? path : `/${path}`;
   

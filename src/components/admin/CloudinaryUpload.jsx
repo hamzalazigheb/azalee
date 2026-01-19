@@ -44,7 +44,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
     }
   };
 
-  const handleFileSelect = (e) => {
+  const handleFileSelect = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -62,28 +62,50 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       return;
     }
 
-    // Note: File input doesn't provide full path for security reasons
-    // Users should manually type /images/filename.jpg in the URL field above
-    // For now, convert to base64 (not ideal for large images)
-    // Better approach: Copy file to public/images/ and use /images/filename.jpg
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64Url = reader.result;
-      setImageUrl(base64Url);
-      setPreview(base64Url);
-      // Call callback with base64 URL
-      if (onUploadSuccess) {
-        console.log('CloudinaryUpload: File converted to base64, calling onUploadSuccess');
-        console.log('ImageUpload uniqueId:', uniqueId.current);
-        console.warn('⚠️ Using base64 image - consider using /images/ path instead');
-        onUploadSuccess(base64Url);
+    // Upload to server instead of base64
+    try {
+      console.log('📤 Uploading image to /public/images/...');
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'images'); // Upload to /public/images/
+      
+      // Get auth token from localStorage
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        alert('Session expirée. Veuillez vous reconnecter.');
+        return;
       }
-    };
-    reader.onerror = () => {
-      alert('Erreur lors de la lecture du fichier');
+      
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.success && data.url) {
+        console.log('✅ Image uploaded successfully:', data.url);
+        setImageUrl(data.url);
+        setPreview(data.url);
+        
+        if (onUploadSuccess) {
+          console.log('CloudinaryUpload: Calling onUploadSuccess with URL:', data.url);
+          onUploadSuccess(data.url);
+        }
+        
+        alert(`✅ Image uploadée avec succès !\nChemin : ${data.url}`);
+      } else {
+        throw new Error(data.message || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('❌ Upload error:', error);
+      alert(`Erreur lors de l'upload : ${error.message}`);
       e.target.value = '';
-    };
-    reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -101,8 +123,8 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
           className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-          Pour les images dans public/images/, utilisez: <strong>/images/nom-du-fichier.jpg</strong><br/>
-          (Les chemins Windows seront automatiquement convertis)
+          ✅ Format accepté: <strong>/images/nom-du-fichier.webp</strong><br/>
+          💡 Ou utilisez le bouton ci-dessous pour uploader automatiquement
         </p>
       </div>
 
@@ -123,7 +145,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
-          Sélectionner un fichier local
+          📤 Upload vers /public/images/
         </label>
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
           PNG, JPG, WEBP jusqu'à 10MB (sera converti en base64)

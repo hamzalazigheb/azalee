@@ -1,12 +1,12 @@
 /**
- * Reset admin password script
- * Run this script to reset the password for an existing admin user
+ * Create admin user script
+ * Run this script to create the first admin user for the application
  * 
  * Usage:
- *   node scripts/reset-admin-password.js
+ *   node scripts/create-admin.js
  * 
- * Or with arguments:
- *   node scripts/reset-admin-password.js email@example.com "NewPassword123!"
+ * Or with custom credentials:
+ *   node scripts/create-admin.js email@example.com "Strong@Password123" "Admin Name"
  */
 
 const mongoose = require('mongoose');
@@ -19,7 +19,7 @@ require('dotenv').config({ path: '.env.local' });
 // MongoDB connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/azalee_db';
 
-// User Schema
+// User Schema (copied from model to avoid import issues)
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -58,6 +58,11 @@ function question(query) {
   return new Promise(resolve => rl.question(query, resolve));
 }
 
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
 function validatePassword(password) {
   if (password.length < 12) {
     return 'Password must be at least 12 characters long';
@@ -76,9 +81,10 @@ function validatePassword(password) {
   return null;
 }
 
-async function resetPassword() {
+async function createAdmin() {
   try {
-    console.log('🔐 Admin Password Reset Script\n');
+    console.log('🔐 Admin User Creation Script\n');
+    console.log('This script will create an admin user for the Azalée Patrimoine application.\n');
     
     // Connect to MongoDB
     console.log('📡 Connecting to MongoDB...');
@@ -86,12 +92,13 @@ async function resetPassword() {
     console.log('✅ Connected to MongoDB\n');
     
     // Check if arguments were provided
-    let email, newPassword;
+    let email, password, name;
     
-    if (process.argv.length >= 4) {
+    if (process.argv.length >= 5) {
       // Use command line arguments
       email = process.argv[2];
-      newPassword = process.argv[3];
+      password = process.argv[3];
+      name = process.argv[4];
       
       console.log('Using provided credentials from command line arguments.\n');
     } else {
@@ -104,52 +111,80 @@ async function resetPassword() {
       console.log('  - At least one special character (@$!%*?&)\n');
       
       // Get email
-      email = await question('Email of user to reset: ');
+      do {
+        email = await question('Email: ');
+        if (!validateEmail(email)) {
+          console.log('❌ Invalid email format. Please try again.\n');
+        }
+      } while (!validateEmail(email));
       
-      // Get new password
+      // Get password
       let passwordError;
       do {
-        newPassword = await question('New Password: ');
-        passwordError = validatePassword(newPassword);
+        password = await question('Password: ');
+        passwordError = validatePassword(password);
         if (passwordError) {
           console.log(`❌ ${passwordError}\n`);
         }
       } while (passwordError);
+      
+      // Get name
+      do {
+        name = await question('Full Name: ');
+        if (!name || name.trim().length < 2) {
+          console.log('❌ Name must be at least 2 characters long.\n');
+        }
+      } while (!name || name.trim().length < 2);
     }
     
-    // Validate password
-    const passwordError = validatePassword(newPassword);
+    // Validate all inputs
+    if (!validateEmail(email)) {
+      throw new Error('Invalid email format');
+    }
+    
+    const passwordError = validatePassword(password);
     if (passwordError) {
       throw new Error(passwordError);
     }
     
-    // Find user
-    const user = await User.findOne({ email: email.toLowerCase() });
-    if (!user) {
-      console.log('\n❌ Error: No user found with this email.');
+    if (!name || name.trim().length < 2) {
+      throw new Error('Name must be at least 2 characters long');
+    }
+    
+    // Check if user already exists
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    if (existingUser) {
+      console.log('\n❌ Error: A user with this email already exists.');
+      console.log('   If you need to reset the password, use the change password functionality.');
       process.exit(1);
     }
     
-    // Hash new password
-    console.log('\n🔒 Hashing new password...');
+    // Hash password
+    console.log('\n🔒 Hashing password...');
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
     
-    // Update password
-    console.log('💾 Updating password...');
-    user.password = hashedPassword;
-    await user.save();
+    // Create admin user
+    console.log('👤 Creating admin user...');
+    const admin = new User({
+      email: email.toLowerCase(),
+      password: hashedPassword,
+      name: name.trim(),
+      role: 'admin'
+    });
     
-    console.log('\n✅ Password reset successfully!');
-    console.log('\nUser Details:');
-    console.log(`   Email: ${user.email}`);
-    console.log(`   Name: ${user.name}`);
-    console.log(`   Role: ${user.role}`);
-    console.log('\n⚠️  IMPORTANT: Store the new password securely!');
-    console.log('   You can now log in with the new password.\n');
+    await admin.save();
+    
+    console.log('\n✅ Admin user created successfully!');
+    console.log('\nCredentials:');
+    console.log(`   Email: ${email}`);
+    console.log(`   Name: ${name}`);
+    console.log(`   Role: admin`);
+    console.log('\n⚠️  IMPORTANT: Store these credentials securely!');
+    console.log('   You can now log in to the admin panel at /admin/login\n');
     
   } catch (error) {
-    console.error('\n❌ Error resetting password:', error.message);
+    console.error('\n❌ Error creating admin user:', error.message);
     process.exit(1);
   } finally {
     rl.close();
@@ -159,4 +194,5 @@ async function resetPassword() {
 }
 
 // Run the script
-resetPassword();
+createAdmin();
+

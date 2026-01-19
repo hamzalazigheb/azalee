@@ -1,23 +1,39 @@
 import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/mongodb';
 import Contact from '../../../../lib/models/Contact';
+import { applyRateLimit, contactLimiter } from '@/lib/rateLimit';
+import { validateContactSubmission } from '@/lib/validations/contact';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
   try {
+    // Apply rate limiting (IP-based)
+    const rateCheck = await applyRateLimit(request, contactLimiter, 'contact');
+    if (rateCheck.limited) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Contact rate limit exceeded for IP: ${rateCheck.identifier}`);
+      }
+      return NextResponse.json(
+        { success: false, message: 'Trop de demandes. Veuillez réessayer dans quelques minutes.' },
+        { status: 429 }
+      );
+    }
+    
     await connectDB();
     
     const body = await request.json();
-    const { nom, email, telephone, ville, profession, patrimoine, message } = body;
-
-    // Validation
-    if (!nom || !email || !telephone || !ville) {
+    
+    // Validate and sanitize input
+    const validation = validateContactSubmission(body);
+    if (!validation.success) {
       return NextResponse.json(
-        { success: false, message: 'Les champs obligatoires sont manquants' },
+        { success: false, message: validation.message, errors: validation.errors },
         { status: 400 }
       );
     }
+    
+    const { nom, email, telephone, ville, profession, patrimoine, message } = validation.data;
 
     // Create new contact
     const contact = new Contact({
@@ -40,11 +56,13 @@ export async function POST(request) {
     });
 
   } catch (error) {
-    console.error('Contact submission error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Contact submission error:', error);
+    }
     
     if (error.name === 'ValidationError') {
       return NextResponse.json(
-        { success: false, message: 'Données invalides: ' + Object.values(error.errors).map(e => e.message).join(', ') },
+        { success: false, message: 'Données invalides' },
         { status: 400 }
       );
     }

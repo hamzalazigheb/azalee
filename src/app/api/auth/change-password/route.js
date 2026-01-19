@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/mongodb';
 import User from '../../../../lib/models/User';
 import jwt from 'jsonwebtoken';
+import { getJWTSecret } from '@/lib/auth';
+import { changePasswordSchema } from '@/lib/validations/user';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,7 +25,8 @@ export async function POST(request) {
     // Verify token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+      const jwtSecret = getJWTSecret();
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       return NextResponse.json(
         { success: false, message: 'Invalid or expired token' },

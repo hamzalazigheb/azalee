@@ -418,11 +418,14 @@ const defaultContent = {
     { value: '35', label: 'Partenaires' },
     { value: '5', label: 'Implementations en France (Paris / Nantes / La Rochelle / Salon de Provence / Nice)' },
   ],
-  investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
-  investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
-  investmentButton: 'Vous avez des questions, nous avons des réponses',
-  investmentImage1: '/images/azalee-patrimoine-investment-strategy-meeting.webp',
-  investmentImage2: '/images/azalee-patrimoine-financial-strategy-planning.webp',
+  investment: {
+    investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
+    investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
+    investmentButton: 'Vous avez des questions, nous avons des réponses',
+    investmentCalendlyUrl: 'https://calendly.com/rdv-azalee-patrimoine/30min',
+    investmentImage1: '/images/azalee-patrimoine-investment-strategy-meeting.webp',
+    investmentImage2: '/images/azalee-patrimoine-financial-strategy-planning.webp',
+  },
   taxTitle: 'Pourquoi choisir la défiscalisation immobilière ?',
   taxText: "L'immobilier reste un investissement de référence pour les investisseurs français, surtout lorsqu'il est accompagné d'avantages fiscaux attractifs. En choisissant des biens éligibles à des dispositifs légaux de défiscalisation, vous pouvez réduire significativement votre imposition tout en développant votre patrimoine. Le gouvernement encourage ainsi l'investissement dans certains secteurs ou types de logements — anciens ou neufs, location longue durée ou saisonnière — grâce à des lois fiscales spécifiques. Ces mesures permettent non seulement de dynamiser l'offre immobilière mais aussi de soutenir les investisseurs en leur offrant des avantages concrets. Que vous souhaitiez constituer un patrimoine, optimiser vos revenus locatifs ou préparer votre avenir, nos solutions de défiscalisation s'adaptent à votre situation et à vos objectifs.",
   taxCards: [
@@ -438,9 +441,11 @@ const defaultContent = {
     { image: '/images/azalee-patrimoine-intencial-1.webp', website: '#', name: 'Intencial' },
     { image: '/images/azalee-patrimoine-img-header-logo.webp', website: '#', name: 'Partenaire' }
   ],
-  finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
-  finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
-  finalCtaImage: '/images/azalee-patrimoine-wealth-management-agreement.webp',
+  finalCta: {
+    finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
+    finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
+    finalCtaImage: '/images/azalee-patrimoine-wealth-management-agreement.webp',
+  },
   // Section Équipe Preview
   teamPreview: {
     title: "Rencontrez votre équipe de gestion",
@@ -541,7 +546,9 @@ export default function HomePage() {
         // Add cache-busting parameter to force fresh data
         // Use a more aggressive cache-busting with random number
         const cacheBuster = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
-        const response = await fetch(getApiPath(`/cms/content?path=home&t=${cacheBuster}`), {
+        const apiUrl = getApiPath(`/cms/content?path=home&t=${cacheBuster}`);
+        console.log('📡 Fetching homepage content from:', apiUrl);
+        const response = await fetch(apiUrl, {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
@@ -731,10 +738,34 @@ export default function HomePage() {
               console.log('⚠️ Testimonials not found in CMS, removed from sectionOrder');
             }
 
+            // Log image updates for debugging
+            if (mergedContent.investment?.investmentImage1 || mergedContent.investment?.investmentImage2) {
+              console.log('🖼️ Investment images updated:', {
+                image1: mergedContent.investment?.investmentImage1?.substring(0, 50) + '...',
+                image2: mergedContent.investment?.investmentImage2?.substring(0, 50) + '...',
+                fullImage1: mergedContent.investment?.investmentImage1,
+                fullImage2: mergedContent.investment?.investmentImage2
+              });
+            }
+            if (mergedContent.finalCta?.finalCtaImage) {
+              console.log('🖼️ Final CTA image updated:', {
+                image: mergedContent.finalCta?.finalCtaImage?.substring(0, 50) + '...',
+                fullImage: mergedContent.finalCta?.finalCtaImage
+              });
+            }
+            
+            // Log all image fields for debugging
+            console.log('📸 All image fields in content:', {
+              investmentImage1: mergedContent.investment?.investmentImage1 || mergedContent.investmentImage1,
+              investmentImage2: mergedContent.investment?.investmentImage2 || mergedContent.investmentImage2,
+              finalCtaImage: mergedContent.finalCta?.finalCtaImage || mergedContent.finalCtaImage
+            });
+            
             setContent(mergedContent);
             setSectionOrder(finalSectionOrder);
             setContentSource('cms');
             hasLoadedCMS = true; // Mark that CMS content was successfully loaded
+            console.log('✅ Homepage content loaded from CMS');
           } else {
             // Fallback to default content only if we don't have CMS content already
             setContent(prevContent => {
@@ -775,27 +806,88 @@ export default function HomePage() {
 
     // Listen for CMS content updates
     const handleCMSUpdate = (event) => {
-      const updatedPath = event.detail?.path?.toLowerCase();
+      const updatedPath = event.detail?.path?.toLowerCase() || '';
       // Refresh if homepage was updated (home, accueil, or no path specified)
-      const homepagePaths = ['home', 'accueil', 'accueil - azalée patrimoine', 'page d\'accueil'];
-      if (!updatedPath || homepagePaths.some(p => updatedPath.includes(p) || p.includes(updatedPath))) {
-        console.log('🔄 CMS content updated, refreshing homepage...', updatedPath);
-        fetchContent();
+      const homepagePaths = [
+        'home',
+        'accueil',
+        'accueil - azalée patrimoine',
+        'page d\'accueil',
+        'page d accueil',
+        'page daccueil'
+      ];
+      
+      // Check if path matches any homepage variation
+      const isHomepage = !updatedPath || homepagePaths.some(p => {
+        const pathLower = updatedPath.toLowerCase();
+        const pLower = p.toLowerCase();
+        return pathLower === pLower || 
+               pathLower.includes(pLower) || 
+               pLower.includes(pathLower) ||
+               pathLower.replace(/\s+/g, ' ') === pLower.replace(/\s+/g, ' ');
+      });
+      
+      if (isHomepage) {
+        console.log('🔄 CMS content updated, refreshing homepage...', { updatedPath, eventDetail: event.detail });
+        // Force immediate refresh with aggressive cache-busting
+        // Add small delay to ensure database is updated
+        setTimeout(() => {
+          fetchContent();
+        }, 100);
+      } else {
+        console.log('ℹ️ CMS update received but not for homepage:', updatedPath);
+        console.log('   Available homepage paths:', homepagePaths);
       }
     };
 
     window.addEventListener('cmsContentUpdated', handleCMSUpdate);
 
-    // Polling fallback: check for updates every 30 seconds when page is visible (reduced frequency to prevent flashing)
+    // Listen for localStorage changes (cross-tab communication)
+    const handleStorageChange = (e) => {
+      if (e.key === 'cmsLastUpdate' && e.newValue) {
+        try {
+          const update = JSON.parse(e.newValue);
+          const updatedPath = update.path?.toLowerCase() || '';
+          const homepagePaths = ['home', 'accueil', 'page d\'accueil', 'page d accueil'];
+          const isHomepage = !updatedPath || homepagePaths.some(p => {
+            const pathLower = updatedPath.toLowerCase();
+            const pLower = p.toLowerCase();
+            return pathLower === pLower || pathLower.includes(pLower) || pLower.includes(pathLower);
+          });
+          
+          if (isHomepage) {
+            console.log('🔄 Cross-tab CMS update detected, refreshing homepage...', update);
+            fetchContent();
+          }
+        } catch (err) {
+          console.warn('Error parsing storage update:', err);
+        }
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    // Polling fallback: check for updates every 5 seconds when page is visible (faster updates)
     let hasLoadedCMS = false;
     const pollInterval = setInterval(() => {
       if (document.visibilityState === 'visible' && hasLoadedCMS) {
+        console.log('🔄 Polling: Checking for homepage updates...');
         fetchContent();
       }
-    }, 30000);
+    }, 5000); // Reduced from 30000 to 5000 (5 seconds)
+    
+    // Also check immediately when page becomes visible (user switches back to tab)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && hasLoadedCMS) {
+        console.log('👁️ Page became visible, checking for updates...');
+        fetchContent();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      window.removeEventListener('storage', handleStorageChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       clearInterval(pollInterval);
     };
   }, []);
@@ -1108,7 +1200,10 @@ export default function HomePage() {
 
                     {/* CTA Button */}
                     <div className="mb-8">
-                      <CTAButton variant="primary">
+                      <CTAButton 
+                        variant="primary"
+                        externalUrl={content.investment?.investmentCalendlyUrl || content.investmentCalendlyUrl || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+                      >
                         {content.investment?.investmentButton || content.investmentButton}
                       </CTAButton>
                     </div>

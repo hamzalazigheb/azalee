@@ -5,6 +5,7 @@ import { existsSync } from 'fs';
 import jwt from 'jsonwebtoken';
 import connectDB from '@/lib/mongodb';
 import User from '@/lib/models/User';
+import { getJWTSecret } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,10 +27,8 @@ export async function POST(request) {
     // Vérifier le token
     let decoded;
     try {
-      decoded = jwt.verify(
-        token,
-        process.env.JWT_SECRET || 'your-secret-key-change-in-production'
-      );
+      const jwtSecret = getJWTSecret();
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       return NextResponse.json(
         { success: false, message: 'Token invalide ou expiré' },
@@ -48,7 +47,9 @@ export async function POST(request) {
         );
       }
     } catch (dbError) {
-      console.error('Database connection error:', dbError);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Database connection error:', dbError);
+      }
       return NextResponse.json(
         { success: false, message: 'Erreur de connexion à la base de données' },
         { status: 500 }
@@ -139,8 +140,10 @@ export async function POST(request) {
       message: 'Fichier uploadé avec succès'
     });
   } catch (error) {
-    console.error('Error uploading file:', error);
-    console.error('Error stack:', error.stack);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error uploading file:', error);
+      console.error('Error stack:', error.stack);
+    }
     
     // Messages d'erreur plus clairs selon le type d'erreur
     let errorMessage = 'Erreur lors de l\'upload';

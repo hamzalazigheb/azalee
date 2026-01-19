@@ -14,9 +14,11 @@ const nextConfig = {
     assetPrefix: '/staging' // Prefix static assets in public/ folder
   }),
   
-  // Remove console.log in production
+  // Remove console.log in production (keep error and warn)
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn']
+    } : false,
   },
   
   // Performance optimizations
@@ -49,7 +51,13 @@ const nextConfig = {
   // Redirects for broken Google links and SEO restructuring
   async redirects() {
     return [
-      // ==================== SEO RESTRUCTURATION - Investissement Immobilier → Immobilier (garder pages existantes) ====================
+      // ==================== REDIRECTIONS SEO - Générées depuis Feedback-URL-v2.csv ====================
+      // Total: 20 redirections validées vers des pages existantes
+      // Couverture CSV: 91% (20/22 redirections nécessaires)
+      
+      // ==================== IMMOBILIER → PAGES EXISTANTES ====================
+      // Note: Le CSV demandait /immobilier/* → /investissement-immobilier/*
+      // mais seules les pages /immobilier/* existent, donc les redirections sont inversées
       {
         source: '/investissement-immobilier/sci',
         destination: '/immobilier/sci',
@@ -67,52 +75,37 @@ const nextConfig = {
       },
       {
         source: '/investissement-immobilier/pinel',
-        destination: '/fiscalite/loi-pinel',
+        destination: '/immobilier',
         permanent: true,
       },
       {
         source: '/investissement-immobilier/malraux',
-        destination: '/fiscalite/loi-malraux',
-        permanent: true,
-      },
-      {
-        source: '/investissement-immobilier/denormandie',
-        destination: '/fiscalite/loi-denormandie',
+        destination: '/immobilier',
         permanent: true,
       },
       {
         source: '/investissement-immobilier/scpi',
-        destination: '/placements/scpi-opci',
+        destination: '/immobilier',
+        permanent: true,
+      },
+      {
+        source: '/investissement-immobilier/denormandie',
+        destination: '/immobilier',
         permanent: true,
       },
       {
         source: '/investissement-immobilier/credit-immobilier',
-        destination: '/immobilier/credit-immobilier-ptz',
-        permanent: true,
-      },
-      {
-        source: '/investissement-immobilier/nue-propriete',
-        destination: '/immobilier/investissement-immobilier-rentable',
+        destination: '/immobilier',
         permanent: true,
       },
       {
         source: '/investissement-immobilier/usufruit-locatif',
-        destination: '/immobilier/investissement-locatif',
+        destination: '/immobilier',
         permanent: true,
       },
       {
-        source: '/investissement-immobilier/viager',
-        destination: '/immobilier/investissement-locatif',
-        permanent: true,
-      },
-      {
-        source: '/investissement-immobilier/saisonniere',
-        destination: '/immobilier/lmnp',
-        permanent: true,
-      },
-      {
-        source: '/investissement-immobilier/locatif',
-        destination: '/immobilier/investissement-locatif',
+        source: '/investissement-immobilier/nue-propriete',
+        destination: '/immobilier',
         permanent: true,
       },
       {
@@ -122,152 +115,53 @@ const nextConfig = {
       },
       {
         source: '/investissement-immobilier/borloo',
-        destination: '/immobilier/scellier',
+        destination: '/immobilier',
+        permanent: true,
+      },
+      {
+        source: '/investissement-immobilier/locatif',
+        destination: '/immobilier/investissement-locatif',
+        permanent: true,
+      },
+      {
+        source: '/investissement-immobilier/viager',
+        destination: '/immobilier',
+        permanent: true,
+      },
+      {
+        source: '/investissement-immobilier/saisonnie',
+        destination: '/immobilier',
         permanent: true,
       },
       
-      // ==================== SEO RESTRUCTURATION - Fiscalité ====================
-      {
-        source: '/fiscalite/deficit-foncier',
-        destination: '/fiscalite/reductions-impot-deficit-foncier',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/ir-impot-revenu',
-        destination: '/fiscalite/impot-sur-le-revenu',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/ifi-impot-fortune-immobiliere',
-        destination: '/fiscalite/ifi',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/droits-succession',
-        destination: '/patrimoine/droits-succession',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/plus-values-mobilieres',
-        destination: '/fiscalite/plus-values',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/niches-fiscales',
-        destination: '/fiscalite/niches',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/prelevement-source',
-        destination: '/fiscalite/prelevement-a-la-source',
-        permanent: true,
-      },
-      {
-        source: '/fiscalite/optimisation-fiscale-entreprises',
-        destination: '/fiscalite/entreprises',
-        permanent: true,
-      },
-      
-      // ==================== SEO RESTRUCTURATION - Placements ====================
-      {
-        source: '/placements/fip-fcpi',
-        destination: '/placements/fip',
-        permanent: true,
-      },
-      {
-        source: '/placements/or-metaux-precieux',
-        destination: '/placements/or',
-        permanent: true,
-      },
-      {
-        source: '/placements/investir-en-art',
-        destination: '/placements/art',
-        permanent: true,
-      },
-      {
-        source: '/placements/etf-trackers',
-        destination: '/placements/etf',
-        permanent: true,
-      },
-      {
-        source: '/placements/girardin-industriel',
-        destination: '/placements/girardin',
-        permanent: true,
-      },
+      // ==================== PLACEMENTS → PAGES EXISTANTES ====================
       {
         source: '/placements/livrets-epargne',
-        destination: '/placements/livrets',
+        destination: '/placements',
         permanent: true,
       },
       
-      // ==================== SEO RESTRUCTURATION - Retraite ====================
-      {
-        source: '/retraite/preparer-retraite-jeune',
-        destination: '/retraite/preparer-jeune',
-        permanent: true,
-      },
-      {
-        source: '/retraite/optimiser-retraite-cadre',
-        destination: '/retraite/cadres',
-        permanent: true,
-      },
-      {
-        source: '/retraite/cumul-emploi-retraite',
-        destination: '/retraite/cumul-emploi',
-        permanent: true,
-      },
-      {
-        source: '/retraite/calcul-retraite',
-        destination: '/retraite/calcul',
-        permanent: true,
-      },
+      // ==================== RETRAITE → PAGES EXISTANTES ====================
       {
         source: '/retraite/plan-epargne-retraite',
-        destination: '/retraite/per-individuel',
+        destination: '/retraite',
         permanent: true,
       },
       {
         source: '/retraite/retraite-complementaire',
-        destination: '/retraite/agirc-arrco',
-        permanent: true,
-      },
-      {
-        source: '/retraite/reforme-retraites',
-        destination: '/retraite/reforme',
+        destination: '/retraite',
         permanent: true,
       },
       
-      // ==================== SEO RESTRUCTURATION - Outils ====================
-      {
-        source: '/outils/simulateur-impots',
-        destination: '/outils/simulateur-ir',
-        permanent: true,
-      },
-      {
-        source: '/outils/simulateur-retraite',
-        destination: '/outils/simulateur-pension',
-        permanent: true,
-      },
-      {
-        source: '/outils/calculateur-capacite-emprunt',
-        destination: '/outils/capacite-emprunt',
-        permanent: true,
-      },
-      {
-        source: '/outils/calculateur-frais-notaire',
-        destination: '/outils/frais-notaire',
-        permanent: true,
-      },
-      
-      // ==================== SEO RESTRUCTURATION - Patrimoine ====================
+      // ==================== PATRIMOINE → PAGES EXISTANTES ====================
       {
         source: '/patrimoine/holding-patrimoniale',
-        destination: '/patrimoine/holding',
+        destination: '/patrimoine',
         permanent: true,
       },
       {
         source: '/patrimoine/dementelement-propriete',
-        destination: '/patrimoine/demembrement',
+        destination: '/patrimoine',
         permanent: true,
       },
       

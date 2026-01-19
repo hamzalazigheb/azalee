@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../../../lib/mongodb';
 import User from '../../../../../lib/models/User';
 import jwt from 'jsonwebtoken';
+import { getJWTSecret } from '@/lib/auth';
+import { validateUserUpdate } from '@/lib/validations/user';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +22,9 @@ export async function PUT(request, { params }) {
         id = decodeURIComponent(id);
       } catch (e) {
         // If decoding fails, use the original id
-        console.warn('Failed to decode ID, using original:', id);
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Failed to decode ID, using original:', id);
+        }
       }
     }
 
@@ -38,7 +42,8 @@ export async function PUT(request, { params }) {
     // Verify token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+      const jwtSecret = getJWTSecret();
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       return NextResponse.json(
         { success: false, message: 'Invalid or expired token' },
@@ -125,14 +130,18 @@ export async function DELETE(request, { params }) {
         id = decodeURIComponent(id);
       } catch (e) {
         // If decoding fails, use the original id
-        console.warn('Failed to decode ID, using original:', id);
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Failed to decode ID, using original:', id);
+        }
       }
     }
     
-    console.log('DELETE user - ID received:', id);
-    console.log('DELETE user - ID type:', typeof id);
-    console.log('DELETE user - ID length:', id?.length);
-    console.log('DELETE user - Params:', resolvedParams);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('DELETE user - ID received:', id);
+      console.log('DELETE user - ID type:', typeof id);
+      console.log('DELETE user - ID length:', id?.length);
+      console.log('DELETE user - Params:', resolvedParams);
+    }
 
     // Get token from Authorization header
     const authHeader = request.headers.get('authorization');
@@ -148,7 +157,8 @@ export async function DELETE(request, { params }) {
     // Verify token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+      const jwtSecret = getJWTSecret();
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       return NextResponse.json(
         { success: false, message: 'Invalid or expired token' },

@@ -419,9 +419,29 @@ export default function CMSManagementPage() {
 
         // Dispatch custom event to notify other pages that content was updated
         if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('cmsContentUpdated', {
-            detail: { path: selectedPage.path }
-          }));
+          const event = new CustomEvent('cmsContentUpdated', {
+            detail: { 
+              path: selectedPage.path,
+              timestamp: Date.now()
+            }
+          });
+          window.dispatchEvent(event);
+          console.log('📢 CMS update event dispatched:', { path: selectedPage.path, timestamp: Date.now() });
+          
+          // Also try to dispatch to all windows (for cross-tab communication)
+          try {
+            localStorage.setItem('cmsLastUpdate', JSON.stringify({
+              path: selectedPage.path,
+              timestamp: Date.now()
+            }));
+            // Trigger storage event for other tabs
+            window.dispatchEvent(new StorageEvent('storage', {
+              key: 'cmsLastUpdate',
+              newValue: JSON.stringify({ path: selectedPage.path, timestamp: Date.now() })
+            }));
+          } catch (e) {
+            console.warn('Could not use localStorage for cross-tab communication:', e);
+          }
         }
       } else {
         setNotification({ isOpen: true, message: 'Erreur : ' + data.message, type: 'error' });
@@ -588,7 +608,21 @@ export default function CMSManagementPage() {
                         <div className="space-y-3">
                           {Object.keys(item || {}).map((key) => {
                             const fieldValue = item[key] || '';
-                            const isTextField = typeof fieldValue === 'string' && (
+                            
+                            // Detect if this is an image field (PRIORITY CHECK)
+                            const isImageField = 
+                              key.toLowerCase().includes('photo') ||
+                              key.toLowerCase().includes('image') ||
+                              key.toLowerCase().includes('picture') ||
+                              key.toLowerCase().includes('img') ||
+                              (typeof fieldValue === 'string' && (
+                                fieldValue.startsWith('/images/') ||
+                                fieldValue.includes('.webp') ||
+                                fieldValue.includes('.jpg') ||
+                                fieldValue.includes('.png')
+                              ));
+                            
+                            const isTextField = !isImageField && typeof fieldValue === 'string' && (
                               fieldValue.includes('<strong') ||
                               fieldValue.includes('<em') ||
                               fieldValue.includes('<b') ||
@@ -600,17 +634,27 @@ export default function CMSManagementPage() {
                             );
 
                             // Detect long text fields that should use textarea
-                            const isLongTextField = key.toLowerCase().includes('details') ||
+                            const isLongTextField = !isImageField && (key.toLowerCase().includes('details') ||
                               key.toLowerCase().includes('detail') ||
                               key.toLowerCase().includes('paragraph') ||
-                              (typeof fieldValue === 'string' && fieldValue.length > 50);
+                              (typeof fieldValue === 'string' && fieldValue.length > 50));
 
                             return (
                               <div key={key}>
                                 <label className="block text-xs font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-1">
                                   {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
                                 </label>
-                                {isTextField ? (
+                                {isImageField ? (
+                                  <ImageUpload
+                                    onUploadSuccess={(url) => {
+                                      console.log('🖼️ ImageUpload - array item:', index, 'key:', key, 'url:', url.substring(0, 50));
+                                      const newArray = [...value];
+                                      newArray[index] = { ...newArray[index], [key]: url };
+                                      handleInputChange(section, field, newArray);
+                                    }}
+                                    initialImageUrl={fieldValue}
+                                  />
+                                ) : isTextField ? (
                                   <TextEditor
                                     value={fieldValue}
                                     onChange={(newValue) => {
@@ -1084,24 +1128,53 @@ export default function CMSManagementPage() {
                             </button>
                           </div>
                           <div className="space-y-3">
-                            {Object.keys(item).map((key) => (
-                              <div key={key}>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                                </label>
-                                <input
-                                  type="text"
-                                  value={item[key] || ''}
-                                  onChange={(e) => {
-                                    const newArray = [...sectionData];
-                                    newArray[index] = { ...newArray[index], [key]: e.target.value };
-                                    handleInputChange(sectionKey, sectionKey, newArray);
-                                  }}
-                                  className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                                  placeholder={`Entrez ${key}...`}
-                                />
-                              </div>
-                            ))}
+                            {Object.keys(item).map((key) => {
+                              const fieldValue = item[key] || '';
+                              
+                              // Detect if this is an image field
+                              const isImageField = 
+                                key.toLowerCase().includes('photo') ||
+                                key.toLowerCase().includes('image') ||
+                                key.toLowerCase().includes('picture') ||
+                                key.toLowerCase().includes('img') ||
+                                (typeof fieldValue === 'string' && (
+                                  fieldValue.startsWith('/images/') ||
+                                  fieldValue.includes('.webp') ||
+                                  fieldValue.includes('.jpg') ||
+                                  fieldValue.includes('.png')
+                                ));
+                              
+                              return (
+                                <div key={key}>
+                                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                                  </label>
+                                  {isImageField ? (
+                                    <ImageUpload
+                                      onUploadSuccess={(url) => {
+                                        console.log('ImageUpload onUploadSuccess - array item:', index, 'key:', key, 'url:', url.substring(0, 50));
+                                        const newArray = [...sectionData];
+                                        newArray[index] = { ...newArray[index], [key]: url };
+                                        handleInputChange(sectionKey, sectionKey, newArray);
+                                      }}
+                                      initialImageUrl={fieldValue}
+                                    />
+                                  ) : (
+                                    <input
+                                      type="text"
+                                      value={fieldValue}
+                                      onChange={(e) => {
+                                        const newArray = [...sectionData];
+                                        newArray[index] = { ...newArray[index], [key]: e.target.value };
+                                        handleInputChange(sectionKey, sectionKey, newArray);
+                                      }}
+                                      className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                                      placeholder={`Entrez ${key}...`}
+                                    />
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       </SortableItem>

@@ -23,9 +23,16 @@ export async function GET(request) {
 
     // For homepage, try multiple possible paths
     let page = null;
-    if (pathLower === 'home' || pathLower === '/' || pathLower === '') {
+    if (pathLower === 'home' || pathLower === '/' || pathLower === '' || pathLower.includes('accueil') || pathLower.includes('page d')) {
       // Try different possible paths for homepage
-      const possiblePaths = ['home', 'accueil', 'accueil - azalée patrimoine'];
+      const possiblePaths = [
+        'home', 
+        'accueil', 
+        'accueil - azalée patrimoine',
+        'page d\'accueil',
+        'page d accueil',
+        'page daccueil'
+      ];
       for (const possiblePath of possiblePaths) {
         page = await PageContent.findOne({
           path: possiblePath.toLowerCase(),
