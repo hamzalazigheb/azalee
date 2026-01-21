@@ -180,16 +180,22 @@ export default async function PFUPage() {
       </section>
 
       {/* Inconvénients Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-amber-50 via-amber-100/50 to-amber-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#F9FAFB]">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title={content?.inconvenients?.title}
-            subtitle={content?.inconvenients?.description}
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-4">
+              {content?.inconvenients?.title || "Inconvénients du PFU"}
+            </h2>
+            {content?.inconvenients?.description && (
+              <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto">
+                {content?.inconvenients?.description}
+              </p>
+            )}
+          </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {content.inconvenients.points.map((point, index) => (
-              <div key={index} className="relative bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-amber-500">
+              <div key={index} className="relative bg-white p-6 sm:p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-[#B99066]">
                 <div className="text-base sm:text-lg font-semibold text-[#253F60] leading-relaxed">{point}</div>
               </div>
             ))}

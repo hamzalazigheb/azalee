@@ -25,6 +25,8 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['react-icons', 'recharts', 'framer-motion', 'lodash'],
+    // Optimiser le bundling avec des workers
+    webpackBuildWorker: true,
   },
   
   // Modular imports for smaller bundles
@@ -297,42 +299,46 @@ const nextConfig = {
     };
 
     // Performance optimizations - Bundle into optimized chunks
+    // Optimisé pour réduire le nombre de requêtes et améliorer les performances
     if (!dev) {
       config.optimization = {
         ...config.optimization,
         minimize: true,
         splitChunks: {
           chunks: 'all',
-          minSize: 20000,    // Minimum 20KB par chunk
-          maxSize: 250000,   // Maximum 250KB par chunk (évite les gros fichiers)
+          minSize: 50000,      // Augmenté de 20KB à 50KB (chunks plus gros, moins de requêtes)
+          maxSize: 500000,     // Augmenté de 250KB à 500KB (moins de chunks fragmentés)
+          maxAsyncRequests: 5, // Limite le nombre de chunks async (réduit les requêtes)
+          maxInitialRequests: 3, // Limite le nombre de chunks initiaux (améliore le First Load)
           cacheGroups: {
-            // Groupe pour les bibliothèques de visualisation (chargées à la demande)
-            charts: {
-              test: /[\\/]node_modules[\\/](recharts|d3|victory)[\\-]/,
-              name: 'charts',
-              chunks: 'async',
-              priority: 30,
-              enforce: true,
-            },
-            // Groupe pour React et ses dépendances core
+            // Framework React - Chunk principal (priorité élevée)
             framework: {
               test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\-]/,
               name: 'framework',
               chunks: 'all',
-              priority: 40,
+              priority: 50,
               enforce: true,
             },
-            // Bundle des bibliothèques tierces
+            // Bibliothèques tierces - Un seul gros chunk (au lieu de plusieurs petits)
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: 'vendor',
               chunks: 'all',
+              priority: 30,
+              enforce: true,
+              minChunks: 1,
+            },
+            // Charts - Chargement à la demande uniquement (lazy loading)
+            charts: {
+              test: /[\\/]node_modules[\\/](recharts|chart\.js|react-chartjs-2|d3|victory)[\\-]/,
+              name: 'charts',
+              chunks: 'async', // Seulement chargé quand nécessaire
               priority: 20,
               enforce: true,
             },
-            // Code commun partagé entre plusieurs pages
+            // Code commun - Uniquement si vraiment partagé (réduit la fragmentation)
             common: {
-              minChunks: 2,
+              minChunks: 3, // Augmenté de 2 à 3 (moins de chunks)
               priority: 10,
               reuseExistingChunk: true,
               name: 'common',

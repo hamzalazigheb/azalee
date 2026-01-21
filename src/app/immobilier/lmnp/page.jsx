@@ -39,22 +39,22 @@ const HeroSection = ({ data, content }) => {
           </div>
 
           {rightCard && (
-            <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative mt-8 lg:mt-0">
-              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+            <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative overflow-visible mt-8 lg:mt-0">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6 relative z-10">
                 <h2 className="text-white text-xl sm:text-2xl lg:text-3xl font-source-sans font-semibold leading-tight">
                   {rightCard.title}
                 </h2>
               </div>
 
               {rightCard.floatingText && (
-                <div className="absolute -top-6 -right-4 sm:-top-16 sm:-right-8 w-[80px] h-[80px] sm:w-[160px] sm:h-[160px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center p-2 z-10">
-                  <p className="text-center text-white font-source-sans font-semibold text-xs sm:text-lg leading-tight">
+                <div className="absolute -top-8 sm:-top-12 lg:-top-16 -right-8 sm:-right-12 lg:-right-16 w-[30px] h-[30px] sm:w-[110px] sm:h-[110px] lg:w-[140px] lg:h-[140px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center z-0">
+                  <p className="text-center text-white font-source-sans font-semibold text-xs sm:text-sm lg:text-base leading-tight px-1 sm:px-0">
                     {rightCard.floatingText}
                   </p>
                 </div>
               )}
 
-              <div className="mt-8">
+              <div className="mt-8 relative z-10">
                 <ul className="space-y-3 text-white text-sm font-source-sans font-semibold leading-relaxed">
                   {(rightCard.benefits || []).map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">

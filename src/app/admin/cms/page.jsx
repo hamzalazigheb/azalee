@@ -438,7 +438,7 @@ export default function CMSManagementPage() {
             window.dispatchEvent(new StorageEvent('storage', {
               key: 'cmsLastUpdate',
               newValue: JSON.stringify({ path: selectedPage.path, timestamp: Date.now() })
-            }));
+          }));
           } catch (e) {
             console.warn('Could not use localStorage for cross-tab communication:', e);
           }
@@ -1145,10 +1145,10 @@ export default function CMSManagementPage() {
                                 ));
                               
                               return (
-                                <div key={key}>
-                                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                                  </label>
+                              <div key={key}>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                                </label>
                                   {isImageField ? (
                                     <ImageUpload
                                       onUploadSuccess={(url) => {
@@ -1160,19 +1160,19 @@ export default function CMSManagementPage() {
                                       initialImageUrl={fieldValue}
                                     />
                                   ) : (
-                                    <input
-                                      type="text"
+                                <input
+                                  type="text"
                                       value={fieldValue}
-                                      onChange={(e) => {
-                                        const newArray = [...sectionData];
-                                        newArray[index] = { ...newArray[index], [key]: e.target.value };
-                                        handleInputChange(sectionKey, sectionKey, newArray);
-                                      }}
-                                      className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                                      placeholder={`Entrez ${key}...`}
-                                    />
+                                  onChange={(e) => {
+                                    const newArray = [...sectionData];
+                                    newArray[index] = { ...newArray[index], [key]: e.target.value };
+                                    handleInputChange(sectionKey, sectionKey, newArray);
+                                  }}
+                                  className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                                  placeholder={`Entrez ${key}...`}
+                                />
                                   )}
-                                </div>
+                              </div>
                               );
                             })}
                           </div>

@@ -51,8 +51,8 @@ export default async function PlusValueImmobilierePage() {
               </div>
             </div>
 
-            <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative">
-              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+            <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative overflow-visible">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6 relative z-10">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -62,8 +62,8 @@ export default async function PlusValueImmobilierePage() {
               </div>
 
               {content.rightCard?.floatingText && (
-                <div className="absolute -top-16 -right-8 w-[51.3px] h-[51.3px] sm:w-[202px] sm:h-[202px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center">
-                  <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-base lg:text-xl leading-tight px-1 sm:px-0">
+                <div className="absolute -top-8 sm:-top-12 lg:-top-16 -right-8 sm:-right-12 lg:-right-16 w-[35px] h-[35px] sm:w-[130px] sm:h-[130px] lg:w-[160px] lg:h-[160px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center z-0">
+                  <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-sm lg:text-base leading-tight px-1 sm:px-0">
                     {content.rightCard.floatingText.split('\n').map((line, index, arr) => (
                       <span key={index}>{line}{index < arr.length - 1 && <br />}</span>
                     ))}
@@ -71,7 +71,7 @@ export default async function PlusValueImmobilierePage() {
                 </div>
               )}
 
-              <div className="mt-8 sm:mt-12">
+              <div className="mt-8 sm:mt-12 relative z-10">
                 <ul className="space-y-2 sm:space-y-3 text-white text-xs sm:text-sm font-source-sans font-semibold leading-relaxed">
                   {(content.rightCard?.benefits || []).map((benefit, index) => (
                     <li key={index} className="flex items-start gap-2">

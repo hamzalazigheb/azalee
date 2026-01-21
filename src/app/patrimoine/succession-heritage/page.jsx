@@ -6,20 +6,32 @@ import CTAButton from "@/components/ui/CTAButton";
 export const revalidate = 0; // SSR
 
 const HeroSection = ({ data }) => {
-  if (!data) return null;
+  // Default fallback values
+  const defaultData = {
+    title: 'Comprendre la succession et l\'héritage',
+    description: 'Optimisez la transmission de votre patrimoine avec nos conseils experts en succession et héritage.',
+    buttons: [
+      { text: 'Prendre rendez-vous', url: 'https://calendly.com/rdv-azalee-patrimoine/30min' }
+    ]
+  };
+
+  const heroData = data || defaultData;
+
   return (
     <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
       <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-white">
         <div className="text-center mb-12">
           <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold leading-tight mb-6">
-            {data.title || 'Comprendre la succession'}
+            {heroData.title || defaultData.title}
           </h1>
-          <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8 text-white">
-            {data.description}
-          </p>
-          {data.codeCivil && (
+          {heroData.description && (
+            <p className="text-white text-lg font-inter leading-relaxed max-w-4xl mx-auto mb-8">
+              {heroData.description}
+            </p>
+          )}
+          {heroData.codeCivil && Array.isArray(heroData.codeCivil) && heroData.codeCivil.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
-              {data.codeCivil.map((item, index) => (
+              {heroData.codeCivil.map((item, index) => (
                 <div key={index} className="bg-white bg-opacity-20 border-l-4 border-white rounded-lg shadow-lg p-6">
                   <h3 className="text-white font-semibold mb-2">{item.title}</h3>
                   <p className="text-white text-sm opacity-90">{item.description}</p>
@@ -30,15 +42,24 @@ const HeroSection = ({ data }) => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          {data.buttons && data.buttons.map((btn, i) => (
+          {heroData.buttons && Array.isArray(heroData.buttons) && heroData.buttons.length > 0 ? (
+            heroData.buttons.map((btn, i) => (
+              <CTAButton
+                key={i}
+                externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+                variant={i === 0 ? "primary" : "secondary"}
+              >
+                {btn.text || 'Prendre rendez-vous'}
+              </CTAButton>
+            ))
+          ) : (
             <CTAButton
-              key={i}
-              externalUrl={btn.url || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
-              variant={i === 0 ? "primary" : "secondary"}
+              externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+              variant="primary"
             >
-              {btn.text}
+              Prendre rendez-vous
             </CTAButton>
-          ))}
+          )}
         </div>
       </div>
     </section>

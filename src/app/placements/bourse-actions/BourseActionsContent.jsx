@@ -479,7 +479,7 @@ export default function BourseActionsContent({ content }) {
 
       {/* Avantages et Inconvénients Section */}
       {content.advantagesInconvenients && (
-        <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
+        <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
           <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Avantages */}

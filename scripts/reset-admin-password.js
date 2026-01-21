@@ -84,10 +84,10 @@ async function resetPassword() {
     console.log('📡 Connecting to MongoDB...');
     await mongoose.connect(MONGODB_URI);
     console.log('✅ Connected to MongoDB\n');
-    
+
     // Check if arguments were provided
     let email, newPassword;
-    
+
     if (process.argv.length >= 4) {
       // Use command line arguments
       email = process.argv[2];
@@ -132,9 +132,9 @@ async function resetPassword() {
     
     // Hash new password
     console.log('\n🔒 Hashing new password...');
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
-    
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+      
     // Update password
     console.log('💾 Updating password...');
     user.password = hashedPassword;

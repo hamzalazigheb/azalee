@@ -86,57 +86,55 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/webp" href={faviconPath} />
         <link rel="shortcut icon" type="image/webp" href={faviconPath} />
         <link rel="apple-touch-icon" href={faviconPath} />
+        {/* Scripts Schema.org combinés - Chargés après le rendu initial pour ne pas bloquer */}
         <Script
-          id="schema-organization"
+          id="schema-markup"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["FinancialService", "LocalBusiness", "Organization"],
-              "name": "Azalée Patrimoine",
-              "url": "https://azalee-patrimoine.fr",
-              "logo": `https://azalee-patrimoine.fr${faviconPath}`,
-              "description": "Expert en gestion de patrimoine, optimisation fiscale et conseil financier. Solutions personnalisées pour sécuriser et faire croître votre patrimoine.",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "106 rue de Richelieu",
-                "addressLocality": "Paris",
-                "postalCode": "75002",
-                "addressCountry": "FR"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": ["FinancialService", "LocalBusiness", "Organization"],
+                "name": "Azalée Patrimoine",
+                "url": "https://azalee-patrimoine.fr",
+                "logo": `https://azalee-patrimoine.fr${faviconPath}`,
+                "description": "Expert en gestion de patrimoine, optimisation fiscale et conseil financier. Solutions personnalisées pour sécuriser et faire croître votre patrimoine.",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "106 rue de Richelieu",
+                  "addressLocality": "Paris",
+                  "postalCode": "75002",
+                  "addressCountry": "FR"
+                },
+                "telephone": "+33153458500",
+                "email": "contact@azalee-patrimoine.fr",
+                "priceRange": "$$",
+                "areaServed": {
+                  "@type": "Country",
+                  "name": "France"
+                },
+                "serviceType": [
+                  "Gestion de patrimoine",
+                  "Conseil en investissement",
+                  "Optimisation fiscale",
+                  "Investissement immobilier",
+                  "Préparation retraite"
+                ],
+                "sameAs": []
               },
-              "telephone": "+33153458500",
-              "email": "contact@azalee-patrimoine.fr",
-              "priceRange": "$$",
-              "areaServed": {
-                "@type": "Country",
-                "name": "France"
-              },
-              "serviceType": [
-                "Gestion de patrimoine",
-                "Conseil en investissement",
-                "Optimisation fiscale",
-                "Investissement immobilier",
-                "Préparation retraite"
-              ],
-              "sameAs": []
-            })
-          }}
-        />
-        <Script
-          id="schema-website"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "Azalée Patrimoine",
-              "url": "https://azalee-patrimoine.fr",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://azalee-patrimoine.fr/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Azalée Patrimoine",
+                "url": "https://azalee-patrimoine.fr",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://azalee-patrimoine.fr/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+                }
               }
-            })
+            ])
           }}
         />
       </head>

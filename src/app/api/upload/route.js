@@ -48,7 +48,7 @@ export async function POST(request) {
       }
     } catch (dbError) {
       if (process.env.NODE_ENV === 'development') {
-        console.error('Database connection error:', dbError);
+      console.error('Database connection error:', dbError);
       }
       return NextResponse.json(
         { success: false, message: 'Erreur de connexion à la base de données' },
@@ -141,8 +141,8 @@ export async function POST(request) {
     });
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('Error uploading file:', error);
-      console.error('Error stack:', error.stack);
+    console.error('Error uploading file:', error);
+    console.error('Error stack:', error.stack);
     }
     
     // Messages d'erreur plus clairs selon le type d'erreur

@@ -418,24 +418,24 @@ export default function PatrimoinePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
             {/* Carte gauche */}
             <div className="bg-white rounded-xl shadow-2xl p-8 sm:p-10 lg:p-12 border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
-              <h1 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight">
+              <h1 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight text-center">
                 {content.hero?.cardLeft?.title || "Bien gérer son patrimoine en 2025, c'est anticiper, structurer et transmettre"}
               </h1>
               
               <div className="space-y-5 mb-10">
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph1 || "Une bonne gestion de patrimoine ne se résume pas à faire fructifier son épargne."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph2 || "Elle repose sur une approche globale et exclusive qui intègre la protection de la famille, la stratégie de transmission, l'optimisation fiscale, des placements performants, une structuration juridique et l'anticipation des risques."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph3 || "Notre équipe de conseillers en gestion de patrimoine indépendants vous accompagne pour bâtir une stratégie personnalisée et cohérente avec vos objectifs de vie."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph4 || "Que vous soyez chef d'entreprise, héritier, expatrié ou jeune investisseur, nous vous guidons avec clarté."}
                 </p>
               </div>
@@ -461,11 +461,11 @@ export default function PatrimoinePage() {
                 </div>
               </div>
               
-              <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight">
+              <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight text-center">
                 {content.hero?.cardRight?.title || "Votre patrimoine mérite une stratégie claire et durable"}
               </h2>
               
-              <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed mb-8">
+              <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed mb-8 text-center">
                 {content.hero?.cardRight?.description || "Chez Azalée Patrimoine, nous vous aidons à construire un avenir financier solide grâce à une approche personnalisée et des solutions adaptées à vos besoins spécifiques."}
               </p>
               
@@ -642,18 +642,13 @@ export default function PatrimoinePage() {
                 return (
                   <div 
                     key={index} 
-                    className="group relative bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60] hover:to-[#1a2d47] hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer overflow-hidden"
+                    className="relative bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 overflow-hidden"
                     style={{
                       animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                     }}
                   >
-                    {/* Effet de brillance au survol */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
-                    </div>
-                    
                     {/* Icône */}
-                    <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                    <div className="mb-6">
                       {getIcon(index)}
                     </div>
                     
@@ -661,9 +656,6 @@ export default function PatrimoinePage() {
                     <h3 className="text-[#253F60] text-lg sm:text-xl font-inter font-bold leading-relaxed relative z-10">
                       {point}
                     </h3>
-                    
-                    {/* Ligne décorative en bas */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#253F60] via-[#B99066] to-[#253F60] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   </div>
                 );
               })}

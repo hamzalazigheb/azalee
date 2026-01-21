@@ -471,8 +471,8 @@ export default function GuideDefiscalisationClient({ content }) {
               </div>
             </div>
             
-            <div className="mt-6 p-6 bg-gradient-to-r from-[#FFEFD5] to-[#D7E8FF] rounded-lg">
-              <p className="text-[#112033] font-medium text-lg">
+            <div className="mt-6 p-6 bg-[#253F60] rounded-xl shadow-sm">
+              <p className="text-white font-medium text-lg leading-relaxed">
                 Avec ce guide, nos experts vous donnent les clés pour réduire légalement votre imposition et transformer la fiscalité en véritable levier patrimonial.
               </p>
             </div>

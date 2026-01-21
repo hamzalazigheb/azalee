@@ -87,58 +87,6 @@ export default function AssuranceVieVsPerClient({ content }) {
 
     return (
       <div className="min-h-screen bg-gray-50">
-        <style jsx>{`
-          @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-          @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes bounceIn1 {
-            0% { transform: translateY(30px); opacity: 0; }
-            50% { transform: translateY(-10px); opacity: 0.8; }
-            100% { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes bounceIn2 {
-            0% { transform: translateY(30px); opacity: 0; }
-            25% { transform: translateY(30px); opacity: 0; }
-            75% { transform: translateY(-10px); opacity: 0.8; }
-            100% { transform: translateY(0); opacity: 1; }
-          }
-          @keyframes bounceIn3 {
-            0% { transform: translateY(30px); opacity: 0; }
-            50% { transform: translateY(30px); opacity: 0; }
-            75% { transform: translateY(-10px); opacity: 0.8; }
-            100% { transform: translateY(0); opacity: 1; }
-          }
-          .animate-fade-in {
-            animation: fadeIn 0.8s ease-out;
-          }
-          .animate-slide-down {
-            animation: slideDown 0.6s ease-out;
-          }
-          .animate-slide-up {
-            animation: slideUp 0.6s ease-out 0.2s both;
-          }
-          .animate-fade-in-delay {
-            animation: fadeIn 0.8s ease-out 0.4s both;
-          }
-          .animate-bounce-in-1 {
-            animation: bounceIn1 0.8s ease-out 0.6s both;
-          }
-          .animate-bounce-in-2 {
-            animation: bounceIn2 0.8s ease-out 0.8s both;
-          }
-          .animate-bounce-in-3 {
-            animation: bounceIn3 0.8s ease-out 1s both;
-          }
-        `}</style>
         <Header />
       
       {/* Hero Section */}
@@ -541,33 +489,33 @@ export default function AssuranceVieVsPerClient({ content }) {
           {/* Stratégie Tab */}
           {activeTab === 'strategie' && (
             <div className="max-w-4xl mx-auto px-4">
-              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl animate-fade-in">
-                <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-[#112033] text-center animate-slide-down">Stratégie optimale</h3>
+              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl">
+                <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-[#112033] text-center">Stratégie optimale</h3>
                 
                 <div className="space-y-4 sm:space-y-6">
-                  <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] p-4 sm:p-6 rounded-lg text-white animate-slide-up">
-                    <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 animate-pulse">🎯 PER ou assurance-vie ? Les deux !</h4>
-                    <p className="text-sm sm:text-base text-white/90 animate-fade-in-delay">
+                  <div className="bg-gradient-to-r from-[#253F60] to-[#B99066] p-4 sm:p-6 rounded-lg text-white">
+                    <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">🎯 PER ou assurance-vie ? Les deux !</h4>
+                    <p className="text-sm sm:text-base text-white">
                       Optimisez votre épargne retraite en combinant PER (réduction d'impôt jusqu'à 45%) et assurance-vie (disponibilité + transmission optimisée). 
                       Découvrez la stratégie adaptée à votre tranche d'imposition pour maximiser vos avantages fiscaux dès maintenant.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gradient-to-r hover:from-[#253F60] hover:to-[#B99066] hover:text-white transition-all duration-500 transform hover:scale-105 hover:shadow-lg animate-bounce-in-1">
-                      <div className="text-xl sm:text-2xl font-bold text-[#253F60] mb-2 hover:text-white transition-colors duration-300">1</div>
-                      <h5 className="font-semibold mb-2 text-sm sm:text-base">Maximiser le PER</h5>
-                      <p className="text-xs sm:text-sm text-[#4A5568] hover:text-white/90 transition-colors duration-300">Versez le maximum au PER pour bénéficier de la réduction d'impôt</p>
+                    <div className="text-center p-3 sm:p-4 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-white mb-2">1</div>
+                      <h5 className="font-semibold mb-2 text-sm sm:text-base text-white">Maximiser le PER</h5>
+                      <p className="text-xs sm:text-sm text-white">Versez le maximum au PER pour bénéficier de la réduction d'impôt</p>
                     </div>
-                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gradient-to-r hover:from-[#B99066] hover:to-[#A67A5A] hover:text-white transition-all duration-500 transform hover:scale-105 hover:shadow-lg animate-bounce-in-2">
-                      <div className="text-xl sm:text-2xl font-bold text-[#253F60] mb-2 hover:text-white transition-colors duration-300">2</div>
-                      <h5 className="font-semibold mb-2 text-sm sm:text-base">Compléter en AV</h5>
-                      <p className="text-xs sm:text-sm text-[#4A5568] hover:text-white/90 transition-colors duration-300">Placez le surplus en assurance-vie pour la flexibilité</p>
+                    <div className="text-center p-3 sm:p-4 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-white mb-2">2</div>
+                      <h5 className="font-semibold mb-2 text-sm sm:text-base text-white">Compléter en AV</h5>
+                      <p className="text-xs sm:text-sm text-white">Placez le surplus en assurance-vie pour la flexibilité</p>
                     </div>
-                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gradient-to-r hover:from-[#253F60] hover:to-[#B99066] hover:text-white transition-all duration-500 transform hover:scale-105 hover:shadow-lg animate-bounce-in-3">
-                      <div className="text-xl sm:text-2xl font-bold text-[#253F60] mb-2 hover:text-white transition-colors duration-300">3</div>
-                      <h5 className="font-semibold mb-2 text-sm sm:text-base">Optimiser la sortie</h5>
-                      <p className="text-xs sm:text-sm text-[#4A5568] hover:text-white/90 transition-colors duration-300">Planifiez la sortie du PER en capital ou rente selon vos besoins</p>
+                    <div className="text-center p-3 sm:p-4 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-lg shadow-lg">
+                      <div className="text-xl sm:text-2xl font-bold text-white mb-2">3</div>
+                      <h5 className="font-semibold mb-2 text-sm sm:text-base text-white">Optimiser la sortie</h5>
+                      <p className="text-xs sm:text-sm text-white">Planifiez la sortie du PER en capital ou rente selon vos besoins</p>
                     </div>
                   </div>
                 </div>
@@ -607,8 +555,8 @@ export default function AssuranceVieVsPerClient({ content }) {
 
       {/* Popup Modal avec CTA engageant */}
       {showPopup && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl animate-slide-up">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl">
             <div className="text-center">
               <h3 className="text-xl sm:text-2xl font-bold text-[#253F60] mb-3">
                 Votre simulation est prête !

@@ -84,10 +84,17 @@ export default function MonumentHistoriquePage() {
       {/* Overview Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-[#F9FAFB] to-white">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader 
-            title={content?.overview?.title}
-            subtitle={content?.overview?.description}
-          />
+          <div className="text-center mb-12">
+            <div className="inline-block mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full mx-auto"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4 text-center">
+              {content?.overview?.title}
+            </h2>
+            <p className="text-[#686868] text-base sm:text-lg max-w-2xl mx-auto text-center">
+              {content?.overview?.description}
+            </p>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {content.overview.keyPoints.map((point, index) => {

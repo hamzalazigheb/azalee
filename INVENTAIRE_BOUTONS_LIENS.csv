@@ -1,0 +1,94 @@
+Page,Section,Élément,Type,Texte,Destination,Comportement,Notes
+Page d'accueil,Section Hero,Bouton Hero Principal,Bouton,"PRENEZ RENDEZ-VOUS EN TOUTE CONFIDENTIALITÉ (ou depuis CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Page d'accueil,Section Services,Bouton Consultation Équipe,Bouton,Planifiez votre consultation gratuite,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Page d'accueil,Section Équipe,Lien CTA Principal,Lien,Rencontrer un conseiller en gestion de patrimoine,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Page d'accueil,Navigation Interne,Lien Notre Approche,Lien,Découvrir notre approche,/notre-approche,Navigation interne,
+Page d'accueil,Navigation Interne,Lien Équipe,Lien,Voir l'équipe,/equipe,Navigation interne,
+Page d'accueil,Navigation Interne,Lien Blog,Lien,Accéder au blog,/blog,Navigation interne,
+Fiscalité,Section Hero,CTA Hero,Bouton,"{pageContent.hero?.leftCard?.ctaText} (CMS)",{pageContent.hero?.leftCard?.ctaLink} ou Calendly,Nouvelle fenêtre,Configurable via CMS
+Fiscalité,Navigation & Ressources,Lien Déclaration,Lien,Déclaration d'impôts,/fiscalite/declaration-impots,Navigation interne,
+Fiscalité,Navigation & Ressources,Lien Site Officiel,Lien,Site officiel des impôts,https://www.impots.gouv.fr,Nouvelle fenêtre,
+Fiscalité,Section Dispositifs,CTA Dispositifs,Bouton,"{pageContent.dispositifs?.ctaButton} (CMS)",{pageContent.dispositifs?.ctaLink} ou Calendly,Nouvelle fenêtre,Configurable via CMS
+Fiscalité,Section Défiscalisation,CTA Principal,Bouton,"{cta.text} (premier bouton)",{cta.link} ou Calendly,Nouvelle fenêtre,Configurable via CMS
+Fiscalité,Section Défiscalisation,CTA Secondaire,Lien,"{cta.text} (deuxième bouton)",{cta.link} ou Calendly,Lien direct,Configurable via CMS
+Fiscalité,Dispositifs,Pinel,Lien,{dispositif.name},/fiscalite,Navigation interne,Configurable via CMS
+Fiscalité,Dispositifs,Girardin,Lien,{dispositif.name},/fiscalite,Navigation interne,Configurable via CMS
+Fiscalité,Dispositifs,Malraux,Lien,{dispositif.name},/fiscalite,Navigation interne,Configurable via CMS
+Fiscalité,Dispositifs,Denormandie,Lien,{dispositif.name},/fiscalite,Navigation interne,Configurable via CMS
+Fiscalité,Dispositifs,Cosse,Lien,{dispositif.name},/fiscalite,Navigation interne,Configurable via CMS
+Fiscalité,Dispositifs,Monument historique,Lien,{dispositif.name},/fiscalite,Navigation interne,Configurable via CMS
+Placements,Assurance-vie Luxembourg,Bouton Hero,Bouton,"{content.hero?.button} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Assurance-vie Luxembourg,CTA Principal,Bouton,"{content.cta?.primaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Assurance-vie Luxembourg,CTA Secondaire,Bouton,"{content.cta?.secondaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Compte titres,Bouton Hero,Bouton,"{content.hero?.button} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Compte titres,CTA Principal,Bouton,"{content.cta?.primaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Compte titres,CTA Secondaire,Bouton,"{content.cta?.secondaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Contrat capitalisation,Bouton Hero Principal,Bouton,"{content.hero?.button} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Contrat capitalisation,Bouton Hero Secondaire,Bouton,"{content.hero?.secondaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Contrat capitalisation,CTA Principal,Bouton,"{content.cta?.primaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Contrat capitalisation,CTA Secondaire,Bouton,"{content.cta?.secondaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,SCPI/OPCI,Bouton Hero Principal,Bouton,"{content.hero?.primaryButton} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,SCPI/OPCI,Bouton Hero Secondaire,Bouton,"{content.hero?.secondaryButton} (CMS)",Scroll vers section interne,Scroll interne,Scroll vers section Azalée
+Placements,SCPI/OPCI,CTA,Bouton,"{content.cta?.button} (CMS)",https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Placements,Section Profil Investisseur,Bouton Profil,Bouton,Découvrir mon profil investisseur avec un conseiller Azalée,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Placements,Navigation Interne,Produits structurés,Lien,Produits structurés,/placements/produits-structures,Navigation interne,
+Placements,Navigation Interne,Section Assurance-vie Lux,Ancre,Section Assurance-vie Lux,#assurance-vie-lux,Ancre interne,
+Placements,Navigation Interne,Section Or/Métaux,Ancre,Section Or/Métaux,#or-metaux,Ancre interne,
+Immobilier,Actions Principales,Quiz Immobilier,Bouton,Faire le quiz,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Immobilier,Actions Principales,Outils Immobiliers,Lien,Accéder à nos outils immobiliers,/outils,Navigation interne,
+Immobilier,Dispositifs,Pinel,Bouton,{dispositif.name} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Immobilier,Dispositifs,Girardin,Bouton,{dispositif.name} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Immobilier,Dispositifs,Malraux,Bouton,{dispositif.name} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Immobilier,Dispositifs,LMNP,Bouton,{dispositif.name} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Immobilier,Dispositifs,VEFA,Bouton,{dispositif.name} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Immobilier,Dispositifs,SCI,Bouton,{dispositif.name} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Retraite,Section CTA Finale,Bouton Principal,Bouton,"{button.text} ou Demander un diagnostic offert",{button.link} ou Calendly,Nouvelle fenêtre,Configurable via CMS
+Retraite,Section CTA Finale,Bouton Secondaire,Lien,"{button.text} ou Nous contacter",{button.link} ou /contact,Navigation interne,Configurable via CMS
+Retraite,Contact Email,Email Contact,Lien,{content.cta.contact},mailto:{content.cta.contact},Email,Configurable via CMS
+Retraite,Sous-pages,Bouton CTA,Bouton,{button.text} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Retraite,Sous-pages,Email Contact,Lien,contact@azalee-patrimoine.fr,mailto:contact@azalee-patrimoine.fr,Email,
+Patrimoine,Section Expertises,CTA Principal,Bouton,"{content.expertises?.buttonText} ou Je prends rdv",{content.expertises?.buttonUrl} ou Calendly,Nouvelle fenêtre,Configurable via CMS
+Patrimoine,Navigation,Bilan patrimonial,Lien,Bilan patrimonial,/patrimoine/bilan,Navigation interne,
+Patrimoine,Navigation,Succession,Lien,Succession héritage,/patrimoine/succession-heritage,Navigation interne,
+Patrimoine,Navigation,Donation gratuite,Lien,Donation à titre gratuit,/patrimoine/donation-gratuite,Navigation interne,
+Patrimoine,Navigation,Donation onéreuse,Lien,Donation à titre onéreux,/patrimoine/donation-onereuse,Navigation interne,
+Patrimoine,Navigation,Transmission,Lien,Transmission de patrimoine,/patrimoine/transmission,Navigation interne,
+Patrimoine,Navigation,Protection famille,Lien,Protection famille,/patrimoine/protection-famille,Navigation interne,
+Patrimoine,Navigation,Conseils,Lien,Conseils patrimoniaux,/patrimoine/conseils,Navigation interne,
+Patrimoine,Navigation,Autre patrimoine,Lien,Autre patrimoine,/patrimoine/autre,Navigation interne,
+Patrimoine,Sous-pages,Bouton CTA,Bouton,{button.text} (CMS),https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,Configurable via CMS
+Blog,Navigation Articles,Lien Article,Lien,{article.title},/blog/{article.slug},Navigation interne,Configurable via CMS
+Blog,Partage Social,LinkedIn,Bouton,Icône LinkedIn,{article.socialLinks.linkedin},Nouvelle fenêtre,Configurable via CMS
+Blog,Partage Social,Facebook,Bouton,Icône Facebook,{article.socialLinks.facebook},Nouvelle fenêtre,Configurable via CMS
+Blog,Partage Social,Twitter/X,Bouton,Icône Twitter,{article.socialLinks.twitter},Nouvelle fenêtre,Configurable via CMS
+Blog,Partage Social,Instagram,Bouton,Icône Instagram,{article.socialLinks.instagram},Nouvelle fenêtre,Configurable via CMS
+Blog,CTA Article,Bouton CTA,Bouton,Prendre rendez-vous,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Ressources,Téléchargements,Télécharger PDF,Bouton,Télécharger le guide,{guide.pdfUrl},Nouvelle fenêtre,Configurable via CMS
+Ressources,Actions CTA,Prendre Rendez-vous,Bouton,Prendre Rendez-vous,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Ressources,Actions CTA,Nous Contacter,Lien,Nous contacter,/contact,Navigation interne,
+Contact,Action Principale,Ouvrir Calendly,Bouton,Ouvrir Calendly,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Espace Client,Accès Plateforme,Accéder à Wealthcome,Bouton,Accéder à votre espace client,https://app.wealthcome.fr/login,Nouvelle fenêtre,
+Espace Client,Support,Nous Contacter,Lien,Nous contacter,/contact,Navigation interne,
+Outils Financiers,Actions CTA,Prendre rendez-vous,Bouton,Prendre rendez-vous,https://calendly.com/rdv-azalee-patrimoine/30min,Nouvelle fenêtre,
+Outils Financiers,Outils Disponibles,Calculatrice d'impôts,Lien,Calculatrice d'impôts,/outils/calculatrice-impots,Navigation interne,
+Outils Financiers,Outils Disponibles,Calculs financiers,Lien,Calculs financiers,/outils/calculs-financiers,Navigation interne,
+Outils Financiers,Outils Disponibles,Simulateur investissement,Lien,Simulateur d'investissement,/outils/simulateur-investissement,Navigation interne,
+Outils Financiers,Outils Disponibles,Guide défiscalisation,Lien,Guide défiscalisation,/outils-financiers/guide-defiscalisation,Navigation interne,
+Outils Financiers,Outils Disponibles,Assurance-vie vs PER,Lien,Assurance-vie vs PER,/outils-financiers/assurance-vie-vs-per,Navigation interne,
+Header,Identité,Logo Azalée Patrimoine,Lien,Logo,/Navigation interne,
+Header,Menu Principal,Gestion de patrimoine,Lien,Gestion de patrimoine,/patrimoine,Navigation interne,Avec sous-menu
+Header,Menu Principal,Placements,Lien,Placements,/placements,Navigation interne,Avec sous-menu
+Header,Menu Principal,Investissement immobilier,Lien,Investissement immobilier,/immobilier,Navigation interne,Avec sous-menu
+Header,Menu Principal,Fiscalité,Lien,Fiscalité,/fiscalite,Navigation interne,Avec sous-menu
+Header,Menu Principal,Retraite,Lien,Retraite,/retraite,Navigation interne,Avec sous-menu
+Header,Menu Principal,Outils financiers,Lien,Outils financiers,/outils-financiers,Navigation interne,Avec sous-menu
+Header,Menu Principal,Blog,Lien,Blog,/blog,Navigation interne,
+Header,Menu Principal,Ressources,Lien,Ressources,/ressources,Navigation interne,
+Header,Barre Supérieure,Téléphone,Lien,01 53 45 85 00,tel:+33153458500,Appel,
+Header,Barre Supérieure,Email,Lien,contact@azalee-patrimoine.fr,mailto:contact@azalee-patrimoine.fr,Email,
+Header,Barre Supérieure,LinkedIn,Bouton,Icône LinkedIn,https://www.linkedin.com/company/azalee-patrimoine,Nouvelle fenêtre,
+Header,Barre Supérieure,Espace Client,Lien,Espace client,/espace-client,Navigation interne,
+Footer,CTA Principal,Bouton Contact,Bouton,"{footerContent.contact.ctaButton.text} (CMS)",{footerContent.contact.ctaButton.url},Nouvelle fenêtre,Configurable via CMS
+Footer,Navigation,Tous les liens principaux,Lien,Liens navigation,/,Navigation interne,Organisés par catégories
+
+

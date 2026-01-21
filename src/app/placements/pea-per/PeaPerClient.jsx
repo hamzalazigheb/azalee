@@ -848,7 +848,7 @@ export default function PeaPerClient({ content }) {
       </section>
 
       {/* En résumé Section */}
-      <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
+      <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-[#253F60] text-2xl sm:text-3xl font-cairo font-semibold mb-6">

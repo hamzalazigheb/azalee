@@ -419,12 +419,12 @@ const defaultContent = {
     { value: '5', label: 'Implementations en France (Paris / Nantes / La Rochelle / Salon de Provence / Nice)' },
   ],
   investment: {
-    investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
-    investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
-    investmentButton: 'Vous avez des questions, nous avons des réponses',
+  investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
+  investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
+  investmentButton: 'Vous avez des questions, nous avons des réponses',
     investmentCalendlyUrl: 'https://calendly.com/rdv-azalee-patrimoine/30min',
-    investmentImage1: '/images/azalee-patrimoine-investment-strategy-meeting.webp',
-    investmentImage2: '/images/azalee-patrimoine-financial-strategy-planning.webp',
+  investmentImage1: '/images/azalee-patrimoine-investment-strategy-meeting.webp',
+  investmentImage2: '/images/azalee-patrimoine-financial-strategy-planning.webp',
   },
   taxTitle: 'Pourquoi choisir la défiscalisation immobilière ?',
   taxText: "L'immobilier reste un investissement de référence pour les investisseurs français, surtout lorsqu'il est accompagné d'avantages fiscaux attractifs. En choisissant des biens éligibles à des dispositifs légaux de défiscalisation, vous pouvez réduire significativement votre imposition tout en développant votre patrimoine. Le gouvernement encourage ainsi l'investissement dans certains secteurs ou types de logements — anciens ou neufs, location longue durée ou saisonnière — grâce à des lois fiscales spécifiques. Ces mesures permettent non seulement de dynamiser l'offre immobilière mais aussi de soutenir les investisseurs en leur offrant des avantages concrets. Que vous souhaitiez constituer un patrimoine, optimiser vos revenus locatifs ou préparer votre avenir, nos solutions de défiscalisation s'adaptent à votre situation et à vos objectifs.",
@@ -442,9 +442,9 @@ const defaultContent = {
     { image: '/images/azalee-patrimoine-img-header-logo.webp', website: '#', name: 'Partenaire' }
   ],
   finalCta: {
-    finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
-    finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
-    finalCtaImage: '/images/azalee-patrimoine-wealth-management-agreement.webp',
+  finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
+  finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
+  finalCtaImage: '/images/azalee-patrimoine-wealth-management-agreement.webp',
   },
   // Section Équipe Preview
   teamPreview: {
@@ -760,7 +760,7 @@ export default function HomePage() {
               investmentImage2: mergedContent.investment?.investmentImage2 || mergedContent.investmentImage2,
               finalCtaImage: mergedContent.finalCta?.finalCtaImage || mergedContent.finalCtaImage
             });
-            
+
             setContent(mergedContent);
             setSectionOrder(finalSectionOrder);
             setContentSource('cms');
@@ -832,7 +832,7 @@ export default function HomePage() {
         // Force immediate refresh with aggressive cache-busting
         // Add small delay to ensure database is updated
         setTimeout(() => {
-          fetchContent();
+        fetchContent();
         }, 100);
       } else {
         console.log('ℹ️ CMS update received but not for homepage:', updatedPath);

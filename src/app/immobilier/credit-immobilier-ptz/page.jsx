@@ -59,8 +59,8 @@ export default async function CreditImmobilierPTZPage() {
             </div>
 
             {/* Right Card */}
-            <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative">
-              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+            <div className="w-full lg:w-[467px] bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 sm:p-8 relative overflow-visible">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6 relative z-10">
                 <div className="w-8 h-8 sm:w-9 sm:h-9">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -72,8 +72,8 @@ export default async function CreditImmobilierPTZPage() {
               </div>
 
               {content.rightCard?.floatingText && (
-                <div className="absolute -top-16 -right-8 w-[51.3px] h-[51.3px] sm:w-[202px] sm:h-[202px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center">
-                  <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-base lg:text-xl leading-tight px-1 sm:px-0">
+                <div className="absolute -top-8 sm:-top-12 lg:-top-16 -right-8 sm:-right-12 lg:-right-16 w-[35px] h-[35px] sm:w-[130px] sm:h-[130px] lg:w-[160px] lg:h-[160px] bg-gradient-to-r from-[#B99066] to-[#253F60] rounded-full shadow-lg flex items-center justify-center z-0">
+                  <div className="text-center text-white font-source-sans font-semibold text-xs sm:text-sm lg:text-base leading-tight px-1 sm:px-0">
                     {content.rightCard.floatingText.split('\n').map((line, index, arr) => (
                       <span key={index} className={index === 0 && arr.length > 1 ? "hidden sm:block" : index === 1 ? "sm:hidden" : "hidden sm:block"}>
                         {line}
@@ -85,7 +85,7 @@ export default async function CreditImmobilierPTZPage() {
               )}
 
               {content.rightCard?.benefits && (
-                <div className="mt-8 sm:mt-12">
+                <div className="mt-8 sm:mt-12 relative z-10">
                   <ul className="space-y-2 sm:space-y-3 text-white text-xs sm:text-sm font-source-sans font-semibold leading-relaxed">
                     {(content.rightCard.benefits || []).map((benefit, index) => (
                       <li key={index} className="flex items-start gap-2">

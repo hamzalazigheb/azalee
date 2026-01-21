@@ -23,7 +23,7 @@ export async function POST(request) {
     await connectDB();
 
     const body = await request.json();
-    
+
     // Validate input
     const validation = validateNewsletterSubscription(body);
     if (!validation.success) {
@@ -79,7 +79,7 @@ export async function POST(request) {
 
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('Newsletter subscription error:', error);
+    console.error('Newsletter subscription error:', error);
     }
     
     // Handle duplicate key error (email already exists)
@@ -125,7 +125,7 @@ export async function GET(request) {
 
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('Error fetching newsletter subscribers:', error);
+    console.error('Error fetching newsletter subscribers:', error);
     }
     return NextResponse.json(
       { error: 'Failed to fetch subscribers' },
