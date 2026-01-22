@@ -75,13 +75,13 @@ export default function BourseActionsContent({ content }) {
             <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-[#253F60]/20">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-[#253F60] text-sm font-cairo font-semibold uppercase tracking-wide">CAC 40</h3>
-                {!marketData.cac40.loading && marketData.cac40.isMarketOpen !== undefined && (
+                {!marketData.cac40.loading && marketData.cac40.isMarketOpen !== undefined && marketData.cac40.isMarketOpen && (
                   <div className="flex items-center gap-1.5">
                     <div className={`w-2 h-2 rounded-full ${
                       marketData.cac40.isMarketOpen ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
                     }`}></div>
                     <span className="text-xs text-gray-500 font-medium">
-                      {marketData.cac40.isMarketOpen ? 'Ouvert' : 'Fermé'}
+                      Ouvert
                     </span>
                   </div>
                 )}
@@ -108,13 +108,13 @@ export default function BourseActionsContent({ content }) {
             <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-[#253F60]/20">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-[#253F60] text-sm font-cairo font-semibold uppercase tracking-wide">S&P 500</h3>
-                {!marketData.sp500.loading && marketData.sp500.isMarketOpen !== undefined && (
+                {!marketData.sp500.loading && marketData.sp500.isMarketOpen !== undefined && marketData.sp500.isMarketOpen && (
                   <div className="flex items-center gap-1.5">
                     <div className={`w-2 h-2 rounded-full ${
                       marketData.sp500.isMarketOpen ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
                     }`}></div>
                     <span className="text-xs text-gray-500 font-medium">
-                      {marketData.sp500.isMarketOpen ? 'Ouvert' : 'Fermé'}
+                      Ouvert
                     </span>
                   </div>
                 )}
@@ -141,13 +141,13 @@ export default function BourseActionsContent({ content }) {
             <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-gray-200 hover:border-[#253F60]/20">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-[#253F60] text-sm font-cairo font-semibold uppercase tracking-wide">MSCI World</h3>
-                {!marketData.msciWorld.loading && marketData.msciWorld.isMarketOpen !== undefined && (
+                {!marketData.msciWorld.loading && marketData.msciWorld.isMarketOpen !== undefined && marketData.msciWorld.isMarketOpen && (
                   <div className="flex items-center gap-1.5">
                     <div className={`w-2 h-2 rounded-full ${
                       marketData.msciWorld.isMarketOpen ? 'bg-green-500 animate-pulse' : 'bg-gray-400'
                     }`}></div>
                     <span className="text-xs text-gray-500 font-medium">
-                      {marketData.msciWorld.isMarketOpen ? 'Ouvert' : 'Fermé'}
+                      Ouvert
                     </span>
                   </div>
                 )}
