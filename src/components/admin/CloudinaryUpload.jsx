@@ -119,20 +119,16 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
           type="text"
           value={imageUrl}
           onChange={handleUrlChange}
-          placeholder="/images/azalee-patrimoine-reunion.webp ou https://example.com/image.jpg"
+          placeholder="/images/nom-image.webp ou https://example.com/image.jpg ou sélectionnez depuis votre appareil"
           className="w-full px-4 py-3 border-2 border-[#253F60]/30 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#B99066] focus:border-[#B99066] transition-all font-inter bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
         />
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-          ✅ Format accepté: <strong>/images/nom-du-fichier.webp</strong><br/>
-          💡 Ou utilisez le bouton ci-dessous pour uploader automatiquement
-        </p>
       </div>
 
       {/* File Input */}
       <div>
         <input
           type="file"
-          accept="image/*"
+          accept="image/png,image/jpeg,image/jpg,image/gif,image/webp,image/svg+xml,image/bmp,image/tiff"
           onChange={handleFileSelect}
           ref={fileInputRef}
           className="hidden"
@@ -145,17 +141,13 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
-          📤 Upload vers /public/images/
+          📤 Upload depuis votre appareil
         </label>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-          PNG, JPG, WEBP jusqu'à 10MB (sera converti en base64)
-        </p>
       </div>
 
       {/* Preview - Always show if there's an imageUrl */}
       {(preview || imageUrl) && (
         <div className="mt-4">
-          <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Aperçu:</p>
           {/* Warning for base64 images */}
           {imageUrl && imageUrl.startsWith('data:image/') && (
             <div className="mb-2 p-2 bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-400 dark:border-yellow-600 rounded text-xs text-yellow-800 dark:text-yellow-200">

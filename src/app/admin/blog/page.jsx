@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Notification from '@/components/admin/Notification';
+import ImageUpload from '@/components/admin/CloudinaryUpload';
 
 export default function BlogAdminPage() {
   const router = useRouter();
@@ -96,6 +97,7 @@ export default function BlogAdminPage() {
         author: 'Équipe Azalée',
         date: new Date().toISOString().split('T')[0],
         readTime: '5 min',
+        image: '',
         featured: false,
         socialLinks: {
           linkedin: '',
@@ -309,6 +311,15 @@ export default function BlogAdminPage() {
                         />
                         <span className="text-sm font-semibold">Mis en avant</span>
                       </label>
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-semibold mb-2">Image de l'article</label>
+                      <ImageUpload
+                        onUploadSuccess={(url) => {
+                          updateArticle(index, 'image', url);
+                        }}
+                        initialImageUrl={article.image || ''}
+                      />
                     </div>
                     
                     {/* Social Links Section */}

@@ -92,6 +92,54 @@ function formatDate(dateString) {
   });
 }
 
+// Helper function to get article URL (external or internal)
+function getArticleUrl(slug) {
+  if (!slug) return '#';
+  
+  // If it's already a full URL (http:// or https://)
+  if (slug.startsWith('http://') || slug.startsWith('https://')) {
+    return slug;
+  }
+  
+  // If it starts with www., add https://
+  if (slug.startsWith('www.')) {
+    return `https://${slug}`;
+  }
+  
+  // Otherwise, it's an internal blog article
+  return `/blog/${slug}`;
+}
+
+// Helper to check if URL is external
+function isExternalUrl(url) {
+  return url.startsWith('http://') || url.startsWith('https://');
+}
+
+// Component to handle both external and internal links
+function ArticleLink({ article, children, className }) {
+  const articleUrl = getArticleUrl(article.slug);
+  const isExternal = isExternalUrl(articleUrl);
+  
+  const commonProps = {
+    className,
+    ...(isExternal && { target: "_blank", rel: "noopener noreferrer" })
+  };
+  
+  if (isExternal) {
+    return (
+      <a href={articleUrl} {...commonProps}>
+        {children}
+      </a>
+    );
+  }
+  
+  return (
+    <Link href={articleUrl} {...commonProps}>
+      {children}
+    </Link>
+  );
+}
+
 export default function BlogPage() {
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -207,15 +255,23 @@ export default function BlogPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {featuredArticles.map((article) => (
-              <Link
+              <ArticleLink
                 key={article.id}
-                href={`/blog/${article.slug}`}
+                article={article}
                 className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="aspect-[16/9] relative overflow-hidden bg-gradient-to-br from-[#253F60] to-[#B99066]">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white/30 text-6xl">📰</span>
-                  </div>
+                  {article.image ? (
+                    <img 
+                      src={article.image} 
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white/30 text-6xl">📰</span>
+                    </div>
+                  )}
                   <div className="absolute top-4 left-4">
                     <span className="bg-[#B99066] text-white text-xs font-semibold px-3 py-1 rounded-full">
                       {article.category}
@@ -319,7 +375,7 @@ export default function BlogPage() {
                     </span>
                   </div>
                 </div>
-              </Link>
+              </ArticleLink>
             ))}
           </div>
         </div>
@@ -349,15 +405,23 @@ export default function BlogPage() {
           {filteredArticles.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredArticles.map((article) => (
-                <Link
+                <ArticleLink
                   key={article.id}
-                  href={`/blog/${article.slug}`}
+                  article={article}
                   className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-[#B99066]/30 transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="aspect-[16/10] relative overflow-hidden bg-gradient-to-br from-[#253F60]/80 to-[#B99066]/80">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white/30 text-4xl">📄</span>
-                    </div>
+                    {article.image ? (
+                      <img 
+                        src={article.image} 
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-white/30 text-4xl">📄</span>
+                      </div>
+                    )}
                     <div className="absolute top-3 left-3">
                       <span className="bg-white/90 text-[#253F60] text-xs font-semibold px-2 py-1 rounded">
                         {article.category}
@@ -451,7 +515,7 @@ export default function BlogPage() {
                       </div>
                     )}
                   </div>
-                </Link>
+                </ArticleLink>
               ))}
             </div>
           ) : (
