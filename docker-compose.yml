@@ -37,6 +37,7 @@ services:
       - STOCK_API_KEY=${STOCK_API_KEY:-}
     volumes:
       - ./public/pdfs:/app/public/pdfs  # Volume persistant pour les PDFs uploadés
+      - ./public/images:/app/public/images  # Volume persistant pour les images uploadées
     depends_on:
       mongo:
         condition: service_healthy
@@ -62,6 +63,7 @@ services:
       - STOCK_API_KEY=${STOCK_API_KEY:-}
     volumes:
       - ./public/pdfs:/app/public/pdfs  # Volume persistant pour les PDFs uploadés
+      - ./public/images:/app/public/images  # Volume persistant pour les images uploadées
     depends_on:
       mongo:
         condition: service_healthy
