@@ -89,8 +89,15 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       
       if (data.success && data.url) {
         console.log('✅ Image uploaded successfully:', data.url);
+        
+        // Store the regular /images/ path
         setImageUrl(data.url);
-        setPreview(data.url);
+        
+        // Use API route for immediate preview (no container restart needed)
+        // Extract filename from /images/filename.ext
+        const filename = data.url.split('/').pop();
+        const apiPreviewUrl = `/api/images/${filename}`;
+        setPreview(apiPreviewUrl);
         
         if (onUploadSuccess) {
           console.log('CloudinaryUpload: Calling onUploadSuccess with URL:', data.url);
