@@ -62,13 +62,13 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       return;
     }
 
-    // Upload to server instead of base64
+    // Upload to server
     try {
       console.log('📤 Uploading image to /public/images/...');
       
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('folder', 'images'); // Upload to /public/images/
+      formData.append('folder', 'images');
       
       // Get auth token from localStorage
       const token = localStorage.getItem('adminToken');
@@ -89,15 +89,8 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
       
       if (data.success && data.url) {
         console.log('✅ Image uploaded successfully:', data.url);
-        
-        // Store the regular /images/ path
         setImageUrl(data.url);
-        
-        // Use API route for immediate preview (no container restart needed)
-        // Extract filename from /images/filename.ext
-        const filename = data.url.split('/').pop();
-        const apiPreviewUrl = `/api/images/${filename}`;
-        setPreview(apiPreviewUrl);
+        setPreview(data.url);
         
         if (onUploadSuccess) {
           console.log('CloudinaryUpload: Calling onUploadSuccess with URL:', data.url);
@@ -171,7 +164,11 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
             {(preview || imageUrl) ? (
               <img 
                 key={preview || imageUrl} 
-                src={preview || imageUrl} 
+                src={
+                  (preview || imageUrl)?.startsWith('/images/')
+                    ? `/api${preview || imageUrl}`
+                    : (preview || imageUrl)
+                }
                 alt="Preview" 
                 className="max-w-full max-h-32 object-contain mx-auto rounded-md border border-gray-200 dark:border-gray-600" 
                 onError={(e) => {
