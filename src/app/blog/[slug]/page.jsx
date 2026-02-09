@@ -435,6 +435,17 @@ export default function BlogArticlePage({ params }) {
     { name: article.title, url: `https://www.azalee-patrimoine.fr/blog/${params.slug}` },
   ];
 
+  // Helper to get correct image URL for display
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return '';
+    // If it starts with /images/, use API route for dynamic serving
+    if (imagePath.startsWith('/images/')) {
+      return `https://www.azalee-patrimoine.fr/api${imagePath}`;
+    }
+    // Otherwise use as-is
+    return `https://www.azalee-patrimoine.fr${imagePath}`;
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -443,7 +454,7 @@ export default function BlogArticlePage({ params }) {
       <ArticleSchema
         headline={article.title}
         description={article.metaDescription}
-        image={`https://www.azalee-patrimoine.fr${article.image}`}
+        image={getImageUrl(article.image)}
         datePublished={article.date}
         author={article.author}
       />

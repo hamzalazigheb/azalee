@@ -92,6 +92,19 @@ function formatDate(dateString) {
   });
 }
 
+// Helper to get correct image URL for display
+function getImageSrc(imagePath) {
+  if (!imagePath) return null;
+  
+  // If it starts with /images/, use API route for dynamic serving
+  if (imagePath.startsWith('/images/')) {
+    return `/api${imagePath}`;
+  }
+  
+  // External URLs or other paths stay as-is
+  return imagePath;
+}
+
 // Helper function to get article URL (external or internal)
 function getArticleUrl(slug) {
   if (!slug) return '#';
@@ -263,7 +276,7 @@ export default function BlogPage() {
                 <div className="aspect-[16/9] relative overflow-hidden bg-gradient-to-br from-[#253F60] to-[#B99066]">
                   {article.image ? (
                     <img 
-                      src={article.image} 
+                      src={getImageSrc(article.image)} 
                       alt={article.title}
                       className="w-full h-full object-cover"
                     />
@@ -413,7 +426,7 @@ export default function BlogPage() {
                   <div className="aspect-[16/10] relative overflow-hidden bg-gradient-to-br from-[#253F60]/80 to-[#B99066]/80">
                     {article.image ? (
                       <img 
-                        src={article.image} 
+                        src={getImageSrc(article.image)} 
                         alt={article.title}
                         className="w-full h-full object-cover"
                       />
