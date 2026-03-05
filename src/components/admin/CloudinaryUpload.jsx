@@ -1,9 +1,10 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 
-export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
+export default function ImageUpload({ onUploadSuccess, initialImageUrl = '', recommendedWidth, recommendedHeight }) {
   const [imageUrl, setImageUrl] = useState(initialImageUrl || '');
   const [preview, setPreview] = useState(initialImageUrl || null);
+  const [actualDimensions, setActualDimensions] = useState(null);
   const fileInputRef = useRef(null);
   const uniqueId = useRef(`image-file-upload-${Math.random().toString(36).substr(2, 9)}`);
 
@@ -11,6 +12,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
   useEffect(() => {
     setImageUrl(initialImageUrl || '');
     setPreview(initialImageUrl || null);
+    setActualDimensions(null);
   }, [initialImageUrl]);
 
   const handleUrlChange = (e) => {
@@ -37,6 +39,7 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
     
     setImageUrl(url);
     setPreview(url || null);
+    setActualDimensions(null);
     // Call callback immediately when URL changes (even if empty to clear)
     if (onUploadSuccess) {
       console.log('CloudinaryUpload: Calling onUploadSuccess with URL:', url);
@@ -115,6 +118,12 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
         <label className="block text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-2">
           URL de l'image
         </label>
+        {(recommendedWidth != null && recommendedHeight != null) && (
+          <p className="text-xs text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded px-3 py-1.5 mb-2 flex items-center gap-1.5">
+            <span>📐</span>
+            <span>Dimensions recommandées : <strong>{recommendedWidth} × {recommendedHeight} px</strong> (largeur × hauteur)</span>
+          </p>
+        )}
         <input
           type="text"
           value={imageUrl}
@@ -160,6 +169,24 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
               ✅ Chemin web valide détecté
             </div>
           )}
+          {/* Actual dimensions */}
+          {actualDimensions && (
+            <div className={`mb-2 p-2 rounded text-xs flex items-center gap-1.5 ${
+              recommendedWidth && recommendedHeight
+                ? (actualDimensions.width === recommendedWidth && actualDimensions.height === recommendedHeight
+                    ? 'bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-600 text-green-800 dark:text-green-200'
+                    : 'bg-orange-100 dark:bg-orange-900/30 border border-orange-400 dark:border-orange-600 text-orange-800 dark:text-orange-200')
+                : 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300'
+            }`}>
+              <span>📏</span>
+              <span>
+                Dimensions actuelles : <strong>{actualDimensions.width} × {actualDimensions.height} px</strong>
+                {recommendedWidth && recommendedHeight && (actualDimensions.width !== recommendedWidth || actualDimensions.height !== recommendedHeight) && (
+                  <span className="ml-1">(recommandé : {recommendedWidth} × {recommendedHeight} px)</span>
+                )}
+              </span>
+            </div>
+          )}
           <div className="relative min-h-[128px] flex items-center justify-center">
             {(preview || imageUrl) ? (
               <img 
@@ -182,12 +209,14 @@ export default function ImageUpload({ onUploadSuccess, initialImageUrl = '' }) {
                   }
                 }}
                 onLoad={(e) => {
-                  const parent = e.target.parentNode;
+                  const img = e.target;
+                  setActualDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+                  const parent = img.parentNode;
                   const errorMsg = parent.querySelector('.error-message');
                   if (errorMsg) {
                     errorMsg.remove();
                   }
-                  e.target.style.display = 'block';
+                  img.style.display = 'block';
                 }}
               />
             ) : null}

@@ -21,6 +21,21 @@ import Notification from '../../../components/admin/Notification';
 import TextEditor from '../../../components/admin/TextEditor';
 import { getImagePath } from '@/lib/paths';
 
+// Returns recommended image dimensions {width, height} based on field name
+const getRecommendedDimensions = (fieldName = '') => {
+  const f = fieldName.toLowerCase();
+  if (f === 'teamimage' || f.includes('teamimage')) return { width: 1200, height: 900 };
+  if (f.includes('photo') || f.includes('portrait')) return { width: 800, height: 600 };
+  if (f.includes('hero') || f.includes('background') || f.includes('cover')) return { width: 1920, height: 1080 };
+  if (f.includes('logo')) return { width: 300, height: 150 };
+  if (f.includes('partner') && f.includes('image')) return { width: 300, height: 150 };
+  if (f.includes('blog') || f.includes('article') || f.includes('post')) return { width: 1200, height: 675 };
+  // Investment images (investmentImage1, investmentImage2) are displayed in a tall vertical panel
+  if (f.includes('investment') && (f.includes('image') || f.includes('img'))) return { width: 675, height: 1200 };
+  if (f.includes('image') || f.includes('img') || f.includes('picture')) return { width: 1200, height: 675 };
+  return null;
+};
+
 // Helper function to strip HTML tags and show only text
 const stripHTML = (html) => {
   if (!html || typeof html !== 'string') return html;
@@ -653,6 +668,7 @@ export default function CMSManagementPage() {
                                       handleInputChange(section, field, newArray);
                                     }}
                                     initialImageUrl={fieldValue}
+                                    {...(() => { const d = getRecommendedDimensions(key); return d ? { recommendedWidth: d.width, recommendedHeight: d.height } : {}; })()}
                                   />
                                 ) : isTextField ? (
                                   <TextEditor
@@ -854,17 +870,24 @@ export default function CMSManagementPage() {
         </label>
         {isImageField ? (
           <div>
-            <ImageUpload
-              onUploadSuccess={(url) => {
-                console.log('ImageUpload onUploadSuccess - section:', section, 'field:', field, 'url:', url.substring(0, 50));
-                if (!section || section.trim() === '') {
-                  console.error('ERROR: ImageUpload called with invalid section:', section);
-                  return;
-                }
-                handleInputChange(section, field, url);
-              }}
-              initialImageUrl={value || ''}
-            />
+            {(() => {
+              const recDims = getRecommendedDimensions(field);
+              return (
+                <ImageUpload
+                  onUploadSuccess={(url) => {
+                    console.log('ImageUpload onUploadSuccess - section:', section, 'field:', field, 'url:', url.substring(0, 50));
+                    if (!section || section.trim() === '') {
+                      console.error('ERROR: ImageUpload called with invalid section:', section);
+                      return;
+                    }
+                    handleInputChange(section, field, url);
+                  }}
+                  initialImageUrl={value || ''}
+                  recommendedWidth={recDims?.width}
+                  recommendedHeight={recDims?.height}
+                />
+              );
+            })()}
           </div>
         ) : shouldUseTextEditor ? (
           typeof fieldValue === 'object' && fieldValue !== null && !Array.isArray(fieldValue) ? (
@@ -996,6 +1019,8 @@ export default function CMSManagementPage() {
                                 handleInputChange(sectionKey, sectionKey, newArray);
                               }}
                               initialImageUrl={partnerObj.image || ''}
+                              recommendedWidth={300}
+                              recommendedHeight={150}
                             />
                           </div>
                         </div>
@@ -1076,6 +1101,7 @@ export default function CMSManagementPage() {
                         handleInputChange(sectionKey, sectionKey, newArray);
                       }}
                       initialImageUrl={imageUrl || ''}
+                      {...(() => { const d = getRecommendedDimensions(sectionKey); return d ? { recommendedWidth: d.width, recommendedHeight: d.height } : {}; })()}
                     />
                   </div>
                 ))}
@@ -1158,6 +1184,7 @@ export default function CMSManagementPage() {
                                         handleInputChange(sectionKey, sectionKey, newArray);
                                       }}
                                       initialImageUrl={fieldValue}
+                                      {...(() => { const d = getRecommendedDimensions(key); return d ? { recommendedWidth: d.width, recommendedHeight: d.height } : {}; })()}
                                     />
                                   ) : (
                                 <input
@@ -1250,6 +1277,7 @@ export default function CMSManagementPage() {
                                 handleInputChange(sectionKey, field, newArray);
                               }}
                               initialImageUrl={imageUrl || ''}
+                              {...(() => { const d = getRecommendedDimensions(field); return d ? { recommendedWidth: d.width, recommendedHeight: d.height } : {}; })()}
                             />
                           </div>
                         ))}
@@ -1353,6 +1381,7 @@ export default function CMSManagementPage() {
                                             handleInputChange(sectionKey, `${field}.${subField}`, newArray);
                                           }}
                                           initialImageUrl={imageUrl || ''}
+                                          {...(() => { const d = getRecommendedDimensions(subField); return d ? { recommendedWidth: d.width, recommendedHeight: d.height } : {}; })()}
                                         />
                                       </div>
                                     ))}

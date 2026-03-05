@@ -319,6 +319,8 @@ export default function BlogAdminPage() {
                           updateArticle(index, 'image', url);
                         }}
                         initialImageUrl={article.image || ''}
+                        recommendedWidth={1200}
+                        recommendedHeight={675}
                       />
                     </div>
                     
