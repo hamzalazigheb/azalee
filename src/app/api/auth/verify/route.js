@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import connectDB from '../../../../lib/mongodb';
 import User from '../../../../lib/models/User';
+import { getJWTSecret } from '../../../../lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,10 +20,8 @@ export async function GET(request) {
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
     try {
-      const decoded = jwt.verify(
-        token,
-        process.env.JWT_SECRET || 'your-secret-key-change-in-production'
-      );
+      const jwtSecret = getJWTSecret();
+      const decoded = jwt.verify(token, jwtSecret);
 
       await connectDB();
       
@@ -47,6 +46,9 @@ export async function GET(request) {
       });
 
     } catch (jwtError) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('JWT verification error:', jwtError.message);
+      }
       return NextResponse.json(
         { success: false, message: 'Invalid or expired token' },
         { status: 401 }
@@ -54,7 +56,9 @@ export async function GET(request) {
     }
 
   } catch (error) {
-    console.error('Verify error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Verify error:', error);
+    }
     return NextResponse.json(
       { success: false, message: 'Server error' },
       { status: 500 }

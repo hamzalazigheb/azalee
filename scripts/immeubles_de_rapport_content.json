@@ -1,0 +1,89 @@
+{
+    "path": "immobilier/immeubles-de-rapport",
+    "title": "Immeubles de Rapport",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Immeubles de rapport : investir dans le collectif",
+            "subtitle": "L'immeuble de rapport est un investissement locatif où vous achetez un bâtiment entier comprenant plusieurs logements.",
+            "button": "Découvrir les opportunités"
+        },
+        "rightCard": {
+            "title": "Investissement collectif",
+            "benefits": [
+                "Rentabilité élevée",
+                "Mutualisation des risques",
+                "Économies d'échelle",
+                "Plus-value importante"
+            ]
+        },
+        "definition": {
+            "title": "Qu'est-ce qu'un immeuble de rapport ?",
+            "description": "Un immeuble de rapport est un bâtiment comprenant plusieurs logements destinés à la location."
+        },
+        "avantages": {
+            "title": "Les avantages",
+            "subtitle": "Découvrez les bénéfices de cette stratégie d'investissement",
+            "items": [
+                {
+                    "title": "Rentabilité",
+                    "description": "Prix au m² souvent inférieur à l'achat en copropriété."
+                },
+                {
+                    "title": "Mutualisation",
+                    "description": "Un logement vacant n'impacte pas totalement les revenus."
+                },
+                {
+                    "title": "Autonomie",
+                    "description": "Pas de copropriété, vous êtes seul décisionnaire."
+                },
+                {
+                    "title": "Plus-value",
+                    "description": "Potentiel de valorisation important après rénovation."
+                }
+            ]
+        },
+        "inconvenients": {
+            "title": "Les points de vigilance",
+            "subtitle": "Points de vigilance essentiels à connaître avant d'investir",
+            "items": [
+                {
+                    "title": "Capital initial",
+                    "description": "Investissement plus important."
+                },
+                {
+                    "title": "Gestion",
+                    "description": "Multiplication des locataires à gérer."
+                },
+                {
+                    "title": "Travaux",
+                    "description": "Rénovation souvent nécessaire."
+                },
+                {
+                    "title": "Financement",
+                    "description": "Dossier bancaire plus complexe."
+                }
+            ]
+        },
+        "exempleSection": {
+            "title": "Exemple concret",
+            "subtitle": "Un cas pratique pour mieux comprendre la rentabilité réelle"
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "subtitle": "Expertise et accompagnement personnalisé pour votre projet",
+            "content": "L'immeuble de rapport est réservé aux investisseurs avertis mais offre des perspectives de rentabilité exceptionnelles."
+        },
+        "finalCta": {
+            "title": "Investir dans un immeuble de rapport",
+            "subtitle": "Nos experts vous accompagnent pour identifier les meilleures opportunités.",
+            "primaryButton": "Découvrir les opportunités",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        },
+        "seo": {
+            "metaTitle": "Immeubles de Rapport | Azalée Patrimoine",
+            "metaDescription": "Investissez dans un immeuble de rapport avec Azalée Patrimoine."
+        },
+        "heroBadge": "Investissement immobilier"
+    }
+}

@@ -1,0 +1,85 @@
+{
+    "path": "immobilier/plus-value-immobiliere",
+    "title": "Plus-value Immobilière",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Plus-value immobilière : comprendre la fiscalité et optimiser sa revente",
+            "subtitle": "Lorsqu'un particulier revend un bien immobilier, il réalise souvent une **plus-value** : c'est la différence entre le prix de vente et le prix d'acquisition (majoré des frais et des travaux). En France, cette plus-value est soumise à une fiscalité spécifique, avec des **abattements pour durée de détention** qui allègent progressivement l'impôt.",
+            "subtitle2": "Connaître les règles de la plus-value immobilière est essentiel pour **anticiper la fiscalité de vos ventes**, choisir le bon moment pour céder un bien et intégrer la revente dans une stratégie patrimoniale globale.",
+            "button": "Calculer ma plus-value"
+        },
+        "rightCard": {
+            "title": "Optimisation fiscale",
+            "floatingText": "22 ans →\nExonération IR",
+            "benefits": [
+                "Calcul personnalisé",
+                "Stratégies d'exonération",
+                "Abattements pour durée",
+                "Accompagnement expert"
+            ]
+        },
+        "definition": {
+            "title": "Qu'est-ce que la plus-value immobilière ?",
+            "subtitle": "Comprendre la fiscalité applicable lors de la revente d'un bien immobilier",
+            "description": "La plus-value est la différence entre le prix de vente et le prix d'acquisition. Elle est soumise à l'impôt sur le revenu (19%) et aux prélèvements sociaux (17,2%)."
+        },
+        "calcul": {
+            "title": "Comment calculer la plus-value ?",
+            "etapes": [
+                {
+                    "titre": "Prix de vente",
+                    "description": "Prix net vendeur après déduction des frais."
+                },
+                {
+                    "titre": "Prix d'acquisition",
+                    "description": "Prix d'achat majoré des frais de notaire et travaux."
+                },
+                {
+                    "titre": "Plus-value brute",
+                    "description": "Prix de vente - Prix d'acquisition."
+                },
+                {
+                    "titre": "Abattements",
+                    "description": "Réduction selon la durée de détention."
+                }
+            ]
+        },
+        "abattements": {
+            "title": "Abattements pour durée de détention",
+            "subtitle": "La fiscalité diminue à mesure que vous conservez le bien",
+            "description": "La plus-value est progressivement réduite selon la durée de détention.",
+            "ir": "Exonération totale après 22 ans de détention pour l'impôt sur le revenu.",
+            "ps": "Exonération totale après 30 ans pour les prélèvements sociaux."
+        },
+        "exonerations": {
+            "title": "Cas d'exonération",
+            "subtitle": "Situations spécifiques bénéficiant d'exonérations ou d'avantages fiscaux",
+            "items": [
+                "Résidence principale : exonération totale",
+                "Première vente d'un logement autre que RP (sous conditions)",
+                "Vente inférieure à 15 000 €",
+                "Expropriation avec remploi"
+            ]
+        },
+        "exempleSection": {
+            "title": "Exemple concret",
+            "subtitle": "Un cas pratique pour mieux comprendre le calcul de la plus-value"
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "subtitle": "Expertise et accompagnement personnalisé pour votre projet",
+            "content": "Anticiper la fiscalité de la revente est essentiel. Nous vous accompagnons pour optimiser le timing de vente et maximiser votre gain net."
+        },
+        "finalCta": {
+            "title": "Optimisez votre plus-value immobilière",
+            "subtitle": "Nos experts vous aident à calculer et anticiper la fiscalité de votre revente.",
+            "primaryButton": "Calculer ma plus-value",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        },
+        "seo": {
+            "metaTitle": "Plus-value Immobilière | Azalée Patrimoine",
+            "metaDescription": "Comprenez et optimisez votre plus-value immobilière avec Azalée Patrimoine."
+        }
+    }
+}

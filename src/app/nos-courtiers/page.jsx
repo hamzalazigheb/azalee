@@ -1,7 +1,8 @@
-'use client';
 import React from 'react';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
+import Link from 'next/link';
+import BackButton from '@/components/ui/BackButton';
 
 export default function NosCourtiersPage() {
   return (
@@ -118,11 +119,11 @@ export default function NosCourtiersPage() {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">👉</span>
+                    <span className="text-[#4EBBBD] text-xl"></span>
                     <span><strong className="text-[#112033]">Pas de frais cachés.</strong></span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[#4EBBBD] text-xl">👉</span>
+                    <span className="text-[#4EBBBD] text-xl"></span>
                     <span><strong className="text-[#112033]">Une totale visibilité</strong> sur notre valeur ajoutée.</span>
                   </div>
                 </div>
@@ -138,18 +139,15 @@ export default function NosCourtiersPage() {
                 Rencontrez nos courtiers pour un premier échange personnalisé
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button 
+                <Link 
+                  href="/contact"
                   className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-[#A67A5A] transition-colors duration-200 shadow-lg"
-                  onClick={() => window.location.href = '/contact'}
                 >
-                  Prendre rendez-vous
-                </button>
-                <button 
-                  className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#112033] transition-all duration-200"
-                  onClick={() => window.history.back()}
-                >
+                  Planifiez votre consultation gratuite
+                </Link>
+                <BackButton className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-white hover:text-[#112033] transition-all duration-200">
                   Retour à l'accueil
-                </button>
+                </BackButton>
               </div>
             </section>
           </div>

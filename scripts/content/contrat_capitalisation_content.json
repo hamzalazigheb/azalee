@@ -1,0 +1,246 @@
+{
+    "path": "placements/contrat-capitalisation",
+    "title": "Le contrat de capitalisation : un outil patrimonial puissant et complémentaire à l'assurance-vie",
+    "published": true,
+    "seo": {
+        "metaTitle": "Contrat de Capitalisation et Assurance-vie : Différences et Avantages | Azalée Patrimoine",
+        "metaDescription": "Le contrat de capitalisation : alternative patrimoniale à l'assurance-vie. Avantages pour les sociétés (SCI à l'IS), fiscalité et transmission. Guide complet."
+    },
+    "content": {
+        "hero": {
+            "title": "Le contrat de capitalisation : un outil patrimonial puissant et complémentaire à l'assurance-vie",
+            "subtitle": "Souvent éclipsé par la notoriété de l'assurance-vie, le contrat de capitalisation est pourtant un instrument patrimonial incontournable pour diversifier son épargne et optimiser sa fiscalité.",
+            "description": "Bien maîtrisé, le contrat de capitalisation est un levier discret mais redoutablement efficace pour les investisseurs avertis.",
+            "button": "Analyser mon patrimoine",
+            "secondaryButton": "En savoir plus"
+        },
+        "features": [
+            {
+                "title": "Complémentaire",
+                "subtitle": "À l'assurance-vie",
+                "value": "Transmission",
+                "detail": "Continuité patrimoniale"
+            },
+            {
+                "title": "Personnes morales",
+                "subtitle": "SCI, holdings",
+                "value": "Trésorerie",
+                "detail": "Placement performant"
+            },
+            {
+                "title": "Supports identiques",
+                "subtitle": "Fonds euros, UC",
+                "value": "Fiscalité",
+                "detail": "Même régime que AV"
+            },
+            {
+                "title": "Antériorité fiscale",
+                "subtitle": "Conservée",
+                "value": "Héritiers",
+                "detail": "Reprennent le contrat"
+            }
+        ],
+        "pointsCommuns": {
+            "title": "Points communs avec l'assurance-vie",
+            "description": "Le contrat de capitalisation reprend tous les avantages financiers et fiscaux de l'assurance-vie.",
+            "points": [
+                {
+                    "title": "Supports d'investissement identiques",
+                    "items": [
+                        "Fonds en euros sécurisés",
+                        "Unités de compte (UC) : actions, ETF, SCPI",
+                        "OPCI, produits structurés, obligations"
+                    ]
+                },
+                {
+                    "title": "Fiscalité des rachats",
+                    "items": [
+                        "Imposition uniquement sur les gains",
+                        "PFU de 30% ou barème progressif",
+                        "Abattement 4 600 €/9 200 € après 8 ans"
+                    ]
+                },
+                {
+                    "title": "Souplesse",
+                    "items": [
+                        "Versements libres ou programmés",
+                        "Durée illimitée",
+                        "Rachats partiels ou totaux à tout moment"
+                    ]
+                }
+            ],
+            "conclusion": "Sur le plan fiscal et financier, un contrat de capitalisation fonctionne comme une assurance-vie."
+        },
+        "differences": {
+            "title": "Les différences fondamentales avec l'assurance-vie",
+            "points": [
+                {
+                    "title": "Succession",
+                    "subtitle": "Continuité patrimoniale",
+                    "description": "Contrairement à l'assurance-vie, le contrat de capitalisation ne s'éteint pas au décès. Il entre dans l'actif successoral et se transmet aux héritiers avec son antériorité fiscale.",
+                    "note": "Pas d'abattement de 152 500 € par bénéficiaire, mais continuité fiscale intéressante."
+                },
+                {
+                    "title": "Clause bénéficiaire",
+                    "subtitle": "Transmission classique",
+                    "description": "L'assurance-vie permet de désigner librement des bénéficiaires. Le contrat de capitalisation ne comporte pas de clause bénéficiaire.",
+                    "note": "Transmission selon les règles classiques de la succession."
+                },
+                {
+                    "title": "Souscription par personnes morales",
+                    "subtitle": "LA grande différence",
+                    "description": "Une SCI à l'IS ou une société patrimoniale peut souscrire un contrat de capitalisation, ce qui en fait un outil de placement de trésorerie idéal.",
+                    "note": "Accessible aux sociétés : SCI, holdings patrimoniales, sociétés à l'IS."
+                }
+            ],
+            "resume": {
+                "assuranceVie": "Outil de transmission hors succession, très souple",
+                "contratCapi": "Outil de continuité patrimoniale, transmissible et accessible aux sociétés"
+            }
+        },
+        "sci": {
+            "title": "Contrat de capitalisation et SCI à l'IS : un atout discret",
+            "description": "Une SCI à l'IS peut souscrire un contrat de capitalisation pour placer sa trésorerie.",
+            "avantages": [
+                {
+                    "title": "Accès à une grande variété de supports",
+                    "detail": "Fonds euros, UC, SCPI, produits structurés"
+                },
+                {
+                    "title": "Fiscalité maîtrisée à l'IS",
+                    "detail": "Amortissement des parts de SCPI, réintégration progressive"
+                },
+                {
+                    "title": "Meilleure rentabilité",
+                    "detail": "Que des liquidités laissées sur un compte courant"
+                }
+            ],
+            "exemple": {
+                "contexte": "Exemple : une SCI familiale à l'IS détient 300 000 € de trésorerie suite à une vente immobilière.",
+                "action": "Plutôt que de laisser dormir ces fonds sur un compte bancaire faiblement rémunéré, elle les place dans un contrat de capitalisation, diversifié entre fonds euros et SCPI.",
+                "resultat": "Résultat : un rendement net supérieur, avec une gestion souple et adaptée à l'horizon patrimonial."
+            }
+        },
+        "avantagesInconvenients": {
+            "avantages": [
+                {
+                    "title": "Souplesse fiscale identique à l'assurance-vie"
+                },
+                {
+                    "title": "Transmissibilité avec conservation de l'antériorité fiscale",
+                    "detail": "Les héritiers reprennent le contrat tel quel"
+                },
+                {
+                    "title": "Adapté aux personnes morales",
+                    "detail": "SCI, holdings, sociétés à l'IS"
+                },
+                {
+                    "title": "Diversification patrimoniale",
+                    "detail": "En complément de l'assurance-vie"
+                },
+                {
+                    "title": "Outil de trésorerie performant",
+                    "detail": "Pour les sociétés patrimoniales"
+                }
+            ],
+            "inconvenients": [
+                {
+                    "title": "Pas d'abattement 152 500 €",
+                    "detail": "À la transmission, contrairement à l'assurance-vie"
+                },
+                {
+                    "title": "Soumis aux droits de succession",
+                    "detail": "Comme tout autre actif"
+                },
+                {
+                    "title": "Moins connu que l'assurance-vie",
+                    "detail": "Certains investisseurs passent à côté de son intérêt stratégique"
+                },
+                {
+                    "title": "Nécessite une bonne anticipation",
+                    "detail": "Dans une stratégie globale, sinon usage peut sembler redondant avec une assurance-vie"
+                }
+            ]
+        },
+        "exempleConcret": {
+            "title": "Exemple concret",
+            "scenario": "Monsieur A, 68 ans, détient 400 000 € répartis entre assurance-vie et liquidités",
+            "comparaison": [
+                {
+                    "type": "Assurance-vie",
+                    "data": [
+                        {
+                            "label": "Versement",
+                            "value": "200 000 €"
+                        },
+                        {
+                            "label": "Avantage",
+                            "value": "Transmission optimisée"
+                        },
+                        {
+                            "label": "Bénéfice",
+                            "value": "Abattement 152 500 € par bénéficiaire"
+                        }
+                    ]
+                },
+                {
+                    "type": "Contrat de capitalisation",
+                    "data": [
+                        {
+                            "label": "Placement",
+                            "value": "200 000 €"
+                        },
+                        {
+                            "label": "Avantage",
+                            "value": "Continuité patrimoniale"
+                        },
+                        {
+                            "label": "Bénéfice",
+                            "value": "Antériorité fiscale conservée"
+                        }
+                    ]
+                }
+            ],
+            "resultat": [
+                {
+                    "type": "Assurance-vie",
+                    "description": "Assure une transmission optimisée grâce à l'abattement de 152 500 € par bénéficiaire."
+                },
+                {
+                    "type": "Contrat de capitalisation",
+                    "description": "Permet aux héritiers de continuer à profiter de l'antériorité fiscale du contrat (abattement 4 600 €/9 200 € après 8 ans)."
+                }
+            ]
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "intro": "Le contrat de capitalisation est l'outil idéal pour :",
+            "points": [
+                {
+                    "title": "Diversification des enveloppes fiscales",
+                    "description": "Les investisseurs souhaitant diversifier leurs enveloppes fiscales"
+                },
+                {
+                    "title": "Continuité patrimoniale",
+                    "description": "Les familles qui veulent assurer une continuité patrimoniale sans perdre l'antériorité fiscale"
+                },
+                {
+                    "title": "Sociétés patrimoniales",
+                    "description": "Les sociétés patrimoniales (SCI à l'IS, holdings) qui cherchent un placement de trésorerie performant"
+                }
+            ],
+            "conclusion": "L'assurance-vie et le contrat de capitalisation ne s'opposent pas : ils se complètent."
+        },
+        "contact": {
+            "title": "Contactez un conseiller Azalée Patrimoine",
+            "description": "Pour savoir comment intégrer un contrat de capitalisation dans votre stratégie patrimoniale ou dans la trésorerie de votre société.",
+            "callToAction": "Contactez un conseiller Azalée Patrimoine"
+        },
+        "cta": {
+            "title": "Prêt à intégrer un contrat de capitalisation dans votre stratégie ?",
+            "description": "Nos experts vous accompagnent pour définir la meilleure stratégie patrimoniale en combinant assurance-vie et contrat de capitalisation, ou pour optimiser la trésorerie de votre société.",
+            "primaryButton": "Analyser mon patrimoine",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        }
+    }
+}

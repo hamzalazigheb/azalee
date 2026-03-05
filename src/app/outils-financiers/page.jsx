@@ -204,13 +204,16 @@ export default function OutilsFinanciersPage() {
               <p className="text-white text-lg leading-relaxed mb-8">
                 {content.hero.description}
               </p>
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg">
+              <button 
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg"
+              >
                 {content.hero.button}
               </button>
             </div>
             <div className="relative">
               <img 
-                src="/images/calcul.webp" 
+                src="/images/azalee-patrimoine-calcul.webp" 
                 alt="Jeune homme utilisant calculateur sur smartphone et laptop dans un espace coworking moderne" 
                 className="w-full h-[400px] object-cover rounded-xl shadow-2xl"
                 onError={(e) => {
@@ -438,10 +441,16 @@ export default function OutilsFinanciersPage() {
               <p className="text-sm opacity-90">Découvrez la gestion patrimoniale nouvelle génération</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg shadow-xl shadow-[#B99066]/30 ring-2 ring-[#B99066]/20">
+              <button 
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg shadow-xl shadow-[#B99066]/30 ring-2 ring-[#B99066]/20"
+              >
                 {content.cta.primaryButton}
               </button>
-              <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg shadow-xl shadow-[#B99066]/30 ring-2 ring-[#B99066]/20">
+              <button 
+                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67C52] transition-colors duration-200 text-lg shadow-xl shadow-[#B99066]/30 ring-2 ring-[#B99066]/20"
+              >
                 {content.cta.secondaryButton}
               </button>
             </div>

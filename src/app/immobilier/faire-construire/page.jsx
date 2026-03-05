@@ -1,114 +1,41 @@
-"use client";
-import React, { useMemo, useState, useEffect } from "react";
-import Header from "../../../components/common/Header";
-import Footer from "../../../components/common/Footer";
+import { notFound } from 'next/navigation';
+import { getPageContent } from '@/lib/cms-server';
+import Footer from '../../../components/common/Footer';
+import SectionHeader from '../../../components/common/SectionHeader';
+import CTAButton from '@/components/ui/CTAButton';
 
-const LOCAL_STORAGE_KEY = 'faireConstruireContent';
+export const revalidate = 0;
 
-const defaultContent = {
-  hero: {
-    title: "Faire construire votre projet immobilier",
-    subtitle: "Accompagnement complet pour la construction de votre maison ou immeuble",
-    description: "De la recherche du terrain à la livraison de votre bien, nous vous accompagnons dans toutes les étapes de votre projet de construction.",
-    button: "Découvrir nos services",
-    image: "/images/expertise.webp"
-  },
-  services: [
-    {
-      title: "Recherche de terrain",
-      description: "Identification et sélection du terrain idéal pour votre projet",
-      icon: "🏗️",
-      features: ["Analyse de faisabilité", "Étude de sol", "Vérification des contraintes", "Négociation du prix"]
-    },
-    {
-      title: "Architecture et plans",
-      description: "Conception et réalisation des plans selon vos besoins",
-      icon: "📐",
-      features: ["Plans architecturaux", "Permis de construire", "Suivi des travaux", "Contrôle qualité"]
-    },
-    {
-      title: "Financement",
-      description: "Solutions de financement adaptées à votre projet",
-      icon: "💰",
-      features: ["Prêt construction", "Prêt relais", "Financement travaux", "Optimisation fiscale"]
-    },
-    {
-      title: "Suivi des travaux",
-      description: "Accompagnement pendant toute la durée du chantier",
-      icon: "🔨",
-      features: ["Planning travaux", "Contrôle qualité", "Gestion des artisans", "Livraison clés en main"]
-    }
-  ],
-  process: [
-    {
-      step: "1",
-      title: "Étude de faisabilité",
-      description: "Analyse de votre projet et de sa viabilité technique et financière"
-    },
-    {
-      step: "2", 
-      title: "Recherche du terrain",
-      description: "Identification et acquisition du terrain idéal pour votre construction"
-    },
-    {
-      step: "3",
-      title: "Conception architecturale",
-      description: "Élaboration des plans et obtention des autorisations nécessaires"
-    },
-    {
-      step: "4",
-      title: "Financement du projet",
-      description: "Mise en place des solutions de financement les plus avantageuses"
-    },
-    {
-      step: "5",
-      title: "Réalisation des travaux",
-      description: "Suivi et contrôle de la construction jusqu'à la livraison"
-    }
-  ],
-  advantages: [
-    {
-      title: "Personnalisation totale",
-      description: "Concevez votre maison selon vos goûts et vos besoins spécifiques"
-    },
-    {
-      title: "Économies d'énergie",
-      description: "Construisez avec les dernières normes environnementales et réduisez vos factures"
-    },
-    {
-      title: "Valeur patrimoniale",
-      description: "Un bien neuf qui prendra de la valeur et répondra aux standards actuels"
-    },
-    {
-      title: "Garanties constructeur",
-      description: "Bénéficiez des garanties légales et des assurances décennale"
-    }
-  ],
-  cta: {
-    title: "Prêt à construire votre projet ?",
-    subtitle: "Nos experts vous accompagnent dans toutes les étapes de votre construction",
-    button: "Demander un devis gratuit"
+export async function generateMetadata() {
+  const content = await getPageContent('immobilier/faire-construire');
+  return {
+    title: content?.seo?.metaTitle || "Faire Construire | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Accompagnement complet pour la construction de votre maison ou immeuble avec Azalée Patrimoine.",
+  };
+}
+
+export default async function FaireConstruirePage() {
+  let content = await getPageContent('immobilier/faire-construire');
+
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/faire-construire`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) content = json.data.content;
+    } catch (e) { console.error('API Fallback failed', e); }
   }
-};
 
-export default function FaireConstruirePage() {
-  const [cmsContent, setCmsContent] = useState(defaultContent);
-
-  useEffect(() => {
-    // Set static content
-    setCmsContent(defaultContent);
-  }, []);
-
-  const content = cmsContent || defaultContent;
+  if (!content) {
+    notFound();
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full py-16 sm:py-20 lg:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#253F60] to-[#B99066]"></div>
-        
+
         <div className="relative max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -116,26 +43,20 @@ export default function FaireConstruirePage() {
                 Construction immobilière
               </span>
               <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mb-6">
-                {content.hero.title}
+                {content.hero?.title}
               </h1>
               <p className="text-gray-200 text-lg leading-relaxed mb-8">
-                {content.hero.description}
+                {content.hero?.description}
               </p>
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 text-lg"
-              >
-                {content.hero.button}
-              </button>
+              <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min">
+                {content.hero?.button}
+              </CTAButton>
             </div>
             <div className="flex justify-center">
-              <img 
-                src={content.hero.image} 
-                alt="Construction immobilière" 
+              <img
+                src={content.hero?.image || "/images/azalee-patrimoine-expertise.webp"}
+                alt="Construction immobilière"
                 className="w-full max-w-md rounded-2xl shadow-2xl"
-                onError={(e) => {
-                  e.target.src = "/images/expertise.webp";
-                }}
               />
             </div>
           </div>
@@ -143,69 +64,59 @@ export default function FaireConstruirePage() {
       </section>
 
       {/* Services Section */}
-      <section className="w-full py-16 lg:py-24">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-            <h2 className="text-3xl lg:text-4xl font-cairo font-semibold text-[#112033] mb-4">
-              Nos services de construction
-            </h2>
-            <p className="text-[#4A5568] font-inter text-lg max-w-3xl mx-auto">
-              Un accompagnement complet pour réussir votre projet de construction immobilière
-            </p>
-          </div>
+          <SectionHeader
+            title={content.servicesSection?.title}
+            subtitle={content.servicesSection?.subtitle}
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {content.services.map((service, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-white font-bold text-xl">{index + 1}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {(content.services || []).map((service, index) => {
+              const isBlue = index % 2 === 0;
+              const gradientClass = isBlue
+                ? "bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]"
+                : "bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]";
+
+              return (
+                <div key={index} className={`relative ${gradientClass} rounded-2xl p-6 shadow-xl text-white overflow-hidden`}>
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                  <div className="relative z-10">
+                    <div className="text-4xl mb-4">{service.icon}</div>
+                    <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                    <p className="text-white/90 text-sm mb-4">{service.description}</p>
+                    <ul className="text-white/80 text-sm space-y-2">
+                      {(service.features || []).map((feature, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <span className="text-[#B99066]">•</span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <h3 className="text-[#112033] font-cairo font-semibold text-xl mb-4 text-center">
-                  {service.title}
-                </h3>
-                <p className="text-[#4A5568] font-inter text-sm mb-6 text-center">
-                  {service.description}
-                </p>
-                <ul className="space-y-2">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-[#4A5568]">
-                      <div className="w-2 h-2 bg-[#B99066] rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="w-full py-16 lg:py-24 bg-white">
+      <section className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-            <h2 className="text-3xl lg:text-4xl font-cairo font-semibold text-[#112033] mb-4">
-              Notre processus de construction
-            </h2>
-            <p className="text-[#4A5568] font-inter text-lg max-w-3xl mx-auto">
-              Un processus structuré en 5 étapes pour garantir la réussite de votre projet
-            </p>
-          </div>
+          <SectionHeader
+            title={content.processSection?.title}
+            subtitle={content.processSection?.subtitle}
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-            {content.process.map((step, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            {(content.process || []).map((step, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-white font-bold text-xl">{step.step}</span>
+                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <span className="text-white text-2xl font-bold">{step.step}</span>
                 </div>
-                <h3 className="text-[#112033] font-cairo font-semibold text-lg mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-[#4A5568] font-inter text-sm">
-                  {step.description}
-                </p>
+                <h3 className="text-[#253F60] font-semibold text-lg mb-2">{step.title}</h3>
+                <p className="text-[#686868] text-sm">{step.description}</p>
               </div>
             ))}
           </div>
@@ -213,27 +124,18 @@ export default function FaireConstruirePage() {
       </section>
 
       {/* Advantages Section */}
-      <section className="w-full py-16 lg:py-24 bg-gradient-to-br from-[#F2F2F2] to-[#E8E8E8]">
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-            <h2 className="text-3xl lg:text-4xl font-cairo font-semibold text-[#112033] mb-4">
-              Les avantages de faire construire
-            </h2>
-            <p className="text-[#4A5568] font-inter text-lg max-w-3xl mx-auto">
-              Pourquoi choisir la construction neuve pour votre projet immobilier
-            </p>
-          </div>
+          <SectionHeader
+            title={content.advantagesSection?.title}
+            subtitle={content.advantagesSection?.subtitle}
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {content.advantages.map((advantage, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-                <h3 className="text-[#112033] font-cairo font-semibold text-xl mb-4">
-                  {advantage.title}
-                </h3>
-                <p className="text-[#4A5568] font-inter leading-relaxed">
-                  {advantage.description}
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {(content.advantages || []).map((advantage, index) => (
+              <div key={index} className={`rounded-2xl p-6 shadow-lg text-white ${index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] to-[#1a2d47]' : 'bg-gradient-to-br from-[#B99066] to-[#A67A5A]'}`}>
+                <h3 className="font-semibold text-lg mb-3">{advantage.title}</h3>
+                <p className="text-white/90 text-sm">{advantage.description}</p>
               </div>
             ))}
           </div>
@@ -241,20 +143,17 @@ export default function FaireConstruirePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full py-16 lg:py-24 bg-gradient-to-r from-[#253F60] to-[#B99066]">
+      <section className="w-full bg-gradient-to-br from-[#253F60] to-[#1a2d47] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-white text-3xl lg:text-4xl font-cairo font-semibold mb-6">
-            {content.cta.title}
+          <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6">
+            {content.cta?.title}
           </h2>
-          <p className="text-gray-200 text-lg mb-8 max-w-2xl mx-auto">
-            {content.cta.subtitle}
+          <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
+            {content.cta?.subtitle}
           </p>
-          <button 
-            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-            className="bg-[#B99066] text-white px-10 py-4 rounded-lg font-medium hover:bg-[#A67A5A] transition-colors duration-200 text-lg shadow-xl"
-          >
-            {content.cta.button}
-          </button>
+          <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="white">
+            {content.cta?.button}
+          </CTAButton>
         </div>
       </section>
 

@@ -2,57 +2,55 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/mongodb';
 import User from '../../../../lib/models/User';
 import jwt from 'jsonwebtoken';
+import { getJWTSecret } from '@/lib/auth';
+import { loginSchema } from '@/lib/validations/user';
+import { applyRateLimit, loginLimiter } from '@/lib/rateLimit';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
   try {
+    // TEMPORARILY DISABLED - Rate limiting to prevent brute force attacks (IP-based)
+    // TODO: Re-enable after fixing the limiter
+    /*
+    const rateCheck = await applyRateLimit(request, loginLimiter, 'login');
+    if (rateCheck.limited) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Rate limit exceeded for IP: ${rateCheck.identifier}`);
+      }
+      return NextResponse.json(
+        { success: false, message: 'Trop de tentatives de connexion. Veuillez réessayer dans 15 minutes.' },
+        { status: 429 }
+      );
+    }
+    */
+    
+    // Get JWT secret with validation
+    const jwtSecret = getJWTSecret();
+    
     // Wait for MongoDB connection to be fully established
     await connectDB();
     
-    // Small delay to ensure connection is ready (Mongoose needs a moment)
-    await new Promise(resolve => setTimeout(resolve, 100));
-
-    // Initialize admin user if it doesn't exist
-    const adminExists = await User.findOne({ email: 'admin@azalee.com' });
-    if (!adminExists) {
-      try {
-        // Hash password manually before creating user to avoid hook issues
-        const bcrypt = require('bcryptjs');
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash('admin123', salt);
-        
-        const admin = new User({
-          email: 'admin@azalee.com',
-          password: hashedPassword, // Already hashed
-          name: 'Administrator',
-          role: 'admin'
-        });
-        await admin.save();
-        console.log('✅ Default admin user created: admin@azalee.com / admin123');
-      } catch (error) {
-        console.error('❌ Error creating admin user:', error.message);
-        // Continue anyway - user might already exist or there was an error
-      }
-    } else {
-      console.log('ℹ️  Admin user already exists');
-    }
-
-    const { email, password } = await request.json();
-
-    // Validate input
-    if (!email || !password) {
+    // Parse and validate request body
+    const body = await request.json();
+    const validation = loginSchema.safeParse(body);
+    
+    if (!validation.success) {
       return NextResponse.json(
         { success: false, message: 'Email and password are required' },
         { status: 400 }
       );
     }
+    
+    const { email, password } = validation.data;
 
     // Find user
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({ email });
     
     if (!user) {
-      console.log('❌ Login failed: User not found for email:', email.toLowerCase());
+      if (process.env.NODE_ENV === 'development') {
+        console.log('❌ Login failed: User not found for email:', email);
+      }
       return NextResponse.json(
         { success: false, message: 'Invalid email or password' },
         { status: 401 }
@@ -63,14 +61,18 @@ export async function POST(request) {
     const isPasswordValid = await user.comparePassword(password);
     
     if (!isPasswordValid) {
-      console.log('❌ Login failed: Invalid password for user:', user.email);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('❌ Login failed: Invalid password for user:', user.email);
+      }
       return NextResponse.json(
         { success: false, message: 'Invalid email or password' },
         { status: 401 }
       );
     }
 
-    console.log('✅ Login successful for user:', user.email);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('✅ Login successful for user:', user.email);
+    }
 
     // Generate JWT token
     const token = jwt.sign(
@@ -79,7 +81,7 @@ export async function POST(request) {
         email: user.email,
         role: user.role 
       },
-      process.env.JWT_SECRET || 'your-secret-key-change-in-production',
+      jwtSecret,
       { expiresIn: '7d' }
     );
 
@@ -96,15 +98,19 @@ export async function POST(request) {
     });
 
   } catch (error) {
-    console.error('Login error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Login error:', error);
+    }
     
-    // Provide more helpful error messages
+    // Provide more helpful error messages in development only
     let errorMessage = 'Server error. Please try again later.';
     
-    if (error.message.includes('timeout') || error.message.includes('ETIMEOUT')) {
-      errorMessage = 'Connection timeout. Please check MongoDB Atlas Network Access settings.';
-    } else if (error.message.includes('Network Access')) {
-      errorMessage = 'MongoDB connection failed. Please configure Network Access in MongoDB Atlas.';
+    if (process.env.NODE_ENV === 'development') {
+      if (error.message.includes('timeout') || error.message.includes('ETIMEOUT')) {
+        errorMessage = 'Connection timeout. Please check MongoDB connection.';
+      } else if (error.message.includes('JWT_SECRET')) {
+        errorMessage = error.message; // JWT secret error
+      }
     }
     
     return NextResponse.json(

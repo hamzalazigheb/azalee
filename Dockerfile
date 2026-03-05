@@ -21,6 +21,10 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 
+# Accept STAGING as build argument
+ARG STAGING
+ENV STAGING=${STAGING}
+
 # Build the application
 RUN npm run build
 
@@ -40,6 +44,13 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/next.config.mjs ./next.config.mjs
+# Copy source code (needed for API routes and dynamic pages)
+COPY --from=builder --chown=nextjs:nodejs /app/src ./src
+# Copy scripts directory (needed for admin scripts)
+COPY --from=builder --chown=nextjs:nodejs /app/scripts ./scripts
+
+# Create pdfs directory with correct permissions (will be overridden by volume mount)
+RUN mkdir -p /app/public/pdfs && chown -R nextjs:nodejs /app/public/pdfs
 
 # Set correct permissions
 RUN chown -R nextjs:nodejs /app

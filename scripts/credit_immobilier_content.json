@@ -1,0 +1,160 @@
+{
+    "path": "immobilier/credit-immobilier-ptz",
+    "title": "Crédit Immobilier et PTZ",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Crédit immobilier et PTZ : le levier incontournable",
+            "subtitle": "Le crédit immobilier est au cœur de toute stratégie patrimoniale. Grâce à l'effet de levier du crédit, il est possible d'acheter un bien important avec un apport limité.",
+            "subtitle2": "En parallèle, l'État soutient les primo-accédants grâce au PTZ (Prêt à Taux Zéro).",
+            "button": "Simuler mon financement"
+        },
+        "rightCard": {
+            "title": "Financement optimisé",
+            "floatingText": "0% →\nPTZ sans intérêts",
+            "benefits": [
+                "Meilleurs taux négociés",
+                "PTZ éligibilité vérifiée",
+                "Montage financier personnalisé",
+                "Accompagnement complet"
+            ]
+        },
+        "credit": {
+            "title": "Le crédit immobilier",
+            "subtitle": "Découvrez les bénéfices de l'effet de levier financier",
+            "description": "Le crédit immobilier permet de financer l'acquisition d'un bien avec un apport limité.",
+            "advantages": [
+                {
+                    "title": "Effet de levier financier",
+                    "description": "Le crédit permet d'investir dans un bien immobilier d'une valeur bien supérieure à vos fonds propres. Avec 20 000 € d'apport, vous pouvez financer un projet de 200 000 € et bénéficier des loyers et de la valorisation du bien."
+                },
+                {
+                    "title": "Constitution de patrimoine",
+                    "description": "Chaque mensualité rembourse une partie de votre emprunt. À terme, vous devenez pleinement propriétaire d'un bien qui peut être transmis à vos enfants ou revendu avec une plus-value."
+                },
+                {
+                    "title": "Optimisation fiscale",
+                    "description": "Dans certains régimes (par exemple pour une SCI à l'IS), les intérêts d'emprunt sont déductibles, ce qui réduit l'imposition des loyers perçus."
+                },
+                {
+                    "title": "Sécurité du placement",
+                    "description": "L'immobilier est un actif tangible. Contrairement aux placements financiers volatils, un bien immobilier conserve une valeur patrimoniale, surtout si son emplacement est bien choisi."
+                }
+            ]
+        },
+        "inconvenientsSection": {
+            "title": "Les inconvénients et risques du crédit immobilier",
+            "subtitle": "Points de vigilance essentiels à connaître avant de s'engager",
+            "items": [
+                {
+                    "title": "Endettement",
+                    "description": "Un emprunt engage sur le long terme (15 à 25 ans), ce qui réduit la capacité d'emprunt future."
+                },
+                {
+                    "title": "Risque de taux",
+                    "description": "La hausse des taux d'intérêt peut augmenter le coût total du crédit et réduire la rentabilité."
+                },
+                {
+                    "title": "Assurance emprunteur",
+                    "description": "Souvent coûteuse, elle peut représenter une charge importante si elle n'est pas renégociée."
+                },
+                {
+                    "title": "Vacance locative",
+                    "description": "Dans le cas d'un investissement locatif, l'absence de locataire peut déséquilibrer votre trésorerie."
+                }
+            ]
+        },
+        "ptz": {
+            "title": "Le Prêt à Taux Zéro (PTZ)",
+            "subtitle": "Un coup de pouce pour les primo-accédants",
+            "description": "Le **Prêt à Taux Zéro** est un dispositif de l'État destiné aux ménages achetant leur **résidence principale** pour la première fois. Il finance jusqu'à 40 % du prix du logement **sans intérêts**.",
+            "cards": [
+                {
+                    "icon": "40%",
+                    "title": "Financement",
+                    "description": "Jusqu'à 40% du prix du logement"
+                },
+                {
+                    "icon": "0%",
+                    "title": "Taux d'intérêt",
+                    "description": "Aucun intérêt à payer"
+                },
+                {
+                    "icon": "house",
+                    "title": "Logements éligibles",
+                    "description": "Neufs ou anciens avec travaux"
+                }
+            ],
+            "exempleTitle": "Exemple concret",
+            "exempleContent": "Un couple achète un logement neuf à 220 000 € dans une zone éligible. Le PTZ finance 88 000 € sans intérêts, le reste est couvert par un crédit classique. Leur charge mensuelle est réduite, ce qui sécurise leur budget et facilite l'accession à la propriété.",
+            "conditions": [
+                "Primo-accédant",
+                "Plafonds de ressources",
+                "Acquisition dans le neuf ou l'ancien avec travaux"
+            ],
+            "avantages": [
+                "Aucun intérêt à payer",
+                "Différé de remboursement possible",
+                "Complément idéal d'un prêt classique"
+            ]
+        },
+        "exempleSection": {
+            "title": "Exemple concret d'effet de levier",
+            "subtitle": "Illustration pratique du potentiel de l'investissement immobilier",
+            "description": "Un investisseur achète un appartement de 200 000 € avec 20 000 € d'apport et un prêt de 180 000 € sur 20 ans.",
+            "metrics": [
+                {
+                    "label": "Loyer perçu",
+                    "value": "900 €/mois"
+                },
+                {
+                    "label": "Mensualité crédit",
+                    "value": "1 000 €/mois"
+                },
+                {
+                    "label": "Effort d'épargne",
+                    "value": "100 €/mois"
+                }
+            ],
+            "resultTitle": "Résultat après 20 ans",
+            "resultText1": "L'investisseur est pleinement propriétaire d'un bien valorisé **240 000 €** grâce à la revalorisation du marché.",
+            "resultText2": "Son effort total d'épargne a été de **24 000 €**, pour un patrimoine net **dix fois supérieur**."
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "subtitle": "Expertise et accompagnement personnalisé pour votre projet",
+            "content": "Le montage financier est crucial pour la réussite de votre projet. Nous analysons votre situation et négocions les meilleures conditions.",
+            "introText": "Le crédit immobilier est un **outil de richesse incomparable**, mais il doit être utilisé avec prudence. La clé est d'adapter le montant emprunté, la durée et le type de crédit à votre situation et à vos objectifs patrimoniaux.",
+            "introText2": "Chez **Azalée Patrimoine**, nous aidons nos clients à :",
+            "services": [
+                {
+                    "title": "Négocier les meilleures conditions",
+                    "description": "De crédit (taux, assurance, durée)"
+                },
+                {
+                    "title": "Optimiser l'effet de levier",
+                    "description": "Tout en gardant une trésorerie saine"
+                },
+                {
+                    "title": "Profiter des dispositifs d'aide",
+                    "description": "Comme le PTZ lorsqu'ils sont éligibles"
+                },
+                {
+                    "title": "Intégrer le financement",
+                    "description": "Dans une stratégie patrimoniale globale"
+                }
+            ],
+            "conclusionText": "Bien maîtrisé, le crédit immobilier n'est pas une charge : c'est un **levier patrimonial** qui vous permet de transformer une petite mise de départ en un patrimoine solide et transmissible."
+        },
+        "finalCta": {
+            "title": "Optimisez votre financement immobilier",
+            "subtitle": "Nos experts Azalée Patrimoine vous accompagnent pour simuler votre capacité d'emprunt et découvrir la meilleure stratégie de financement pour vos projets immobiliers.",
+            "primaryButton": "Simuler mon financement",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        },
+        "seo": {
+            "metaTitle": "Crédit Immobilier et PTZ | Azalée Patrimoine",
+            "metaDescription": "Optimisez votre financement immobilier avec Azalée Patrimoine."
+        }
+    }
+}

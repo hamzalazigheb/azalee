@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Password is required'],
-    minlength: 6
+    minlength: [12, 'Password must be at least 12 characters long']
   },
   role: {
     type: String,
@@ -57,21 +57,8 @@ UserSchema.methods.toJSON = function() {
   return userObject;
 };
 
-// Create default admin user if it doesn't exist
-UserSchema.statics.initializeAdmin = async function() {
-  const adminExists = await this.findOne({ email: 'admin@azalee.com' });
-  
-  if (!adminExists) {
-    const admin = new this({
-      email: 'admin@azalee.com',
-      password: 'admin123', // Will be hashed by pre-save hook
-      name: 'Administrator',
-      role: 'admin'
-    });
-    await admin.save();
-    console.log('✅ Default admin user created: admin@azalee.com / admin123');
-  }
-};
+// NOTE: Default admin creation removed for security.
+// Use scripts/create-admin.js to create the first admin user.
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 

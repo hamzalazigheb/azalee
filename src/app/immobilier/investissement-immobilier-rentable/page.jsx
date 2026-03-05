@@ -1,9 +1,58 @@
-"use client";
-import React from 'react';
 import Link from 'next/link';
 import Footer from '../../../components/common/Footer';
+import CTAButton from '@/components/ui/CTAButton';
+import { getPageContent } from '@/lib/cms-server';
 
-export default function InvestissementImmobilierRentablePage() {
+export async function generateMetadata() {
+  let content = await getPageContent('immobilier/investissement-immobilier-rentable');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/investissement-immobilier-rentable`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+  return {
+    title: content?.seo?.metaTitle,
+    description: content?.seo?.metaDescription,
+  };
+}
+
+export default async function InvestissementImmobilierRentablePage() {
+  let content = await getPageContent('immobilier/investissement-immobilier-rentable');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=immobilier/investissement-immobilier-rentable`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
@@ -14,7 +63,7 @@ export default function InvestissementImmobilierRentablePage() {
               Immobilier
             </Link>
             <span className="text-[#6B7280]">/</span>
-            <span className="text-[#253F60] font-semibold">Investissement immobilier rentable</span>
+            <span className="text-[#253F60] font-semibold">{content?.hero?.breadcrumb?.current}</span>
           </nav>
         </div>
       </div>
@@ -24,26 +73,25 @@ export default function InvestissementImmobilierRentablePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <article>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-8">
-              Investissement immobilier rentable : comment bâtir une stratégie durable
+              {content?.hero?.title}
             </h1>
 
             {/* Introduction */}
             <div className="prose prose-lg max-w-none mb-12">
               <h2 className="text-2xl sm:text-3xl font-cairo font-bold text-[#253F60] mb-6">
-                Pourquoi l'immobilier reste le pilier d'un patrimoine rentable
+                {content?.introduction?.title}
               </h2>
-              <p className="text-lg font-inter text-[#374151] leading-relaxed mb-4">
-                En 2025, plus de <strong className="text-[#253F60] font-semibold">60 % des Français détiennent un bien immobilier</strong>. Malgré les variations du marché, l'immobilier demeure l'un des placements les plus appréciés, car il conjugue valeur refuge, rendement régulier et effet de levier.
-              </p>
-              <p className="text-lg font-inter text-[#374151] leading-relaxed mb-4">
-                Mais un investissement immobilier rentable ne se résume pas à acheter un appartement à louer. C'est une stratégie complète qui tient compte de la fiscalité, du financement, de la gestion et du temps.
-              </p>
-              <p className="text-lg font-inter text-[#374151] leading-relaxed mb-4">
-                Chez Azalée Patrimoine, nous accompagnons les investisseurs particuliers dans la construction d'un patrimoine immobilier équilibré, mêlant immobilier direct, pierre papier (SCPI) et produits hybrides.
-              </p>
-              <p className="text-lg font-inter text-[#253F60] font-semibold leading-relaxed">
-                Notre objectif : transformer chaque projet en un levier de liberté financière.
-              </p>
+              {content?.introduction?.paragraphs && content.introduction.paragraphs.map((paragraph, index) => (
+                <p key={index} className={`text-lg font-inter text-[#374151] leading-relaxed ${index < content.introduction.paragraphs.length - 1 ? 'mb-4' : ''} ${paragraph.includes('Notre objectif') ? 'text-[#253F60] font-semibold' : ''}`}>
+                  {paragraph.includes('60 %') ? (
+                    <>
+                      En 2025, plus de <strong className="text-[#253F60] font-semibold">60 % des Français détiennent un bien immobilier</strong>. Malgré les variations du marché, l'immobilier demeure l'un des placements les plus appréciés, car il conjugue valeur refuge, rendement régulier et effet de levier.
+                    </>
+                  ) : (
+                    paragraph
+                  )}
+                </p>
+              ))}
             </div>
 
             {/* Section 1 */}
@@ -141,7 +189,7 @@ export default function InvestissementImmobilierRentablePage() {
                       Exemple : Transition Europe, Comète ou Sofidynamic figurent parmi les SCPI les plus performantes et transparentes.
                     </p>
                     <p className="mt-2 text-sm font-inter text-[#B99066] font-semibold">
-                      👉 Idéal pour les épargnants souhaitant un investissement immobilier rentable et passif.
+ Idéal pour les épargnants souhaitant un investissement immobilier rentable et passif.
                     </p>
                   </div>
                 </div>
@@ -289,7 +337,7 @@ export default function InvestissementImmobilierRentablePage() {
                   La rentabilité d'un placement immobilier dépend avant tout de la cohérence entre les leviers : Immobilier locatif pour créer du capital. SCPI pour la régularité du revenu. Assurance vie immobilière pour la fiscalité et la transmission. Crédit pour accélérer la constitution du patrimoine.
                 </p>
                 <div className="bg-white rounded-xl p-6 border-2 border-[#E5E7EB] shadow-lg">
-                  <p className="text-base font-inter text-[#253F60] font-semibold mb-2">👉 Exemple concret :</p>
+                  <p className="text-base font-inter text-[#253F60] font-semibold mb-2"> Exemple concret :</p>
                   <p className="text-base font-inter text-[#374151]">
                     Un couple investit 150 000 € en SCPI via assurance vie + 200 000 € en LMNP à crédit. Résultat : revenus réguliers, fiscalité optimisée et valorisation patrimoniale à long terme.
                   </p>
@@ -321,18 +369,15 @@ export default function InvestissementImmobilierRentablePage() {
                 Que vous souhaitiez investir dans une SCPI, un bien locatif ou une stratégie mixte, nos conseillers vous aident à trouver le bon équilibre entre rentabilité et sérénité.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => alert('Téléchargement du guide')}
-                  className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
+                <a 
+                  href="/guides/strategies-immobilieres.pdf"
+                  className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300 text-center"
                 >
-                  👉 Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
-                </button>
-                <button 
-                  onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                  className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300"
-                >
-                  👉 Prenez rendez-vous avec un conseiller Azalée Patrimoine
-                </button>
+                  Téléchargez le guide "7 stratégies immobilières pour faire fructifier votre patrimoine"
+                </a>
+                <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="white" className="bg-white text-[#253F60] hover:bg-gray-100 font-inter font-semibold px-6 py-3 rounded-lg transition-all duration-300">
+                  Planifiez votre consultation gratuite
+                </CTAButton>
               </div>
             </div>
 
@@ -356,4 +401,3 @@ export default function InvestissementImmobilierRentablePage() {
     </div>
   );
 }
-

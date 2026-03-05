@@ -90,7 +90,10 @@ export default function UsersManagementPage() {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`/api/auth/users/${selectedUser._id}`, {
+      // Ensure _id is converted to string and encoded
+      const userId = selectedUser._id?.toString() || selectedUser._id || selectedUser.id;
+      const encodedUserId = encodeURIComponent(userId);
+      const response = await fetch(`/api/auth/users/${encodedUserId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,12 +126,26 @@ export default function UsersManagementPage() {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`/api/auth/users/${userId}`, {
+      
+      // Ensure userId is a string and properly encoded
+      const userIdString = userId?.toString() || userId;
+      console.log('Deleting user with ID:', userIdString);
+      console.log('User ID type:', typeof userIdString);
+      console.log('User ID length:', userIdString?.length);
+      
+      // Encode the ID to handle any special characters
+      const encodedUserId = encodeURIComponent(userIdString);
+      console.log('Encoded user ID:', encodedUserId);
+      
+      const response = await fetch(`/api/auth/users/${encodedUserId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+      
+      console.log('Delete response status:', response.status);
+      console.log('Delete response URL:', response.url);
 
       const data = await response.json();
       if (data.success) {
@@ -246,34 +263,37 @@ export default function UsersManagementPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {users.map((user) => (
-                    <tr key={user._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                      <td className="px-6 py-4 font-inter">{user.name}</td>
-                      <td className="px-6 py-4 font-inter text-gray-600 dark:text-gray-300">{user.email}</td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getRoleBadgeColor(user.role)}`}>
-                          {user.role}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 font-inter text-sm text-gray-500 dark:text-gray-400">
-                        {new Date(user.createdAt).toLocaleDateString('fr-FR')}
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={() => openEditModal(user)}
-                            className="p-2 text-[#253F60] hover:bg-[#253F60]/10 rounded-lg transition-colors"
-                            title="Modifier"
-                          >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={() => handleDeleteUser(user._id)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                            title="Supprimer"
-                          >
+                  {users.map((user) => {
+                    // Ensure _id is converted to string
+                    const userId = user._id?.toString() || user._id || user.id;
+                    return (
+                      <tr key={userId} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <td className="px-6 py-4 font-inter">{user.name}</td>
+                        <td className="px-6 py-4 font-inter text-gray-600 dark:text-gray-300">{user.email}</td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getRoleBadgeColor(user.role)}`}>
+                            {user.role}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 font-inter text-sm text-gray-500 dark:text-gray-400">
+                          {new Date(user.createdAt).toLocaleDateString('fr-FR')}
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <button
+                              onClick={() => openEditModal(user)}
+                              className="p-2 text-[#253F60] hover:bg-[#253F60]/10 rounded-lg transition-colors"
+                              title="Modifier"
+                            >
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                              </svg>
+                            </button>
+                            <button
+                              onClick={() => handleDeleteUser(userId)}
+                              className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                              title="Supprimer"
+                            >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
@@ -281,7 +301,8 @@ export default function UsersManagementPage() {
                         </div>
                       </td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

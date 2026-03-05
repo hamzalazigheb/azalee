@@ -1,0 +1,85 @@
+services:
+  # MongoDB Service (Staging)
+  mongo-staging:
+    image: mongo:7.0
+    container_name: azalee-mongo-staging
+    restart: unless-stopped
+    ports:
+      - "27018:27017"  # Port différent de la prod (27017)
+    environment:
+      MONGO_INITDB_DATABASE: azalee_db_staging
+    volumes:
+      - mongo_staging_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - azalee-staging-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/azalee_db_staging --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend Service (Staging)
+  backend-staging:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: azalee-backend-staging
+    restart: unless-stopped
+    ports:
+      - "3002:3000"  # Port différent de la prod (3000)
+    environment:
+      - NODE_ENV=production
+      - STAGING=true
+      - MONGODB_URI=mongodb://mongo-staging:27017/azalee_db_staging
+      - JWT_SECRET=${JWT_SECRET:-staging-secret-key}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3002}
+      - STOCK_API_PROVIDER=${STOCK_API_PROVIDER:-RAPIDAPI_YH_FINANCE}
+      - STOCK_API_KEY=${STOCK_API_KEY:-}
+    env_file:
+      - .env.staging
+    depends_on:
+      mongo-staging:
+        condition: service_healthy
+    networks:
+      - azalee-staging-network
+
+  # Frontend Service (Staging)
+  frontend-staging:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - STAGING=true
+        - NODE_ENV=production
+    container_name: azalee-frontend-staging
+    restart: unless-stopped
+    ports:
+      - "3003:3000"  # Port différent de la prod (3001)
+    environment:
+      - NODE_ENV=production
+      - STAGING=true
+      - MONGODB_URI=mongodb://mongo-staging:27017/azalee_db_staging
+      - JWT_SECRET=${JWT_SECRET:-staging-secret-key}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3003}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3002/api}
+      - STOCK_API_PROVIDER=${STOCK_API_PROVIDER:-RAPIDAPI_YH_FINANCE}
+      - STOCK_API_KEY=${STOCK_API_KEY:-}
+    env_file:
+      - .env.staging
+    depends_on:
+      mongo-staging:
+        condition: service_healthy
+      backend-staging:
+        condition: service_started
+    networks:
+      - azalee-staging-network
+
+volumes:
+  mongo_staging_data:
+    driver: local
+
+networks:
+  azalee-staging-network:
+    driver: bridge
+

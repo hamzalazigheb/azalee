@@ -74,6 +74,23 @@ function isObject(item) {
   return item && typeof item === 'object' && !Array.isArray(item);
 }
 
+// Function to remove <em> tags from strings recursively
+function removeEmTags(obj) {
+  if (typeof obj === 'string') {
+    // Remove <em> and </em> tags
+    return obj.replace(/<em>/gi, '').replace(/<\/em>/gi, '');
+  } else if (Array.isArray(obj)) {
+    return obj.map(item => removeEmTags(item));
+  } else if (isObject(obj)) {
+    const cleaned = {};
+    for (const key in obj) {
+      cleaned[key] = removeEmTags(obj[key]);
+    }
+    return cleaned;
+  }
+  return obj;
+}
+
 // COMPLETE content structure for retraite page - ALL sections
 const retraiteContent = {
   hero: {
@@ -836,16 +853,22 @@ async function initRetraiteContent() {
       // Merge existing content with new content (preserving existing values)
       const mergedContent = deepMerge(existing.content || {}, retraiteContent);
       
-      existing.content = mergedContent;
+      // Remove <em> tags from merged content
+      const cleanedContent = removeEmTags(mergedContent);
+      
+      existing.content = cleanedContent;
       existing.lastModified = new Date();
       await existing.save();
       console.log(`✅ Content for "${path}" merged successfully!`);
       console.log('   Your existing content has been preserved.\n');
     } else {
+      // Remove <em> tags from content before saving
+      const cleanedContent = removeEmTags(retraiteContent);
+      
       const pageContent = new PageContent({
         path,
         title: 'Retraite - Préparer sa retraite sereinement',
-        content: retraiteContent,
+        content: cleanedContent,
         published: true,
         modifiedBy: 'admin'
       });

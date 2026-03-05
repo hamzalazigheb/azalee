@@ -1,0 +1,187 @@
+{
+    "path": "immobilier/immobilier-neuf",
+    "title": "Immobilier Neuf - Programmes Neufs",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Immobilier neuf : investir dans la modernité et la fiscalité",
+            "subtitle": "L'immobilier neuf offre de nombreux avantages fiscaux et patrimoniaux. Découvrez les dispositifs Pinel, Scellier, et Robien pour optimiser votre investissement.",
+            "subtitle2": "Investir dans le neuf, c'est bénéficier de garanties constructeur, de normes énergétiques récentes, et de dispositifs fiscaux avantageux."
+        },
+        "rightCard": {
+            "title": "Investissement immobilier neuf",
+            "subtitle": "Profitez des avantages fiscaux et de la modernité",
+            "benefits": [
+                "Réduction d'impôt jusqu'à 21%",
+                "Normes énergétiques récentes",
+                "Garanties constructeur",
+                "Frais de notaire réduits"
+            ],
+            "button1": "Demander un bilan gratuit"
+        },
+        "dispositifsFiscaux": {
+            "title": "Les dispositifs fiscaux : Pinel, Scellier, Robien",
+            "subtitle": "Découvrez les dispositifs fiscaux avantageux pour l'investissement immobilier neuf",
+            "dispositifs": [
+                {
+                    "name": "Pinel",
+                    "title": "Loi Pinel",
+                    "description": "Réduction d'impôt jusqu'à 12% du prix d'acquisition sur 12 ans maximum",
+                    "icon": "🏢",
+                    "features": [
+                        "Investissement locatif neuf",
+                        "Engagement de location 6, 9 ou 12 ans",
+                        "Réduction d'impôt progressive",
+                        "Plafonds de loyers et de ressources"
+                    ],
+                    "linkText": "Découvrir Pinel",
+                    "linkUrl": "/fiscalite/loi-pinel"
+                },
+                {
+                    "name": "Scellier",
+                    "title": "Loi Scellier",
+                    "description": "Dispositif historique de défiscalisation immobilière",
+                    "icon": "🏘️",
+                    "features": [
+                        "Investissement locatif neuf",
+                        "Engagement de location 9 ans",
+                        "Réduction d'impôt jusqu'à 13%",
+                        "Dispositif fermé depuis 2013"
+                    ],
+                    "linkText": "Découvrir Scellier",
+                    "linkUrl": "/immobilier/scellier"
+                },
+                {
+                    "name": "Robien",
+                    "title": "Loi Robien",
+                    "description": "Ancien dispositif de défiscalisation immobilière",
+                    "icon": "🏛️",
+                    "features": [
+                        "Investissement locatif neuf",
+                        "Engagement de location 5 ans",
+                        "Dispositif historique"
+                    ],
+                    "linkText": "Découvrir Robien",
+                    "linkUrl": "/immobilier/robien"
+                }
+            ]
+        },
+        "vefa": {
+            "title": "VEFA : Vente en l'État Futur d'Achèvement",
+            "subtitle": "Investissez dans un bien immobilier neuf avant sa construction",
+            "description": "La VEFA permet d'acheter un bien immobilier sur plan, avant sa construction. Vous bénéficiez ainsi de prix attractifs et de garanties légales.",
+            "advantages": [
+                "Paiement échelonné selon l'avancement des travaux",
+                "Garantie de parfait achèvement (1 an)",
+                "Garantie biennale (2 ans)",
+                "Garantie décennale (10 ans)",
+                "Prix attractifs",
+                "Personnalisation possible"
+            ],
+            "linkText": "En savoir plus sur la VEFA",
+            "linkUrl": "/immobilier/vefa"
+        },
+        "advantages": {
+            "title": "Les avantages de l'investissement immobilier neuf",
+            "advantages": [
+                {
+                    "title": "Avantages fiscaux",
+                    "description": "Réduction d'impôt grâce aux dispositifs Pinel, Scellier, ou Robien",
+                    "icon": "💰"
+                },
+                {
+                    "title": "Normes énergétiques",
+                    "description": "Respect des dernières normes RT 2012 ou RE 2020, économies d'énergie",
+                    "icon": "🌱"
+                },
+                {
+                    "title": "Garanties constructeur",
+                    "description": "Garantie décennale, biennale, et de parfait achèvement",
+                    "icon": "🛡️"
+                },
+                {
+                    "title": "Frais de notaire réduits",
+                    "description": "Frais de notaire réduits à 2-3% au lieu de 7-8% dans l'ancien",
+                    "icon": "📄"
+                },
+                {
+                    "title": "Personnalisation",
+                    "description": "Possibilité de personnaliser votre bien selon vos goûts",
+                    "icon": "🎨"
+                },
+                {
+                    "title": "Maintenance réduite",
+                    "description": "Pas de travaux de rénovation immédiats, tout est neuf",
+                    "icon": "🔧"
+                }
+            ]
+        },
+        "conclusion": {
+            "title": "Conclusion",
+            "content": "L'<strong>investissement immobilier</strong> n'est pas monolithique : il existe une stratégie adaptée à chaque objectif.",
+            "objectives": [
+                {
+                    "title": "Réduire vos impôts",
+                    "description": "Optez pour le dispositif Pinel et bénéficiez d'une réduction d'impôt jusqu'à 21%"
+                },
+                {
+                    "title": "Préparer votre retraite",
+                    "description": "Constituez un patrimoine immobilier pour générer des revenus complémentaires"
+                },
+                {
+                    "title": "Transmettre à vos enfants",
+                    "description": "Anticipez la transmission de votre patrimoine avec des dispositifs fiscaux avantageux"
+                },
+                {
+                    "title": "Diversifier votre patrimoine",
+                    "description": "Investissez dans l'immobilier neuf pour diversifier vos placements"
+                }
+            ],
+            "primaryCta": {
+                "text": "Demander un bilan gratuit",
+                "url": "https://calendly.com/rdv-azalee-patrimoine/30min"
+            },
+            "secondaryCta": {
+                "text": "Planifiez votre consultation gratuite",
+                "url": "https://calendly.com/rdv-azalee-patrimoine/30min"
+            }
+        },
+        "seo": {
+            "metaTitle": "Immobilier Neuf - Programmes Neufs | Azalée Patrimoine",
+            "metaDescription": "Investissez dans l'immobilier neuf avec Azalée Patrimoine. Découvrez les dispositifs Pinel, Scellier, Robien et la VEFA pour optimiser votre investissement.",
+            "keywords": [
+                "immobilier neuf",
+                "loi pinel",
+                "vefa",
+                "investissement locatif",
+                "défiscalisation"
+            ],
+            "relatedLinks": [
+                {
+                    "text": "Loi Pinel",
+                    "url": "/fiscalite/loi-pinel"
+                },
+                {
+                    "text": "VEFA",
+                    "url": "/immobilier/vefa"
+                },
+                {
+                    "text": "Scellier",
+                    "url": "/immobilier/scellier"
+                },
+                {
+                    "text": "Robien",
+                    "url": "/immobilier/robien"
+                },
+                {
+                    "text": "Faire construire",
+                    "url": "/immobilier/faire-construire"
+                },
+                {
+                    "text": "Investissement locatif",
+                    "url": "/immobilier/investissement-locatif"
+                }
+            ]
+        }
+    }
+}

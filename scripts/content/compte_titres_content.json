@@ -1,0 +1,179 @@
+{
+    "path": "placements/compte-titres",
+    "title": "Compte-Titres Ordinaire (CTO) : définition, fiscalité et stratégie",
+    "published": true,
+    "seo": {
+        "metaTitle": "Compte-Titres Ordinaire (CTO) : Fiscalité et Investissement | Azalée Patrimoine",
+        "metaDescription": "Tout savoir sur le Compte-Titres Ordinaire (CTO) : fiscalité (PFU), avantages, inconvénients et comparaison avec le PEA. Guide complet."
+    },
+    "content": {
+        "hero": {
+            "title": "Compte-Titres Ordinaire (CTO) : définition, fiscalité et stratégie",
+            "subtitle": "Le Compte-Titres Ordinaire (CTO) est l'enveloppe d'investissement la plus flexible disponible en France. Contrairement au PEA (Plan d'Épargne en Actions) ou à l'assurance-vie, il n'impose aucune limite de versement et permet d'investir dans tous les marchés financiers mondiaux.",
+            "description": "Le CTO est donc l'outil idéal pour diversifier et élargir son univers d'investissement.",
+            "button": "Demander une étude patrimoniale gratuite",
+            "image": "/images/compte-titres-hero.jpg"
+        },
+        "definition": {
+            "title": "Qu'est-ce qu'un CTO ?",
+            "description": "Le Compte-Titres Ordinaire (CTO) est l'enveloppe d'investissement la plus flexible disponible en France. Contrairement au PEA (Plan d'Épargne en Actions) ou à l'assurance-vie, il n'impose aucune limite de versement et permet d'investir dans tous les marchés financiers mondiaux.",
+            "contenus": [
+                "Actions françaises et internationales",
+                "Obligations",
+                "ETF (trackers) et fonds indiciels",
+                "Produits structurés",
+                "OPCVM et SICAV",
+                "Dérivés financiers (options, turbos, warrants)"
+            ],
+            "conclusion": "Le CTO est donc l'outil idéal pour diversifier et élargir son univers d'investissement."
+        },
+        "fiscalite": {
+            "title": "Fiscalité du CTO",
+            "description": "Le CTO n'offre pas de régime fiscal privilégié. Ses revenus et plus-values sont imposés chaque année :",
+            "points": [
+                "PFU (Prélèvement Forfaitaire Unique) de 30% : 12,8% d'impôt + 17,2% de prélèvements sociaux",
+                "Option pour le barème progressif : possible si votre taux marginal est inférieur ou si vous bénéficiez d'abattements"
+            ],
+            "conclusion": "Contrairement à l'assurance-vie ou au PEA, il n'existe aucun mécanisme de capitalisation différée : les gains sont fiscalisés immédiatement."
+        },
+        "avantages": {
+            "title": "Les avantages du CTO",
+            "points": [
+                "Aucune limite de versement : liberté totale d'investissement",
+                "Accès illimité aux marchés financiers : actions, obligations, ETF, produits structurés, fonds spécialisés",
+                "Outil de diversification indispensable pour aller au-delà des restrictions des autres enveloppes fiscales",
+                "Flexibilité totale : pas de durée minimale de détention",
+                "Accès à des stratégies avancées (spéculation, couverture, arbitrages internationaux)"
+            ]
+        },
+        "inconvenients": {
+            "title": "Les inconvénients du CTO",
+            "points": [
+                "Fiscalité lourde : 30% sur chaque gain (hors option pour le barème progressif)",
+                "Pas de cadre successoral avantageux (contrairement à l'assurance-vie ou au contrat de capitalisation)",
+                "Moins intéressant utilisé seul : le CTO doit généralement être pensé en complément d'un PEA et/ou d'une assurance-vie",
+                "Peut générer une pression psychologique liée à la volatilité et à l'absence de capitalisation différée"
+            ]
+        },
+        "speculation": {
+            "title": "Spéculation avec un CTO : pour les investisseurs avertis",
+            "description": "L'un des grands intérêts du CTO est d'offrir la possibilité d'accéder à des produits de spéculation :",
+            "produits": [
+                "Options (stratégies de couverture ou de levier)",
+                "Turbos et warrants",
+                "Vente à découvert pour parier sur la baisse d'un actif"
+            ],
+            "avantage": "Ces outils permettent de multiplier les gains potentiels mais exposent également à des pertes rapides et totales.",
+            "profil": "Ils s'adressent uniquement à des investisseurs :",
+            "conditions": [
+                "disposant d'un haut degré de connaissance des marchés financiers",
+                "capables d'assumer une forte volatilité",
+                "et préparés psychologiquement à la possibilité de tout perdre"
+            ],
+            "conclusion": "Ce type d'approche ne relève pas de la gestion de patrimoine traditionnelle, mais peut être intégré dans une stratégie d'investissement personnelle pour des profils très dynamiques."
+        },
+        "utilisation": {
+            "title": "Quand utiliser un CTO ?",
+            "description": "Le CTO est particulièrement adapté pour :",
+            "cas": [
+                "Accéder aux marchés internationaux et à des actifs non éligibles au PEA",
+                "Investir sans plafond de versement",
+                "Diversifier son patrimoine au-delà de l'assurance-vie",
+                "Mettre en place des stratégies sophistiquées (obligations internationales, produits structurés, trading actif)"
+            ]
+        },
+        "comparaison": {
+            "title": "CTO ou Assurance-vie ?",
+            "tableau": [
+                {
+                    "critere": "Fiscalité",
+                    "cto": "PFU 30% immédiat",
+                    "assurance": "Différée, allégée après 8 ans"
+                },
+                {
+                    "critere": "Versements",
+                    "cto": "Illimités",
+                    "assurance": "Illimités mais souvent encadrés par les assureurs"
+                },
+                {
+                    "critere": "Supports",
+                    "cto": "Tous (actions, ETF, obligations, produits spéculatifs)",
+                    "assurance": "Fonds euros, UC, ETF, SCPI"
+                },
+                {
+                    "critere": "Transmission",
+                    "cto": "Aucune optimisation",
+                    "assurance": "Avantages fiscaux majeurs"
+                }
+            ],
+            "conclusion": "En pratique, le CTO est rarement un concurrent direct de l'assurance-vie. Les deux enveloppes sont complémentaires dans une stratégie patrimoniale bien structurée."
+        },
+        "conseil": {
+            "title": "Notre conseil Azalée Patrimoine",
+            "description": "Chez Azalée Patrimoine, nous intégrons le CTO comme un outil de diversification et de liberté dans une stratégie patrimoniale globale.",
+            "strategie": "Il est pertinent pour élargir son horizon d'investissement, mais doit être équilibré par des solutions fiscalement optimisées (assurance-vie, PEA, PER).",
+            "conclusion": "Pour la plupart des clients, le CTO est donc un complément stratégique, tandis que pour les investisseurs avertis, il peut devenir un terrain de jeu pour la spéculation et l'innovation financière."
+        },
+        "faq": {
+            "title": "FAQ – Compte-Titres Ordinaire (CTO)",
+            "questions": [
+                {
+                    "question": "Quelle est la fiscalité d'un CTO en France ?",
+                    "answer": "Les gains (plus-values, dividendes, intérêts) sont soumis par défaut au PFU de 30% (12,8% d'impôt + 17,2% de prélèvements sociaux). Vous pouvez opter pour le barème progressif de l'impôt sur le revenu si cela est plus avantageux. Contrairement à l'assurance-vie, la fiscalité est immédiate.",
+                    "precision": "Spécificité importante : les moins-values réalisées sur un CTO sont reportables pendant 10 ans. Elles peuvent venir s'imputer sur vos futures plus-values mobilières, ce qui permet de réduire la fiscalité des gains ultérieurs.",
+                    "exemple": "Exemple simple : En 2025, vous vendez une action avec une perte de 5 000€. En 2026, vous réalisez une plus-value de 8 000€. Vous ne serez imposé que sur la différence, soit 3 000€, et non 8 000€."
+                },
+                {
+                    "question": "Quelle différence entre CTO et PEA ?",
+                    "answer": "Le Compte-Titres Ordinaire (CTO) et le Plan d'Épargne en Actions (PEA) sont deux enveloppes d'investissement complémentaires, mais leurs règles diffèrent fortement.",
+                    "points": [
+                        "Univers d'investissement : CTO = tous les marchés mondiaux, PEA = actions et ETF européens éligibles",
+                        "Fiscalité : CTO = immédiate (PFU 30%), PEA = exonération après 5 ans",
+                        "Plafonds : CTO = illimité, PEA = 150 000€",
+                        "Non coté : PEA permet d'investir dans des sociétés non cotées européennes"
+                    ],
+                    "conclusion": "Pour un investisseur averti, la bonne stratégie consiste souvent à utiliser les deux de façon complémentaire : un PEA pour la fiscalité long terme, un CTO pour diversifier et accéder à l'international."
+                },
+                {
+                    "question": "Peut-on spéculer avec un CTO ?",
+                    "answer": "Oui. Le Compte-Titres Ordinaire (CTO) est la seule enveloppe qui permet d'accéder à des produits spéculatifs et à des stratégies de marché avancées, interdites dans le cadre d'un PEA ou d'une assurance-vie.",
+                    "produits": [
+                        "Options : contrats financiers pour couvrir ou spéculer avec effet de levier",
+                        "Turbos et warrants : produits dérivés cotés qui amplifient les variations",
+                        "CFD : instruments à effet de levier pour miser sur la hausse ou la baisse",
+                        "Vente à découvert : vendre un titre que l'on ne possède pas"
+                    ],
+                    "risques": [
+                        "Effet de levier : peut multiplier gains et pertes",
+                        "Volatilité extrême : valeur peut passer de +100% à -100% en quelques heures",
+                        "Perte totale du capital investi",
+                        "Pression psychologique"
+                    ],
+                    "profil": "La spéculation via CTO s'adresse uniquement aux investisseurs disposant d'un haut degré de connaissance des marchés financiers, maîtrisant les notions de couverture, levier et volatilité, capables de supporter psychologiquement le risque de perte totale."
+                },
+                {
+                    "question": "Le CTO est-il adapté à la transmission patrimoniale ?",
+                    "answer": "Non. Contrairement à l'assurance-vie ou au contrat de capitalisation, le CTO n'offre aucun avantage successoral.",
+                    "transmission": "En cas de décès, les titres détenus sur un CTO sont intégrés dans la succession classique et taxés selon le barème des droits de mutation à titre gratuit (DMTG), après application des abattements légaux.",
+                    "donation": "Si le CTO n'a pas de régime fiscal particulier en matière successorale, il peut toutefois être utilisé dans une stratégie de transmission par donation :",
+                    "strategies": [
+                        "Donation en pleine propriété : transmission des titres avec abattements et réinitialisation du prix d'acquisition",
+                        "Donation en nue-propriété avec réserve d'usufruit : conservation des revenus tout en anticipant la transmission"
+                    ],
+                    "avantage": "Cette stratégie est particulièrement intéressante si les titres ont déjà pris beaucoup de valeur dans le CTO, car la donation permet de purger la plus-value latente."
+                },
+                {
+                    "question": "Quelle est la meilleure stratégie avec un CTO ?",
+                    "answer": "Chez Azalée Patrimoine, nous conseillons d'utiliser le CTO en complément d'autres enveloppes fiscales (PEA, assurance-vie, PER). C'est un outil de diversification et de liberté, utile pour accéder à certains marchés, mais rarement suffisant seul."
+                }
+            ]
+        },
+        "cta": {
+            "title": "Contactez un conseiller Azalée Patrimoine",
+            "subtitle": "pour optimiser votre stratégie d'investissement avec un CTO",
+            "email": "contact@azalee-patrimoine.fr",
+            "primaryButton": "Demander une étude gratuite",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        }
+    }
+}

@@ -14,9 +14,32 @@ const Button = ({
   ...props
 }) => {
   const variants = {
-    primary: 'bg-global-6 text-global-7 hover:bg-opacity-90 active:bg-opacity-80 focus:ring-global-6',
+    // Primary utilise maintenant l'orange #B99066 pour les CTA principaux
+    primary: `
+      bg-[#B99066] 
+      text-white 
+      hover:bg-[#A67A5A] 
+      active:bg-[#956B4A] 
+      focus:ring-[#B99066]
+      shadow-md
+      hover:shadow-lg
+    `.trim().replace(/\s+/g, ' '),
+    
     secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300 active:bg-gray-400 focus:ring-gray-300',
-    outline: 'border border-global-7 text-global-7 bg-transparent hover:bg-global-7 hover:bg-opacity-10 active:bg-opacity-20 focus:ring-global-7',
+    
+    // Outline pour actions secondaires (bordure orange, fond transparent)
+    outline: `
+      border-2 
+      border-[#B99066] 
+      text-[#B99066] 
+      bg-transparent 
+      hover:bg-[#B99066] 
+      hover:text-white 
+      hover:shadow-md
+      active:bg-[#A67A5A]
+      focus:ring-[#B99066]
+    `.trim().replace(/\s+/g, ' '),
+    
     ghost: 'text-gray-700 bg-transparent hover:bg-gray-100 active:bg-gray-200 focus:ring-gray-300'
   };
 
@@ -27,7 +50,7 @@ const Button = ({
     lg: 'px-4 py-2.5 text-base sm:px-5 sm:py-3 sm:text-lg md:text-lg lg:text-xl'
   };
 
-  const responsiveRadius = 'rounded sm:rounded-md md:rounded-lg';
+  const responsiveRadius = 'rounded-lg'; // Border-radius fixe de 8px (lg = 0.5rem = 8px)
   const responsiveFocus = 'focus:ring-2 sm:focus:ring-2 md:focus:ring-4';
 
   const LoadingSpinner = () => (
@@ -69,13 +92,13 @@ const Button = ({
         ${variants[variant]} 
         ${sizes[size]} 
         ${fullWidth ? 'w-full' : ''}
-        ${disabled || loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-105 active:scale-95'} 
+        ${disabled || loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:-translate-y-0.5 active:translate-y-0'} 
         ${loading ? 'relative' : ''}
         font-medium
         inline-flex
         items-center
         justify-center
-        min-h-[44px] sm:min-h-[48px]
+        min-h-[50px]
         touch-manipulation
         ${className}
       `.trim().replace(/\s+/g, ' ')}

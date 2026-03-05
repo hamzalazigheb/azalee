@@ -11,9 +11,9 @@ export default function MediaManager({ onSelect, isOpen, onClose }) {
     '/images/patrimoine-hero.webp',
     '/images/retraite-hero.webp',
     '/images/outils-hero.webp',
-    '/images/home.webp',
-    '/images/image2.webp',
-    '/images/image3.webp'
+    '/images/azalee-patrimoine-paris-luxury-office.webp',
+    '/images/azalee-patrimoine-family-trust-meeting.webp',
+    '/images/azalee-patrimoine-private-banking-consultation.webp'
   ]);
 
   const handleImageSelect = (imageUrl) => {
@@ -98,11 +98,10 @@ export default function MediaManager({ onSelect, isOpen, onClose }) {
               {uploadedImages.map((imageUrl, index) => (
                 <div
                   key={index}
-                  className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${
-                    selectedImage === imageUrl 
-                      ? 'border-blue-500 ring-2 ring-blue-200' 
+                  className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${selectedImage === imageUrl
+                      ? 'border-blue-500 ring-2 ring-blue-200'
                       : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                    }`}
                   onClick={() => handleImageSelect(imageUrl)}
                 >
                   <img

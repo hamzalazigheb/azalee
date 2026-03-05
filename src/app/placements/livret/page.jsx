@@ -1,22 +1,61 @@
-"use client";
-import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
-import PlacementChart from "../../../components/PlacementChart";
+import SectionHeader from "../../../components/common/SectionHeader";
+import CTAButton from "@/components/ui/CTAButton";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function LivretPage() {
-  const chartData = [
-    { label: "Taux de rémunération actuel", value: "3.0%" },
-    { label: "Plafond de versement", value: "€22,950" },
-    { label: "Montant moyen détenu", value: "€15,200" },
-    { label: "Frais de gestion", value: "0%" },
-    { label: "Performance annuelle", value: "+3.0%" }
-  ];
+export async function generateMetadata() {
+  let content = await getPageContent('placements/livret');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/livret`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+  return {
+    title: content?.seo?.metaTitle || "Livrets Réglementés | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Découvrez les livrets réglementés (Livret A, LDDS, LEP, PEL) : avantages, limites et place dans votre stratégie patrimoniale.",
+  };
+}
+
+export default async function LivretPage() {
+  let content = await getPageContent('placements/livret');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/livret`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,24 +70,24 @@ export default function LivretPage() {
               </p>
               <div className="bg-white bg-opacity-20 border-l-4 border-white p-4 rounded-r-lg mb-8">
                 <p className="text-white text-sm font-inter">
-                  👉 Mais derrière cette sécurité se cache une réalité : leur <strong>rendement réel est très faible</strong>, et ils ne permettent pas de protéger efficacement son patrimoine face à l'<strong>inflation</strong>.
+ Mais derrière cette sécurité se cache une réalité : leur <strong>rendement réel est très faible</strong>, et ils ne permettent pas de protéger efficacement son patrimoine face à l'<strong>inflation</strong>.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-[#B99066] text-white px-6 py-3 rounded-lg shadow-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors duration-200">
+                <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="primary">
                   Analyser mon épargne
-                </button>
-                <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-inter font-medium hover:bg-white hover:text-[#253F60] transition-colors duration-200">
+                </CTAButton>
+                <CTAButton variant="secondary">
                   En savoir plus
-                </button>
+                </CTAButton>
               </div>
             </div>
             
             {/* Right: Livret Cards */}
             <div className="w-full lg:w-1/2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">Livret A</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux 2025</p>
@@ -56,8 +95,8 @@ export default function LivretPage() {
                   <p className="text-[#686868] text-xs">Plafond : 22 950 €</p>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">LDDS</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux identique</p>
@@ -65,8 +104,8 @@ export default function LivretPage() {
                   <p className="text-[#686868] text-xs">Plafond : 12 000 €</p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">LEP</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux 2025</p>
@@ -74,8 +113,8 @@ export default function LivretPage() {
                   <p className="text-[#686868] text-xs">Plafond : 10 000 €</p>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
                   </div>
                   <h3 className="text-[#112033] text-lg font-semibold mb-2">PEL</h3>
                   <p className="text-[#686868] text-sm mb-2">Taux variable</p>
@@ -88,29 +127,19 @@ export default function LivretPage() {
         </div>
       </section>
 
-      {/* Chart Section */}
-      <PlacementChart 
-        title="Évolution des taux des livrets"
-        data={chartData}
-        chartImage="/images/variation-chart-image-944f04.png"
-      />
-
       {/* Image Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Comprendre les livrets réglementés
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Visualisez l'impact des livrets réglementés sur votre patrimoine
-            </p>
-          </div>
+          <SectionHeader 
+            title="Comprendre les livrets réglementés"
+            subtitle="Visualisez l'impact des livrets réglementés sur votre patrimoine"
+            className="mb-8"
+          />
           
           <div className="flex justify-center">
-            <div className="bg-white rounded-lg shadow-lg p-4 max-w-4xl">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-4 max-w-4xl hover:shadow-xl transition-all duration-300">
               <img 
-                src="/images/livret.webp" 
+                src="/images/azalee-patrimoine-livret.webp" 
                 alt="Graphique des livrets réglementés et leur impact sur le patrimoine"
                 className="w-full h-auto rounded-lg"
               />
@@ -122,16 +151,13 @@ export default function LivretPage() {
       {/* Définition Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Qu'est-ce qu'un livret réglementé ?
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Un <strong>livret réglementé</strong> est un produit d'épargne garanti par l'État.
-            </p>
-          </div>
+          <SectionHeader 
+            title="Qu'est-ce qu'un livret réglementé ?"
+            subtitle="Un livret réglementé est un produit d'épargne garanti par l'État."
+            className="mb-12"
+          />
 
-          <div className="bg-[#253F60] rounded-lg shadow-lg p-8 text-white mb-8">
+          <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white mb-8 hover:shadow-2xl transition-all duration-300">
             <div className="text-center mb-8">
               <h3 className="text-xl font-semibold mb-4 text-white">
                 Caractéristiques des livrets réglementés
@@ -169,7 +195,7 @@ export default function LivretPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
+          <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
             <h3 className="text-[#112033] text-xl font-semibold mb-6">
               Rôle économique essentiel
             </h3>
@@ -177,22 +203,22 @@ export default function LivretPage() {
               Ces livrets jouent un rôle essentiel dans le <strong>financement de l'économie française</strong> :
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-[#253F60] rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-full flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform duration-300">
                 </div>
                 <h4 className="text-[#112033] font-semibold mb-2">Logement social</h4>
                 <p className="text-[#686868] text-sm">Financement des projets sociaux</p>
               </div>
               
-              <div className="text-center">
-                <div className="w-16 h-16 bg-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform duration-300">
                 </div>
                 <h4 className="text-[#112033] font-semibold mb-2">Collectivités locales</h4>
                 <p className="text-[#686868] text-sm">Projets des territoires</p>
               </div>
               
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="text-center group">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-3 shadow-md group-hover:scale-110 transition-transform duration-300">
                 </div>
                 <h4 className="text-[#112033] font-semibold mb-2">Transition énergétique</h4>
                 <p className="text-[#686868] text-sm">Économie sociale et solidaire</p>
@@ -205,15 +231,14 @@ export default function LivretPage() {
       {/* Les différents livrets réglementés Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Les différents livrets réglementés
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Les différents livrets réglementés"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Livret A */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center">
                 </div>
@@ -239,7 +264,7 @@ export default function LivretPage() {
             </div>
 
             {/* LDDS */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#B99066] rounded-lg flex items-center justify-center">
                 </div>
@@ -265,7 +290,7 @@ export default function LivretPage() {
             </div>
 
             {/* LEP */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#B99066]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#B99066] hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#B99066] rounded-lg flex items-center justify-center">
                 </div>
@@ -291,7 +316,7 @@ export default function LivretPage() {
             </div>
 
             {/* PEL */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-[#253F60] rounded-lg flex items-center justify-center">
                 </div>
@@ -322,17 +347,15 @@ export default function LivretPage() {
       {/* Avantages et limites Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Avantages et limites des livrets réglementés
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Avantages et limites des livrets réglementés"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Avantages */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-green-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8 flex items-center gap-3">
-                <span className="text-green-500 text-3xl">✅</span>
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-green-500 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-[#112033] text-xl font-semibold mb-8">
                 Les avantages
               </h3>
               
@@ -396,9 +419,8 @@ export default function LivretPage() {
             </div>
 
             {/* Limites */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-red-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-8 flex items-center gap-3">
-                <span className="text-red-500 text-3xl">⚠️</span>
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-red-500 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-[#112033] text-xl font-semibold mb-8">
                 Les limites
               </h3>
               
@@ -453,22 +475,19 @@ export default function LivretPage() {
       {/* Érosion monétaire Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              L'érosion monétaire : le vrai coût caché
-            </h2>
-            <p className="text-[#686868] text-lg max-w-4xl mx-auto">
-              Placer son argent sur un livret réglementé, c'est choisir la sécurité… mais au prix d'une <strong>érosion silencieuse du capital</strong>.
-            </p>
-          </div>
+          <SectionHeader 
+            title="L'érosion monétaire : le vrai coût caché"
+            subtitle="Placer son argent sur un livret réglementé, c'est choisir la sécurité… mais au prix d'une érosion silencieuse du capital."
+            className="mb-12"
+          />
 
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 mb-8 hover:shadow-xl transition-all duration-300">
             <h3 className="text-[#112033] text-xl font-semibold mb-6 text-center">
               Exemple chiffré : 100 000 € placés pendant 10 ans
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-lg p-6 text-white">
+              <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300">
                 <h4 className="text-lg font-semibold mb-4">Hypothèse 1 : Livret A</h4>
                 <div className="space-y-2">
                   <div className="flex justify-between">
@@ -482,7 +501,7 @@ export default function LivretPage() {
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-[#B99066] to-[#253F60] rounded-lg p-6 text-white">
+              <div className="bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300">
                 <h4 className="text-lg font-semibold mb-4">Hypothèse 2 : Inflation</h4>
                 <div className="space-y-2">
                   <div className="flex justify-between">
@@ -498,12 +517,11 @@ export default function LivretPage() {
             </div>
             
             <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
-              <h4 className="text-[#112033] text-lg font-semibold mb-3 flex items-center gap-2">
-                <span className="text-red-500 text-xl">⚠️</span>
+              <h4 className="text-[#112033] text-lg font-semibold mb-3">
                 Résultat dramatique
               </h4>
               <p className="text-[#686868] mb-2">
-                ➡️ Après 10 ans :
+                Après 10 ans :
               </p>
               <ul className="text-[#686868] space-y-1 ml-4">
                 <li>• Capital sur Livret A : <strong>134 392 €</strong></li>
@@ -511,7 +529,7 @@ export default function LivretPage() {
               </ul>
               <div className="mt-4 bg-red-100 p-4 rounded-lg">
                 <p className="text-[#112033] font-semibold text-center">
-                  👉 Résultat : vous perdez <strong>près de 10 % de pouvoir d'achat</strong>, malgré un placement "sécurisé".
+ Résultat : vous perdez <strong>près de 10 % de pouvoir d'achat</strong>, malgré un placement "sécurisé".
                 </p>
               </div>
             </div>
@@ -528,25 +546,20 @@ export default function LivretPage() {
       {/* Place dans le patrimoine Section */}
       <section className="w-full bg-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Quelle place donner aux livrets réglementés dans son patrimoine ?
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Quelle place donner aux livrets réglementés dans son patrimoine ?"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Utiles pour */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-green-500">
-              <h3 className="text-[#112033] text-xl font-semibold mb-6 flex items-center gap-3">
-                <span className="text-green-500 text-2xl">✅</span>
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-green-500 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-[#112033] text-xl font-semibold mb-6">
                 Les livrets réglementés sont utiles pour :
               </h3>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">1</span>
-                  </div>
                   <div>
                     <h4 className="text-[#112033] font-semibold mb-2">
                       Constituer une épargne de précaution
@@ -558,9 +571,6 @@ export default function LivretPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">2</span>
-                  </div>
                   <div>
                     <h4 className="text-[#112033] font-semibold mb-2">
                       Sécuriser un fonds disponible
@@ -572,9 +582,6 @@ export default function LivretPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">3</span>
-                  </div>
                   <div>
                     <h4 className="text-[#112033] font-semibold mb-2">
                       Bénéficier d'une petite rémunération
@@ -588,7 +595,7 @@ export default function LivretPage() {
             </div>
 
             {/* Compléter avec */}
-            <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-[#253F60]">
+            <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 border-l-4 border-[#253F60] hover:shadow-xl transition-all duration-300">
               <h3 className="text-[#112033] text-xl font-semibold mb-6 flex items-center gap-3">
                 Mais ils ne doivent pas constituer l'essentiel d'un patrimoine
               </h3>
@@ -637,13 +644,12 @@ export default function LivretPage() {
       {/* Conclusion Section */}
       <section className="w-full bg-[#F2F2F2] py-8 sm:py-12 lg:py-16">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-6">
-              Conclusion : utile, mais insuffisant face à l'inflation
-            </h2>
-          </div>
+          <SectionHeader 
+            title="Conclusion : utile, mais insuffisant face à l'inflation"
+            className="mb-12"
+          />
 
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 mb-8 hover:shadow-xl transition-all duration-300">
             <div className="text-center mb-8">
               <p className="text-[#686868] text-lg mb-6">
                 Les <strong>livrets réglementés</strong> sont une brique indispensable de l'épargne des Français.
@@ -653,13 +659,13 @@ export default function LivretPage() {
               </p>
             </div>
             
-            <div className="bg-[#E8F4F8] border-l-4 border-[#253F60] p-6 rounded-r-lg mb-8">
+            <div className="bg-gradient-to-br from-[#E8F4F8] to-[#D0E8F0] border-l-4 border-[#253F60] p-6 rounded-r-lg mb-8">
               <p className="text-[#112033] text-lg font-semibold text-center">
-                👉 Mais en tant que placement à long terme, ils sont insuffisants. L'inflation érode le pouvoir d'achat du capital, et un épargnant qui se contente de livrets voit sa richesse <strong>fondre en valeur réelle</strong>.
+ Mais en tant que placement à long terme, ils sont insuffisants. L'inflation érode le pouvoir d'achat du capital, et un épargnant qui se contente de livrets voit sa richesse <strong>fondre en valeur réelle</strong>.
               </p>
             </div>
 
-            <div className="bg-[#253F60] rounded-lg shadow-lg p-8 text-white">
+            <div className="bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-xl shadow-xl p-8 text-white hover:shadow-2xl transition-all duration-300">
               <h3 className="text-xl font-semibold mb-6 text-center">
                 Chez <strong>Azalée Patrimoine</strong>, nous aidons nos clients à trouver le juste équilibre entre :
               </h3>
@@ -701,15 +707,12 @@ export default function LivretPage() {
             Nos experts vous accompagnent pour trouver le <strong>juste équilibre</strong> entre sécurité, performance et stratégie patrimoniale.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-lg hover:bg-[#A67C52] transition-colors duration-200">
+            <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="primary" className="px-8 py-4 text-lg font-semibold">
               Analyser mon épargne
-            </button>
-            <button 
-              onClick={() => window.open('https://calendly.com/azalee-patrimoine', '_blank')}
-              className="bg-transparent border-2 border-[#B99066] text-white px-8 py-4 rounded-lg font-inter font-semibold text-lg hover:bg-[#B99066] hover:text-white transition-colors duration-200"
-            >
-              Prendre rendez-vous
-            </button>
+            </CTAButton>
+            <CTAButton externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min" variant="secondary" className="border-[#B99066] px-8 py-4 text-lg font-semibold hover:bg-[#B99066]">
+              Planifiez votre consultation gratuite
+            </CTAButton>
           </div>
         </div>
       </section>

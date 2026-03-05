@@ -3,14 +3,48 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
+import SectionHeader from "../../../components/common/SectionHeader";
 
 export default function SimulationsGeneralesPage() {
   const [cmsContent, setCmsContent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Set static content
-    setIsLoading(false);
+    const loadCmsContent = async () => {
+      try {
+        const response = await fetch(`/api/cms/content?path=outils/simulations-generales&t=${Date.now()}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setCmsContent(data.content);
+          }
+        }
+      } catch (error) {
+        console.log('No CMS content found, using defaults');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadCmsContent();
+
+    // Listen for CMS updates
+    const handleCMSUpdate = () => {
+      loadCmsContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadCmsContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Default content if CMS content is not available
@@ -116,8 +150,8 @@ export default function SimulationsGeneralesPage() {
         <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4EBBBD] mx-auto mb-4"></div>
-            <p className="text-gray-600">Chargement du contenu...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#253F60] mx-auto mb-4"></div>
+            <p className="text-[#686868]">Chargement du contenu...</p>
           </div>
         </div>
         <Footer />
@@ -150,46 +184,47 @@ export default function SimulationsGeneralesPage() {
       </section>
 
       {/* Tools Section */}
-      <section id="outils" className="w-full py-12 lg:py-16 bg-[#F2F2F2]">
+      <section id="outils" className="w-full bg-gradient-to-b from-white via-[#F9FAFB] to-white py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-[#112033] text-2xl sm:text-3xl font-cairo font-semibold mb-4">
-              {safeContent.tools.title}
-            </h2>
-            <p className="text-[#686868] text-lg max-w-2xl mx-auto">
-              {safeContent.tools.description}
-            </p>
-          </div>
+          <SectionHeader 
+            title={safeContent.tools.title}
+            subtitle={safeContent.tools.description}
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {safeContent.tools.items.map((tool, index) => (
-              <div key={tool.id || index} className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-[#4EBBBD] to-[#59E2E4] rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xl">{tool.icon}</span>
+              <div key={tool.id || index} className={`group relative rounded-2xl p-8 shadow-xl text-white overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ${
+                index % 2 === 0 ? 'bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60]' : 'bg-gradient-to-br from-[#B99066] via-[#A67A5A] to-[#B99066]'
+              }`}>
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-bl-full"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/10 rounded-tr-full"></div>
+                <div className="relative z-10">
+                  <h3 className="text-xl sm:text-2xl font-cairo font-bold mb-3">
+                    {tool.title}
+                  </h3>
+                  <p className="text-white/90 mb-6">
+                    {tool.description}
+                  </p>
+                  
+                  <div className="space-y-2 mb-6">
+                    {tool.features && tool.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-center gap-2">
+                        <div className={`w-1.5 h-1.5 rounded-full ${
+                          index % 2 === 0 ? 'bg-[#B99066]' : 'bg-[#253F60]'
+                        }`}></div>
+                        <span className="text-white/90 text-sm">{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <h3 className="text-[#112033] text-xl font-source-sans font-semibold">
-                      {tool.title}
-                    </h3>
-                    <p className="text-[#686868] text-sm">
-                      {tool.description}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="space-y-2 mb-6">
-                  {tool.features && tool.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-[#B99066] rounded-full"></div>
-                      <span className="text-[#686868] text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
 
-                <button className="w-full bg-gradient-to-r from-[#4EBBBD] to-[#59E2E4] text-white px-4 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300 hover:scale-105">
-                  Accéder à l'outil
-                </button>
+                  <button className={`w-full px-4 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                    index % 2 === 0 
+                      ? 'bg-[#B99066] hover:bg-[#A67A5A] text-white' 
+                      : 'bg-[#253F60] hover:bg-[#1a2d47] text-white'
+                  }`}>
+                    Accéder à l'outil
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -197,32 +232,35 @@ export default function SimulationsGeneralesPage() {
       </section>
 
       {/* Methodology and FAQ Section */}
-      <section id="methodologie" className="w-full py-12 lg:py-16 bg-white">
+      <section id="methodologie" className="w-full bg-gradient-to-b from-[#F9FAFB] via-white to-[#F9FAFB] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            <div className="bg-[#F9FAFB] rounded-xl p-6 lg:col-span-2">
-              <h3 className="text-[#112033] text-xl font-source-sans font-semibold mb-4">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-[#253F60]/20 lg:col-span-2">
+              <h3 className="text-[#253F60] text-xl sm:text-2xl font-cairo font-bold mb-4">
                 {safeContent.methodology.title}
               </h3>
-              <p className="text-[#686868] text-sm leading-relaxed mb-4">
+              <p className="text-[#686868] text-base leading-relaxed mb-4">
                 {safeContent.methodology.description}
               </p>
-              <ul className="list-disc list-inside text-[#686868] text-sm space-y-2">
+              <ul className="space-y-3">
                 {safeContent.methodology.content.map((point, index) => (
-                  <li key={index}>{point}</li>
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="text-[#B99066] mt-1 font-bold">•</span>
+                    <span className="text-[#686868] text-base">{point}</span>
+                  </li>
                 ))}
               </ul>
             </div>
             
-            <div className="bg-[#F9FAFB] rounded-xl p-6">
-              <h3 className="text-[#112033] text-xl font-source-sans font-semibold mb-4">
+            <div className="bg-gradient-to-br from-[#253F60] via-[#1a2d47] to-[#253F60] rounded-2xl shadow-xl p-8 text-white">
+              <h3 className="text-xl sm:text-2xl font-cairo font-bold mb-6">
                 {safeContent.faq.title}
               </h3>
-              <div className="space-y-4 text-sm">
+              <div className="space-y-6">
                 {safeContent.faq.questions.map((item, index) => (
-                  <div key={index}>
-                    <p className="text-[#112033] font-medium mb-1">{item.question}</p>
-                    <p className="text-[#686868]">{item.answer}</p>
+                  <div key={index} className="border-b border-white/20 pb-4 last:border-0 last:pb-0">
+                    <p className="text-white font-cairo font-semibold mb-2">{item.question}</p>
+                    <p className="text-white/90 text-sm">{item.answer}</p>
                   </div>
                 ))}
               </div>
@@ -232,21 +270,35 @@ export default function SimulationsGeneralesPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="w-full py-12 lg:py-16 bg-gradient-to-r from-[#112033] to-[#253F60]">
+      <section className="w-full bg-gradient-to-br from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-white text-2xl sm:text-3xl font-cairo font-semibold mb-4">
-            Prêt à optimiser votre patrimoine ?
-          </h3>
-          <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-            Utilisez nos outils professionnels pour prendre les meilleures décisions financières et patrimoniales.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#B99066] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors">
-              Découvrir tous nos outils
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#112033] transition-colors">
-              Prendre rendez-vous
-            </button>
+          <div className="relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            <div className="relative z-10">
+              <h3 className="text-white text-2xl sm:text-3xl font-cairo font-bold mb-4">
+                Prêt à optimiser votre patrimoine ?
+              </h3>
+              <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
+                Utilisez nos outils professionnels pour prendre les meilleures décisions financières et patrimoniales.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="/outils"
+                  className="bg-[#B99066] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors shadow-lg"
+                >
+                  Découvrir tous nos outils
+                </a>
+                <a
+                  href="https://calendly.com/rdv-azalee-patrimoine/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#253F60] transition-colors"
+                >
+                  Planifiez votre consultation gratuite
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

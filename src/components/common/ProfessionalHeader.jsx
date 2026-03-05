@@ -58,9 +58,12 @@ export default function ProfessionalHeader() {
 
           {/* Bouton CTA */}
           <div className="flex items-center space-x-4">
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl font-medium">
+            <Link 
+              href="/contact"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl font-medium"
+            >
               Contact
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,478 +1,62 @@
-"use client";
-import React, { useState, useMemo, useEffect } from 'react';
-import Header from '../../../components/common/Header';
-import Footer from '../../../components/common/Footer';
+import { getPageContent } from '@/lib/cms-server';
+import Footer from '@/components/common/Footer';
+import SimulateurInvestissementClient from './SimulateurInvestissementClient';
 
-// Utility functions
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
+export const revalidate = 0;
 
-const formatPercentage = (value) => {
-  return `${typeof value === 'number' && !isNaN(value) ? value.toFixed(2) : '0.00'}%`;
-};
-
-const calculateInvestmentGrowth = (initialAmount, monthlyContribution, annualReturn, years) => {
-  const monthlyReturn = annualReturn / 12 / 100;
-  const totalMonths = years * 12;
+export async function generateMetadata() {
+  let content = await getPageContent('outils/simulateur-investissement');
   
-  let totalAmount = initialAmount;
-  const monthlyData = [];
-  
-  for (let month = 1; month <= totalMonths; month++) {
-    totalAmount = (totalAmount + monthlyContribution) * (1 + monthlyReturn);
-    if (month % 12 === 0) {
-      monthlyData.push({
-        year: month / 12,
-        amount: totalAmount,
-        totalInvested: initialAmount + (monthlyContribution * month),
-        growth: totalAmount - (initialAmount + (monthlyContribution * month))
-      });
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=outils/simulateur-investissement`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
     }
   }
   
   return {
-    finalAmount: totalAmount,
-    totalInvested: initialAmount + (monthlyContribution * totalMonths),
-    totalGrowth: totalAmount - (initialAmount + (monthlyContribution * totalMonths)),
-    annualData: monthlyData
+    title: content?.seo?.metaTitle || "simulateurInvestissement | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Découvrez nos conseils et services pour simulateurinvestissement.",
   };
-};
+}
 
-export default function SimulateurInvestissementPage() {
-  const [formData, setFormData] = useState({
-    montantInitial: 10000,
-    versementMensuel: 500,
-    rendementAnnuel: 7,
-    duree: 20
-  });
+export default async function SimulateurInvestissementPage() {
+  let content = await getPageContent('outils/simulateur-investissement');
 
-  const [results, setResults] = useState(null);
-  const [cmsContent, setCmsContent] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Load CMS content from database
-  useEffect(() => {
-    const loadCmsContent = async () => {
-      try {
-        const response = await fetch(`/api/pages/content?path=/outils/simulateur-investissement&type=cms`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success && data.content) {
-            setCmsContent(JSON.parse(data.content.content));
-          }
-        }
-      } catch (error) {
-        console.log('No CMS content found, using defaults');
-      } finally {
-        setIsLoading(false);
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=outils/simulateur-investissement`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
       }
-    };
-
-    loadCmsContent();
-  }, []);
-
-  // Default content if CMS content is not available
-  const content = cmsContent || {
-    hero: {
-      title: "Simulateur d'Investissement",
-      subtitle: "Planifiez votre avenir financier avec précision",
-      description: "Outil professionnel de simulation d'investissement pour optimiser votre stratégie de placement et maximiser votre patrimoine."
-    },
-    interface: {
-      titrePrincipal: "Simulation d'Investissement",
-      sousTitre: "Analysez la croissance de vos placements sur le long terme",
-      boutonCalculer: "Lancer la simulation",
-      boutonReset: "Réinitialiser"
-    },
-    champsSaisie: [
-      {
-        id: "montantInitial",
-        label: "Capital initial",
-        type: "number",
-        placeholder: "10000",
-        unite: "€",
-        description: "Montant de départ de votre investissement"
-      },
-      {
-        id: "versementMensuel",
-        label: "Versement mensuel",
-        type: "number",
-        placeholder: "500",
-        unite: "€",
-        description: "Montant investi chaque mois"
-      },
-      {
-        id: "rendementAnnuel",
-        label: "Rendement annuel",
-        type: "number",
-        placeholder: "7",
-        unite: "%",
-        description: "Taux de rendement annuel moyen"
-      },
-      {
-        id: "duree",
-        label: "Durée d'investissement",
-        type: "number",
-        placeholder: "20",
-        unite: "ans",
-        description: "Période de placement en années"
-      }
-    ],
-    resultats: {
-      titre: "Analyse de votre simulation",
-      description: "Résultats détaillés de votre stratégie d'investissement",
-      sections: {
-        montantFinal: "Capital final",
-        totalInvesti: "Total investi",
-        plusValue: "Plus-value générée",
-        rendementTotal: "Performance globale"
-      }
-    },
-    informations: {
-      titre: "Informations et recommandations",
-      contenu: [
-        "Cette simulation utilise un modèle de rendement constant sur la période",
-        "Les résultats ne prennent pas en compte l'inflation et la volatilité des marchés",
-        "Les frais de gestion et la fiscalité ne sont pas inclus dans le calcul",
-        "Consultez un conseiller financier pour une analyse personnalisée"
-      ]
+    } catch (e) {
+      console.error('API fallback failed:', e);
     }
-  };
+  }
 
-  const handleCalculate = () => {
-    const results = calculateInvestmentGrowth(
-      formData.montantInitial,
-      formData.versementMensuel,
-      formData.rendementAnnuel,
-      formData.duree
-    );
-    setResults(results);
-  };
-
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-
-  if (isLoading) {
+  if (!content || Object.keys(content).length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <Header />
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#4EBBBD] border-t-transparent mx-auto mb-6"></div>
-            <p className="text-gray-600 text-lg">Chargement de l'outil de simulation...</p>
-          </div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <Header />
-      
-      {/* Professional Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#253F60] to-[#B99066] text-white py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#B99066] rounded-full opacity-10 transform translate-x-48 -translate-y-48"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#b99066] rounded-full opacity-10 transform -translate-x-32 translate-y-32"></div>
-        
-        <div className="relative max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-[#B99066] rounded-full mr-2"></span>
-              Outil professionnel
-            </div>
-            <h1 className="text-5xl font-bold mb-6 leading-tight">
-              {content.hero.title}
-            </h1>
-            <p className="text-2xl font-light mb-8 text-gray-100">
-              {content.hero.subtitle}
-            </p>
-            <p className="text-lg text-gray-200 max-w-4xl mx-auto leading-relaxed">
-              {content.hero.description}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Calculator Section */}
-      <section className="py-20 -mt-10">
-        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-2xl p-10 border border-gray-100">
-            {/* Header */}
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] rounded-2xl mb-6">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                {content.interface.titrePrincipal}
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                {content.interface.sousTitre}
-              </p>
-            </div>
-
-            {/* Input Form */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-              <div className="space-y-6">
-                {content.champsSaisie.slice(0, 2).map((champ) => (
-                  <div key={champ.id} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                    <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
-                      {champ.label}
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        value={formData[champ.id]}
-                        onChange={(e) => handleInputChange(champ.id, Number(e.target.value))}
-                        className="w-full px-4 py-4 pr-16 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-[#253F60] focus:ring-opacity-20 focus:border-[#253F60] transition-all duration-200 text-lg font-medium"
-                        placeholder={champ.placeholder}
-                      />
-                      <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-semibold">
-                        {champ.unite}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-3 leading-relaxed">
-                      {champ.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="space-y-6">
-                {content.champsSaisie.slice(2, 4).map((champ) => (
-                  <div key={champ.id} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                    <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
-                      {champ.label}
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        value={formData[champ.id]}
-                        onChange={(e) => handleInputChange(champ.id, Number(e.target.value))}
-                        className="w-full px-4 py-4 pr-16 border-2 border-gray-200 rounded-lg focus:ring-4 focus:ring-[#253F60] focus:ring-opacity-20 focus:border-[#253F60] transition-all duration-200 text-lg font-medium"
-                        placeholder={champ.placeholder}
-                      />
-                      <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-semibold">
-                        {champ.unite}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-3 leading-relaxed">
-                      {champ.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button
-                onClick={handleCalculate}
-                className="px-10 py-4 bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] text-white font-bold rounded-xl hover:from-[#A67A5A] hover:to-[#8E6A4E] transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
-              >
-                {content.interface.boutonCalculer}
-              </button>
-              <button
-                onClick={() => {
-                  setFormData({
-                    montantInitial: 10000,
-                    versementMensuel: 500,
-                    rendementAnnuel: 7,
-                    duree: 20
-                  });
-                  setResults(null);
-                }}
-                className="px-10 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 text-lg"
-              >
-                {content.interface.boutonReset}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      {results && (
-        <section className="py-20">
-          <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Results Header */}
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                {content.resultats.titre}
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {content.resultats.description}
-              </p>
-            </div>
-
-            {/* Key Metrics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-700 mb-2">
-                    {formatCurrency(results.finalAmount)}
-                  </div>
-                  <div className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
-                    {content.resultats.sections.montantFinal}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-700 mb-2">
-                    {formatCurrency(results.totalInvested)}
-                  </div>
-                  <div className="text-sm font-semibold text-green-600 uppercase tracking-wide">
-                    {content.resultats.sections.totalInvesti}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-700 mb-2">
-                    {formatCurrency(results.totalGrowth)}
-                  </div>
-                  <div className="text-sm font-semibold text-purple-600 uppercase tracking-wide">
-                    {content.resultats.sections.plusValue}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-700 mb-2">
-                    {formatPercentage((results.totalGrowth / results.totalInvested) * 100)}
-                  </div>
-                  <div className="text-sm font-semibold text-orange-600 uppercase tracking-wide">
-                    {content.resultats.sections.rendementTotal}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Detailed Analysis */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-              {/* Investment Timeline */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                  <div className="w-8 h-8 bg-[#253F60] rounded-lg mr-3 flex items-center justify-center">
-                    <span className="text-white text-lg font-bold">1</span>
-                  </div>
-                  Évolution temporelle
-                </h3>
-                <div className="space-y-4 max-h-96 overflow-y-auto">
-                  {results.annualData.slice(-8).map((yearData, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 bg-[#253F60] rounded-full mr-3"></div>
-                        <span className="font-semibold text-gray-900">Année {yearData.year}</span>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-gray-900">{formatCurrency(yearData.amount)}</div>
-                        <div className="text-sm text-green-600 font-medium">
-                          +{formatCurrency(yearData.growth)}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Investment Summary */}
-              <div className="bg-[#253F60] rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6 flex items-center">
-                  <div className="w-8 h-8 bg-[#B99066] rounded-lg mr-3 flex items-center justify-center">
-                    <span className="text-white text-lg font-bold">2</span>
-                  </div>
-                  Résumé de l'investissement
-                </h3>
-                <div className="space-y-6">
-                  <div className="flex justify-between items-center py-3 border-b border-gray-600">
-                    <span className="text-gray-300">Capital initial</span>
-                    <span className="font-bold text-xl">{formatCurrency(formData.montantInitial)}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-gray-600">
-                    <span className="text-gray-300">Versements totaux</span>
-                    <span className="font-bold text-xl">{formatCurrency(formData.versementMensuel * 12 * formData.duree)}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-gray-600">
-                    <span className="text-gray-300">Rendement annuel</span>
-                    <span className="font-bold text-xl text-[#4EBBBD]">{formData.rendementAnnuel}%</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3">
-                    <span className="text-gray-300">Durée</span>
-                    <span className="font-bold text-xl">{formData.duree} ans</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Performance Overview */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-[#B99066] rounded-lg mr-3 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                </div>
-                Aperçu de la performance
-              </h3>
-              <div className="bg-gradient-to-r from-[#4EBBBD] to-[#3DA8AA] rounded-xl p-8 text-white">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                  <div>
-                    <div className="text-4xl font-bold mb-2">{formatPercentage((results.totalGrowth / results.totalInvested) * 100)}</div>
-                    <div className="text-sm opacity-90">Rendement total</div>
-                  </div>
-                  <div className="border-l border-r border-white border-opacity-30">
-                    <div className="text-4xl font-bold mb-2">{formatCurrency(results.totalGrowth)}</div>
-                    <div className="text-sm opacity-90">Plus-value générée</div>
-                  </div>
-                  <div>
-                    <div className="text-4xl font-bold mb-2">{formatCurrency(results.finalAmount)}</div>
-                    <div className="text-sm opacity-90">Capital final</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Information Section */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg mr-3 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                {content.informations.titre}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {content.informations.contenu.map((info, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-gray-700 leading-relaxed">{info}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+    <>
+      <SimulateurInvestissementClient content={content} />
       <Footer />
-    </div>
+    </>
   );
 }

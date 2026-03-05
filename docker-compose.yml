@@ -35,6 +35,9 @@ services:
       - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       - STOCK_API_PROVIDER=${STOCK_API_PROVIDER:-RAPIDAPI_YH_FINANCE}
       - STOCK_API_KEY=${STOCK_API_KEY:-}
+    volumes:
+      - ./public/pdfs:/app/public/pdfs  # Volume persistant pour les PDFs uploadés
+      - ./public/images:/app/public/images  # Volume persistant pour les images uploadées
     depends_on:
       mongo:
         condition: service_healthy
@@ -49,7 +52,7 @@ services:
     container_name: azalee-frontend
     restart: unless-stopped
     ports:
-      - "80:3000"
+      - "3001:3000"  # Changed from 80:3000 to 3001:3000 to allow Nginx to use port 80
     environment:
       - NODE_ENV=production
       - MONGODB_URI=mongodb://mongo:27017/azalee_db
@@ -58,6 +61,9 @@ services:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost/api}
       - STOCK_API_PROVIDER=${STOCK_API_PROVIDER:-RAPIDAPI_YH_FINANCE}
       - STOCK_API_KEY=${STOCK_API_KEY:-}
+    volumes:
+      - ./public/pdfs:/app/public/pdfs  # Volume persistant pour les PDFs uploadés
+      - ./public/images:/app/public/images  # Volume persistant pour les images uploadées
     depends_on:
       mongo:
         condition: service_healthy

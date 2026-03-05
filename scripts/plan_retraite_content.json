@@ -1,0 +1,205 @@
+{
+    "path": "retraite/plan-retraite",
+    "title": "Plans de retraite PER, PERP, PERCO",
+    "published": true,
+    "content": {
+        "seo": {
+            "metaTitle": "Plan d'Épargne Retraite | Azalée Patrimoine",
+            "metaDescription": "Découvrez les solutions d'épargne retraite PER, PERP, PERCO, Madelin, Préfon adaptées à votre statut et optimisez votre préparation à la retraite."
+        },
+        "hero": {
+            "title": "Plan d'Épargne Retraite : PER, PERP, PERCO, Madelin, Préfon - quel dispositif choisir selon votre profil ?",
+            "subtitle": "Découvrez les solutions d'épargne retraite adaptées à votre statut et optimisez votre préparation à la retraite.",
+            "breadcrumb": {
+                "parent": "Retraite",
+                "current": "Plans d'épargne retraite"
+            }
+        },
+        "introduction": {
+            "paragraphs": [
+                "Préparer sa retraite, c'est anticiper la baisse de revenus qui survient au moment du départ de la vie active.",
+                "Pour maintenir votre niveau de vie, plusieurs solutions d'épargne retraite existent : le **PER** (Plan d'Épargne Retraite), l'ancien **PERP**, le **PERCO** d'entreprise, le contrat **Madelin** pour les indépendants, ou encore **Préfon Retraite** pour les fonctionnaires.",
+                "Ces solutions vous permettent de transformer votre épargne en revenus durables à la retraite."
+            ],
+            "highlight": "Chez **Azalée Patrimoine**, nous vous accompagnons dans le choix du dispositif le plus adapté selon votre statut (salarié, indépendant, fonctionnaire, militaire, dirigeant) pour une retraite sereine et fiscalement optimisée."
+        },
+        "differencesSection": {
+            "title": "PER, PERP, PERCO, Madelin, Préfon : comprendre les différences",
+            "subtitle": "Découvrez les caractéristiques de chaque dispositif pour faire le meilleur choix selon votre profil",
+            "per": {
+                "title": "Le PER : le nouveau standard de l'épargne retraite",
+                "description": "Depuis la loi PACTE, le **PER** (Plan d'Épargne Retraite) remplace progressivement les anciens dispositifs comme le PERP, le PERCO et le contrat Madelin (Article 83).\n\nLe PER offre une grande flexibilité : versements volontaires, transfert des anciens contrats, sortie en capital ou en rente.",
+                "advantagesTitle": "Ses principaux avantages :",
+                "advantages": [
+                    "Déduction fiscale sur les versements ;",
+                    "Choix entre gestion pilotée ou libre ;",
+                    "Possibilité de sortie 100% en capital ;",
+                    "Clause bénéficiaire souple en cas de décès ;",
+                    "Intégration dans votre stratégie de revenus complémentaires à la retraite."
+                ],
+                "conclusion": "Le PER est aujourd'hui le produit privilégié des cadres et dirigeants pour préparer une retraite anticipée, sécuriser la transmission et réduire la fiscalité.",
+                "linkText": "En savoir plus sur le PER individuel",
+                "linkUrl": "/retraite/per-perp"
+            },
+            "perpMadelin": {
+                "title": "Le PERP et le contrat Madelin : les anciens dispositifs encore actifs",
+                "description": "Les contrats PERP et Madelin restent valides pour ceux qui les détiennent déjà, mais il est souvent plus avantageux de les transférer vers un PER plus moderne.",
+                "items": [
+                    {
+                        "title": "Le PERP (Plan d'Épargne Retraite Populaire)",
+                        "description": "Permettait de constituer une rente viagère, avec des versements déductibles du revenu imposable."
+                    },
+                    {
+                        "title": "Le contrat Madelin",
+                        "description": "Destiné aux travailleurs indépendants et professions libérales, offrait les mêmes avantages fiscaux mais ne permettait qu'une sortie en rente."
+                    }
+                ],
+                "note": "💡 Aujourd'hui, un transfert vers un PER permet plus de flexibilité et un meilleur rendement sur la durée."
+            },
+            "perco": {
+                "title": "Le PERCO et les plans d'épargne entreprise",
+                "description": "Le **PERCO** (remplacé par le **PERECO**) est une solution d'épargne retraite d'entreprise qui permet aux salariés de placer leur participation, leur intéressement ou leurs versements volontaires, souvent abondés par l'employeur.\n\nDes entreprises comme **BNP Paribas Retraite Épargne Entreprise** proposent des formules collectives performantes.",
+                "note": "**Bon à savoir :** La prime de départ à la retraite dans le privé peut être investie sur un PERCO/PERECO pour capitaliser sans fiscalité immédiate."
+            },
+            "prefon": {
+                "title": "La Préfon Retraite : le plan des fonctionnaires",
+                "description": "La **Préfon Retraite** est un plan d'épargne retraite complémentaire destiné aux fonctionnaires et assimilés.",
+                "advantagesTitle": "Ses avantages :",
+                "advantages": [
+                    "Compense les limites du système public, qui peut être moins avantageux pour les carrières hachées ;",
+                    "Les versements sont déductibles du revenu imposable, et la pension complémentaire s'ajoute à la pension principale ;",
+                    "Intéressant pour les profils dont la retraite de la fonction publique ou militaire ne couvre pas le niveau de vie souhaité."
+                ]
+            },
+            "comparisonTable": {
+                "title": "Les plans d'épargne retraite en un coup d'œil",
+                "headers": [
+                    "Dispositif",
+                    "Public",
+                    "Fiscalité",
+                    "Sortie",
+                    "Avantage",
+                    "Statut"
+                ],
+                "rows": [
+                    {
+                        "dispositif": "PER",
+                        "public": "Tous les actifs",
+                        "fiscalite": "Versements déductibles",
+                        "sortie": "Capital, rente ou mixte",
+                        "avantage": "Flexible, transférable",
+                        "statut": "En cours",
+                        "statutColor": "green"
+                    },
+                    {
+                        "dispositif": "PERCO / PERECO",
+                        "public": "Salariés d'entreprise",
+                        "fiscalite": "Exonération",
+                        "sortie": "Capital ou rente",
+                        "avantage": "Abondement employeur",
+                        "statut": "✔ En cours",
+                        "statutColor": "green"
+                    },
+                    {
+                        "dispositif": "Contrat Madelin",
+                        "public": "Indépendants / Libéraux",
+                        "fiscalite": "Déduction bénéfice",
+                        "sortie": "Rente obligatoire",
+                        "avantage": "Fiscalité attractive",
+                        "statut": "▲ Remplacé",
+                        "statutColor": "orange"
+                    },
+                    {
+                        "dispositif": "PERP",
+                        "public": "Tous les actifs",
+                        "fiscalite": "Déduction revenu",
+                        "sortie": "Rente (20% cap.)",
+                        "avantage": "Sécurité long terme",
+                        "statut": "▲ Remplacé",
+                        "statutColor": "orange"
+                    },
+                    {
+                        "dispositif": "Préfon Retraite",
+                        "public": "Fonctionnaires",
+                        "fiscalite": "Déduction revenu",
+                        "sortie": "Rente viagère",
+                        "avantage": "Pension compl. publique",
+                        "statut": "✔ En cours",
+                        "statutColor": "green"
+                    }
+                ]
+            }
+        },
+        "careerSection": {
+            "title": "Reconstituer sa carrière et anticiper le montant de sa retraite",
+            "intro": "Avant de choisir un plan, il est essentiel de connaître vos droits et d'anticiper le montant de votre retraite.",
+            "steps": [
+                {
+                    "title": "Consulter vos relevés",
+                    "description": "Vérifier vos trimestres validés sur vos relevés de carrière retraite"
+                },
+                {
+                    "title": "Identifier les années incomplètes",
+                    "description": "Repérer les années incomplètes (congé parental, chômage, invalidité, temps partiel)"
+                },
+                {
+                    "title": "Estimer votre retraite",
+                    "description": "Estimer le montant minimum de retraite, incluant la prime ARRCO pour les salariés du privé"
+                }
+            ],
+            "audit": {
+                "title": "Un audit retraite Azalée",
+                "description": "Cet audit vous permet de calculer votre future pension, d'estimer le taux de CSG retraite 2025, et de définir le capital nécessaire pour combler l'éventuel écart."
+            }
+        },
+        "situationsSection": {
+            "title": "Et pour les situations spécifiques : chômage, départ ou réversion",
+            "items": [
+                {
+                    "title": "Chômage et cotisations retraite",
+                    "content": "Les périodes de chômage indemnisé peuvent valider des trimestres, mais sans cotisations complémentaires.\n\nL'intérêt d'un **PER individuel** pour continuer à capitaliser."
+                },
+                {
+                    "title": "Retraite et prime de départ",
+                    "content": "La prime de départ à la retraite ou prime de retraite dans le privé peut être partiellement exonérée ou versée sur un plan d'épargne retraite pour différer la fiscalité."
+                },
+                {
+                    "title": "Fonctionnaire et réversion",
+                    "content": "La pension de réversion dans le public ne compense pas toujours les écarts de revenus.\n\nL'importance d'un **plan retraite individuel** pour le conjoint."
+                }
+            ]
+        },
+        "accompagnementSection": {
+            "title": "L'accompagnement Azalée Patrimoine",
+            "intro": "Avec plus de 20 ans d'expertise, Azalée Patrimoine accompagne :",
+            "cards": [
+                {
+                    "title": "Salariés du privé",
+                    "description": "Pour optimiser leur prime de départ à la retraite"
+                },
+                {
+                    "title": "Indépendants",
+                    "description": "Pour transférer leurs contrats Madelin vers un PER"
+                },
+                {
+                    "title": "Fonctionnaires et militaires",
+                    "description": "Pour compléter leur retraite publique via Préfon Retraite ou un PER individuel"
+                },
+                {
+                    "title": "Dirigeants d'entreprise",
+                    "description": "Pour structurer un plan retraite fiscalement optimisé dans leur holding"
+                }
+            ],
+            "mission": {
+                "title": "Notre mission",
+                "description": "Faire de votre épargne retraite un véritable levier de liberté financière, adapté à votre profil et à votre fiscalité."
+            }
+        },
+        "cta": {
+            "title": "Planifiez votre consultation gratuite avec un conseiller Azalée",
+            "subtitle": "Vous souhaitez savoir quel plan d'épargne retraite correspond à votre profil ?",
+            "buttonText": "Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine",
+            "contact": "contact@azalee-patrimoine.fr"
+        }
+    }
+}

@@ -1,0 +1,421 @@
+{
+  "summary": {
+    "total": 84,
+    "withCMS": 2,
+    "withHardcode": 51,
+    "withBoth": 5,
+    "withoutContent": 26
+  },
+  "hardcoded": [
+    {
+      "path": "equipe/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 11
+    },
+    {
+      "path": "fiscalite/autre-fiscalite/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 222
+    },
+    {
+      "path": "fiscalite/declaration-impots/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 539
+    },
+    {
+      "path": "fiscalite/defiscalisation-cas-specifiques/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 234
+    },
+    {
+      "path": "fiscalite/fiscalite-placements/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 343
+    },
+    {
+      "path": "fiscalite/impot-sur-le-revenu/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 624
+    },
+    {
+      "path": "fiscalite/loi-cosse/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 171
+    },
+    {
+      "path": "fiscalite/loi-denormandie/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 190
+    },
+    {
+      "path": "fiscalite/loi-girardin/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 182
+    },
+    {
+      "path": "fiscalite/loi-malraux/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 189
+    },
+    {
+      "path": "fiscalite/loi-pinel/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 193
+    },
+    {
+      "path": "fiscalite/lois-fiscales/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 482
+    },
+    {
+      "path": "fiscalite/monument-historique/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 192
+    },
+    {
+      "path": "fiscalite/pfu/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 297
+    },
+    {
+      "path": "fiscalite/reductions-impot-deficit-foncier/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 221
+    },
+    {
+      "path": "fiscalite/tmi-prelevements-sociaux/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 204
+    },
+    {
+      "path": "fiscalite/tranches-baremes-plafonds/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 195
+    },
+    {
+      "path": "immobilier/credit-immobilier-ptz/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 430
+    },
+    {
+      "path": "immobilier/faire-construire/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 199
+    },
+    {
+      "path": "immobilier/immeubles-de-rapport/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 178
+    },
+    {
+      "path": "immobilier/immobilier-neuf/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 510
+    },
+    {
+      "path": "immobilier/investissement-immobilier-rentable/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 360
+    },
+    {
+      "path": "immobilier/investissement-locatif/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 220
+    },
+    {
+      "path": "immobilier/lmnp/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 581
+    },
+    {
+      "path": "immobilier/lmnp-2025/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 331
+    },
+    {
+      "path": "immobilier/plus-value-immobiliere/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 207
+    },
+    {
+      "path": "immobilier/robien/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 45
+    },
+    {
+      "path": "immobilier/scellier/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 243
+    },
+    {
+      "path": "immobilier/sci/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 360
+    },
+    {
+      "path": "immobilier/vefa/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 422
+    },
+    {
+      "path": "Investissement-immobilier/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 1654
+    },
+    {
+      "path": "notre-approche/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 148
+    },
+    {
+      "path": "outils/calculs-financiers/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 652
+    },
+    {
+      "path": "outils/simulations-generales/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 277
+    },
+    {
+      "path": "outils-financiers/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 455
+    },
+    {
+      "path": "patrimoine/autre/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 294
+    },
+    {
+      "path": "patrimoine/conseils/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 462
+    },
+    {
+      "path": "patrimoine/donation-gratuite/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 618
+    },
+    {
+      "path": "patrimoine/donation-onereuse/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 460
+    },
+    {
+      "path": "placements/assurance-vie-luxembourg/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 567
+    },
+    {
+      "path": "placements/autres/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 563
+    },
+    {
+      "path": "placements/compte-titres/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 1304
+    },
+    {
+      "path": "placements/livret/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 694
+    },
+    {
+      "path": "placements/produits-structures/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 708
+    },
+    {
+      "path": "qui-sommes-nous/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 11
+    },
+    {
+      "path": "retraite/autre/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 191
+    },
+    {
+      "path": "retraite/plan-retraite/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 503
+    },
+    {
+      "path": "retraite/prevoyance-protection/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 829
+    },
+    {
+      "path": "retraite/rachat-trimestres/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 934
+    },
+    {
+      "path": "retraite/retraite-progressive/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 565
+    },
+    {
+      "path": "retraite/simulation/page.jsx",
+      "hasCMS": false,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 637
+    }
+  ],
+  "withCMS": [
+    {
+      "path": "fiscalite/page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": false,
+      "hasStaticContent": true,
+      "lineCount": 1378
+    },
+    {
+      "path": "placements/page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": false,
+      "hasStaticContent": false,
+      "lineCount": 2315
+    }
+  ],
+  "withBoth": [
+    {
+      "path": "immobilier/page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 2291
+    },
+    {
+      "path": "page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 1365
+    },
+    {
+      "path": "patrimoine/page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 1437
+    },
+    {
+      "path": "placements/assurance-vie/page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": true,
+      "hasStaticContent": false,
+      "lineCount": 590
+    },
+    {
+      "path": "retraite/page.jsx",
+      "hasCMS": true,
+      "hasDefaultContent": true,
+      "hasStaticContent": true,
+      "lineCount": 1893
+    }
+  ]
+}

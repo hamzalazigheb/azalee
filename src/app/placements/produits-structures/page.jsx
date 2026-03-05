@@ -1,14 +1,60 @@
-"use client";
 import React from "react";
-import Header from "../../../components/common/Header";
 import Footer from "../../../components/common/Footer";
 import Link from "next/link";
+import { getPageContent } from '@/lib/cms-server';
 
-export default function ProduitsStructuresPage() {
+export async function generateMetadata() {
+  let content = await getPageContent('placements/produits-structures');
+  
+  // Fallback: Try fetching via API
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/produits-structures`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+  return {
+    title: content?.seo?.metaTitle || "Produits Structurés | Azalée Patrimoine",
+    description: content?.seo?.metaDescription || "Découvrez les produits structurés."
+  };
+}
+
+export default async function ProduitsStructuresPage() {
+  let content = await getPageContent('placements/produits-structures');
+
+  // Fallback: Try fetching via API if direct DB access returns nothing
+  if (!content || Object.keys(content).length === 0) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4028';
+      const res = await fetch(`${apiUrl}/api/cms/pages?path=placements/produits-structures`, { cache: 'no-store' });
+      const json = await res.json();
+      if (json.success && json.data?.content) {
+        content = json.data.content;
+      }
+    } catch (e) {
+      console.error('API fallback failed:', e);
+    }
+  }
+
+  if (!content || Object.keys(content).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#253F60] to-[#B99066]">
+        <div className="text-center text-white p-8">
+          <h1 className="text-4xl font-cairo font-bold mb-4">⚠️ Contenu non disponible</h1>
+          <p className="text-xl mb-6">Cette page n'a pas encore été configurée dans le CMS.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Header />
-      
       {/* Hero Section */}
       <section className="w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -210,7 +256,7 @@ export default function ProduitsStructuresPage() {
                 </div>
               </div>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed mt-4">
-                <span className="font-semibold">👉 Objectif :</span> générer des revenus réguliers avec protection conditionnelle du capital.
+                <span className="font-semibold"> Objectif :</span> générer des revenus réguliers avec protection conditionnelle du capital.
               </p>
             </div>
 
@@ -225,7 +271,7 @@ export default function ProduitsStructuresPage() {
                 <li>Mais un rendement cumulé si la condition est respectée à une date donnée.</li>
               </ul>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                <span className="font-semibold">👉 Objectif :</span> viser un rendement optimisé pour un horizon défini, sans distribution intermédiaire.
+                <span className="font-semibold"> Objectif :</span> viser un rendement optimisé pour un horizon défini, sans distribution intermédiaire.
               </p>
             </div>
 
@@ -240,7 +286,7 @@ export default function ProduitsStructuresPage() {
                 <p className="text-[#4B5563] text-sm">Si après 2 ans, l'indice EuroStoxx 50 est supérieur à son niveau initial, le produit est remboursé avec un gain de +12 %.</p>
               </div>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                <span className="font-semibold">👉 Objectif :</span> verrouiller le gain dès qu'une performance cible est atteinte, sans attendre la maturité.
+                <span className="font-semibold"> Objectif :</span> verrouiller le gain dès qu'une performance cible est atteinte, sans attendre la maturité.
               </p>
             </div>
 
@@ -262,7 +308,7 @@ export default function ProduitsStructuresPage() {
                 <li>ou des rendements croissants si les taux montent / baissent selon le scénario.</li>
               </ul>
               <p className="text-[#4B5563] text-base sm:text-lg font-inter leading-relaxed">
-                <span className="font-semibold">👉 Objectif :</span> profiter des cycles de taux d'intérêt sans passer par le marché actions.
+                <span className="font-semibold"> Objectif :</span> profiter des cycles de taux d'intérêt sans passer par le marché actions.
               </p>
             </div>
           </div>
@@ -667,12 +713,12 @@ export default function ProduitsStructuresPage() {
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://calendly.com/contact-azalee-patrimoine"
+              href="https://calendly.com/rdv-azalee-patrimoine/30min"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#253F60] hover:bg-[#1a2d47] text-white px-8 py-4 rounded-lg shadow-lg font-inter font-semibold text-center transition-all duration-300"
             >
-              👉 Prendre rendez-vous avec un conseiller Azalée
+              Planifiez votre consultation gratuite avec un conseiller Azalée
             </a>
             <Link
               href="/placements"
@@ -688,5 +734,3 @@ export default function ProduitsStructuresPage() {
     </>
   );
 }
-
-

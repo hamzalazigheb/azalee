@@ -1,8 +1,8 @@
-"use client";
 import React from "react";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import Link from "next/link";
+import CTAButton from "@/components/ui/CTAButton";
 
 export default function EspaceClientPage() {
 
@@ -31,7 +31,7 @@ export default function EspaceClientPage() {
             {/* Logo AZALEE */}
             <div className="text-center mb-8">
               <img 
-                src="/images/azale-patrimoine1.png" 
+                src="/images/azalee-patrimoine-azale-patrimoine1.webp" 
                 alt="AZALEE Patrimoine" 
                 className="w-32 h-32 mx-auto mb-4"
               />
@@ -45,20 +45,14 @@ export default function EspaceClientPage() {
 
             {/* Formulaire de connexion */}
             <div className="text-center">
-              <button
-                onClick={() => window.open('https://app.wealthcome.fr/login', '_blank')}
+              <CTAButton
+                externalUrl="https://app.wealthcome.fr/login"
                 className="w-full bg-[#253F60] text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-[#1A2A4A] transition-colors duration-200"
               >
                 Connectez-vous
-              </button>
+              </CTAButton>
             </div>
 
-            {/* Liens supplémentaires */}
-            <div className="mt-6 text-center space-y-3">
-              <Link href="#" className="block text-[#253F60] text-sm hover:text-[#1A2A4A] transition-colors">
-                Mot de passe oublié ?
-              </Link>
-            </div>
 
             {/* Informations supplémentaires */}
             <div className="mt-8 p-4 bg-gray-50 rounded-lg">

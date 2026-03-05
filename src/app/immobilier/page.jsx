@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import { processHTMLForRender } from '../../lib/utils/htmlConverter';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
@@ -45,7 +44,13 @@ export default function ImmobilierPage() {
     const fetchContent = async () => {
       try {
         // Fetch content from CMS API
-        const response = await fetch('/api/cms/content?path=immobilier');
+        const response = await fetch(`/api/cms/content?path=immobilier&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           // API returns { success: true, data: page.content }
@@ -71,13 +76,37 @@ export default function ImmobilierPage() {
     };
 
     fetchContent();
+
+    // Set up polling to refresh content every 5 seconds when page is visible
+    const intervalId = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        fetchContent();
+      }
+    }, 5000);
+
+    // Listen for storage events (when CMS saves content, it can trigger a refresh)
+    const handleStorageChange = () => {
+      fetchContent();
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    // Listen for custom event from CMS page (if on same origin)
+    const handleContentUpdate = () => {
+      fetchContent();
+    };
+    window.addEventListener('cmsContentUpdated', handleContentUpdate);
+
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('cmsContentUpdated', handleContentUpdate);
+    };
   }, []);
 
 
   if (loading) {
     return (
       <>
-        <Header />
         <div className="flex items-center justify-center min-h-screen">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#253F60]"></div>
         </div>
@@ -92,33 +121,28 @@ export default function ImmobilierPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-      
       {/* Hero Section */}
       <section className="relative w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
         <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             {/* Left card */}
             <div className="lg:col-span-2 bg-white rounded-lg shadow-lg p-6 sm:p-8 lg:p-10">
-              {/* Contenu */}
-              <div>
-                <h1 className="text-[#112033] text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-4">
-                  {pageContent.hero?.h1 || "Investir dans l'immobilier avec Azalée Patrimoine"}
-                </h1>
-                <p className="text-[#686868] text-base sm:text-lg font-inter leading-relaxed mb-6">
-                  {pageContent.hero?.description || "L'immobilier, pilier de votre indépendance financière et de la transmission familiale. Chez Azalée Patrimoine, nous considérons l'immobilier comme un socle fondamental d'un patrimoine équilibré : tangible, résilient et porteur de sens. Notre rôle est de transformer vos projets immobiliers — qu'ils soient locatifs, neufs ou patrimoniaux — en véritables stratégies d'enrichissement à long terme, intégrant rendement, fiscalité et transmission."}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <button 
-                    onClick={() => window.open(pageContent.hero?.ctaButton1Link || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                    className="inline-flex items-center justify-center bg-[#B99066] text-white px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors"
-                  >
-                    {pageContent.hero?.ctaButton1 || "Demandez votre audit patrimonial personnalisé"}
-                  </button>
-                  <a href={pageContent.hero?.ctaButton2Link || "#pourquoi-investir"} className="inline-flex items-center justify-center bg-transparent border-2 border-[#253F60] text-[#253F60] px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#253F60] hover:text-white transition-colors">
-                    {pageContent.hero?.ctaButton2 || "Découvrir nos solutions"}
-                  </a>
-                </div>
+              <h1 className="text-[#112033] text-3xl sm:text-4xl lg:text-5xl font-cairo font-semibold leading-tight mb-4">
+                {pageContent.hero?.h1 || "Investir dans l'immobilier avec Azalée Patrimoine"}
+              </h1>
+              <p className="text-[#686868] text-base sm:text-lg font-inter leading-relaxed mb-6">
+                {pageContent.hero?.description || "L'immobilier, pilier de votre indépendance financière et de la transmission familiale. Chez Azalée Patrimoine, nous considérons l'immobilier comme un socle fondamental d'un patrimoine équilibré : tangible, résilient et porteur de sens. Notre rôle est de transformer vos projets immobiliers — qu'ils soient locatifs, neufs ou patrimoniaux — en véritables stratégies d'enrichissement à long terme, intégrant rendement, fiscalité et transmission."}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <button 
+                  onClick={() => window.open(pageContent.hero?.ctaButton1Link || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                  className="inline-flex items-center justify-center bg-[#B99066] text-white px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#A67A5A] transition-colors"
+                >
+                  {pageContent.hero?.ctaButton1 || "Demandez votre audit patrimonial personnalisé"}
+                </button>
+                <a href={pageContent.hero?.ctaButton2Link || "#pourquoi-investir"} className="inline-flex items-center justify-center bg-transparent border-2 border-[#253F60] text-[#253F60] px-5 py-3 rounded-lg font-inter font-medium hover:bg-[#253F60] hover:text-white transition-colors">
+                  {pageContent.hero?.ctaButton2 || "Découvrir nos solutions"}
+                </a>
               </div>
             </div>
             
@@ -241,7 +265,24 @@ export default function ImmobilierPage() {
             {/* Mention SCPI */}
             {pageContent.section2?.scpiMention && (
               <div className="bg-gradient-to-r from-[#F9FAFB] to-white rounded-xl p-8 border-2 border-[#E5E7EB] mt-10">
-                <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-center" dangerouslySetInnerHTML={{ __html: processHTMLForRender(`"${pageContent.section2.scpiMention}"`) }} />
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 mt-1">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id="azaleeGradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#253F60" />
+                          <stop offset="100%" stopColor="#B99066" />
+                        </linearGradient>
+                      </defs>
+                      {/* Document avec pointeur */}
+                      <rect x="5" y="3" width="14" height="18" rx="1.5" fill="url(#azaleeGradient5)" stroke="url(#azaleeGradient5)" strokeWidth="1.5"/>
+                      <path d="M8 7h8M8 10h8M8 13h6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                      <path d="M11.5 20L8 24H15L11.5 20Z" fill="url(#azaleeGradient5)"/>
+                      <path d="M11.5 20L8 24H15L11.5 20Z" stroke="url(#azaleeGradient5)" strokeWidth="1.5" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-left flex-1" dangerouslySetInnerHTML={{ __html: processHTMLForRender(`"${pageContent.section2.scpiMention}"`) }} />
+                </div>
               </div>
             )}
 
@@ -256,10 +297,9 @@ export default function ImmobilierPage() {
                         <stop offset="100%" stopColor="#B99066" />
                       </linearGradient>
                     </defs>
-                    <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2-2V4h16v12z" fill="url(#azaleeGradient)"/>
-                    <circle cx="9" cy="10" r="1" fill="white"/>
-                    <circle cx="12" cy="10" r="1" fill="white"/>
-                    <circle cx="15" cy="10" r="1" fill="white"/>
+                    {/* Bulle de chat avec pointeur */}
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="url(#azaleeGradient)" stroke="url(#azaleeGradient)" strokeWidth="1.5"/>
+                    <path d="M10 20L8 24h4l-2-4z" fill="url(#azaleeGradient)"/>
                   </svg>
                 </div>
                 <p className="text-lg sm:text-xl lg:text-2xl font-inter text-[#253F60] leading-relaxed font-medium text-left" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section2?.azaleeMessage || "Chez Azalée Patrimoine, nous intégrons chaque actif immobilier dans une vision globale — financière, fiscale et humaine — pour bâtir la liberté patrimoniale de demain.") }} />
@@ -757,9 +797,24 @@ export default function ImmobilierPage() {
 
           {/* Message de conclusion */}
           <div className="text-center mt-12 max-w-3xl mx-auto">
-            <p className="text-lg sm:text-xl font-inter text-[#253F60] leading-relaxed font-medium">
-              💬 Azalée vous aide à définir la bonne combinaison selon votre horizon, votre fiscalité et votre appétence au risque.
-            </p>
+            <div className="inline-flex items-start gap-3">
+              <div className="flex-shrink-0 mt-1">
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="azaleeGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#253F60" />
+                      <stop offset="100%" stopColor="#B99066" />
+                    </linearGradient>
+                  </defs>
+                  {/* Bulle de chat avec pointeur */}
+                  <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="url(#azaleeGradient2)" stroke="url(#azaleeGradient2)" strokeWidth="1.5"/>
+                  <path d="M10 20L8 24h4l-2-4z" fill="url(#azaleeGradient2)"/>
+                </svg>
+              </div>
+              <p className="text-lg sm:text-xl font-inter text-[#253F60] leading-relaxed font-medium text-left">
+                Azalée vous aide à définir la bonne combinaison selon votre horizon, votre fiscalité et votre appétence au risque.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -819,9 +874,26 @@ export default function ImmobilierPage() {
 
                 {/* Citation */}
                 <div className="bg-gradient-to-r from-[#253F60] to-[#2d4a6b] rounded-xl p-6 sm:p-8 text-white shadow-xl mt-6">
-                  <p className="text-lg sm:text-xl font-inter italic leading-relaxed text-center">
-                    💬 "L'argent de la banque travaille pour vous : c'est la <strong className="text-[#B99066] font-semibold not-italic">magie du levier patrimonial</strong>."
-                  </p>
+                  <div className="flex items-start gap-3 justify-center">
+                    <div className="flex-shrink-0 mt-1">
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <linearGradient id="azaleeGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#B99066" />
+                            <stop offset="100%" stopColor="#A67A5A" />
+                          </linearGradient>
+                        </defs>
+                        {/* Document avec pointeur */}
+                        <rect x="5" y="3" width="14" height="18" rx="1.5" fill="url(#azaleeGradient3)" stroke="url(#azaleeGradient3)" strokeWidth="1.5"/>
+                        <path d="M8 7h8M8 10h8M8 13h6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                        <path d="M11.5 20L8 24H15L11.5 20Z" fill="url(#azaleeGradient3)"/>
+                        <path d="M11.5 20L8 24H15L11.5 20Z" stroke="url(#azaleeGradient3)" strokeWidth="1.5" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <p className="text-lg sm:text-xl font-inter italic leading-relaxed text-left flex-1">
+                      "L'argent de la banque travaille pour vous : c'est la <strong className="text-[#B99066] font-semibold not-italic">magie du levier patrimonial</strong>."
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -829,7 +901,7 @@ export default function ImmobilierPage() {
               <div className="relative">
                 <div className="bg-gradient-to-br from-[#F9FAFB] to-white rounded-xl p-4 sm:p-6 border-2 border-[#E5E7EB] shadow-xl overflow-hidden">
                   <img 
-                    src="/images/signat.png" 
+                    src="/images/azalee-patrimoine-signat.webp" 
                     alt="Main signant un dossier de prêt" 
                     className="w-full h-auto rounded-lg object-cover"
                   />
@@ -846,7 +918,7 @@ export default function ImmobilierPage() {
                 }}
                 className="bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
-                👉 Simuler mon financement immobilier
+                Simuler mon financement immobilier
               </button>
             </div>
           </div>
@@ -945,17 +1017,13 @@ export default function ImmobilierPage() {
             </div>
 
             {/* Loi de finance 2026 */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#2d4a6b] rounded-xl p-8 sm:p-10 text-white shadow-xl mt-10">
-              <h3 className="text-xl sm:text-2xl font-cairo font-bold mb-4">
-                🔮 Perspective 2026
-              </h3>
-              <p className="text-lg sm:text-xl font-inter leading-relaxed mb-4">
-                Sur 2025, on observe une légère reprise grâce à l'inflexion des taux d'intérêt, mais la <strong className="text-[#B99066] font-semibold">prochaine loi de finance (2026)</strong> risque de mettre un coup d'arrêt à la dynamique d'investissement qui s'était relancée.
-              </p>
-              <p className="text-lg sm:text-xl font-inter leading-relaxed">
-                En effet, la <strong className="text-[#B99066] font-semibold">suppression de l'amortissement sur les meublés</strong> va impacter à nouveau le choix des investisseurs. L'objectif est de redonner un peu de souffle à la location nue qui devrait bénéficier d'un meilleur abattement.
-              </p>
-            </div>
+            {pageContent.section8?.perspective2026 && (
+              <div className="bg-gradient-to-br from-[#253F60] to-[#2d4a6b] rounded-xl p-8 sm:p-10 text-white shadow-xl mt-10">
+                <h3 className="text-xl sm:text-2xl font-cairo font-bold mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section8.perspective2026.title || "Perspective 2026") }} />
+                <p className="text-lg sm:text-xl font-inter leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section8.perspective2026.paragraph1 || "Sur 2025, on observe une légère reprise grâce à l'inflexion des taux d'intérêt, mais la <strong className=\"text-[#B99066] font-semibold\">prochaine loi de finance (2026)</strong> risque de mettre un coup d'arrêt à la dynamique d'investissement qui s'était relancée.") }} />
+                <p className="text-lg sm:text-xl font-inter leading-relaxed" dangerouslySetInnerHTML={{ __html: processHTMLForRender(pageContent.section8.perspective2026.paragraph2 || "En effet, la <strong className=\"text-[#B99066] font-semibold\">suppression de l'amortissement sur les meublés</strong> va impacter à nouveau le choix des investisseurs. L'objectif est de redonner un peu de souffle à la location nue qui devrait bénéficier d'un meilleur abattement.") }} />
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -1049,9 +1117,26 @@ export default function ImmobilierPage() {
 
             {/* Citation */}
             <div className="mt-10 bg-gradient-to-r from-[#F9FAFB] to-white rounded-xl p-8 border-l-4 border-[#B99066] shadow-md">
-              <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-center">
-                💬 "Ces solutions permettent de profiter de la <strong className="text-[#253F60] font-semibold not-italic">solidité du marché immobilier</strong> sans contraintes de gestion."
-              </p>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-1">
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="azaleeGradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#253F60" />
+                        <stop offset="100%" stopColor="#B99066" />
+                      </linearGradient>
+                    </defs>
+                    {/* Document avec pointeur */}
+                    <rect x="5" y="3" width="14" height="18" rx="1.5" fill="url(#azaleeGradient4)" stroke="url(#azaleeGradient4)" strokeWidth="1.5"/>
+                    <path d="M8 7h8M8 10h8M8 13h6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M11.5 20L8 24H15L11.5 20Z" fill="url(#azaleeGradient4)"/>
+                    <path d="M11.5 20L8 24H15L11.5 20Z" stroke="url(#azaleeGradient4)" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <p className="text-lg sm:text-xl font-inter text-[#374151] leading-relaxed italic text-left flex-1">
+                  "Ces solutions permettent de profiter de la <strong className="text-[#253F60] font-semibold not-italic">solidité du marché immobilier</strong> sans contraintes de gestion."
+                </p>
+              </div>
             </div>
 
             {/* Zone pour infographie */}
@@ -1197,202 +1282,85 @@ export default function ImmobilierPage() {
 
 
       {/* Section 10 : Avis et retours d'expérience */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-[#F9FAFB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-6">
-              Avis et retours d'expérience
-            </h2>
-          </div>
+      {pageContent.section10 && (
+        <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-[#F9FAFB]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-6">
+                {pageContent.section10.h2 || "Avis et retours d'expérience"}
+              </h2>
+            </div>
 
-          <div className="max-w-5xl mx-auto">
-            {/* Témoignages */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              {/* Témoignage 1 - Julien R. */}
-              <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border-2 border-[#E5E7EB] hover:shadow-xl hover:border-[#B99066] transition-all duration-300">
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.602-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                    </svg>
+            <div className="max-w-5xl mx-auto">
+              {/* Témoignages */}
+              {pageContent.section10.testimonials && Array.isArray(pageContent.section10.testimonials) && pageContent.section10.testimonials.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  {pageContent.section10.testimonials.map((testimonial, index) => (
+                    <div key={index} className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border-2 border-[#E5E7EB] hover:shadow-xl hover:border-[#B99066] transition-all duration-300">
+                      <div className="mb-6">
+                        <div className="flex items-center gap-2 mb-4">
+                          {[...Array(testimonial.rating || 5)].map((_, i) => (
+                            <svg key={i} className="w-5 h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M9.049 2.927c.3-.921 1.602-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <p className="text-base sm:text-lg font-inter text-[#374151] leading-relaxed italic mb-6" dangerouslySetInnerHTML={{ __html: processHTMLForRender(testimonial.text || '') }} />
+                      </div>
+                      <div className="border-t border-[#E5E7EB] pt-4">
+                        <p className="font-cairo font-bold text-[#253F60] text-lg">
+                          — {testimonial.name || ''}
+                        </p>
+                        <p className="font-inter text-[#6B7280] text-sm sm:text-base">
+                          {testimonial.role || ''}
+                        </p>
+                      </div>
+                    </div>
                   ))}
                 </div>
-                  <p className="text-base sm:text-lg font-inter text-[#374151] leading-relaxed italic mb-6">
-                    "J'ai investi avec Azalée dans une SCPI Comète : <strong className="text-[#253F60] font-semibold not-italic">transparence, rendement au rendez-vous</strong>, et un accompagnement complet sur la fiscalité."
-                  </p>
-              </div>
-                <div className="border-t border-[#E5E7EB] pt-4">
-                  <p className="font-cairo font-bold text-[#253F60] text-lg">
-                    — Julien R.
-                  </p>
-                  <p className="font-inter text-[#6B7280] text-sm sm:text-base">
-                    42 ans, dirigeant à Nantes
-                  </p>
-                </div>
-              </div>
+              )}
 
-              {/* Témoignage 2 - Isabelle L. */}
-              <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border-2 border-[#E5E7EB] hover:shadow-xl hover:border-[#B99066] transition-all duration-300">
-                <div className="mb-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.602-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
+              {/* Note moyenne */}
+              {pageContent.section10.averageRating && (
+                <div className="bg-gradient-to-br from-[#253F60] to-[#2d4a6b] rounded-xl p-8 sm:p-10 text-white shadow-xl text-center mb-10">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <span className="text-4xl sm:text-5xl font-cairo font-bold text-[#B99066]">{pageContent.section10.averageRating.value || "4,9"}</span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-2xl sm:text-3xl">/</span>
+                      <span className="text-2xl sm:text-3xl">{pageContent.section10.averageRating.max || "5"}</span>
+                    </div>
                   </div>
-                  <p className="text-base sm:text-lg font-inter text-[#374151] leading-relaxed italic mb-6">
-                    "J'étais hésitante à cause des frais d'entrée, mais l'équipe m'a montré la <strong className="text-[#253F60] font-semibold not-italic">rentabilité réelle nette d'impôt</strong> : convaincue !"
+                  <p className="text-lg sm:text-xl font-inter font-semibold mb-2">
+                    {pageContent.section10.averageRating.label || "Note moyenne"}
                   </p>
+                  <p className="text-sm sm:text-base font-inter text-white/80">
+                    {pageContent.section10.averageRating.source || "(avis clients Azalée)"}
+                  </p>
+                  <div className="flex justify-center gap-1 mt-4">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-6 h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.602-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
                 </div>
-                <div className="border-t border-[#E5E7EB] pt-4">
-                  <p className="font-cairo font-bold text-[#253F60] text-lg">
-                    — Isabelle L.
-                  </p>
-                  <p className="font-inter text-[#6B7280] text-sm sm:text-base">
-                    Cadre supérieure à Paris
-                  </p>
-                </div>
-              </div>
-            </div>
+              )}
 
-            {/* Note moyenne */}
-            <div className="bg-gradient-to-br from-[#253F60] to-[#2d4a6b] rounded-xl p-8 sm:p-10 text-white shadow-xl text-center mb-10">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="text-4xl sm:text-5xl font-cairo font-bold text-[#B99066]">4,9</span>
-                <div className="flex items-center gap-1">
-                  <span className="text-2xl sm:text-3xl">/</span>
-                  <span className="text-2xl sm:text-3xl">5</span>
+              {/* CTA */}
+              {pageContent.section10.ctaButton && (
+                <div className="text-center">
+                  <button 
+                    onClick={() => window.open(pageContent.section10.ctaLink || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
+                    className="bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+                  >
+                    {pageContent.section10.ctaButton || "Demandez un comparatif SCPI personnalisé"}
+                  </button>
                 </div>
-              </div>
-              <p className="text-lg sm:text-xl font-inter font-semibold mb-2">
-                Note moyenne
-              </p>
-              <p className="text-sm sm:text-base font-inter text-white/80">
-                (avis clients Azalée)
-              </p>
-              <div className="flex justify-center gap-1 mt-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-6 h-6 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.602-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center">
-              <button 
-                onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
-                className="bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-              >
-                👉 Demandez un comparatif SCPI personnalisé
-              </button>
+              )}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Section 11 : Guides et simulateurs */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-6">
-              Guides et simulateurs
-            </h2>
-            <p className="text-lg sm:text-xl font-inter text-[#374151] max-w-3xl mx-auto leading-relaxed">
-              🎁 Téléchargez gratuitement nos ressources exclusives
-            </p>
-          </div>
-
-          <div className="max-w-5xl mx-auto">
-            {/* Introduction */}
-            <div className="text-center mb-10">
-              <p className="text-base sm:text-lg font-inter text-[#374151] leading-relaxed">
-                Tous nos outils sont conçus pour vous aider à prendre des <strong className="text-[#253F60] font-semibold">décisions éclairées</strong>, fondées sur des données réelles.
-              </p>
-            </div>
-
-            {/* Grille des ressources */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              {/* Guide SCPI 2025 */}
-              <div className="bg-gradient-to-br from-white to-[#F9FAFB] rounded-xl p-6 sm:p-8 border-2 border-[#E5E7EB] shadow-lg hover:shadow-xl hover:border-[#B99066] transition-all duration-300 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                </div>
-                <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-3">
-                  Guide SCPI 2025
-                </h3>
-                <p className="text-base font-inter text-[#374151] leading-relaxed mb-6">
-                  Comprendre, comparer, investir intelligemment
-                </p>
-                <a 
-                  href="/outils-financiers/guide-defiscalisation"
-                  className="w-full bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold py-3 px-6 rounded-lg transition-all duration-300 text-center block"
-                >
-                  Télécharger
-                </a>
-              </div>
-
-              {/* Simulateur de rentabilité */}
-              <div className="bg-gradient-to-br from-white to-[#F9FAFB] rounded-xl p-6 sm:p-8 border-2 border-[#E5E7EB] shadow-lg hover:shadow-xl hover:border-[#B99066] transition-all duration-300 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                </div>
-                <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-3">
-                  Simulateur de rentabilité immobilière
-                </h3>
-                <p className="text-base font-inter text-[#374151] leading-relaxed mb-6">
-                  Calculez votre rendement locatif en quelques clics
-                </p>
-                <button 
-                  onClick={() => {
-                    // TODO: Lien vers simulateur
-                    window.open('/outils', '_blank');
-                  }}
-                  className="w-full bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold py-3 px-6 rounded-lg transition-all duration-300"
-                >
-                  Utiliser le simulateur
-                </button>
-              </div>
-
-              {/* Quiz */}
-              <div className="bg-gradient-to-br from-white to-[#F9FAFB] rounded-xl p-6 sm:p-8 border-2 border-[#E5E7EB] shadow-lg hover:shadow-xl hover:border-[#B99066] transition-all duration-300 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                </div>
-                <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-3">
-                  Quiz personnalisé
-                </h3>
-                <p className="text-base font-inter text-[#374151] leading-relaxed mb-6">
-                  Quel type d'investissement immobilier est fait pour vous ?
-                </p>
-                <button 
-                  onClick={() => {
-                    // TODO: Lien vers questionnaire Tally
-                    window.open('https://tally.so', '_blank');
-                  }}
-                  className="w-full bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold py-3 px-6 rounded-lg transition-all duration-300"
-                >
-                  Faire le quiz
-                </button>
-              </div>
-            </div>
-
-            {/* CTA principal */}
-            <div className="text-center">
-              <button 
-                onClick={() => {
-                  // TODO: Lien vers page outils
-                  window.open('/outils', '_blank');
-                }}
-                className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-              >
-                👉 Accéder à nos outils immobiliers
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
+        </section>
+      )}
 
       {/* Section 13 : Les trois leviers de la stratégie immobilière Azalée */}
       <section className="py-16 sm:py-20 lg:py-24 bg-white">
@@ -1402,7 +1370,7 @@ export default function ImmobilierPage() {
               Les trois leviers de la stratégie immobilière Azalée
             </h2>
             <p className="text-lg sm:text-xl font-inter text-[#374151] max-w-3xl mx-auto leading-relaxed">
-              🎯 Chaque levier répond à un besoin précis : créer du capital, réduire la fiscalité ou protéger son patrimoine familial.
+              Chaque levier répond à un besoin précis : créer du capital, réduire la fiscalité ou protéger son patrimoine familial.
             </p>
           </div>
 
@@ -1412,7 +1380,7 @@ export default function ImmobilierPage() {
               <div className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 cursor-pointer">
                 <a href="/immobilier/immobilier-neuf" className="block">
                   <div className="relative h-48 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/construction-building.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 to-[#B99066]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
@@ -1437,7 +1405,7 @@ export default function ImmobilierPage() {
               <div className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 cursor-pointer">
                 <a href="/immobilier/investissement-locatif" className="block">
                   <div className="relative h-48 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/apartment-keys.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
@@ -1462,7 +1430,7 @@ export default function ImmobilierPage() {
               <div className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300 cursor-pointer">
                 <a href="/immobilier/sci" className="block">
                   <div className="relative h-48 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/family-house.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 via-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
@@ -1713,7 +1681,7 @@ export default function ImmobilierPage() {
               {/* Immobilier neuf & VEFA */}
               <a href="/immobilier/immobilier-neuf" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                 <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/construction-site.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 to-[#B99066]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1734,7 +1702,7 @@ export default function ImmobilierPage() {
               {/* Investissement locatif & LMNP */}
               <a href="/immobilier/investissement-locatif" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                 <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/modern-apartment.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1755,7 +1723,7 @@ export default function ImmobilierPage() {
               {/* SCI & transmission patrimoniale */}
               <a href="/immobilier/sci" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                 <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/notary-signing.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 via-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1780,7 +1748,7 @@ export default function ImmobilierPage() {
                 {/* Crédit immobilier & PTZ */}
                 <a href="/immobilier/credit-immobilier-ptz" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                   <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/mortgage-documents.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#253F60]/5 to-[#B99066]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1801,7 +1769,7 @@ export default function ImmobilierPage() {
                 {/* Immeubles de rapport & plus-value */}
                 <a href="/immobilier/immeubles-de-rapport" className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300">
                   <div className="relative h-40 bg-gradient-to-br from-[#F9FAFB] to-white overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/images/paris-building-facade.jpg')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/5 to-[#253F60]/5 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-cairo font-bold text-[#253F60] mb-2 group-hover:text-[#B99066] transition-colors duration-300">
@@ -1832,7 +1800,7 @@ export default function ImmobilierPage() {
               Ressources gratuites pour aller plus loin
             </h2>
             <p className="text-lg sm:text-xl font-inter text-[#374151] max-w-3xl mx-auto leading-relaxed">
-              🎁 Téléchargez votre guide exclusif
+              Téléchargez votre guide exclusif
             </p>
           </div>
 
@@ -1841,7 +1809,6 @@ export default function ImmobilierPage() {
             <div className="space-y-6 mb-10">
               <div className="bg-gradient-to-r from-[#F9FAFB] to-white rounded-xl p-6 border-l-4 border-[#B99066] shadow-md">
                 <div className="flex items-start gap-4">
-                  <span className="text-3xl">📘</span>
                   <div>
                     <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-2">
                       Les 7 stratégies immobilières pour faire fructifier votre patrimoine
@@ -1892,7 +1859,7 @@ export default function ImmobilierPage() {
                 onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                 className="bg-[#B99066] hover:bg-[#A67A5A] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
-                Prendre rendez-vous
+                Planifiez votre consultation gratuite
               </button>
             </div>
           </div>
@@ -2059,7 +2026,7 @@ export default function ImmobilierPage() {
                     Comme tout placement, les SCPI comportent des risques : la valeur des parts peut fluctuer, les loyers ne sont pas garantis, et la liquidité peut être limitée en cas de forte demande de revente.
                   </p>
                   <p className="text-base sm:text-lg font-inter text-[#253F60] font-semibold">
-                    👉 C'est pourquoi Azalée Patrimoine sélectionne des SCPI solides, diversifiées et bien capitalisées.
+                    C'est pourquoi Azalée Patrimoine sélectionne des SCPI solides, diversifiées et bien capitalisées.
                   </p>
                 </div>
               )}
@@ -2091,9 +2058,9 @@ export default function ImmobilierPage() {
                     Tout dépend de vos objectifs :
                   </p>
                   <ul className="space-y-2 text-base sm:text-lg font-inter text-[#374151]">
-                    <li>• <strong className="text-[#253F60] font-semibold">Réduire vos impôts</strong> 👉 LMNP ou Pinel</li>
-                    <li>• <strong className="text-[#253F60] font-semibold">Générer un revenu complémentaire</strong> 👉 SCPI de rendement</li>
-                    <li>• <strong className="text-[#253F60] font-semibold">Transmettre un bien</strong> 👉 SCI ou démembrement</li>
+                    <li>• <strong className="text-[#253F60] font-semibold">Réduire vos impôts</strong> : LMNP ou Pinel</li>
+                    <li>• <strong className="text-[#253F60] font-semibold">Générer un revenu complémentaire</strong> : SCPI de rendement</li>
+                    <li>• <strong className="text-[#253F60] font-semibold">Transmettre un bien</strong> : SCI ou démembrement</li>
                   </ul>
                   <p className="text-base sm:text-lg font-inter text-[#374151] leading-relaxed mt-4">
                     Nos conseillers peuvent modéliser votre situation et définir la stratégie la plus pertinente.
@@ -2228,7 +2195,7 @@ export default function ImmobilierPage() {
               onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
               className="bg-[#253F60] hover:bg-[#1a2d47] text-white font-inter font-semibold text-lg px-10 py-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
             >
-              Prenez rendez-vous avec un conseiller Azalée Patrimoine pour un audit personnalisé
+              Planifiez votre consultation gratuite avec un conseiller Azalée
             </button>
           </div>
         </div>
@@ -2253,7 +2220,7 @@ export default function ImmobilierPage() {
               className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300"
             >
               <div className="relative h-48 bg-gradient-to-br from-[#253F60] to-[#2d4a6b] overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/investment-chart.jpg')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                 <div className="absolute top-4 left-4 bg-[#B99066] text-white px-3 py-1 rounded-full text-sm font-inter font-semibold">
                   Guide complet
                 </div>
@@ -2280,7 +2247,7 @@ export default function ImmobilierPage() {
               className="group bg-white rounded-xl shadow-lg border-2 border-[#E5E7EB] overflow-hidden hover:shadow-2xl hover:border-[#B99066] transition-all duration-300"
             >
               <div className="relative h-48 bg-gradient-to-br from-[#253F60] to-[#B99066] overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/images/furnished-apartment.jpg')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#B99066]/10 to-[#253F60]/10 opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
                 <div className="absolute top-4 left-4 bg-[#253F60] text-white px-3 py-1 rounded-full text-sm font-inter font-semibold">
                   Analyse 2025
                 </div>

@@ -3,9 +3,12 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import Button from '../components/ui/Button';
+import CTAButton from '../components/ui/CTAButton';
 import Slider from '../components/ui/Slider';
 import PagerIndicator from '../components/ui/PagerIndicator';
 import ExpandableList from '../components/ui/ExpandableList';
+import NewsletterForm from '../components/common/NewsletterForm';
+import { getImagePath, getApiPath } from '@/lib/paths';
 
 const LOCAL_STORAGE_KEY = 'homepageContent';
 
@@ -13,40 +16,39 @@ const LOCAL_STORAGE_KEY = 'homepageContent';
 const HeroCarousel = ({ content }) => {
   const [currentBgIndex, setCurrentBgIndex] = React.useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = React.useState(true);
-  
+
   // Auto-play functionality for hero backgrounds
   React.useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       setCurrentBgIndex((prevIndex) => (prevIndex + 1) % (content.heroBackgrounds?.length || 1));
     }, 6000); // Change every 6 seconds
-    
+
     return () => clearInterval(interval);
   }, [isAutoPlaying, content.heroBackgrounds?.length]);
-  
+
   // Handle manual navigation
   const goToSlide = (index) => {
     setCurrentBgIndex(index);
     setIsAutoPlaying(false);
-    
+
     // Resume auto-play after 5 seconds
     setTimeout(() => setIsAutoPlaying(true), 5000);
   };
-  
+
   return (
     <section className="relative w-full min-h-[500px] sm:min-h-[600px] py-8 sm:py-12 lg:py-20">
       {/* Dynamic Background Images */}
       <div className="absolute inset-0 overflow-hidden">
-            {((content.hero?.heroBackgrounds || content.heroBackgrounds) || []).map((bg, index) => (
+        {((content.hero?.heroBackgrounds || content.heroBackgrounds) || []).map((bg, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentBgIndex ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentBgIndex ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             <img
-              src={bg}
+              src={getImagePath(bg)}
               alt={`Hero background ${index + 1}`}
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -58,10 +60,10 @@ const HeroCarousel = ({ content }) => {
           </div>
         ))}
       </div>
-      
+
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#253F60]/80 via-[#253F60]/60 to-transparent"></div>
-      
+
       {/* Content */}
       <div className="relative z-10 max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col items-center lg:items-start justify-center text-center lg:text-left min-h-[500px] sm:min-h-[600px]">
         <div className="max-w-2xl">
@@ -71,22 +73,21 @@ const HeroCarousel = ({ content }) => {
           <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl mb-8 font-inter leading-relaxed">
             {content.hero?.heroSubtitle || content.heroSubtitle}
           </p>
-          <button 
+          <button
             className="bg-[#B99066] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-sm sm:text-base font-semibold uppercase shadow-lg mb-8 hover:bg-[#A67A5A] transition-colors duration-200 w-full sm:w-auto"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => window.open('https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
           >
             {content.hero?.heroButton1 || content.heroButton1}
           </button>
-          
+
           {/* Dynamic Navigation Dots */}
           <div className="flex justify-center lg:justify-start items-center gap-2 mb-4">
             {((content.hero?.heroBackgrounds || content.heroBackgrounds) || []).map((_, i) => (
               <button
                 key={i}
                 onClick={() => goToSlide(i)}
-                className={`w-3 h-3 rounded-full border-2 border-white transition-all duration-300 ${
-                  i === currentBgIndex ? 'bg-[#B99066] scale-125' : 'bg-transparent hover:bg-white/50'
-                }`}
+                className={`w-3 h-3 rounded-full border-2 border-white transition-all duration-300 ${i === currentBgIndex ? 'bg-[#B99066] scale-125' : 'bg-transparent hover:bg-white/50'
+                  }`}
               />
             ))}
           </div>
@@ -101,191 +102,263 @@ const PartnersCarousel = ({ content }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = React.useState(true);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
-  
+
+  // Debug: Log partners when component receives new content
+  React.useEffect(() => {
+    console.log('🔄 PartnersCarousel - Content received:', content);
+    console.log('🔄 PartnersCarousel - Partners array:', content.partners);
+    console.log('🔄 PartnersCarousel - Partners count:', Array.isArray(content.partners) ? content.partners.length : 0);
+  }, [content.partners]);
+
   // Auto-play functionality
   React.useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const partnersCount = Array.isArray(content.partners) ? content.partners.length : 0;
     if (partnersCount === 0) return;
-    
+
     const interval = setInterval(() => {
       if (!isTransitioning) {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % partnersCount);
       }
     }, 5000); // Change every 5 seconds
-    
+
     return () => clearInterval(interval);
   }, [isAutoPlaying, isTransitioning, content.partners]);
-  
+
   // Handle manual navigation
   const goToSlide = (index) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    
+
     setTimeout(() => {
       setIsTransitioning(false);
       setTimeout(() => setIsAutoPlaying(true), 3000); // Resume auto-play after 3 seconds
     }, 500);
   };
-  
+
+  const partnersCount = Array.isArray(content.partners) ? content.partners.length : 0;
+
   const goToPrevious = () => {
-    const newIndex = currentIndex === 0 ? 5 : currentIndex - 1; // Fixed to 6 partners (0-5)
+    if (partnersCount === 0) return;
+    const newIndex = currentIndex === 0 ? partnersCount - 1 : currentIndex - 1;
     goToSlide(newIndex);
   };
-  
+
   const goToNext = () => {
-    const newIndex = (currentIndex + 1) % 6; // Fixed to 6 partners
+    if (partnersCount === 0) return;
+    const newIndex = (currentIndex + 1) % partnersCount;
     goToSlide(newIndex);
   };
-  
+
+  // Helper function to get partner data
+  const getPartnerData = (partner) => {
+    if (typeof partner === 'string') {
+      return { image: partner, url: null };
+    }
+    return {
+      image: partner?.image || partner?.url || '',
+      url: partner?.website || partner?.url || null,
+      name: partner?.name || null
+    };
+  };
+
+  // Handle partner click
+  const handlePartnerClick = (partner) => {
+    const partnerData = getPartnerData(partner);
+    if (partnerData.url) {
+      // Open in new tab
+      window.open(partnerData.url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
-    <section className="w-full py-16 bg-gradient-to-br from-[#F8FAFB] to-[#F1F5F9]">
+    <section className="w-full py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#F8FAFB] via-white to-[#F1F5F9]">
       <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mb-4 rounded-full mx-auto"></div>
-          <h2 className="text-2xl lg:text-3xl font-cairo font-semibold text-[#253F60] mb-2">Nos partenaires de confiance</h2>
-          <p className="text-[#4B5563] font-inter">Des partenaires reconnus pour vous accompagner dans vos projets</p>
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] via-[#253F60] to-[#B99066] mb-6 rounded-full mx-auto"></div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-cairo font-semibold text-[#253F60] mb-3 tracking-tight">Nos partenaires de confiance</h2>
+          <p className="text-base sm:text-lg text-[#4B5563] font-inter max-w-2xl mx-auto">Des partenaires reconnus pour vous accompagner dans vos projets</p>
         </div>
-        
+
         {/* Dynamic Carousel */}
         <div className="relative">
           {/* Top Separator */}
-          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60] to-transparent mb-8"></div>
-          
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60]/30 to-transparent mb-10"></div>
+
           {/* Carousel Container */}
-          <div className="relative overflow-hidden rounded-2xl bg-white/50 backdrop-blur-sm p-8">
+          <div className="relative overflow-hidden rounded-2xl bg-white p-8 sm:p-10 lg:p-12 border border-gray-200">
             {/* Navigation Arrows */}
             <button
               onClick={goToPrevious}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-[#253F60] hover:text-white transition-all duration-300 disabled:opacity-50"
+              className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-[#253F60] hover:scale-110 transition-all duration-300 disabled:opacity-50 group border border-gray-300"
               disabled={isTransitioning}
+              aria-label="Partenaire précédent"
             >
-              <svg className="w-5 h-5 text-[#253F60] hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg className="w-6 h-6 text-[#253F60] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            
+
             <button
               onClick={goToNext}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-[#253F60] hover:text-white transition-all duration-300 disabled:opacity-50"
+              className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-[#253F60] hover:scale-110 transition-all duration-300 disabled:opacity-50 group border border-gray-300"
               disabled={isTransitioning}
+              aria-label="Partenaire suivant"
             >
-              <svg className="w-5 h-5 text-[#253F60] hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg className="w-6 h-6 text-[#253F60] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
             </button>
-            
+
             {/* Single Partner Display */}
             <div className="overflow-hidden">
-              <div 
+              <div
                 className="flex transition-transform duration-1000 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
-                {(Array.isArray(content.partners) ? content.partners : []).map((src, idx) => (
-                  <div 
-                    key={idx} 
-                    className="w-full flex-shrink-0 px-4"
-                  >
-                    <div className="flex justify-center">
-                      <div className="group">
-                        <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 h-[120px] w-[200px] flex items-center justify-center border border-gray-100 hover:border-[#B99066] hover:scale-105 relative">
-                          {src && (src.startsWith('data:image') || src.startsWith('/images/') || src.startsWith('http')) ? (
-                            <img 
-                              src={src} 
-                              alt={`Partenaire ${idx + 1}`} 
-                              className="max-h-[60px] max-w-[160px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" 
-                              onError={(e) => {
-                                console.error('Image failed to load for partner', idx + 1);
-                                console.error('Image type:', src?.startsWith('data:image') ? 'base64' : 'url');
-                                console.error('Image length:', src?.length || 0);
-                                e.target.style.display = 'none';
-                                // Show fallback text
-                                const parent = e.target.parentNode;
-                                if (!parent.querySelector('.error-fallback')) {
-                                  const fallback = document.createElement('div');
-                                  fallback.className = 'error-fallback text-xs text-gray-500 text-center p-2';
-                                  fallback.textContent = `Image ${idx + 1}`;
-                                  parent.appendChild(fallback);
-                                }
-                              }}
-                              onLoad={() => {
-                                console.log('Image loaded successfully for partner', idx + 1);
-                                // Remove any error fallback
-                                const parent = document.querySelector(`[data-partner-index="${idx}"]`);
-                                if (parent) {
-                                  const fallback = parent.querySelector('.error-fallback');
-                                  if (fallback) fallback.remove();
-                                }
-                              }}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          ) : (
-                            <div className="text-xs text-gray-400 text-center p-2">
-                              Image {idx + 1}
-                            </div>
-                          )}
+                {(Array.isArray(content.partners) && content.partners.length > 0 ? content.partners : []).map((partner, idx) => {
+                  const partnerData = getPartnerData(partner);
+                  const partnerSrc = partnerData.image;
+                  const partnerUrl = partnerData.url;
+                  const partnerName = partnerData.name || `Partenaire ${idx + 1}`;
+
+                  return (
+                    <div
+                      key={idx}
+                      className="w-full flex-shrink-0 px-4 sm:px-6"
+                      data-partner-index={idx}
+                    >
+                      <div className="flex justify-center">
+                        <div
+                          className={`${partnerUrl ? 'cursor-pointer group relative' : ''}`}
+                          onClick={() => partnerUrl && handlePartnerClick(partner)}
+                          role={partnerUrl ? 'button' : undefined}
+                          tabIndex={partnerUrl ? 0 : undefined}
+                          onKeyDown={(e) => {
+                            if (partnerUrl && (e.key === 'Enter' || e.key === ' ')) {
+                              e.preventDefault();
+                              handlePartnerClick(partner);
+                            }
+                          }}
+                          aria-label={partnerUrl ? `Visiter le site de ${partnerName}` : undefined}
+                        >
+                          <div className={`p-8 sm:p-10 h-[160px] sm:h-[180px] w-[280px] sm:w-[320px] flex items-center justify-center ${partnerUrl ? 'hover:opacity-80 transition-opacity duration-300' : ''
+                            }`}>
+                            {/* External link icon indicator - seulement si cliquable */}
+                            {partnerUrl && (
+                              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                                <svg className="w-5 h-5 text-[#B99066]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                              </div>
+                            )}
+
+                            {partnerSrc && partnerSrc.trim() !== '' ? (
+                              <img
+                                src={getImagePath(partnerSrc)}
+                                alt={partnerName}
+                                className="max-h-[80px] sm:max-h-[100px] max-w-[240px] sm:max-w-[280px] object-contain"
+                                onError={(e) => {
+                                  console.error('❌ Image failed to load for partner', idx + 1);
+                                  console.error('   Source:', partnerSrc);
+                                  e.target.style.display = 'none';
+                                  // Show fallback text
+                                  const parent = e.target.parentNode;
+                                  if (!parent.querySelector('.error-fallback')) {
+                                    const fallback = document.createElement('div');
+                                    fallback.className = 'error-fallback text-sm text-gray-500 text-center p-2';
+                                    fallback.textContent = partnerName;
+                                    parent.appendChild(fallback);
+                                  }
+                                }}
+                                onLoad={() => {
+                                  console.log('✅ Image loaded successfully for partner', idx + 1);
+                                }}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div className="text-sm text-gray-400 text-center p-2">
+                                {partnerName}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
-          
+
           {/* Progress Bar */}
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <div className="flex-1 max-w-xs">
-              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full transition-all duration-500"
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <div className="flex-1 max-w-md">
+              <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-[#253F60] via-[#B99066] to-[#253F60] rounded-full transition-all duration-500"
                   style={{ width: `${((currentIndex + 1) / (Array.isArray(content.partners) ? content.partners.length : 1)) * 100}%` }}
                 ></div>
               </div>
             </div>
-            <span className="text-sm text-[#253F60] font-inter font-medium">
+            <span className="text-sm sm:text-base text-[#253F60] font-inter font-semibold min-w-[60px] text-center">
               {currentIndex + 1} / {Array.isArray(content.partners) ? content.partners.length : 0}
             </span>
           </div>
-          
+
           {/* Dots Indicator */}
-          <div className="flex justify-center items-center gap-3 mt-6">
+          <div className="flex justify-center items-center gap-3 mt-8">
             {(Array.isArray(content.partners) ? content.partners : []).map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => goToSlide(idx)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  idx === currentIndex 
-                    ? 'bg-[#B99066] scale-125 shadow-lg' 
-                    : 'bg-gray-300 hover:bg-[#253F60]'
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${idx === currentIndex
+                  ? 'bg-[#B99066] scale-125'
+                  : 'bg-gray-300 hover:bg-[#253F60] hover:scale-110'
+                  }`}
                 disabled={isTransitioning}
+                aria-label={`Aller au partenaire ${idx + 1}`}
               />
             ))}
           </div>
-          
+
           {/* Bottom Separator */}
-          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60] to-transparent mt-8"></div>
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#253F60]/30 to-transparent mt-10"></div>
         </div>
-        
+
         {/* Partner Categories */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <h3 className="font-cairo font-semibold text-[#253F60] mb-2">Assurance</h3>
-            <p className="text-sm text-[#4B5563] font-inter">Solutions d'assurance-vie et de capitalisation</p>
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="text-center p-6 rounded-xl bg-white border border-gray-200">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#253F60]/80 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 className="font-cairo font-semibold text-[#253F60] mb-2 text-lg">Assurance</h3>
+            <p className="text-sm text-[#4B5563] font-inter leading-relaxed">Solutions d'assurance-vie et de capitalisation</p>
           </div>
-          <div className="text-center">
-            <h3 className="font-cairo font-semibold text-[#253F60] mb-2">Gestion d'actifs</h3>
-            <p className="text-sm text-[#4B5563] font-inter">Expertise en gestion patrimoniale</p>
+          <div className="text-center p-6 rounded-xl bg-white border border-gray-200">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#B99066] to-[#A67A5A] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 className="font-cairo font-semibold text-[#253F60] mb-2 text-lg">Gestion d'actifs</h3>
+            <p className="text-sm text-[#4B5563] font-inter leading-relaxed">Expertise en gestion patrimoniale</p>
           </div>
-          <div className="text-center">
-            <h3 className="font-cairo font-semibold text-[#253F60] mb-2">Services financiers</h3>
-            <p className="text-sm text-[#4B5563] font-inter">Conseil et accompagnement personnalisé</p>
+          <div className="text-center p-6 rounded-xl bg-white border border-gray-200">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#4EBBBD] to-[#3A9A9C] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="font-cairo font-semibold text-[#253F60] mb-2 text-lg">Services financiers</h3>
+            <p className="text-sm text-[#4B5563] font-inter leading-relaxed">Conseil et accompagnement personnalisé</p>
           </div>
         </div>
       </div>
@@ -296,12 +369,12 @@ const PartnersCarousel = ({ content }) => {
 const defaultContent = {
   heroTitle: "Préserver. Optimiser. Transmettre.",
   heroSubtitle: "Depuis plus de 20 ans, Azalée Patrimoine accompagne les dirigeants, cadres supérieurs, professions libérales et familles fortunées dans la gestion et la transmission de leur patrimoine.",
-  heroButton1: "Prenez rendez-vous en toute confidentialité",
+  heroButton1: "Planifiez votre consultation gratuite",
   heroButton2: "Commencez à explorer les sujets",
   heroBackgrounds: [
-    "/images/home.webp",
-    "/images/image2.webp",
-    "/images/image3.webp"
+    "/images/azalee-patrimoine-paris-luxury-office.webp",
+    "/images/azalee-patrimoine-family-trust-meeting.webp",
+    "/images/azalee-patrimoine-private-banking-consultation.webp"
   ],
   introTitle: "Gérer un patrimoine conséquent exige plus qu'une expertise financière : cela nécessite une vision, une stratégie, et un partenaire de confiance.",
   introParagraph: "Notre mission : protéger vos intérêts, valoriser votre patrimoine et organiser sa transmission pour les générations futures. Chez Azalée Patrimoine, nous privilégions la discrétion, l'indépendance et un accompagnement sur-mesure qui s'adapte à chaque étape de votre vie.",
@@ -329,12 +402,12 @@ const defaultContent = {
   testimonialText: "Grâce à Azalée Patrimoine, nous avons retrouvé sérénité et visibilité sur notre avenir.\n\nNotre conseiller a structuré notre patrimoine et nous a accompagnés dans l'acquisition d'un nouveau bien immobilier. L'intervention coordonnée de spécialistes en investissement immobilier et en expertise comptable nous a permis de repenser notre stratégie financière avec confiance. Une équipe à recommander sans hésiter.",
   testimonialAuthor: "néon.",
   processSteps: [
-    { label: 'ÉTAPE 1', desc: 'Comprendre vos besoins', contentTitle: 'Comprendre vos besoins', contentText: 'Nous prenons le temps d\'écouter vos attentes et vos priorités.', button: 'Découvrez Comment Nos Courtiers Travaillent Pour Vous', image: '/images/img_image_1221.png' },
-    { label: 'ÉTAPE 2', desc: 'Analyser votre situation' },
-    { label: 'ÉTAPE 3', desc: 'Définir vos objectifs' },
-    { label: 'ÉTAPE 4', desc: 'Affecter les moyens nécessaires' },
-    { label: 'ÉTAPE 5', desc: 'Déployer la stratégie patrimoniale' },
-    { label: 'ÉTAPE 6', desc: 'Assurer un suivi continu' }
+    { label: 'ÉTAPE 1', desc: 'Comprendre vos besoins', icon: 'chat', contentTitle: 'Comprendre vos besoins', contentText: 'Nous prenons le temps d\'écouter vos attentes et vos priorités.', button: 'Découvrez Comment Nos Courtiers Travaillent Pour Vous', image: '/images/azalee-patrimoine-consultation-needs-assessment.webp' },
+    { label: 'ÉTAPE 2', desc: 'Analyser votre situation', icon: 'chart' },
+    { label: 'ÉTAPE 3', desc: 'Définir vos objectifs', icon: 'target' },
+    { label: 'ÉTAPE 4', desc: 'Affecter les moyens nécessaires', icon: 'money' },
+    { label: 'ÉTAPE 5', desc: 'Déployer la stratégie patrimoniale', icon: 'rocket' },
+    { label: 'ÉTAPE 6', desc: 'Assurer un suivi continu', icon: 'clipboard' }
   ],
   stats: [
     { value: '1996', label: 'Création d\'AGORA PATRIMOINE' },
@@ -345,29 +418,91 @@ const defaultContent = {
     { value: '35', label: 'Partenaires' },
     { value: '5', label: 'Implementations en France (Paris / Nantes / La Rochelle / Salon de Provence / Nice)' },
   ],
+  investment: {
   investmentTitle: 'Sécurisez votre avenir avec une stratégie patrimoniale sur mesure',
-  investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n👉 Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
+  investmentText: "Gérer son patrimoine, ce n'est pas seulement investir : c'est anticiper, organiser et transmettre dans les meilleures conditions fiscales et familiales.\n\n Chez Azalée Patrimoine, nous agissons comme un véritable chef d'orchestre, en coordination avec notaires et experts-comptables.\n\nSelon la phase de vie patrimoniale dans laquelle vous vous trouvez (constitution, consolidation, jouissance ou transmission), nous définissons un plan clair et optimisé. Notre objectif : vous permettre de profiter de vos capitaux tout en préservant durablement votre patrimoine.\n\nGrâce à un suivi régulier et personnalisé, nous adaptons la stratégie à vos objectifs personnels. Avec une approche pédagogique, nous vous donnons les clés pour prendre des décisions éclairées et avancer en toute confiance vers une gestion patrimoniale fluide, optimisée et fiscalement avantageuse.",
   investmentButton: 'Vous avez des questions, nous avons des réponses',
-  investmentImage1: '/images/img_image_1222.png',
-  investmentImage2: '/images/img_image_1220.png',
+    investmentCalendlyUrl: 'https://calendly.com/rdv-azalee-patrimoine/30min',
+  investmentImage1: '/images/azalee-patrimoine-investment-strategy-meeting.webp',
+  investmentImage2: '/images/azalee-patrimoine-financial-strategy-planning.webp',
+  },
   taxTitle: 'Pourquoi choisir la défiscalisation immobilière ?',
   taxText: "L'immobilier reste un investissement de référence pour les investisseurs français, surtout lorsqu'il est accompagné d'avantages fiscaux attractifs. En choisissant des biens éligibles à des dispositifs légaux de défiscalisation, vous pouvez réduire significativement votre imposition tout en développant votre patrimoine. Le gouvernement encourage ainsi l'investissement dans certains secteurs ou types de logements — anciens ou neufs, location longue durée ou saisonnière — grâce à des lois fiscales spécifiques. Ces mesures permettent non seulement de dynamiser l'offre immobilière mais aussi de soutenir les investisseurs en leur offrant des avantages concrets. Que vous souhaitiez constituer un patrimoine, optimiser vos revenus locatifs ou préparer votre avenir, nos solutions de défiscalisation s'adaptent à votre situation et à vos objectifs.",
   taxCards: [
-    { title: 'Le statut LMNP', image: '/images/img_image_1223.png', text: 'Vous possédez un logement meublé en location ? Le statut de loueur en Meublé Non Professionnel (LMNP) vous permet de décaler vos loyers dans la catégorie des Bénéfices Industriels et Commerciaux (BIC), un régime fiscal souvent plus avantageux que celui des revenus fonciers.\n\nAccessible tant que vos loyers annuels restent sous un certain seuil, il offre la possibilité d\'amortir la valeur du bien et du mobilier, ce qui réduit sensiblement l\'imposition sur vos revenus.', link: 'En savoir plus sur le régime LMNP →' },
-    { title: 'Le statut LMP', image: '/images/img_image_1224.png', text: 'Si vos revenus locatifs issus de la location meublée dépassent la moitié des revenus de votre foyer fiscal, vous relevez du statut de Loueur en Meublé Professionnel (LMP). Ce régime offre des avantages fiscaux significatifs : exonération des plus-values après une certaine durée de détention, et possibilité d\'imputer vos déficits sur le revenu global du foyer.\n\nUn levier puissant pour optimiser la fiscalité de vos investissements immobiliers.', link: '' },
-    { title: 'La loi Pinel', image: '/images/img_image_1225.png', text: 'Vous souhaitez investir dans l\'immobilier neuf ou rénové tout en allégeant votre fiscalité ? Le dispositif Pinel vous permet de bénéficier d\'une réduction d\'impôt calculée en fonction de votre durée d\'engagement locatif (6, 9 ou 12 ans). Pour en profiter, certaines conditions doivent être respectées : des loyers plafonnés et des locataires répondant à des critères de ressources, selon la zone géographique du logement.', link: 'En savoir plus sur la loi Pinel →' },
+    { title: 'Le statut LMNP', image: '/images/azalee-patrimoine-lmnp-fiscal-advantage.webp', text: 'Vous possédez un logement meublé en location ? Le statut de loueur en Meublé Non Professionnel (LMNP) vous permet de décaler vos loyers dans la catégorie des Bénéfices Industriels et Commerciaux (BIC), un régime fiscal souvent plus avantageux que celui des revenus fonciers.\n\nAccessible tant que vos loyers annuels restent sous un certain seuil, il offre la possibilité d\'amortir la valeur du bien et du mobilier, ce qui réduit sensiblement l\'imposition sur vos revenus.', link: 'En savoir plus sur le régime LMNP →' },
+    { title: 'Le statut LMP', image: '/images/azalee-patrimoine-lmp-professional-status.webp', text: 'Si vos revenus locatifs issus de la location meublée dépassent la moitié des revenus de votre foyer fiscal, vous relevez du statut de Loueur en Meublé Professionnel (LMP). Ce régime offre des avantages fiscaux significatifs : exonération des plus-values après une certaine durée de détention, et possibilité d\'imputer vos déficits sur le revenu global du foyer.\n\nUn levier puissant pour optimiser la fiscalité de vos investissements immobiliers.', link: '' },
+    { title: 'La loi Pinel', image: '/images/azalee-patrimoine-pinel-law-investment.webp', text: 'Vous souhaitez investir dans l\'immobilier neuf ou rénové tout en allégeant votre fiscalité ? Le dispositif Pinel vous permet de bénéficier d\'une réduction d\'impôt calculée en fonction de votre durée d\'engagement locatif (6, 9 ou 12 ans). Pour en profiter, certaines conditions doivent être respectées : des loyers plafonnés et des locataires répondant à des critères de ressources, selon la zone géographique du logement.', link: 'En savoir plus sur la loi Pinel →' },
   ],
   partners: [
-    '/images/selencia.svg',
-    '/images/cardif-logo.svg', 
-    '/images/SL-Logo-svg.svg',
-    '/images/vieplus.svg',
-    '/images/intencial-1.png',
-    '/images/img_header_logo.png'
+    { image: '/images/azalee-patrimoine-selencia.svg', website: 'https://www.selencia.fr', name: 'Selencia' },
+    { image: '/images/azalee-patrimoine-cardif-logo.svg', website: 'https://www.cardif.fr', name: 'Cardif Groupe BNP Paribas' },
+    { image: '/images/azalee-patrimoine-sl-logo-svg.svg', website: '#', name: 'SL' },
+    { image: '/images/azalee-patrimoine-vieplus.svg', website: '#', name: 'Vie Plus' },
+    { image: '/images/azalee-patrimoine-intencial-1.webp', website: '#', name: 'Intencial' },
+    { image: '/images/azalee-patrimoine-img-header-logo.webp', website: '#', name: 'Partenaire' }
   ],
+  finalCta: {
   finalCtaTitle: 'Et si nous parlions de votre patrimoine autour d\'un premier échange ?',
-  finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Prenez rendez-vous avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
-  finalCtaImage: '/images/img_image_1227.png',
+  finalCtaText: "Un rendez-vous en visio ou dans nos bureaux, en toute confidentialité. Planifiez votre consultation gratuite avec un conseiller Azalée Patrimoine pour découvrir comment nous pouvons vous accompagner dans la gestion et la transmission de votre patrimoine.",
+  finalCtaImage: '/images/azalee-patrimoine-wealth-management-agreement.webp',
+  },
+  // Section Équipe Preview
+  teamPreview: {
+    title: "Rencontrez votre équipe de gestion",
+    subtitle: "Des experts passionnés et certifiés, dédiés à la réussite de vos projets patrimoniaux.",
+    members: [
+      {
+        name: "Jean-Marc Dupont",
+        position: "Fondateur & Directeur",
+        photo: "/images/azalee-patrimoine-jean.webp",
+        experience: "20+ ans"
+      },
+      {
+        name: "Sophie Martin",
+        position: "Conseillère en Gestion de Patrimoine",
+        photo: "/images/azalee-patrimoine-sophie.webp",
+        experience: "15 ans"
+      },
+      {
+        name: "Thomas Bernard",
+        position: "Expert Fiscal",
+        photo: "/images/azalee-patrimoine-client1.webp",
+        experience: "12 ans"
+      }
+    ],
+    buttonText: "En savoir plus sur notre équipe"
+  },
+  // Section Témoignages
+  testimonials: {
+    title: "Ce que disent nos clients",
+    subtitle: "La confiance de nos clients est notre plus grande fierté. Découvrez leurs témoignages.",
+    items: [
+      {
+        text: "Grâce à Azalée Patrimoine, j'ai optimisé mon investissement locatif tout en réduisant mon impôt sur le revenu. Leur accompagnement va bien au-delà du simple conseil financier.",
+        author: "Laurent D.",
+        situation: "Chef d'entreprise, Lyon",
+        rating: 5
+      },
+      {
+        text: "Un accompagnement exceptionnel pour notre projet de transmission familiale. L'équipe a su comprendre nos enjeux et nous proposer des solutions adaptées.",
+        author: "Marie-Claire P.",
+        situation: "Retraitée, Paris",
+        rating: 5
+      },
+      {
+        text: "J'avais un projet LMNP, ils m'ont aidée à le rendre rentable, sécurisé et transmissible. Une équipe à l'écoute et très professionnelle.",
+        author: "Sophie B.",
+        situation: "Cadre supérieure, Nantes",
+        rating: 5
+      },
+      {
+        text: "Enfin un cabinet qui prend le temps d'expliquer et de nous accompagner sur le long terme. Je recommande vivement leurs services.",
+        author: "Philippe M.",
+        situation: "Médecin libéral, Marseille",
+        rating: 5
+      }
+    ]
+  },
   footerContact: {
     address: '106 Rue de Richelieu',
     city: '75002 Paris',
@@ -377,14 +512,16 @@ const defaultContent = {
   },
   contactPhone: '+1 (555) 123-4567',
   contactEmail: 'contact@azaleewealth.com',
-  categories: ['Fiscalité','Investissement immobilier','Placements','Retraite','Patrimoine','Outils financiers'],
-  contactUsImage: '/images/img_image_1233.png',
+  categories: ['Fiscalité', 'Investissement immobilier', 'Placements', 'Retraite', 'Patrimoine', 'Outils financiers'],
+  contactUsImage: '/images/office-consultation.png',
 };
 
 const defaultSectionOrder = [
   'hero',
   'intro',
   'team',
+  'teamPreview',
+  'testimonials',
   'stats',
   'investment',
   'partners',
@@ -396,62 +533,363 @@ export default function HomePage() {
   const [sectionOrder, setSectionOrder] = useState(defaultSectionOrder);
   const [contentSource, setContentSource] = useState('default');
   const [loading, setLoading] = useState(true);
+  const [expandedFaqIndex, setExpandedFaqIndex] = useState(null);
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        setLoading(true);
+        // Only set loading on initial load (when content is still default)
+        const isInitialLoad = contentSource === 'default' || !contentSource;
+        if (isInitialLoad) {
+          setLoading(true);
+        }
         // Add cache-busting parameter to force fresh data
-        const response = await fetch(`/api/cms/content?path=home&t=${Date.now()}`);
+        // Use a more aggressive cache-busting with random number
+        const cacheBuster = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
+        const apiUrl = getApiPath(`/cms/content?path=home&t=${cacheBuster}`);
+        console.log('📡 Fetching homepage content from:', apiUrl);
+        const response = await fetch(apiUrl, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           // Use same pattern as fiscalite and immobilier pages
           if (data.data) {
-            // Merge CMS content with default content to ensure all fields are present
-            const mergedContent = { ...defaultContent, ...data.data };
+            // Deep merge function to handle nested objects (preserves arrays from CMS)
+            const deepMerge = (target, source) => {
+              const output = { ...target };
+              if (isObject(target) && isObject(source)) {
+                Object.keys(source).forEach(key => {
+                  // Arrays from CMS should replace default arrays completely
+                  if (Array.isArray(source[key])) {
+                    output[key] = source[key];
+                  } else if (isObject(source[key]) && !Array.isArray(source[key])) {
+                    if (!(key in target) || !isObject(target[key])) {
+                      Object.assign(output, { [key]: source[key] });
+                    } else {
+                      output[key] = deepMerge(target[key], source[key]);
+                    }
+                  } else {
+                    // Primitive values from CMS override defaults
+                    output[key] = source[key];
+                  }
+                });
+              }
+              return output;
+            };
+
+            const isObject = (item) => {
+              return item && typeof item === 'object' && !Array.isArray(item);
+            };
+
+            // Deep merge CMS content with default content
+            const mergedContent = deepMerge(defaultContent, data.data);
+
+            // Handle flat fields that might be in nested structure
+            if (data.data.hero) {
+              // Extract hero fields to root level for backward compatibility
+              if (data.data.hero.heroTitle && !mergedContent.heroTitle) {
+                mergedContent.heroTitle = data.data.hero.heroTitle;
+              }
+              if (data.data.hero.heroSubtitle && !mergedContent.heroSubtitle) {
+                mergedContent.heroSubtitle = data.data.hero.heroSubtitle;
+              }
+              if (data.data.hero.heroButton1 && !mergedContent.heroButton1) {
+                mergedContent.heroButton1 = data.data.hero.heroButton1;
+              }
+              if (data.data.hero.heroBackgrounds && !mergedContent.heroBackgrounds) {
+                mergedContent.heroBackgrounds = data.data.hero.heroBackgrounds;
+              }
+            }
+
             // Ensure partners array is properly set from CMS
             if (Array.isArray(data.data.partners)) {
               mergedContent.partners = data.data.partners;
+              console.log('✅ Partners loaded from CMS:', mergedContent.partners.length);
+            } else {
+              console.warn('⚠️ Partners is not an array:', data.data.partners);
             }
-            console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
+
+            // Ensure stats array is properly set from CMS
+            if (Array.isArray(data.data.stats)) {
+              mergedContent.stats = data.data.stats;
+              console.log('✅ Stats loaded from CMS:', mergedContent.stats.length);
+            }
+
+            // Ensure testimonials is in sectionOrder (only if testimonials exist in CMS)
+            let finalSectionOrder = data.data.sectionOrder || defaultSectionOrder;
+            
+            // Ensure teamPreview is in sectionOrder if it exists in content (default or CMS)
+            if (mergedContent.teamPreview && (!finalSectionOrder.includes('teamPreview'))) {
+              // Insert teamPreview after team if present, otherwise after intro
+              const insertIndex = finalSectionOrder.indexOf('team') !== -1 
+                ? finalSectionOrder.indexOf('team') + 1
+                : finalSectionOrder.indexOf('intro') !== -1
+                ? finalSectionOrder.indexOf('intro') + 1
+                : 1;
+              finalSectionOrder = [...finalSectionOrder];
+              finalSectionOrder.splice(insertIndex, 0, 'teamPreview');
+              console.log('✅ teamPreview added to sectionOrder');
+            }
+            
+            if (mergedContent.testimonials && mergedContent.testimonials.items && mergedContent.testimonials.items.length > 0) {
+              if (!finalSectionOrder.includes('testimonials')) {
+                // Insert testimonials after teamPreview if present, otherwise after intro
+                const insertIndex = finalSectionOrder.indexOf('teamPreview') !== -1 
+                  ? finalSectionOrder.indexOf('teamPreview') + 1
+                  : finalSectionOrder.indexOf('intro') !== -1
+                  ? finalSectionOrder.indexOf('intro') + 1
+                  : 1;
+                finalSectionOrder = [...finalSectionOrder];
+                finalSectionOrder.splice(insertIndex, 0, 'testimonials');
+                console.log('✅ Testimonials added to sectionOrder');
+              }
+            } else {
+              // Remove testimonials from sectionOrder if not in CMS
+              finalSectionOrder = finalSectionOrder.filter(section => section !== 'testimonials');
+              console.log('⚠️ Testimonials not found in CMS, removed from sectionOrder');
+            }
+
+            console.log('✅ CMS content merged successfully');
             setContent(mergedContent);
-            setSectionOrder(data.data.sectionOrder || defaultSectionOrder);
+            setSectionOrder(finalSectionOrder);
             setContentSource('cms');
+            hasLoadedCMS = true; // Mark that CMS content was successfully loaded
           } else if (data.content) {
-            // Merge CMS content with default content
-            const mergedContent = { ...defaultContent, ...data.content };
-            // Ensure partners array is properly set from CMS
+            // Same deep merge for alternative format (preserves arrays from CMS)
+            const deepMerge = (target, source) => {
+              const output = { ...target };
+              if (isObject(target) && isObject(source)) {
+                Object.keys(source).forEach(key => {
+                  // Arrays from CMS should replace default arrays completely
+                  if (Array.isArray(source[key])) {
+                    output[key] = source[key];
+                  } else if (isObject(source[key]) && !Array.isArray(source[key])) {
+                    if (!(key in target) || !isObject(target[key])) {
+                      Object.assign(output, { [key]: source[key] });
+                    } else {
+                      output[key] = deepMerge(target[key], source[key]);
+                    }
+                  } else {
+                    // Primitive values from CMS override defaults
+                    output[key] = source[key];
+                  }
+                });
+              }
+              return output;
+            };
+
+            const isObject = (item) => {
+              return item && typeof item === 'object' && !Array.isArray(item);
+            };
+
+            const mergedContent = deepMerge(defaultContent, data.content);
+
+            // Handle nested hero structure
+            if (data.content.hero) {
+              if (data.content.hero.heroTitle && !mergedContent.heroTitle) {
+                mergedContent.heroTitle = data.content.hero.heroTitle;
+              }
+              if (data.content.hero.heroSubtitle && !mergedContent.heroSubtitle) {
+                mergedContent.heroSubtitle = data.content.hero.heroSubtitle;
+              }
+            }
+
             if (Array.isArray(data.content.partners)) {
               mergedContent.partners = data.content.partners;
             }
-            console.log('Loaded CMS content - Partners count:', mergedContent.partners?.length || 0);
+
+            // Ensure testimonials is in sectionOrder (only if testimonials exist in CMS)
+            let finalSectionOrder = data.content.sectionOrder || defaultSectionOrder;
+            
+            // Ensure teamPreview is in sectionOrder if it exists in content (default or CMS)
+            if (mergedContent.teamPreview && (!finalSectionOrder.includes('teamPreview'))) {
+              // Insert teamPreview after team if present, otherwise after intro
+              const insertIndex = finalSectionOrder.indexOf('team') !== -1 
+                ? finalSectionOrder.indexOf('team') + 1
+                : finalSectionOrder.indexOf('intro') !== -1
+                ? finalSectionOrder.indexOf('intro') + 1
+                : 1;
+              finalSectionOrder = [...finalSectionOrder];
+              finalSectionOrder.splice(insertIndex, 0, 'teamPreview');
+              console.log('✅ teamPreview added to sectionOrder');
+            }
+            
+            if (mergedContent.testimonials && mergedContent.testimonials.items && mergedContent.testimonials.items.length > 0) {
+              if (!finalSectionOrder.includes('testimonials')) {
+                // Insert testimonials after teamPreview if present, otherwise after intro
+                const insertIndex = finalSectionOrder.indexOf('teamPreview') !== -1 
+                  ? finalSectionOrder.indexOf('teamPreview') + 1
+                  : finalSectionOrder.indexOf('intro') !== -1
+                  ? finalSectionOrder.indexOf('intro') + 1
+                  : 1;
+                finalSectionOrder = [...finalSectionOrder];
+                finalSectionOrder.splice(insertIndex, 0, 'testimonials');
+                console.log('✅ Testimonials added to sectionOrder');
+              }
+            } else {
+              // Remove testimonials from sectionOrder if not in CMS
+              finalSectionOrder = finalSectionOrder.filter(section => section !== 'testimonials');
+              console.log('⚠️ Testimonials not found in CMS, removed from sectionOrder');
+            }
+
+            // Log image updates for debugging
+            if (mergedContent.investment?.investmentImage1 || mergedContent.investment?.investmentImage2) {
+              console.log('🖼️ Investment images updated:', {
+                image1: mergedContent.investment?.investmentImage1?.substring(0, 50) + '...',
+                image2: mergedContent.investment?.investmentImage2?.substring(0, 50) + '...',
+                fullImage1: mergedContent.investment?.investmentImage1,
+                fullImage2: mergedContent.investment?.investmentImage2
+              });
+            }
+            if (mergedContent.finalCta?.finalCtaImage) {
+              console.log('🖼️ Final CTA image updated:', {
+                image: mergedContent.finalCta?.finalCtaImage?.substring(0, 50) + '...',
+                fullImage: mergedContent.finalCta?.finalCtaImage
+              });
+            }
+            
+            // Log all image fields for debugging
+            console.log('📸 All image fields in content:', {
+              investmentImage1: mergedContent.investment?.investmentImage1 || mergedContent.investmentImage1,
+              investmentImage2: mergedContent.investment?.investmentImage2 || mergedContent.investmentImage2,
+              finalCtaImage: mergedContent.finalCta?.finalCtaImage || mergedContent.finalCtaImage
+            });
+
             setContent(mergedContent);
-            setSectionOrder(data.content.sectionOrder || defaultSectionOrder);
+            setSectionOrder(finalSectionOrder);
             setContentSource('cms');
+            hasLoadedCMS = true; // Mark that CMS content was successfully loaded
+            console.log('✅ Homepage content loaded from CMS');
           } else {
-            // Fallback to default content
-            console.log('Using default content - Partners count:', defaultContent.partners?.length || 0);
-            setContent(defaultContent);
-            setSectionOrder(defaultSectionOrder);
-            setContentSource('default');
+            // Fallback to default content only if we don't have CMS content already
+            setContent(prevContent => {
+              // Only reset to default if current content is still default
+              const isStillDefault = Object.keys(prevContent).every(key => 
+                JSON.stringify(prevContent[key]) === JSON.stringify(defaultContent[key])
+              );
+              if (isStillDefault) {
+                console.log('Using default content');
+                return defaultContent;
+              } else {
+                console.log('⚠️ No CMS data in response, keeping existing content');
+                return prevContent;
+              }
+            });
+            setSectionOrder(prevOrder => {
+              // Only reset if order is still default
+              if (JSON.stringify(prevOrder) === JSON.stringify(defaultSectionOrder)) {
+                return defaultSectionOrder;
+              }
+              return prevOrder;
+            });
+            setContentSource(prev => prev === 'cms' ? 'cms' : 'default');
           }
         } else {
-          console.log('API response not OK, using default content');
-          setContent(defaultContent);
-          setSectionOrder(defaultSectionOrder);
-          setContentSource('default');
+          console.log('API response not OK, keeping existing content');
+          // Don't reset to default - keep what we have
         }
       } catch (error) {
         console.error('Error fetching homepage content:', error);
-        setContent(defaultContent);
-        setSectionOrder(defaultSectionOrder);
-        setContentSource('default');
+        // Don't reset to default - keep what we have
       } finally {
         setLoading(false);
       }
     };
 
     fetchContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase() || '';
+      // Refresh if homepage was updated (home, accueil, or no path specified)
+      const homepagePaths = [
+        'home',
+        'accueil',
+        'accueil - azalée patrimoine',
+        'page d\'accueil',
+        'page d accueil',
+        'page daccueil'
+      ];
+      
+      // Check if path matches any homepage variation
+      const isHomepage = !updatedPath || homepagePaths.some(p => {
+        const pathLower = updatedPath.toLowerCase();
+        const pLower = p.toLowerCase();
+        return pathLower === pLower || 
+               pathLower.includes(pLower) || 
+               pLower.includes(pathLower) ||
+               pathLower.replace(/\s+/g, ' ') === pLower.replace(/\s+/g, ' ');
+      });
+      
+      if (isHomepage) {
+        console.log('🔄 CMS content updated, refreshing homepage...', { updatedPath, eventDetail: event.detail });
+        // Force immediate refresh with aggressive cache-busting
+        // Add small delay to ensure database is updated
+        setTimeout(() => {
+        fetchContent();
+        }, 100);
+      } else {
+        console.log('ℹ️ CMS update received but not for homepage:', updatedPath);
+        console.log('   Available homepage paths:', homepagePaths);
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Listen for localStorage changes (cross-tab communication)
+    const handleStorageChange = (e) => {
+      if (e.key === 'cmsLastUpdate' && e.newValue) {
+        try {
+          const update = JSON.parse(e.newValue);
+          const updatedPath = update.path?.toLowerCase() || '';
+          const homepagePaths = ['home', 'accueil', 'page d\'accueil', 'page d accueil'];
+          const isHomepage = !updatedPath || homepagePaths.some(p => {
+            const pathLower = updatedPath.toLowerCase();
+            const pLower = p.toLowerCase();
+            return pathLower === pLower || pathLower.includes(pLower) || pLower.includes(pathLower);
+          });
+          
+          if (isHomepage) {
+            console.log('🔄 Cross-tab CMS update detected, refreshing homepage...', update);
+            fetchContent();
+          }
+        } catch (err) {
+          console.warn('Error parsing storage update:', err);
+        }
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    // Polling fallback: check for updates every 5 seconds when page is visible (faster updates)
+    let hasLoadedCMS = false;
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible' && hasLoadedCMS) {
+        console.log('🔄 Polling: Checking for homepage updates...');
+        fetchContent();
+      }
+    }, 5000); // Reduced from 30000 to 5000 (5 seconds)
+    
+    // Also check immediately when page becomes visible (user switches back to tab)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && hasLoadedCMS) {
+        console.log('👁️ Page became visible, checking for updates...');
+        fetchContent();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      window.removeEventListener('storage', handleStorageChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Mapping des sections à afficher dynamiquement
@@ -461,7 +899,7 @@ export default function HomePage() {
         return <HeroCarousel key="hero" content={content} />;
       case 'intro':
         return (
-          <section key="intro" className="w-full px-4 sm:px-6 lg:px-[100px] py-12 sm:py-16 lg:py-28">
+          <section key="intro" className="w-full px-4 sm:px-6 lg:px-4 py-12 sm:py-16 lg:py-28">
             <div className="max-w-[1368px] mx-auto">
               <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
                 <div className="w-full lg:w-[58%]">
@@ -487,24 +925,24 @@ export default function HomePage() {
                   <div className="bg-[#F2F2F2] p-4 sm:p-5 rounded-lg shadow flex flex-col justify-between min-h-[180px]">
                     <h3 className="text-sm sm:text-base font-bold mb-2 text-black">Gestion de patrimoine</h3>
                     <p className="text-xs sm:text-sm mb-4 text-black leading-relaxed">Optimisez votre richesse avec des stratégies personnalisées et des solutions conçues pour vos objectifs financiers.</p>
-                    <button className="bg-[#B99066] text-white px-3 py-2 rounded font-semibold text-xs w-fit">Toutes Les Clés Pour Faire Croître Votre Richesse</button>
+                    <CTAButton variant="primary" className="text-xs w-fit px-3 py-2 min-w-0">Toutes Les Clés Pour Faire Croître Votre Richesse</CTAButton>
                   </div>
                   {/* Card 3 */}
                   <div className="bg-[#F2F2F2] p-4 sm:p-5 rounded-lg shadow flex flex-col justify-between min-h-[180px]">
                     <h3 className="text-sm sm:text-base font-bold mb-2 text-black">Financement immobilier</h3>
                     <p className="text-xs sm:text-sm mb-4 text-black leading-relaxed">Accédez aux meilleures offres de prêts hypothécaires pour vos projets, négociées par nos courtiers experts.</p>
-                    <button className="bg-[#B99066] text-white px-3 py-2 rounded font-semibold text-xs w-fit">Trouvez Les Meilleurs Taux Hypothécaires</button>
+                    <CTAButton variant="primary" className="text-xs w-fit px-3 py-2 min-w-0">Trouvez Les Meilleurs Taux Hypothécaires</CTAButton>
                   </div>
                   {/* Card 4 */}
                   <div className="bg-[#F2F2F2] p-4 sm:p-5 rounded-lg shadow flex flex-col justify-between min-h-[180px]">
                     <h3 className="text-sm sm:text-base font-bold mb-2 text-black">Investissements financiers</h3>
                     <p className="text-xs sm:text-sm mb-4 text-black leading-relaxed">Sélectionnez les bonnes options d'investissement en fonction de votre profil et de vos objectifs.</p>
-                    <button className="bg-[#B99066] text-white px-3 py-2 rounded font-semibold text-xs w-fit">Nos Meilleures Solutions D'Investissement</button>
+                    <CTAButton variant="primary" className="text-xs w-fit px-3 py-2 min-w-0">Nos Meilleures Solutions D'Investissement</CTAButton>
                   </div>
                 </div>
                 {/* Centered button below grid */}
                 <div className="flex justify-center mt-6">
-                  <button className="bg-[#B99066] text-white px-6 py-3 rounded font-semibold text-sm w-full sm:w-auto">{content.intro?.introButton || content.introButton}</button>
+                  <CTAButton variant="primary" className="text-sm w-full sm:w-auto">{content.intro?.introButton || content.introButton}</CTAButton>
                 </div>
               </div>
             </div>
@@ -516,25 +954,25 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src={content.team?.teamImage || content.teamImage || "/images/quiss.jpg"}
+                src={getImagePath(content.team?.teamImage || content.teamImage || "/images/azalee-patrimoine-azalee-team-meeting.webp")}
                 alt="Équipe Azalée Patrimoine - Vision d'ensemble équipe diversifiée (4 personnes)"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.log('Team image failed to load:', e.target.src);
                   console.log('Trying fallback to image4.webp');
-                  e.target.src = "/images/image4.webp";
+                  e.target.src = getImagePath("/images/azalee-patrimoine-image4.webp");
                 }}
                 onLoad={() => console.log('Team image loaded successfully')}
-                style={{ 
+                style={{
                   minHeight: '400px',
                   backgroundColor: '#f0f0f0'
                 }}
               />
             </div>
-            
+
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#112033]/85 via-[#112033]/60 to-[#112033]/85"></div>
-            
+
             {/* Content */}
             <div className="relative z-10 max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-12">
               <div className="text-center mb-12 sm:mb-16">
@@ -549,25 +987,26 @@ export default function HomePage() {
                   {content.team?.teamDescription || content.teamDescription}
                 </p>
               </div>
-              
+
               {/* Team Values */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                 {((content.team?.teamValues || content.teamValues) || []).map((value, index) => (
-                  <div key={index} className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-xl border border-white/20 hover:transform hover:scale-105 transition-all duration-300">
+                  <div key={index} className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-md border border-white/20">
                     <h3 className="text-[#112033] font-cairo font-semibold text-base sm:text-lg mb-2 sm:mb-3">{value.title}</h3>
                     <p className="text-[#4A5568] font-inter text-xs sm:text-sm leading-relaxed">{value.desc}</p>
                   </div>
                 ))}
               </div>
-              
+
               {/* CTA Button */}
               <div className="text-center mt-8 sm:mt-12">
-                <button 
-                  className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-6 py-3 sm:px-10 sm:py-4 rounded-lg font-inter font-semibold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
-                  onClick={() => window.location.href = '/notre-approche'}
+                <CTAButton
+                  href="/notre-approche"
+                  variant="primary"
+                  className="w-full sm:w-auto"
                 >
                   {content.team?.teamButton || content.teamButton || "Découvrir notre approche"}
-                </button>
+                </CTAButton>
               </div>
             </div>
           </section>
@@ -582,7 +1021,7 @@ export default function HomePage() {
                   <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#4EBBBD] mb-4 sm:mb-6 rounded-full"></div>
                   <h2 className="text-xl sm:text-2xl lg:text-[36px] font-cairo font-semibold text-[#112033] mb-4 sm:mb-6 tracking-wide leading-tight sm:leading-[1.2]">{content.experts?.expertsTitle || content.expertsTitle}</h2>
                   <p className="text-base sm:text-lg lg:text-[20px] font-inter text-[#4A5568] leading-relaxed sm:leading-[1.6] mb-6 sm:mb-8">{content.experts?.expertsDescription || content.expertsDescription}</p>
-                  
+
                   {/* Key Benefits */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -602,26 +1041,26 @@ export default function HomePage() {
                       <span className="text-[#112033] font-medium text-xs sm:text-sm">Solutions sur-mesure</span>
                     </div>
                   </div>
-                  
-                  <button className="bg-gradient-to-r from-[#B99066] to-[#A67A5A] text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-inter font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto">
+
+                  <CTAButton variant="primary" className="w-full sm:w-auto">
                     Rencontrer nos experts
-                  </button>
+                  </CTAButton>
                 </div>
-                
+
                 {/* Right: Image with enhanced styling */}
                 <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
                   <div className="relative">
                     {/* Decorative background */}
                     <div className="absolute -top-4 -right-4 w-full h-full bg-gradient-to-br from-[#B99066]/20 to-[#4EBBBD]/20 rounded-2xl"></div>
-                    
+
                     {/* Main image */}
                     <img
-                      src="/images/expertise.webp"
+                      src={getImagePath("/images/azalee-patrimoine-expertise.webp")}
                       alt="Conseiller Azalée en discussion avec un couple dans un bureau élégant"
-                      className="relative z-10 w-full max-w-md lg:max-w-lg rounded-2xl shadow-2xl object-cover border-4 border-white"
+                      className="relative z-10 w-full max-w-md lg:max-w-lg rounded-2xl shadow-md object-cover border-4 border-white"
                       style={{ aspectRatio: '3/2' }}
                     />
-                    
+
                     {/* Floating badge */}
                     <div className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg p-4 border border-gray-100">
                       <div className="flex items-center gap-3">
@@ -638,7 +1077,7 @@ export default function HomePage() {
               <div className="block lg:hidden">
                 <div className="flex flex-col gap-4 sm:gap-6">
                   {(content.experts || []).map((expert, index) => (
-                    <div key={index} className="bg-global-8 rounded-[24px] shadow-[0_0_8px_0_rgba(0,0,0,0.25)] p-4 sm:p-6 flex flex-col justify-between min-h-[200px] sm:min-h-[220px] h-full">
+                    <div key={index} className="bg-global-8 rounded-[24px] shadow-lg p-4 sm:p-6 flex flex-col justify-between min-h-[200px] sm:min-h-[220px] h-full">
                       <h3 className="text-base sm:text-lg font-cairo text-global-4 mb-2 leading-tight">{expert.title}</h3>
                       <p className="text-xs sm:text-sm font-inter text-global-1 mb-4 leading-snug">{expert.desc}</p>
                       <Button variant="primary" size="sm" className="w-fit self-start text-xs font-inter font-bold min-h-0 py-2 px-4">{expert.button}</Button>
@@ -649,7 +1088,7 @@ export default function HomePage() {
               {/* Desktop: original grid layout */}
               <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {(content.experts || []).map((expert, index) => (
-                  <div key={index} className="bg-global-8 rounded-[24px] shadow-[0_0_8px_0_rgba(0,0,0,0.25)] p-10 flex flex-col justify-between min-h-[320px] h-full">
+                  <div key={index} className="bg-global-8 rounded-[24px] shadow-lg p-10 flex flex-col justify-between min-h-[320px] h-full">
                     <h3 className="text-[21px] font-cairo text-global-4 mb-2 leading-tight">{expert.title}</h3>
                     <p className="text-[16px] font-inter text-global-1 mb-6 leading-snug">{expert.desc}</p>
                     <Button variant="primary" size="sm" className="w-fit self-start text-[12px] font-inter font-bold min-h-0 py-2 px-6">{expert.button}</Button>
@@ -665,7 +1104,7 @@ export default function HomePage() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img
-                src="/images/separwebp.webp"
+                src={getImagePath("/images/azalee-patrimoine-azalee-garden-separator.webp")}
                 alt="Jardin sophistiqué avec azalées blanches et roses en premier-plan - Jardin à la française avec allée de graviers et perspective élégante"
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -680,7 +1119,7 @@ export default function HomePage() {
                 onLoad={() => console.log('Image loaded successfully')}
               />
             </div>
-            
+
             {/* Fallback content if image doesn't load */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFB] via-[#E2E8F0] to-[#F8FAFB] flex items-center justify-center hidden" id="separator-fallback">
               <div className="text-center">
@@ -688,14 +1127,14 @@ export default function HomePage() {
                 <p className="text-[#4A5568] font-inter text-sm">Excellence & Confiance</p>
               </div>
             </div>
-            
+
             {/* Elegant Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-transparent"></div>
-            
+
             {/* Centered branding element */}
             <div className="relative z-10 flex items-center justify-center h-full">
               <div className="text-center">
-                <div className="bg-white/95 backdrop-blur-md rounded-2xl px-8 py-6 shadow-xl border border-white/20">
+                <div className="bg-white/95 backdrop-blur-md rounded-2xl px-8 py-6 shadow-md border border-white/20">
                   <div className="flex items-center gap-3">
                     <span className="text-[#B99066] text-3xl">🌸</span>
                     <div className="text-left">
@@ -711,127 +1150,240 @@ export default function HomePage() {
       case 'stats':
         return (
           <section key="stats" className="w-full bg-white py-16">
-          <div className="max-w-[1440px] mx-auto px-4">
-            {/* Divider and Title */}
-            <div className="flex flex-col items-center mb-10">
-              <div className="w-[46.7px] h-[1.56px] bg-[#4EBBBD] mb-3 rounded-full"></div>
-              <h2 className="text-[25.7px] font-cairo font-normal uppercase text-[#112033] text-center tracking-wide mb-2" style={{ letterSpacing: '0.02em' }}>
+            <div className="max-w-[1440px] mx-auto px-4">
+              {/* Divider and Title */}
+              <div className="flex flex-col items-center mb-10">
+                <div className="w-[46.7px] h-[1.56px] bg-[#4EBBBD] mb-3 rounded-full"></div>
+                <h2 className="text-[25.7px] font-cairo font-normal uppercase text-[#112033] text-center tracking-wide mb-2" style={{ letterSpacing: '0.02em' }}>
                   {content.statsTitle || content.stats?.statsTitle || 'Dans les chiffres clés établis'}
                 </h2>
+              </div>
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-8 text-center">
+                {((content.stats || content.stats) || []).map((stat, index) => (
+                  <div key={index}>
+                    <div className="text-[40px] font-source-sans font-normal text-[#B99066] leading-[58px]">{stat.value}</div>
+                    <div className="text-[11.7px] font-source-sans font-semibold text-[#000] leading-[18px] mt-2">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-8 text-center">
-              {((content.stats || content.stats) || []).map((stat, index) => (
-                <div key={index}>
-                  <div className="text-[40px] font-source-sans font-normal text-[#B99066] leading-[58px]">{stat.value}</div>
-                  <div className="text-[11.7px] font-source-sans font-semibold text-[#000] leading-[18px] mt-2">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
         );
       case 'investment':
         return (
           <section key="investment" className="w-full py-16 lg:py-24">
-          <div className="max-w-[1368px] mx-auto">
-            <div className="flex flex-col lg:flex-row min-h-[600px]">
-              {/* Left Content - Dark Blue Background */}
-              <div className="w-full lg:w-[50%] bg-[#253F60] p-8 lg:p-12 flex flex-col justify-between">
-                <div>
-                  {/* Title */}
-                  <div className="mb-6">
-                    <div className="w-[60px] h-[2px] bg-white mb-4"></div>
-                    <h2 className="text-white text-xl lg:text-2xl font-cairo font-semibold uppercase leading-tight">
-                      {content.investment?.investmentTitle || content.investmentTitle}
-                    </h2>
-                  </div>
-                  
-                  {/* Description */}
-                  <p className="text-white text-base lg:text-lg font-inter leading-relaxed mb-8">
-                    {content.investment?.investmentText || content.investmentText}
-                  </p>
-                  
-                  {/* CTA Button */}
-                  <div className="mb-8">
-                    <button className="bg-[#B99066] text-white px-8 py-4 rounded-lg font-inter font-semibold text-base hover:bg-[#A67A5A] transition-colors duration-200 shadow-lg">
-                      {content.investment?.investmentButton || content.investmentButton}
-                    </button>
-                  </div>
-                  
-                  {/* Expandable Accordion */}
-                  <div className="space-y-4">
-                    {((content.investment?.investmentItems || content.investmentItems) || []).map((item, index) => {
-                      const isExpanded = item.expanded === true;
-                      return (
-                        <div 
-                          key={index} 
-                          className={`${isExpanded ? 'bg-white/10' : 'bg-white/5'} rounded-lg p-4 cursor-pointer hover:bg-white/20 transition-colors duration-200`}
-                          onClick={() => item.url && (window.location.href = item.url)}
-                        >
-                          <div className="flex items-center justify-between">
-                            <h3 className={`text-white font-cairo ${isExpanded ? 'font-semibold text-lg' : 'font-medium text-base'}`}>
-                              {item.title}
-                            </h3>
-                            <svg 
-                              className={`w-5 h-5 text-white ${isExpanded ? 'transform rotate-180' : ''}`} 
-                              fill="none" 
-                              stroke="currentColor" 
-                              viewBox="0 0 24 24"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+            <div className="max-w-[1368px] mx-auto">
+              <div className="flex flex-col lg:flex-row min-h-[600px]">
+                {/* Left Content - Dark Blue Background */}
+                <div className="w-full lg:w-[50%] bg-[#253F60] p-8 lg:p-12 flex flex-col justify-between">
+                  <div>
+                    {/* Title */}
+                    <div className="mb-6">
+                      <div className="w-[60px] h-[2px] bg-white mb-4"></div>
+                      <h2 className="text-white text-xl lg:text-2xl font-cairo font-semibold uppercase leading-tight">
+                        {content.investment?.investmentTitle || content.investmentTitle}
+                      </h2>
+                    </div>
+
+                    {/* Description */}
+                    <div className="text-white text-base lg:text-lg font-inter leading-relaxed mb-8 space-y-4">
+                      {(content.investment?.investmentText || content.investmentText || '')
+                        .split('\n\n')
+                        .filter(para => para.trim())
+                        .map((paragraph, index) => (
+                          <p key={index}>
+                            {paragraph.trim()}
+                          </p>
+                        ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="mb-8">
+                      <CTAButton 
+                        variant="primary"
+                        externalUrl={content.investment?.investmentCalendlyUrl || content.investmentCalendlyUrl || 'https://calendly.com/rdv-azalee-patrimoine/30min'}
+                      >
+                        {content.investment?.investmentButton || content.investmentButton}
+                      </CTAButton>
+                    </div>
+
+                    {/* Expandable Accordion - Content stays in DOM for SEO */}
+                    <div className="space-y-4">
+                      {((content.investment?.investmentItems || content.investmentItems) || []).map((item, index) => {
+                        const isExpanded = expandedFaqIndex === index;
+                        return (
+                          <div
+                            key={index}
+                            className={`${isExpanded ? 'bg-white/10' : 'bg-white/5'} rounded-lg p-4 cursor-pointer hover:bg-white/20 transition-colors duration-200`}
+                            onClick={() => setExpandedFaqIndex(isExpanded ? null : index)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <h3 className={`text-white font-cairo ${isExpanded ? 'font-semibold text-lg' : 'font-medium text-base'}`}>
+                                {item.title}
+                              </h3>
+                              <svg
+                                className={`w-5 h-5 text-white transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </div>
+                            {/* Content always in DOM for Google indexation, hidden with CSS */}
+                            <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'}`}>
+                              <p className="text-white/90 text-sm font-inter">
+                                {item.description}
+                              </p>
+                            </div>
                           </div>
-                          {isExpanded && item.description && (
-                            <p className="text-white/90 text-sm font-inter mt-3">
-                              {item.description}
-                            </p>
-                          )}
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              {/* Right Image */}
-              <div className="w-full lg:w-[50%] relative">
-                <img 
-                  src={content.investment?.investmentImage2 || content.investmentImage2 || '/images/img_image_1220.png'} 
-                  className="w-full h-full object-cover" 
-                  alt="Financial planning consultation" 
-                />
-                {/* Optional overlay for better text contrast if needed */}
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent to-transparent pointer-events-none"></div>
+
+                {/* Right Image */}
+                <div className="w-full lg:w-[50%] relative">
+                  <img
+                    src={getImagePath(content.investment?.investmentImage2 || content.investmentImage2 || '/images/azalee-patrimoine-financial-strategy-planning.webp')}
+                    className="w-full h-full object-cover"
+                    alt="Financial planning consultation"
+                  />
+                  {/* Optional overlay for better text contrast if needed */}
+                  <div className="absolute inset-0 bg-gradient-to-l from-transparent to-transparent pointer-events-none"></div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         );
       case 'partners':
         return <PartnersCarousel key="partners" content={content} />;
+      case 'teamPreview':
+        return (
+          <section key="teamPreview" className="w-full bg-[#F9FAFB] py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#B99066] to-[#253F60] mx-auto mb-6 rounded-full"></div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  {content.teamPreview?.title || 'Rencontrez votre équipe de gestion'}
+                </h2>
+                <p className="text-lg sm:text-xl text-[#374151] font-inter max-w-3xl mx-auto">
+                  {content.teamPreview?.subtitle || 'Des experts passionnés et certifiés, dédiés à la réussite de vos projets patrimoniaux.'}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {(content.teamPreview?.members || []).map((member, index) => (
+                  <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-md group">
+                    <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#253F60] to-[#B99066]">
+                      <img
+                        src={getImagePath(member.photo || '/images/azalee-patrimoine-client1.webp')}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.src = getImagePath('/images/azalee-patrimoine-client1.webp');
+                        }}
+                      />
+                      <div className="absolute bottom-4 right-4 bg-[#B99066] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        {member.experience}
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-cairo font-bold text-[#253F60] mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-[#B99066] font-inter font-medium">
+                        {member.position}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center mt-12">
+                <CTAButton
+                  href="/equipe"
+                  variant="outline"
+                >
+                  {content.teamPreview?.buttonText || 'En savoir plus sur notre équipe'}
+                </CTAButton>
+              </div>
+            </div>
+          </section>
+        );
+      case 'testimonials':
+        // Only render if testimonials exist in CMS
+        if (!content.testimonials || !content.testimonials.items || content.testimonials.items.length === 0) {
+          return null;
+        }
+        
+        return (
+          <section key="testimonials" className="w-full bg-white py-16 sm:py-20 lg:py-24">
+            <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12 sm:mb-16">
+                <div className="w-[60px] h-[2px] bg-gradient-to-r from-[#253F60] to-[#B99066] mx-auto mb-6 rounded-full"></div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold text-[#253F60] mb-4">
+                  {content.testimonials.title || 'Ce que disent nos clients'}
+                </h2>
+                <p className="text-lg sm:text-xl text-[#374151] font-inter max-w-3xl mx-auto">
+                  {content.testimonials.subtitle || 'La confiance de nos clients est notre plus grande fierté.'}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {content.testimonials.items.map((testimonial, index) => (
+                  <div key={index} className="bg-gradient-to-br from-[#F9FAFB] to-white rounded-2xl p-6 sm:p-8 shadow-md border-l-4 border-[#B99066]">
+                    <div className="mb-6">
+                      <div className="flex items-center gap-1 mb-4">
+                        {[...Array(testimonial.rating || 5)].map((_, i) => (
+                          <svg key={i} className="w-5 h-5 text-[#B99066]" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.602-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+                      <p className="text-base sm:text-lg font-inter text-[#374151] leading-relaxed italic">
+                        « {testimonial.text} »
+                      </p>
+                    </div>
+                    <div className="border-t border-[#E5E7EB] pt-4">
+                      <p className="font-cairo font-bold text-[#253F60] text-lg">
+                        — {testimonial.author}
+                      </p>
+                      <p className="font-inter text-[#6B7280] text-sm sm:text-base">
+                        {testimonial.situation}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
       case 'finalCta':
         return (
           <section key="finalCta" className="w-full px-4 sm:px-6 lg:px-14 py-16 lg:py-32">
-          <div className="max-w-[1368px] mx-auto">
-            <div className="flex flex-col lg:flex-row justify-start items-center gap-8">
-              <div className="flex flex-col justify-start items-start flex-1">
-                <div className="w-[60px] h-0.5 bg-global-5 ml-2"></div>
-                <h2 className="text-2xl sm:text-3xl font-cairo font-normal uppercase text-global-2 leading-10 mt-4 w-[96%]">
+            <div className="max-w-[1368px] mx-auto">
+              <div className="flex flex-col lg:flex-row justify-start items-center gap-8">
+                <div className="flex flex-col justify-start items-start flex-1">
+                  <div className="w-[60px] h-0.5 bg-global-5 ml-2"></div>
+                  <h2 className="text-2xl sm:text-3xl font-cairo font-normal uppercase text-global-2 leading-10 mt-4 w-[96%]">
                     {content.finalCta?.finalCtaTitle || content.finalCtaTitle}
-                </h2>
-                <p className="text-lg sm:text-xl font-source-sans text-global-1 leading-6.5 mt-1.5 mb-3 w-[98%]">
+                  </h2>
+                  <p className="text-lg sm:text-xl font-source-sans text-global-1 leading-6.5 mt-1.5 mb-3 w-[98%]">
                     {content.finalCta?.finalCtaText || content.finalCtaText}
-                </p>
+                  </p>
+                </div>
+                <img
+                  src={getImagePath(content.finalCta?.finalCtaImage || content.finalCtaImage || '/images/azalee-patrimoine-expertise.webp')}
+                  className="w-full lg:w-[34%] h-[490px] object-cover"
+                  alt="Expert consultation"
+                />
               </div>
-              <img 
-                  src={content.finalCta?.finalCtaImage || content.finalCtaImage} 
-                className="w-full lg:w-[34%] h-[490px] object-cover" 
-                alt="Expert consultation" 
-              />
             </div>
-          </div>
-        </section>
+          </section>
         );
       default:
         return null;
@@ -841,21 +1393,127 @@ export default function HomePage() {
   return (
     <div className="w-full bg-global-8">
       <Header />
-      
-      
-      
-      
-      
+
+
+
+
+
       {sectionOrder.map(renderSection)}
-      {/* Add real Figma hero photo below hero section, responsive only on mobile */}
-      <div className="w-full flex justify-center items-center my-4 sm:my-6 block lg:hidden px-4">
-        <img
-          src="/images/real-hero-photo-7881b2.png"
-          alt="Hero section real photo"
-          className="w-full max-w-xs sm:max-w-md md:max-w-lg rounded-lg object-cover mx-auto"
-        />
-      </div>
-      
+
+      {/* Section : Où nous trouver ? - Carte de France */}
+      <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-[#253F60] text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold leading-tight mb-12 sm:mb-16 text-center tracking-tight">
+            Où nous trouver ?
+          </h2>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+              {/* Carte de France à gauche - avec dégradé professionnel */}
+              <div className="relative w-full flex">
+                <div className="relative w-full rounded-xl overflow-hidden bg-white flex items-center justify-center">
+                  {/* Container avec dégradé appliqué directement sur la forme de la carte */}
+                  <div
+                    className="relative w-full"
+                    role="img"
+                    aria-label="Carte de France montrant la couverture nationale d'Azalée Patrimoine. Nos conseillers en gestion de patrimoine sont disponibles dans toutes les villes de France. Trouvez un conseiller près de chez vous, partout en France métropolitaine."
+                    title="Azalée Patrimoine - Conseillers en gestion de patrimoine disponibles dans toutes les villes de France"
+                    style={{
+                      background: 'linear-gradient(135deg, #253F60 0%, #4a6b8a 30%, #7a8a7a 60%, #B99066 100%)',
+                      WebkitMaskImage: 'url(/images/azalee-patrimoine-france.svg)',
+                      WebkitMaskSize: 'contain',
+                      WebkitMaskRepeat: 'no-repeat',
+                      WebkitMaskPosition: 'center',
+                      maskImage: 'url(/images/azalee-patrimoine-france.svg)',
+                      maskSize: 'contain',
+                      maskRepeat: 'no-repeat',
+                      maskPosition: 'center',
+                      aspectRatio: '596.41547 / 584.5448',
+                      minHeight: '400px'
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Carte informative à droite */}
+              <div className="bg-gradient-to-br from-[#253F60] to-[#B99066] rounded-xl p-8 sm:p-10 lg:p-12 text-white flex flex-col">
+                <div className="text-center mb-8">
+                  <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
+                    Disponible partout en France
+                  </h3>
+                  <p className="text-white/90 text-lg sm:text-xl font-inter leading-relaxed mb-8">
+                    Nos conseillers en gestion de patrimoine sont présents partout en France pour vous accompagner dans votre projet patrimonial, où que vous soyez.
+                  </p>
+                </div>
+
+                <div className="space-y-4 mb-8 flex-grow">
+                  <div className="flex items-center gap-4 bg-white/10 rounded-lg p-4">
+                    <svg className="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-white text-base font-inter">Conseil personnalisé près de chez vous</span>
+                  </div>
+                  <div className="flex items-center gap-4 bg-white/10 rounded-lg p-4">
+                    <svg className="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-white text-base font-inter">Rendez-vous en présentiel ou à distance</span>
+                  </div>
+                  <div className="flex items-center gap-4 bg-white/10 rounded-lg p-4">
+                    <svg className="w-6 h-6 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-white text-base font-inter">Expertise locale et nationale</span>
+                  </div>
+                </div>
+
+                <div className="text-center mt-auto">
+                  <CTAButton
+                    externalUrl="https://calendly.com/rdv-azalee-patrimoine/30min"
+                    variant="primary"
+                  >
+                    Planifiez votre consultation gratuite
+                  </CTAButton>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <div className="mt-12 text-center">
+            <a
+              href="https://calendly.com/rdv-azalee-patrimoine/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-10 py-5 rounded-lg shadow-xl font-inter font-bold text-lg sm:text-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            >
+              Rencontrer un conseiller en gestion de patrimoine
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Newsletter */}
+      <section className="w-full bg-gradient-to-r from-[#253F60] to-[#B99066] py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1368px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl font-cairo font-bold leading-tight mb-4">
+              Restez informé de nos actualités
+            </h2>
+            <p className="text-white/90 text-lg sm:text-xl font-inter leading-relaxed mb-8">
+              Recevez nos conseils en gestion de patrimoine, nos analyses de marché et nos guides pratiques directement dans votre boîte mail.
+            </p>
+            <NewsletterForm className="max-w-2xl mx-auto" />
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

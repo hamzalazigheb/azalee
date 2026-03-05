@@ -1,0 +1,83 @@
+{
+    "path": "immobilier/scellier",
+    "title": "Dispositifs Fiscaux - Scellier",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Les dispositifs fiscaux : Pinel, Scellier, Robien",
+            "subtitle": "Depuis près de 20 ans, l'État a mis en place plusieurs **dispositifs fiscaux immobiliers** pour encourager la construction de logements et stimuler l'investissement locatif. Ces mécanismes, parmi lesquels figurent la **loi Pinel**, le **Scellier** et le **Robien**, ont permis à des milliers d'investisseurs de réduire leurs impôts tout en se constituant un patrimoine immobilier.",
+            "subtitle2": "Ces lois répondent à un double objectif : soutenir la construction de logements dans des zones à forte demande et permettre aux particuliers d'accéder à des **avantages fiscaux attractifs** en échange d'un engagement de location.",
+            "button": "Planifiez votre consultation gratuite"
+        },
+        "rightCard": {
+            "title": "Nos experts à votre service",
+            "floatingText": "21% →\nRéduction d'impôt",
+            "benefits": [
+                "Réduction d'impôt jusqu'à 21%",
+                "Constitution de patrimoine",
+                "Revenus locatifs",
+                "Accompagnement revente"
+            ]
+        },
+        "pinel": {
+            "title": "La loi Pinel : défiscaliser tout en investissant",
+            "description": "La loi Pinel offre une réduction d'impôt proportionnelle à la durée d'engagement locatif.",
+            "durees": [
+                {
+                    "ans": "6 ans",
+                    "pourcentage": "12%"
+                },
+                {
+                    "ans": "9 ans",
+                    "pourcentage": "18%"
+                },
+                {
+                    "ans": "12 ans",
+                    "pourcentage": "21%"
+                }
+            ],
+            "exemple": "Un couple investit 250 000 € dans un T2 à Toulouse. Ils économisent 52 500 € d'impôts en 9 ans.",
+            "avantages": [
+                "Réduction d'impôt significative (jusqu'à 63 000 €)",
+                "Patrimoine neuf attractif",
+                "Transmission facilitée"
+            ],
+            "inconvenients": [
+                "Plafonds de loyers limitant la rentabilité",
+                "Limité géographiquement aux zones tendues",
+                "Fin programmée du Pinel"
+            ]
+        },
+        "anciens": {
+            "title": "Les anciens dispositifs : Scellier et Robien",
+            "description": "Avant la loi Pinel, existaient le Robien (2003-2009) et le Scellier (2009-2012).",
+            "robien": {
+                "titre": "Dispositif Robien (2003-2009)",
+                "description": "Permettait d'amortir une partie du prix d'achat."
+            },
+            "scellier": {
+                "titre": "Dispositif Scellier (2009-2012)",
+                "description": "Offrait une réduction d'impôt de 25% sur 9 ans."
+            },
+            "note": "Ces régimes ne sont plus accessibles pour de nouveaux investissements."
+        },
+        "venteApresEngagement": {
+            "title": "Pourquoi vendre après la période d'engagement fiscal ?",
+            "description": "Une fois la période d'avantage fiscal terminée, beaucoup de propriétaires s'interrogent : faut-il conserver ou vendre le bien ?"
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "content": "Ces dispositifs ont permis à de nombreux Français de se constituer un patrimoine. Chez Azalée Patrimoine, nous vous accompagnons pour identifier le meilleur moment pour revendre."
+        },
+        "finalCta": {
+            "title": "Prêt à optimiser votre bien en dispositif fiscal ?",
+            "subtitle": "Nos experts vous accompagnent pour optimiser votre sortie.",
+            "primaryButton": "Faire évaluer mon bien",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        },
+        "seo": {
+            "metaTitle": "Dispositifs Fiscaux Pinel, Scellier, Robien | Azalée Patrimoine",
+            "metaDescription": "Découvrez les dispositifs fiscaux avec Azalée Patrimoine."
+        }
+    }
+}

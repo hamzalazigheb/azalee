@@ -1,0 +1,105 @@
+{
+    "path": "immobilier/investissement-locatif",
+    "title": "Investissement Locatif",
+    "published": true,
+    "content": {
+        "hero": {
+            "title": "Investissement locatif : un levier puissant pour bâtir votre patrimoine",
+            "subtitle": "L'investissement locatif est la stratégie immobilière la plus répandue en France. Elle consiste à acquérir un bien immobilier – appartement, maison ou immeuble – dans le but de le louer, que ce soit en location nue (bail classique de 3 ans) ou en location meublée (plus flexible et fiscalement avantageuse).",
+            "subtitle2": "Ce type d'investissement attire de nombreux épargnants car il permet à la fois de percevoir des revenus complémentaires, de réduire sa fiscalité et de constituer un patrimoine transmissible.",
+            "button": "Calculer ma rentabilité"
+        },
+        "rightCard": {
+            "title": "Nos experts à votre service",
+            "floatingText": "Effet →\nde levier",
+            "benefits": [
+                "Revenus complémentaires",
+                "Effet de levier du crédit",
+                "Patrimoine tangible et transmissible",
+                "Optimisation fiscale"
+            ]
+        },
+        "pourquoi": {
+            "title": "Pourquoi investir dans l'immobilier locatif ?",
+            "subtitle": "Découvrez les bénéfices de cette stratégie d'investissement patrimonial",
+            "items": [
+                {
+                    "title": "Génération de revenus réguliers",
+                    "description": "L'un des premiers atouts de l'investissement locatif est la **génération de revenus réguliers**. Les loyers perçus peuvent financer une partie ou la totalité des mensualités de crédit, tout en offrant un revenu complémentaire à long terme."
+                },
+                {
+                    "title": "Effet de levier du crédit immobilier",
+                    "description": "De plus, grâce à l'**effet de levier du crédit immobilier**, vous investissez avec peu d'apport personnel : ce sont vos locataires, associés aux avantages fiscaux, qui remboursent une grande partie du prêt."
+                },
+                {
+                    "title": "Valorisation patrimoniale",
+                    "description": "Enfin, l'investissement locatif est une stratégie de **valorisation patrimoniale** : à mesure que le capital de votre emprunt diminue, la valeur de votre bien augmente, surtout si vous avez choisi un emplacement porteur."
+                }
+            ],
+            "exemple": "Vous achetez un bien à **200 000 €** financé par un prêt de **180 000 €**. Avec un loyer de **900 €/mois** et une mensualité de crédit de **1 000 €**, votre effort d'épargne n'est que de **100 €/mois**. En contrepartie, vous construisez un patrimoine qui prendra de la valeur au fil des années."
+        },
+        "avantages": {
+            "title": "Les avantages de l'investissement locatif",
+            "subtitle": "Découvrez les bénéfices de cette stratégie d'investissement",
+            "items": [
+                {
+                    "title": "Revenus complémentaires",
+                    "description": "Source de revenus stable et prévisible."
+                },
+                {
+                    "title": "Effet de levier du crédit",
+                    "description": "Patrimoine important sans immobiliser trop de capital."
+                },
+                {
+                    "title": "Patrimoine tangible",
+                    "description": "Actif concret, sécurisant et transmissible."
+                },
+                {
+                    "title": "Optimisation fiscale",
+                    "description": "Régime réel, déficit foncier, ou statut LMNP."
+                }
+            ]
+        },
+        "inconvenients": {
+            "title": "Les inconvénients et risques à anticiper",
+            "subtitle": "Points de vigilance essentiels à connaître avant d'investir",
+            "items": [
+                {
+                    "title": "Vacance locative",
+                    "description": "Périodes sans locataire impactant la rentabilité."
+                },
+                {
+                    "title": "Impayés",
+                    "description": "Risque de défaut de paiement des locataires."
+                },
+                {
+                    "title": "Entretien",
+                    "description": "Travaux d'entretien et de réparation à prévoir."
+                },
+                {
+                    "title": "Fiscalité",
+                    "description": "Loyers imposables pouvant alourdir la charge fiscale."
+                }
+            ]
+        },
+        "exempleSection": {
+            "title": "Exemple concret",
+            "subtitle": "Un cas pratique pour mieux comprendre la rentabilité réelle"
+        },
+        "conseil": {
+            "title": "Conseil Azalée Patrimoine",
+            "subtitle": "Expertise et accompagnement personnalisé pour votre projet",
+            "content": "L'investissement locatif demande de la rigueur mais offre des perspectives de rentabilité solides. Chez Azalée Patrimoine, nous vous accompagnons dans la sélection, le financement et la gestion de vos biens."
+        },
+        "finalCta": {
+            "title": "Prêt à vous lancer dans l'investissement locatif ?",
+            "subtitle": "Nos experts vous accompagnent pour optimiser votre investissement.",
+            "primaryButton": "Calculer ma rentabilité",
+            "secondaryButton": "Planifiez votre consultation gratuite"
+        },
+        "seo": {
+            "metaTitle": "Investissement Locatif | Azalée Patrimoine",
+            "metaDescription": "Découvrez l'investissement locatif avec Azalée Patrimoine."
+        }
+    }
+}

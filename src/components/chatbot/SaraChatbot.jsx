@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import { getApiPath } from '@/lib/paths';
 
 // Générer un ID de session unique
 const generateSessionId = () => {
@@ -22,10 +23,24 @@ export default function SaraChatbot() {
   const [pdfStep, setPdfStep] = useState('email'); // email
   const messagesEndRef = useRef(null);
 
+  const [saraContent, setSaraContent] = useState(null);
+
   useEffect(() => {
     // Générer un sessionId au montage
     const newSessionId = generateSessionId();
     setSessionId(newSessionId);
+    
+    // Charger le contenu de Sara depuis le CMS
+    fetch(getApiPath('/cms/content?path=sara&t=' + Date.now()))
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data) {
+          setSaraContent(data.data);
+        }
+      })
+      .catch(err => {
+        console.error('Error loading Sara content from CMS:', err);
+      });
   }, []);
 
   // Initialiser les messages quand le chatbot s'ouvre
@@ -76,6 +91,20 @@ export default function SaraChatbot() {
   };
 
   const getWelcomeMessage = () => {
+    // Si le contenu CMS est disponible, l'utiliser, sinon utiliser le message par défaut
+    if (saraContent?.welcome) {
+      return {
+        type: 'message',
+        text: saraContent.welcome.text || "Bonjour et bienvenue sur azalee-patrimoine.fr ! Je suis votre conseiller patrimonial virtuel. Vous souhaitez optimiser vos finances, investir, ou anticiper l'avenir ? Je peux vous aider à y voir clair.",
+        options: saraContent.welcome.options || [
+          { text: '💬 Obtenir une réponse rapide à une question patrimoniale', value: 'question' },
+          { text: '📞 Être rappelé(e) par un conseiller', value: 'rappel' },
+          { text: '📅 Prendre un rendez-vous directement', value: 'rdv_direct' }
+        ]
+      };
+    }
+    
+    // Message par défaut (fallback)
     return {
       type: 'message',
       text: "Bonjour et bienvenue sur azalee-patrimoine.fr ! Je suis votre conseiller patrimonial virtuel. Vous souhaitez optimiser vos finances, investir, ou anticiper l'avenir ? Je peux vous aider à y voir clair.",
@@ -727,7 +756,7 @@ export default function SaraChatbot() {
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-[#253F60] to-[#B99066] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center z-[9999]"
-        aria-label="Ouvrir le chatbot SARA"
+        aria-label="Ouvrir le chatbot SARAH"
       >
         <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -745,7 +774,7 @@ export default function SaraChatbot() {
             <span className="text-lg font-bold">S</span>
           </div>
           <div>
-            <h3 className="font-cairo font-bold">SARA</h3>
+            <h3 className="font-cairo font-bold">SARAH</h3>
             <p className="text-xs text-gray-200">Conseiller virtuel</p>
           </div>
         </div>

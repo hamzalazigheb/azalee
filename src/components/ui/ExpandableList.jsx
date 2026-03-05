@@ -59,7 +59,7 @@ const ExpandableList = () => {
               </span>
               <img 
                 src={index === 0 && expandedItems[0] 
-                  ? "/images/img_vector_white_a700.svg" :"/images/img_svg_gray_900_01.svg"
+                  ? "/images/azalee-patrimoine-img-vector-white-a700.svg" :"/images/azalee-patrimoine-img-svg-gray-900-01.svg"
                 } 
                 className={`w-3 h-3 transition-transform duration-300 ${
                   expandedItems[index] ? 'rotate-180' : ''

@@ -1,0 +1,234 @@
+{
+    "path": "retraite/rachat-trimestres",
+    "title": "Rachat de trimestres",
+    "published": true,
+    "content": {
+        "seo": {
+            "metaTitle": "Rachat de Trimestres | Azalée Patrimoine",
+            "metaDescription": "Optimisez votre retraite en complétant votre carrière et en réduisant la décote sur votre pension grâce au rachat de trimestres."
+        },
+        "hero": {
+            "title": "Qu'est-ce que le rachat de trimestres ?",
+            "subtitle": "Optimisez votre retraite en complétant votre carrière et en réduisant la décote sur votre pension.",
+            "breadcrumb": {
+                "parent": "Retraite",
+                "current": "Rachat de trimestres"
+            }
+        },
+        "definition": {
+            "text": "Le **rachat de trimestres** (également appelé **\"versement pour la retraite\"**) est un mécanisme permettant à un assuré d'acheter, jusqu'à un maximum de **12 trimestres**, des trimestres manquants dans sa carrière.",
+            "objectivesTitle": "Les objectifs du rachat de trimestres",
+            "objectives": [
+                "Augmenter sa durée d'assurance validée (et ainsi se rapprocher du taux plein).",
+                "Supprimer ou réduire la décote appliquée à sa pension si le nombre de trimestres requis n'est pas atteint à l'âge légal."
+            ],
+            "note": "Ce mécanisme s'adresse principalement aux personnes ayant des années incomplètes (études, apprentissage, périodes d'activité réduite) et qui souhaitent optimiser leur pension de retraite."
+        },
+        "pourquoi": {
+            "title": "Pourquoi envisager un rachat ?",
+            "subtitle": "Les situations qui justifient cette démarche",
+            "intro": "Plusieurs situations peuvent justifier un rachat de trimestres :",
+            "items": [
+                {
+                    "title": "Études supérieures",
+                    "description": "Avoir eu des années d'études supérieures ou d'apprentissage où les 4 trimestres annuels n'ont pas été validés.",
+                    "icon": "study"
+                },
+                {
+                    "title": "Carrière incomplète",
+                    "description": "Avoir travaillé à temps partiel, changé de statut, ou créé une entreprise, entraînant un manque de trimestres...",
+                    "icon": "career"
+                },
+                {
+                    "title": "Retraite anticipée",
+                    "description": "Souhaiter partir à la retraite plus tôt ou simplement augmenter sa pension en supprimant la décote.",
+                    "icon": "clock"
+                },
+                {
+                    "title": "Optimisation",
+                    "description": "Augmenter le montant de sa pension en éliminant la décote appliquée en cas de carrière incomplète.",
+                    "icon": "graph"
+                }
+            ],
+            "important": {
+                "title": "Important : Simulation obligatoire",
+                "text": "Avant de procéder, il est essentiel de réaliser une **simulation** car le coût est élevé, et il faut s'assurer que l'opération est rentable selon votre profil (âge, revenus, départ prévu)."
+            }
+        },
+        "bareme": {
+            "title": "Le barème 2025 : montants et critères",
+            "factorsTitle": "Le coût du rachat d'un trimestre en 2025 dépend de **trois facteurs principaux** :",
+            "factors": [
+                {
+                    "title": "Votre âge",
+                    "description": "Au moment de la demande"
+                },
+                {
+                    "title": "Vos revenus",
+                    "description": "Des 3 dernières années"
+                },
+                {
+                    "title": "L'option choisie",
+                    "description": "Type de rachat"
+                }
+            ],
+            "options": [
+                {
+                    "title": "Option 1 : Rachat pour le taux seul",
+                    "description": "Cette option signifie **uniquement améliorer votre taux de liquidation**, c'est-à-dire éviter ou réduire la décote appliquée à votre pension de base."
+                },
+                {
+                    "title": "Option 2 : Rachat pour le taux et la durée d'assurance",
+                    "description": "Cette option consiste à **améliorer le taux** (comme l'option 1) **plus** prendre en compte les trimestres supplémentaires pour **augmenter le montant de la pension**.\n\nCette option est généralement plus coûteuse mais peut être plus avantageuse sur le long terme."
+                }
+            ],
+            "pass": {
+                "year": "2025",
+                "value": "47 100 €",
+                "tranches": [
+                    {
+                        "label": "Tranche 1",
+                        "value": "Revenus < 35 325 €",
+                        "sub": "(< 75% du PASS)"
+                    },
+                    {
+                        "label": "Tranche 2",
+                        "value": "35 325 € - 47 100 €",
+                        "sub": "(75% - 100% du PASS)"
+                    },
+                    {
+                        "label": "Tranche 3",
+                        "value": "Revenus > 47 100 €",
+                        "sub": "(> 100% du PASS)"
+                    }
+                ]
+            },
+            "examples": {
+                "title": "Exemple chiffré pour un rachat d'un trimestre",
+                "items": [
+                    {
+                        "option": "Option \"Taux seul\"",
+                        "context": "À 50 ans, revenus < 35 325 €",
+                        "cost": "2 672 €"
+                    },
+                    {
+                        "option": "Option \"Taux et durée\"",
+                        "context": "À 50 ans, revenus > 47 100 €",
+                        "cost": "5 279 €"
+                    }
+                ],
+                "note": "Ces montants peuvent paraître élevés, d'où l'importance de la simulation."
+            }
+        },
+        "rentabilite": {
+            "title": "Rentabilité & fiscalité",
+            "deductibility": "Le montant versé pour un rachat de trimestres est **déductible de vos revenus imposables sans plafond spécifique** (dans la limite de l'intérêt fiscal) : cela en fait une opportunité pour les contribuables ayant une tranche d'imposition élevée.",
+            "caveatsTitle": "Toutefois :",
+            "caveats": [
+                "Plus vous êtes **jeune** au moment du rachat, plus l'opération est rentable.",
+                "Plus vos **revenus sont élevés/futurs** et plus le rachat peut avoir du sens.",
+                "Il faut comparer le **coût actuel vs le gain en pension attendu**. Si vous êtes très proche de l'âge légal ou de la durée requise, le gain peut être limité."
+            ]
+        },
+        "demarches": {
+            "title": "Démarches & conditions",
+            "conditions": [
+                {
+                    "title": "Conditions d'âge",
+                    "description": "Vous devez être âgé de **20 ans minimum** et n'avoir **pas encore liquidé votre pension personnelle**."
+                },
+                {
+                    "title": "Années concernées",
+                    "description": "Le rachat concerne des années pour lesquelles **moins de 4 trimestres ont été validés**."
+                },
+                {
+                    "title": "Démarche administrative",
+                    "description": "Une demande doit être déposée auprès de votre caisse de retraite (ex. CNAV) **avant votre départ à la retraite**."
+                },
+                {
+                    "title": "Évaluation préalable",
+                    "description": "Vérifiez l'intérêt de l'opération au regard de votre génération et du **coût vs gain**."
+                }
+            ],
+            "warning": {
+                "title": "Opération irréversible",
+                "description": "Une fois le paiement effectué, l'opération est **irréversible**. Il est donc essentiel de bien réfléchir et de simuler avant de s'engager."
+            }
+        },
+        "moment": {
+            "title": "À quel moment envisager un rachat ?",
+            "intro": "Voici quelques bonnes règles :",
+            "rules": [
+                {
+                    "title": "Si vous manquez plusieurs trimestres et êtes jeune",
+                    "description": "Si vous manquez **plusieurs trimestres** et que vous êtes relativement **jeune (ex : 40-50 ans)**, cela peut valoir le coup."
+                },
+                {
+                    "title": "Si vous prévoyez un départ anticipé",
+                    "description": "Pour **augmenter sensiblement votre pension**, l'option « taux et durée » peut s'envisager."
+                },
+                {
+                    "title": "Si vous êtes proche de l'âge légal",
+                    "description": "Si vous êtes très près de l'âge légal, ou manquez **peu de trimestres** avec des **revenus modestes**, l'opération peut ne pas être rentable."
+                },
+                {
+                    "title": "En cas de changement professionnel",
+                    "description": "En cas de **changement professionnel** ou augmentation de revenus, il peut être judicieux de différer ou anticiper."
+                }
+            ]
+        },
+        "pointsCles": {
+            "title": "Points clés à retenir",
+            "items": [
+                "Chaque trimestre racheté coûte plusieurs milliers d'euros.",
+                "Le barème dépend fortement de l'âge et des revenus.",
+                "Le paiement est déductible fiscalement : effet levier puissant.",
+                "Un rachat ne garantit pas automatiquement un gain important.",
+                "Faites toujours une simulation personnalisée avant d'engager l'opération."
+            ]
+        },
+        "resume": {
+            "title": "En résumé",
+            "description": "Le rachat de trimestres peut être un outil puissant pour optimiser votre retraite, mais ce n'est pas systématiquement rentable. Il nécessite une analyse fine de votre parcours, un calcul rigoureux du coût vs gain, et une bonne **anticipation fiscale**.",
+            "ctaText": "Pour un bilan complet de votre situation et une simulation personnalisée, contactez-nous.",
+            "ctaLink": "https://calendly.com/rdv-azalee-patrimoine/30min"
+        },
+        "reequilibrer": {
+            "title": "Rééquilibrer les retraites au sein du couple : une stratégie patrimoniale souvent négligée",
+            "introTitle": "Pourquoi existe-t-il un déséquilibre ?",
+            "introText": "Dans de nombreux foyers, un déséquilibre s'installe naturellement au fil du temps... Souvent, l'un des conjoints voit sa carrière ralentie.",
+            "consequences": [
+                "Carrière hachée",
+                "Progression salariale freinée",
+                "Cotisations retraite réduites",
+                "Pension plus faible à la retraite"
+            ],
+            "solutionTitle": "Le PER conjugal : un levier intelligent",
+            "solutionIntro": "Pour compenser cette inégalité, de plus en plus de couples choisissent de verser sur le PER du conjoint le moins avantagé.",
+            "benefits": [
+                {
+                    "title": "Rééquilibrer les revenus futurs",
+                    "description": "Créer une source de revenus personnels indépendante de la réversion."
+                },
+                {
+                    "title": "Avantage fiscal immédiat",
+                    "description": "Les versements sont déductibles du revenu imposable commun."
+                },
+                {
+                    "title": "Sécuriser la retraite",
+                    "description": "Le PER offre une souplesse de gestion et une protection successorale."
+                }
+            ],
+            "example": {
+                "title": "Exemple concret : Sophie et Marc",
+                "sophie": "45 ans, carrière interrompue 8 ans.",
+                "marc": "47 ans, cadre dirigeant, 120k€/an.",
+                "action": "Versement de 15 000 € sur le PER de Sophie.",
+                "result": [
+                    "Déduction fiscale immédiate : 6 150 € d'économie d'impôt.",
+                    "Constitution d'un capital retraite propre à Sophie."
+                ]
+            }
+        }
+    }
+}

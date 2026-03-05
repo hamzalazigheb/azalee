@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getImagePath } from '@/lib/paths';
 
 function ChatbotStatsCard() {
   const [chatbotStats, setChatbotStats] = useState({
@@ -32,7 +33,7 @@ function ChatbotStatsCard() {
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 border-2 border-[#B99066]/20 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-cairo font-semibold text-gray-600 dark:text-gray-300 mb-1">Chatbot SARA</p>
+          <p className="text-sm font-cairo font-semibold text-gray-600 dark:text-gray-300 mb-1">Chatbot SARAH</p>
           <p className="text-2xl font-cairo font-bold text-[#253F60] dark:text-[#B99066]">
             {loading ? (
               <span className="inline-block w-8 h-8 border-4 border-[#B99066] border-t-transparent rounded-full animate-spin"></span>
@@ -97,7 +98,7 @@ export default function AdminDashboardPage() {
             <div className="flex items-center gap-6">
               <div className="bg-white rounded-xl p-3 shadow-lg">
                 <img 
-                  src="/images/azalee-patrimoine3.png" 
+                  src={getImagePath("/images/azalee-patrimoine3.webp")}
                   alt="Azalée Patrimoine Logo" 
                   className="w-20 h-20 object-contain"
                   onError={(e) => {
@@ -226,54 +227,6 @@ export default function AdminDashboardPage() {
               </div>
             </button>
             <button 
-              onClick={() => router.push('/admin/cms?path=header')}
-              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le Header</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Modifier le menu de navigation et le header</p>
-                </div>
-              </div>
-            </button>
-            <button 
-              onClick={() => router.push('/admin/cms?path=footer')}
-              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le Footer</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Modifier les informations du footer</p>
-                </div>
-              </div>
-            </button>
-            <button 
-              onClick={() => router.push('/admin/seo')}
-              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le SEO</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Modifier les meta descriptions et titres SEO</p>
-                </div>
-              </div>
-            </button>
-            <button 
               onClick={() => router.push('/admin/users')}
               className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
             >
@@ -300,7 +253,7 @@ export default function AdminDashboardPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le Chatbot SARA</h3>
+                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le Chatbot SARAH</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Voir les sessions et leads du chatbot</p>
                 </div>
               </div>
@@ -318,6 +271,54 @@ export default function AdminDashboardPage() {
                 <div>
                   <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Demandes de contact</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Voir et gérer les demandes de contact</p>
+                </div>
+              </div>
+            </button>
+            <button 
+              onClick={() => router.push('/admin/newsletter')}
+              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Newsletter - Abonnés</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Gérer les abonnés à la newsletter</p>
+                </div>
+              </div>
+            </button>
+            <button 
+              onClick={() => router.push('/admin/ressources')}
+              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer les Ressources</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Uploader et gérer les guides PDF</p>
+                </div>
+              </div>
+            </button>
+            <button 
+              onClick={() => router.push('/admin/blog')}
+              className="p-6 border-2 border-[#253F60]/20 dark:border-gray-700 rounded-xl hover:border-[#B99066] dark:hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60]/5 hover:to-[#B99066]/5 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-left group bg-white dark:bg-gray-800"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-[#253F60] to-[#1a2d47] rounded-lg flex items-center justify-center group-hover:from-[#B99066] group-hover:to-[#A67C52] transition-all duration-300">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-cairo font-bold text-[#253F60] dark:text-[#B99066] mb-1 group-hover:text-[#B99066] transition-colors">Gérer le Blog</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 font-inter">Gérer les articles et liens réseaux sociaux</p>
                 </div>
               </div>
             </button>

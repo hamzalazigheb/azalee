@@ -19,12 +19,53 @@ export async function GET(request) {
       );
     }
 
-    const page = await PageContent.findOne({ 
-      path: path.toLowerCase(),
-      published: true 
-    });
-    
+    const pathLower = path.toLowerCase();
+
+    // For homepage, try multiple possible paths
+    let page = null;
+    if (pathLower === 'home' || pathLower === '/' || pathLower === '' || pathLower.includes('accueil') || pathLower.includes('page d')) {
+      // Try different possible paths for homepage
+      const possiblePaths = [
+        'home', 
+        'accueil', 
+        'accueil - azalée patrimoine',
+        'page d\'accueil',
+        'page d accueil',
+        'page daccueil'
+      ];
+      for (const possiblePath of possiblePaths) {
+        page = await PageContent.findOne({
+          path: possiblePath.toLowerCase(),
+          published: true
+        });
+        if (page) {
+          console.log(`[CMS API] Found homepage with path: ${page.path}`);
+          break;
+        }
+      }
+    } else {
+      page = await PageContent.findOne({
+        path: pathLower,
+        published: true
+      });
+    }
+
     if (!page) {
+      // Return success with empty data instead of 404 for optional pages (header, footer, sara)
+      const optionalPages = ['header', 'footer', 'sara'];
+      if (optionalPages.includes(pathLower)) {
+        return NextResponse.json({
+          success: true,
+          data: {}
+        }, {
+          headers: {
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+      }
+      
       return NextResponse.json(
         { success: false, message: 'Page not found or not published' },
         { status: 404 }

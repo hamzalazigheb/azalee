@@ -1,9 +1,232 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import { processHTMLForRender } from "../../lib/utils/htmlConverter";
+
+// Liste complète des principales villes françaises avec leurs codes postaux
+const villesFrance = [
+  "Paris 75001, 75002, 75003, 75004, 75005, 75006, 75007, 75008, 75009, 75010, 75011, 75012, 75013, 75014, 75015, 75016, 75017, 75018, 75019, 75020",
+  "Lyon 69001, 69002, 69003, 69004, 69005, 69006, 69007, 69008, 69009",
+  "Marseille 13001, 13002, 13003, 13004, 13005, 13006, 13007, 13008, 13009, 13010, 13011, 13012, 13013, 13014, 13015, 13016",
+  "Toulouse 31000, 31100, 31200, 31300, 31400, 31500",
+  "Nice 06000, 06100, 06200, 06300",
+  "Nantes 44000, 44100, 44200, 44300",
+  "Strasbourg 67000, 67100, 67200",
+  "Montpellier 34000, 34070, 34080, 34090",
+  "Bordeaux 33000, 33100, 33200, 33300, 33400, 33500",
+  "Lille 59000, 59100, 59200, 59300, 59400, 59500, 59600, 59700, 59800",
+  "Rennes 35000, 35100, 35200, 35300",
+  "Reims 51000, 51100",
+  "Saint-Étienne 42000, 42100, 42200, 42300",
+  "Le Havre 76000, 76100, 76200, 76300",
+  "Toulon 83000, 83100, 83200",
+  "Grenoble 38000, 38100, 38200",
+  "Dijon 21000, 21100",
+  "Angers 49000, 49100",
+  "Nîmes 30000, 30900",
+  "Villeurbanne 69100",
+  "Saint-Denis 93200, 93210, 93220",
+  "Le Mans 72000, 72100",
+  "Aix-en-Provence 13080, 13090, 13100",
+  "Clermont-Ferrand 63000, 63100",
+  "Brest 29200, 29217, 29229",
+  "Limoges 87000, 87100",
+  "Tours 37000, 37100, 37200",
+  "Amiens 80000, 80080, 80090",
+  "Perpignan 66000, 66100",
+  "Metz 57000, 57050, 57070",
+  "Besançon 25000, 25030",
+  "Boulogne-Billancourt 92100",
+  "Orléans 45000, 45100",
+  "Mulhouse 68100, 68200",
+  "Rouen 76000, 76100, 76200, 76300, 76400, 76500",
+  "Caen 14000, 14100, 14200, 14300",
+  "Nancy 54000, 54100",
+  "Argenteuil 95100",
+  "Montreuil 93100",
+  "Saint-Paul 97460",
+  "Roubaix 59100",
+  "Tourcoing 59200",
+  "Nanterre 92000",
+  "Avignon 84000",
+  "Créteil 94000",
+  "Dunkirk 59140, 59240, 59279, 59430, 59470, 59640",
+  "Poitiers 86000",
+  "Asnières-sur-Seine 92600",
+  "Courbevoie 92400",
+  "Vitry-sur-Seine 94400",
+  "Aubervilliers 93300",
+  "Colombes 92700",
+  "Aulnay-sous-Bois 93600",
+  "La Rochelle 17000",
+  "Rueil-Malmaison 92500",
+  "Champigny-sur-Marne 94500",
+  "Antibes 06160, 06600",
+  "Saint-Maur-des-Fossés 94100, 94210",
+  "Cannes 06400",
+  "Calais 62100",
+  "Béziers 34500",
+  "Bourges 18000",
+  "Colmar 68000",
+  "Drancy 93700",
+  "Mérignac 33700",
+  "Saint-Nazaire 44600",
+  "Valence 26000",
+  "Quimper 29000",
+  "Issy-les-Moulineaux 92130",
+  "Noisy-le-Grand 93160",
+  "La Seyne-sur-Mer 83500",
+  "Hyères 83400",
+  "Évry 91000",
+  "Villeneuve-d'Ascq 59650",
+  "Sète 34200",
+  "Pau 64000",
+  "Chambéry 73000",
+  "Pantin 93500",
+  "Lorient 56100",
+  "Montauban 82000",
+  "Niort 79000",
+  "Vannes 56000",
+  "Bayonne 64100",
+  "Cergy 95000, 95800",
+  "Annecy 74000",
+  "Laval 53000",
+  "Belfort 90000",
+  "Brive-la-Gaillarde 19100",
+  "Charleville-Mézières 08000",
+  "Cholet 49300",
+  "Épinal 88000",
+  "Évreux 27000",
+  "Fontenay-sous-Bois 94120",
+  "Fréjus 83600",
+  "Gap 05000",
+  "Gennevilliers 92230",
+  "Ivry-sur-Seine 94200",
+  "Le Blanc-Mesnil 93150",
+  "Le Tampon 97430",
+  "Les Abymes 97139",
+  "Lunel 34400",
+  "Mâcon 71000",
+  "Meaux 77100",
+  "Melun 77000",
+  "Montbéliard 25200",
+  "Neuilly-sur-Seine 92200",
+  "Périgueux 24000",
+  "Roanne 42300",
+  "Romainville 93230",
+  "Saint-Brieuc 22000",
+  "Saint-Ouen 93400",
+  "Saint-Quentin 02100",
+  "Sarcelles 95200",
+  "Thionville 57100",
+  "Troyes 10000",
+  "Vaulx-en-Velin 69120",
+  "Vénissieux 69200",
+  "Vincennes 94300",
+  "Wattrelos 59150",
+  "Albi 81000",
+  "Angoulême 16000",
+  "Arles 13200",
+  "Arras 62000",
+  "Aubagne 13400",
+  "Auxerre 89000",
+  "Beauvais 60000",
+  "Blois 41000",
+  "Bourgoin-Jallieu 38300",
+  "Brignoles 83170",
+  "Carcassonne 11000",
+  "Castres 81100",
+  "Chalon-sur-Saône 71100",
+  "Châteauroux 36000",
+  "Chartres 28000",
+  "Châteaudun 28200",
+  "Cherbourg 50100",
+  "Compiègne 60200",
+  "Dieppe 76200",
+  "Douai 59500",
+  "Draguignan 83300",
+  "Dreux 28100",
+  "Forbach 57600",
+  "Fougères 35300",
+  "Grasse 06130",
+  "Haguenau 67500",
+  "La Ciotat 13600",
+  "La Roche-sur-Yon 85000",
+  "Lannion 22300",
+  "Laval 53000",
+  "Libourne 33500",
+  "Longwy 54400",
+  "Lons-le-Saunier 39000",
+  "Loudun 86200",
+  "Lunéville 54300",
+  "Mantes-la-Jolie 78200",
+  "Martigues 13500",
+  "Maubeuge 59600",
+  "Mayenne 53100",
+  "Menton 06500",
+  "Millau 12100",
+  "Miribel 01700",
+  "Montargis 45200",
+  "Mont-de-Marsan 40000",
+  "Montluçon 03100",
+  "Moulins 03000",
+  "Nevers 58000",
+  "Narbonne 11100",
+  "Orange 84100",
+  "Pithiviers 45300",
+  "Pontarlier 25300",
+  "Pont-Audemer 27500",
+  "Pontoise 95300",
+  "Privas 07000",
+  "Provins 77160",
+  "Quimperlé 29300",
+  "Rambouillet 78120",
+  "Redon 35600",
+  "Remiremont 88200",
+  "Rodez 12000",
+  "Romans-sur-Isère 26100",
+  "Rosny-sous-Bois 93110",
+  "Royan 17200",
+  "Rumilly 74150",
+  "Saint-Amand-les-Eaux 59230",
+  "Saint-Avold 57500",
+  "Saint-Chamond 42400",
+  "Saint-Dié-des-Vosges 88100",
+  "Saint-Dizier 52100",
+  "Saintes 17100",
+  "Saint-Flour 15100",
+  "Saint-Gaudens 31800",
+  "Saint-Germain-en-Laye 78100",
+  "Saint-Jean-de-Luz 64500",
+  "Saint-Lô 50000",
+  "Saint-Malo 35400",
+  "Saint-Omer 62500",
+  "Salon-de-Provence 13300",
+  "Sarlat-la-Canéda 24200",
+  "Sarreguemines 57200",
+  "Sartrouville 78500",
+  "Sens 89100",
+  "Soissons 02200",
+  "Tarbes 65000",
+  "Thonon-les-Bains 74200",
+  "Tulle 19000",
+  "Ussel 19200",
+  "Uzes 30700",
+  "Valenciennes 59300",
+  "Vannes 56000",
+  "Vendôme 41100",
+  "Verdun 55100",
+  "Versailles 78000",
+  "Vesoul 70000",
+  "Vichy 03200",
+  "Vienne 38200",
+  "Vierzon 18100",
+  "Villefranche-sur-Saône 69400",
+  "Villeneuve-sur-Lot 47300",
+  "Vitré 35500",
+  "Yvetot 76190"
+].join(", ");
 
 export default function PatrimoinePage() {
   const [content, setContent] = useState({});
@@ -15,7 +238,7 @@ export default function PatrimoinePage() {
       title: "Patrimoine – Protégez et transmettez votre héritage avec Azalée Patrimoine",
       description: "Votre expert en transmission patrimoniale depuis plus de 30 ans. Nous vous accompagnons pour protéger votre famille, optimiser la transmission de votre patrimoine, et sécuriser l'avenir de vos proches avec des solutions personnalisées.",
       ctaText: "Demander un bilan patrimonial gratuit",
-      image: "/images/pqtri;oine.webp"
+      image: "/images/azalee-patrimoine-pqtrioine.webp"
     },
     essentiel: {
       title: "L'essentiel",
@@ -80,7 +303,7 @@ export default function PatrimoinePage() {
         "Accompagnement complet",
         "Solutions sur mesure"
       ],
-      buttonText: "Contactez-nous"
+      buttonText: "Obtenez votre bilan patrimonial gratuit"
     },
     servicesGrid: {
       services: [
@@ -107,12 +330,18 @@ export default function PatrimoinePage() {
     // Load content from MongoDB via API
     const loadContent = async () => {
       try {
-        const response = await fetch('/api/cms/content?path=patrimoine');
+        const response = await fetch(`/api/cms/content?path=patrimoine&t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+          }
+        });
         const data = await response.json();
         
         if (data.success && data.data) {
           // Merge with default content to ensure all fields exist
-          setContent((prev) => ({ ...defaultContent, ...data.data }));
+          setContent({ ...defaultContent, ...data.data });
         } else {
           // If not found in DB, use default content
           console.log('Content not found in database, using default content');
@@ -128,13 +357,35 @@ export default function PatrimoinePage() {
     };
 
     loadContent();
+
+    // Listen for CMS content updates
+    const handleCMSUpdate = (event) => {
+      const updatedPath = event.detail?.path?.toLowerCase();
+      if (!updatedPath || updatedPath === 'patrimoine') {
+        console.log('🔄 CMS content updated, refreshing patrimoine page...', updatedPath);
+        loadContent();
+      }
+    };
+
+    window.addEventListener('cmsContentUpdated', handleCMSUpdate);
+
+    // Polling fallback: check for updates every 10 seconds when page is visible
+    const pollInterval = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadContent();
+      }
+    }, 10000);
+
+    return () => {
+      window.removeEventListener('cmsContentUpdated', handleCMSUpdate);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // Show loading state if content is being fetched
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#253F60] mx-auto mb-4"></div>
@@ -160,7 +411,6 @@ export default function PatrimoinePage() {
           }
         }
       `}</style>
-      <Header />
       
       {/* Hero Section - Deux cartes */}
       <section className="relative w-full min-h-[650px] bg-gradient-to-r from-[#253F60] to-[#B99066] py-20 sm:py-24 lg:py-32">
@@ -168,24 +418,24 @@ export default function PatrimoinePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
             {/* Carte gauche */}
             <div className="bg-white rounded-xl shadow-2xl p-8 sm:p-10 lg:p-12 border border-gray-100 hover:shadow-3xl transition-shadow duration-300">
-              <h1 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight">
+              <h1 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight text-center">
                 {content.hero?.cardLeft?.title || "Bien gérer son patrimoine en 2025, c'est anticiper, structurer et transmettre"}
               </h1>
               
               <div className="space-y-5 mb-10">
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph1 || "Une bonne gestion de patrimoine ne se résume pas à faire fructifier son épargne."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph2 || "Elle repose sur une approche globale et exclusive qui intègre la protection de la famille, la stratégie de transmission, l'optimisation fiscale, des placements performants, une structuration juridique et l'anticipation des risques."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph3 || "Notre équipe de conseillers en gestion de patrimoine indépendants vous accompagne pour bâtir une stratégie personnalisée et cohérente avec vos objectifs de vie."}
                 </p>
                 
-                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed">
+                <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed text-center">
                   {content.hero?.cardLeft?.paragraph4 || "Que vous soyez chef d'entreprise, héritier, expatrié ou jeune investisseur, nous vous guidons avec clarté."}
                 </p>
               </div>
@@ -211,11 +461,11 @@ export default function PatrimoinePage() {
                 </div>
               </div>
               
-              <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight">
+              <h2 className="text-[#253F60] text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold leading-tight mb-8 tracking-tight text-center">
                 {content.hero?.cardRight?.title || "Votre patrimoine mérite une stratégie claire et durable"}
               </h2>
               
-              <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed mb-8">
+              <p className="text-[#4B5563] text-base sm:text-lg lg:text-xl font-inter leading-relaxed mb-8 text-center">
                 {content.hero?.cardRight?.description || "Chez Azalée Patrimoine, nous vous aidons à construire un avenir financier solide grâce à une approche personnalisée et des solutions adaptées à vos besoins spécifiques."}
               </p>
               
@@ -392,28 +642,20 @@ export default function PatrimoinePage() {
                 return (
                   <div 
                     key={index} 
-                    className="group relative bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 hover:border-[#B99066] hover:bg-gradient-to-br hover:from-[#253F60] hover:to-[#1a2d47] hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer overflow-hidden"
+                    className="relative bg-white rounded-2xl shadow-lg p-8 border-2 border-gray-200 overflow-hidden"
                     style={{
                       animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                     }}
                   >
-                    {/* Effet de brillance au survol */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
-                    </div>
-                    
                     {/* Icône */}
-                    <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                    <div className="mb-6">
                       {getIcon(index)}
                     </div>
                     
                     {/* Texte */}
-                    <h3 className="text-[#253F60] group-hover:text-white text-lg sm:text-xl font-inter font-bold leading-relaxed transition-colors duration-300 relative z-10">
+                    <h3 className="text-[#253F60] text-lg sm:text-xl font-inter font-bold leading-relaxed relative z-10">
                       {point}
                     </h3>
-                    
-                    {/* Ligne décorative en bas */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#253F60] via-[#B99066] to-[#253F60] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   </div>
                 );
               })}
@@ -1067,7 +1309,7 @@ export default function PatrimoinePage() {
                 </span>
               </a>
               
-              <a href="/qui-sommes-nous" className="bg-white rounded-xl p-6 shadow-lg border-2 border-[#B99066] hover:border-[#A67C52] hover:shadow-xl transition-all duration-300 flex items-center gap-4 group">
+              <a href="/notre-approche" className="bg-white rounded-xl p-6 shadow-lg border-2 border-[#B99066] hover:border-[#A67C52] hover:shadow-xl transition-all duration-300 flex items-center gap-4 group">
                 <svg className="w-8 h-8 text-[#B99066] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.503-1.135-2.01M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.503 1.135-2.01m0 0A5.002 5.002 0 0112 13c1.242 0 2.4.402 3.332 1.09M9 9a3 3 0 116 0m-6 0a3 3 0 106 0m-6 0a3 3 0 106 0" />
                 </svg>
@@ -1095,14 +1337,17 @@ export default function PatrimoinePage() {
                   {/* Container avec dégradé appliqué directement sur la forme de la carte */}
                   <div 
                     className="relative w-full"
+                    role="img"
+                    aria-label={`Carte de France montrant la couverture nationale d'Azalée Patrimoine. Nos conseillers en gestion de patrimoine sont disponibles dans toutes les villes de France : ${villesFrance}. Trouvez un conseiller près de chez vous, partout en France métropolitaine.`}
+                    title={`Azalée Patrimoine - Conseillers en gestion de patrimoine disponibles dans toutes les villes de France : ${villesFrance}`}
                     style={{ 
                       filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
                       background: 'linear-gradient(135deg, #253F60 0%, #4a6b8a 30%, #7a8a7a 60%, #B99066 100%)',
-                      WebkitMaskImage: 'url(/images/france.svg)',
+                      WebkitMaskImage: 'url(/images/azalee-patrimoine-france.svg)',
                       WebkitMaskSize: 'contain',
                       WebkitMaskRepeat: 'no-repeat',
                       WebkitMaskPosition: 'center',
-                      maskImage: 'url(/images/france.svg)',
+                      maskImage: 'url(/images/azalee-patrimoine-france.svg)',
                       maskSize: 'contain',
                       maskRepeat: 'no-repeat',
                       maskPosition: 'center',
@@ -1123,7 +1368,7 @@ export default function PatrimoinePage() {
                     </svg>
                   </div>
                   <h3 className="text-white text-2xl sm:text-3xl lg:text-4xl font-cairo font-bold mb-6">
-                    {content.localisation?.cardTitle || "Disponible en toute la France"}
+                    {content.localisation?.cardTitle || "Disponible partout en France"}
                   </h3>
                   <p className="text-white/90 text-lg sm:text-xl font-inter leading-relaxed mb-8">
                     {content.localisation?.cardDescription || "Nos conseillers en gestion de patrimoine sont présents partout en France pour vous accompagner dans votre projet patrimonial, où que vous soyez."}
@@ -1156,23 +1401,11 @@ export default function PatrimoinePage() {
                     onClick={() => window.open(content.localisation?.buttonUrl || 'https://calendly.com/rdv-azalee-patrimoine/30min', '_blank')}
                     className="bg-white text-[#253F60] px-8 py-4 rounded-lg shadow-xl font-inter font-bold text-lg hover:bg-white/90 hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300"
                   >
-                    {content.localisation?.buttonText || "Prendre rendez-vous"}
+                    {content.localisation?.buttonText || "Planifiez votre consultation gratuite"}
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-          
-          {/* CTA Button */}
-          <div className="mt-12 text-center">
-            <a
-              href={content.localisation?.ctaButtonUrl || "https://calendly.com/rdv-azalee-patrimoine/30min"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-gradient-to-r from-[#253F60] to-[#1a2d47] hover:from-[#1a2d47] hover:to-[#253F60] text-white px-10 py-5 rounded-lg shadow-xl font-inter font-bold text-lg sm:text-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
-            >
-              {content.localisation?.ctaButtonText || "Rencontrer un conseiller en gestion de patrimoine"}
-            </a>
           </div>
         </div>
       </section>

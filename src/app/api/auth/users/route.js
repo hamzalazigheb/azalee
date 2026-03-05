@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '../../../../lib/mongodb';
 import User from '../../../../lib/models/User';
 import jwt from 'jsonwebtoken';
+import { getJWTSecret } from '@/lib/auth';
+import { validateUserCreation } from '@/lib/validations/user';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +26,8 @@ export async function GET(request) {
     // Verify token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+      const jwtSecret = getJWTSecret();
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       return NextResponse.json(
         { success: false, message: 'Invalid or expired token' },
@@ -44,15 +47,25 @@ export async function GET(request) {
     // Get all users
     const users = await User.find({}).select('-password').sort({ createdAt: -1 });
 
+    // Ensure _id is converted to string for each user
+    const usersWithStringIds = users.map(user => {
+      const userObj = user.toObject();
+      userObj._id = userObj._id.toString();
+      userObj.id = userObj._id; // Also add 'id' field for convenience
+      return userObj;
+    });
+
     return NextResponse.json({
       success: true,
-      data: users
+      data: usersWithStringIds
     });
 
   } catch (error) {
-    console.error('Get users error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Get users error:', error);
+    }
     return NextResponse.json(
-      { success: false, message: 'Error fetching users: ' + error.message },
+      { success: false, message: 'Error fetching users' },
       { status: 500 }
     );
   }
@@ -77,7 +90,8 @@ export async function POST(request) {
     // Verify token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+      const jwtSecret = getJWTSecret();
+      decoded = jwt.verify(token, jwtSecret);
     } catch (error) {
       return NextResponse.json(
         { success: false, message: 'Invalid or expired token' },
@@ -94,25 +108,21 @@ export async function POST(request) {
       );
     }
 
-    const { email, password, name, role } = await request.json();
-
-    // Validate input
-    if (!email || !password || !name) {
+    const body = await request.json();
+    
+    // Validate input with Zod
+    const validation = validateUserCreation(body);
+    if (!validation.success) {
       return NextResponse.json(
-        { success: false, message: 'Email, password, and name are required' },
+        { success: false, message: validation.message, errors: validation.errors },
         { status: 400 }
       );
     }
-
-    if (password.length < 6) {
-      return NextResponse.json(
-        { success: false, message: 'Password must be at least 6 characters long' },
-        { status: 400 }
-      );
-    }
+    
+    const { email, password, name, role } = validation.data;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
         { success: false, message: 'User with this email already exists' },
@@ -122,10 +132,10 @@ export async function POST(request) {
 
     // Create new user (password will be hashed by pre-save hook)
     const newUser = new User({
-      email: email.toLowerCase(),
+      email,
       password,
       name,
-      role: role || 'admin'
+      role
     });
 
     await newUser.save();
@@ -140,9 +150,11 @@ export async function POST(request) {
     });
 
   } catch (error) {
-    console.error('Create user error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Create user error:', error);
+    }
     return NextResponse.json(
-      { success: false, message: 'Error creating user: ' + error.message },
+      { success: false, message: 'Error creating user' },
       { status: 500 }
     );
   }

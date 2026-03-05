@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import CTAButton from '@/components/ui/CTAButton';
+import { getApiPath } from '@/lib/paths';
 
 const Footer = () => {
   const [content, setContent] = useState(null);
@@ -12,13 +14,17 @@ const Footer = () => {
 
   const fetchFooterContent = async () => {
     try {
-      const response = await fetch('/api/cms/content?path=footer');
+      const response = await fetch(getApiPath('/cms/content?path=footer'));
       const data = await response.json();
-      if (data.success) {
+      if (data.success && data.data && Object.keys(data.data).length > 0) {
         setContent(data.data);
+      } else {
+        // If API returns empty object or no data, use null to trigger defaultContent
+        setContent(null);
       }
     } catch (error) {
       console.error('Error fetching footer content:', error);
+      setContent(null);
     } finally {
       setLoading(false);
     }
@@ -35,7 +41,7 @@ const Footer = () => {
       email: "contact@azalee-patrimoine.fr",
       phone: "01 53 45 85 00",
       ctaButton: {
-        text: "Prendre rendez-vous",
+        text: "Planifiez votre consultation gratuite",
         url: "https://calendly.com/rdv-azalee-patrimoine/30min"
       }
     },
@@ -55,6 +61,17 @@ const Footer = () => {
         { text: "Calculateur d'impôts", path: "/outils/calculatrice-impots" },
         { text: "Calculs financiers", path: "/outils/calculs-financiers" },
         { text: "Assurance-vie vs PER", path: "/outils-financiers/assurance-vie-vs-per" }
+      ]
+    },
+    apropos: {
+      title: "À propos",
+      items: [
+        { text: "Qui sommes-nous", path: "/qui-sommes-nous" },
+        { text: "Notre équipe", path: "/equipe" },
+        { text: "Notre approche", path: "/notre-approche" },
+        { text: "Blog", path: "/blog" },
+        { text: "Ressources", path: "/ressources" },
+        { text: "Contact", path: "/contact" }
       ]
     },
     mentionsLegales: {
@@ -101,7 +118,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-[#253F60] px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {/* Contact */}
           {footerContent.contact && (
             <div className="text-white">
@@ -117,12 +134,13 @@ const Footer = () => {
                 {footerContent.contact.phone && <p>{footerContent.contact.phone}</p>}
               </div>
               {footerContent.contact.ctaButton && (
-                <button
-                  onClick={() => window.open(footerContent.contact.ctaButton.url, '_blank')}
-                  className="mt-4 bg-[#B99066] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#A67A5A] transition-colors duration-200"
+                <CTAButton
+                  externalUrl={footerContent.contact.ctaButton.url}
+                  variant="primary"
+                  className="mt-4"
                 >
                   {footerContent.contact.ctaButton.text}
-                </button>
+                </CTAButton>
               )}
             </div>
           )}
@@ -186,6 +204,20 @@ const Footer = () => {
             </div>
           )}
 
+          {/* À propos */}
+          {footerContent.apropos && (
+            <div className="text-white">
+              <h3 className="text-lg font-semibold mb-4">{footerContent.apropos.title || "À propos"}</h3>
+              <div className="space-y-2 text-sm">
+                {footerContent.apropos.items && footerContent.apropos.items.map((item, index) => (
+                  <Link key={index} href={item.path || "#"} className="hover:text-[#B99066] transition-colors block">
+                    {item.text || item}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Mentions légales */}
           {footerContent.mentionsLegales && (
             <div className="text-white">
@@ -240,9 +272,9 @@ const Footer = () => {
                 </div>
               )}
               {footerContent.bottom.links && footerContent.bottom.links.length > 0 && (
-                <div className="flex space-x-6">
+                <div className="flex flex-wrap gap-4 sm:gap-6 justify-center md:justify-end">
                   {footerContent.bottom.links.map((link, index) => (
-                    <Link key={index} href={link.path || "#"} className="hover:text-[#B99066] transition-colors">
+                    <Link key={index} href={link.path || "#"} className="hover:text-[#B99066] transition-colors text-sm">
                       {link.text || link}
                     </Link>
                   ))}

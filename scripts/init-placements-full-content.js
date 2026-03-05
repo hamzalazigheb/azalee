@@ -168,8 +168,8 @@ const placementsContent = {
       ]
     },
     ctas: [
-      { text: "👉 Échanger sur un projet de private equity", link: "https://calendly.com/contact-azalee-patrimoine" },
-      { text: "👉 Comprendre les risques avant d'investir", link: "https://calendly.com/contact-azalee-patrimoine" }
+      { text: " Échanger sur un projet de private equity", link: "https://calendly.com/contact-azalee-patrimoine" },
+      { text: " Comprendre les risques avant d'investir", link: "https://calendly.com/contact-azalee-patrimoine" }
     ],
     conclusion: {
       paragraphs: [
@@ -180,8 +180,8 @@ const placementsContent = {
       ],
       quote: "Notre approche : comprendre avant d'agir, conseiller avant de placer.",
       ctas: [
-        { text: "👉 Réaliser mon diagnostic patrimonial gratuit", link: "https://calendly.com/contact-azalee-patrimoine" },
-        { text: "👉 Prendre rendez-vous avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
+        { text: " Réaliser mon diagnostic patrimonial gratuit", link: "https://calendly.com/contact-azalee-patrimoine" },
+        { text: " Prendre rendez-vous avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
       ]
     }
   },
@@ -218,7 +218,7 @@ const placementsContent = {
         "et communiquer un rendement global (ou rendement interne) plutôt qu'un simple taux de distribution, jugé parfois trompeur."
       ],
       result: {
-        title: "👉 Résultat :",
+        title: " Résultat :",
         text: "les baisses de 2023–2024 ne traduisent pas une crise du marché, mais une mise à niveau comptable et réglementaire.",
         conclusion: "Elles visent à rétablir la cohérence entre les prix affichés et la réalité économique."
       }
@@ -281,8 +281,8 @@ const placementsContent = {
         "Réinvestir aujourd'hui, c'est profiter de prix ajustés et de rendements potentiellement plus élevés, à condition d'être accompagné par un conseiller indépendant capable de décoder le marché."
       ],
       ctas: [
-        { text: "👉 Faire le point sur mes SCPI actuelles", link: "https://calendly.com/contact-azalee-patrimoine" },
-        { text: "👉 Identifier les opportunités 2025 avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
+        { text: " Faire le point sur mes SCPI actuelles", link: "https://calendly.com/contact-azalee-patrimoine" },
+        { text: " Identifier les opportunités 2025 avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
       ]
     }
   },
@@ -331,8 +331,8 @@ const placementsContent = {
       conclusion: "Mais elle reste peu adaptée aux épargnants français cherchant un contrat souple, réactif et rentable à moindre coût."
     },
     ctas: [
-      { text: "👉 Évaluer la pertinence d'un contrat luxembourgeois", link: "https://calendly.com/contact-azalee-patrimoine" },
-      { text: "👉 Comparer avec un contrat français haut de gamme", link: "https://calendly.com/contact-azalee-patrimoine" }
+      { text: " Évaluer la pertinence d'un contrat luxembourgeois", link: "https://calendly.com/contact-azalee-patrimoine" },
+      { text: " Comparer avec un contrat français haut de gamme", link: "https://calendly.com/contact-azalee-patrimoine" }
     ]
   },
   
@@ -377,7 +377,7 @@ const placementsContent = {
         "L'argent a souvent un effet de levier sur l'or, mais il reste plus volatil et dépend davantage de la demande industrielle.",
         "Le platine et le palladium sont liés au secteur automobile (catalyseurs), donc plus cycliques.",
         "Le cuivre, considéré comme le \"métal de la transition énergétique\", attire aussi les investisseurs thématiques.",
-        "👉 Ces métaux peuvent compléter une stratégie de diversification, mais ils n'ont pas le même rôle que l'or : ce sont des actifs de croissance, pas de protection."
+        " Ces métaux peuvent compléter une stratégie de diversification, mais ils n'ont pas le même rôle que l'or : ce sont des actifs de croissance, pas de protection."
       ]
     },
     strategie: {
@@ -398,8 +398,8 @@ const placementsContent = {
         "Investir aujourd'hui, c'est accepter de payer la tranquillité : la certitude que, quelle que soit la conjoncture, une partie du patrimoine reste à l'abri."
       ],
       ctas: [
-        { text: "👉 Faire le point sur ma stratégie de diversification", link: "https://calendly.com/contact-azalee-patrimoine" },
-        { text: "👉 Déterminer la part optimale d'or dans mon portefeuille", link: "https://calendly.com/contact-azalee-patrimoine" }
+        { text: " Faire le point sur ma stratégie de diversification", link: "https://calendly.com/contact-azalee-patrimoine" },
+        { text: " Déterminer la part optimale d'or dans mon portefeuille", link: "https://calendly.com/contact-azalee-patrimoine" }
       ]
     }
   },
@@ -419,7 +419,7 @@ const placementsContent = {
         "une partie obligataire pour la protection du capital,",
         "une partie dérivée liée à un indice ou un panier d'actions, pour capter de la performance."
       ],
-      result: "👉 Résultat : des contrats capables d'offrir un rendement cible défini à l'avance, tout en limitant les pertes grâce à des mécanismes de protection.",
+      result: " Résultat : des contrats capables d'offrir un rendement cible défini à l'avance, tout en limitant les pertes grâce à des mécanismes de protection.",
       conclusion: "C'est cette visibilité qui rassure les épargnants, surtout après les chocs boursiers récents : ils savent dans quelles conditions ils gagnent ou perdent."
     },
     assureurs: {
@@ -503,8 +503,8 @@ const placementsContent = {
         "Bien construits, ils permettent de réconcilier performance et prudence, et de rassurer les clients sans brider leur rendement."
       ],
       ctas: [
-        { text: "👉 Découvrir les meilleures opportunités structurées du moment", link: "/placements/produits-structures" },
-        { text: "👉 Faire le point sur vos placements sécurisés avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
+        { text: " Découvrir les meilleures opportunités structurées du moment", link: "/placements/produits-structures" },
+        { text: " Faire le point sur vos placements sécurisés avec un conseiller Azalée", link: "https://calendly.com/contact-azalee-patrimoine" }
       ]
     },
     produits: {

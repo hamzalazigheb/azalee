@@ -1,0 +1,209 @@
+{
+    "path": "retraite/simulation",
+    "title": "Simulateur Retraite",
+    "published": true,
+    "content": {
+        "seo": {
+            "metaTitle": "Simulateur Retraite | Azalée Patrimoine",
+            "metaDescription": "Estimez vos droits et optimisez votre futur revenu avec notre simulateur retraite et l'accompagnement personnalisé d'Azalée Patrimoine."
+        },
+        "hero": {
+            "title": "Simulateur Retraite : estimez vos droits et optimisez votre futur revenu",
+            "subtitle": "Anticipez votre retraite et construisez une stratégie sur mesure avec Azalée Patrimoine.",
+            "breadcrumb": {
+                "parent": "Retraite",
+                "current": "Simulateur Retraite"
+            }
+        },
+        "introduction": {
+            "paragraphs": [
+                "Préparer sa retraite, c'est anticiper la baisse de revenus qui survient au moment du départ de la vie active.",
+                "Grâce à un simulateur retraite, vous pouvez estimer vos droits, calculer votre taux de remplacement, et identifier les leviers à activer pour préserver votre niveau de vie."
+            ],
+            "highlight": "Chez **Azalée Patrimoine**, nous allons plus loin qu'un simple calcul automatique : nous analysons votre relevé de carrière, vos régimes de cotisation et votre épargne retraite existante pour construire une stratégie sur mesure."
+        },
+        "pourquoi": {
+            "title": "Pourquoi utiliser un simulateur retraite ?",
+            "subtitle": "Un simulateur retraite permet d'estimer :",
+            "items": [
+                {
+                    "title": "Votre âge de départ",
+                    "description": "Selon vos trimestres validés"
+                },
+                {
+                    "title": "Le montant de votre pension",
+                    "description": "Régime de base + complémentaire"
+                },
+                {
+                    "title": "Votre taux de remplacement",
+                    "description": "Revenu net à la retraite / dernier revenu"
+                },
+                {
+                    "title": "L'écart vs besoins réels",
+                    "description": "Pour identifier les leviers d'optimisation"
+                }
+            ],
+            "note": "**En moyenne, un salarié cadre perd entre 30 et 40 % de ses revenus à la retraite.**"
+        },
+        "meilleursSimulateurs": {
+            "title": "Les meilleurs simulateurs retraite disponibles en ligne",
+            "intro": "Il existe plusieurs outils fiables pour estimer vos droits :",
+            "items": [
+                {
+                    "name": "Info-Retraite.fr",
+                    "desc": "Officiel, accessible avec FranceConnect. Agrège tous vos régimes.",
+                    "url": "https://info-retraite.fr"
+                },
+                {
+                    "name": "Agirc-Arrco",
+                    "desc": "Calcule la retraite complémentaire des salariés du privé.",
+                    "url": "https://agirc-arrco.fr"
+                },
+                {
+                    "name": "Préfon Retraite",
+                    "desc": "Simulateur dédié aux fonctionnaires et assimilés.",
+                    "url": "https://prefon-retraite.fr"
+                },
+                {
+                    "name": "Service Public",
+                    "desc": "Compare votre âge de départ selon votre carrière.",
+                    "url": "https://service-public.fr"
+                },
+                {
+                    "name": "BNP Paribas",
+                    "desc": "Simulateur interne pour les plans d'épargne entreprise.",
+                    "url": "https://bnpparibas.fr"
+                }
+            ],
+            "note": "Chez **Azalée Patrimoine**, nous croisons les résultats de ces simulateurs avec une analyse patrimoniale complète."
+        },
+        "tauxRemplacement": {
+            "title": "Comprendre votre taux de remplacement",
+            "intro": "Le taux de remplacement moyen varie selon les régimes :",
+            "headers": [
+                "Statut",
+                "Taux moyen",
+                "Commentaires"
+            ],
+            "rows": [
+                {
+                    "statut": "Salarié du privé",
+                    "taux": "50 à 60 %",
+                    "comm": "Variable selon prime départ & durée"
+                },
+                {
+                    "statut": "Fonctionnaire",
+                    "taux": "65 à 75 %",
+                    "comm": "Hors primes non intégrées"
+                },
+                {
+                    "statut": "Indépendant / TNS",
+                    "taux": "30 à 45 %",
+                    "comm": "À compléter avec un PER"
+                },
+                {
+                    "statut": "Militaire",
+                    "taux": "70 à 80 %",
+                    "comm": "Selon bonifications"
+                },
+                {
+                    "statut": "Haut fonctionnaire",
+                    "taux": "Variable",
+                    "comm": "Plafonds spécifiques"
+                }
+            ],
+            "note": "Pour obtenir une \"bonne retraite\", il est essentiel de compenser cette différence grâce à l'**épargne individuelle**."
+        },
+        "infographie": {
+            "title": "Infographie - Taux de remplacement moyen par profil",
+            "intro": "Exemples chiffrés pour comprendre la chute de revenus.",
+            "headers": [
+                "Profil",
+                "Dernier revenu",
+                "Pension estimée",
+                "Taux",
+                "Commentaires"
+            ],
+            "rows": [
+                {
+                    "profil": "Cadre salarié",
+                    "revenu": "4 000 € net",
+                    "pension": "2 200 € net",
+                    "taux": "55%",
+                    "comm": "Nécessite un PER."
+                },
+                {
+                    "profil": "Fonctionnaire",
+                    "revenu": "3 000 € brut",
+                    "pension": "2 100 € brut",
+                    "taux": "70%",
+                    "comm": "Préfon peut combler l'écart."
+                },
+                {
+                    "profil": "Indépendant",
+                    "revenu": "5 000 € net",
+                    "pension": "2 000 € net",
+                    "taux": "40%",
+                    "comm": "Madelin/PER indispensable."
+                },
+                {
+                    "profil": "Militaire",
+                    "revenu": "3 500 € net",
+                    "pension": "2 700 € net",
+                    "taux": "75%",
+                    "comm": "Départ anticipé à compléter."
+                },
+                {
+                    "profil": "Haut fonctionnaire",
+                    "revenu": "10 000 € net",
+                    "pension": "6 500 € net",
+                    "taux": "65%",
+                    "comm": "Fiscalité élevée, optimisation nécessaire."
+                }
+            ]
+        },
+        "leviers": {
+            "title": "Les leviers pour améliorer votre future retraite",
+            "items": [
+                {
+                    "title": "1. Le Plan d'Épargne Retraite (PER)",
+                    "text": "Le **PER retraite** est l'outil de référence. Il permet de déduire vos versements et de choisir entre sortie en capital ou en rente."
+                },
+                {
+                    "title": "2. Les dispositifs fonction publique",
+                    "text": "La **Préfon Retraite** ou le **RAFP** permettent d'améliorer une pension parfois limitée par les primes non prises en compte."
+                },
+                {
+                    "title": "3. L'épargne salariale",
+                    "text": "Le **PERCO/PERECO**, alimenté par la participation et l'intéressement, bénéficie d'une fiscalité avantageuse."
+                },
+                {
+                    "title": "4. Gestion des indemnités",
+                    "text": "Optimiser la prime de départ à la retraite, les indemnités et le chômage pour réduire la fiscalité de fin de carrière."
+                }
+            ]
+        },
+        "fiscalite": {
+            "title": "Anticiper la fiscalité à la retraite",
+            "content": "La CSG retraite 2025 et l'impôt sur le revenu (TMI) impactent votre pouvoir d'achat.\n\nChez **Azalée Patrimoine**, nous intégrons ces paramètres pour déterminer votre **retraite nette d'impôts**."
+        },
+        "approche": {
+            "title": "L'approche Azalée Patrimoine",
+            "intro": "Notre cabinet vous accompagne dans une approche globale :",
+            "steps": [
+                "Lecture et analyse de votre **relevé de carrière**",
+                "Calcul personnalisé de votre **taux de remplacement**",
+                "Optimisation de vos **indemnités de départ**",
+                "Mise en place d'un **plan d'épargne retraite sur mesure**",
+                "Intégration de votre **fiscalité** (CSG, TMI)"
+            ],
+            "mission": "Notre mission : transformer vos revenus en patrimoine et votre patrimoine en liberté."
+        },
+        "cta": {
+            "title": "Simulez votre retraite avec un expert",
+            "subtitle": "Vous souhaitez connaître votre pension estimée et le montant optimal à verser sur votre PER ?",
+            "buttonText": "Prenez rendez-vous avec un conseiller Azalée Patrimoine",
+            "contact": "contact@azalee-patrimoine.fr"
+        }
+    }
+}

@@ -1,14 +1,22 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import AdminBreadcrumb from '@/components/admin/AdminBreadcrumb';
+import { getImagePath } from '@/lib/paths';
 
 export default function AdminLayout({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [newContactsCount, setNewContactsCount] = useState(0);
+  const [showNotificationsDropdown, setShowNotificationsDropdown] = useState(false);
+  const [newContacts, setNewContacts] = useState([]);
+  const [loadingContacts, setLoadingContacts] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  
+  // Check if we're on CMS page
+  const isCMSPage = pathname === '/admin/cms';
 
   // Load dark mode preference from localStorage
   useEffect(() => {
@@ -126,6 +134,85 @@ export default function AdminLayout({ children }) {
     return () => clearInterval(interval);
   }, [isAuthenticated, pathname]);
 
+  // Fetch new contacts list when dropdown opens (only on CMS page)
+  useEffect(() => {
+    if (!isAuthenticated || pathname === '/admin/login' || !isCMSPage) return;
+    
+    if (showNotificationsDropdown && newContactsCount > 0) {
+      fetchNewContacts();
+    }
+  }, [showNotificationsDropdown, isAuthenticated, pathname, isCMSPage, newContactsCount]);
+
+  const fetchNewContacts = async () => {
+    try {
+      setLoadingContacts(true);
+      const token = localStorage.getItem('adminToken');
+      if (!token) return;
+
+      const response = await fetch('/api/contact/list?status=new&limit=10', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setNewContacts(data.data || []);
+      }
+    } catch (error) {
+      console.error('Error fetching new contacts:', error);
+    } finally {
+      setLoadingContacts(false);
+    }
+  };
+
+  const handleNotificationClick = () => {
+    if (isCMSPage) {
+      // Toggle dropdown on CMS page
+      setShowNotificationsDropdown(!showNotificationsDropdown);
+    } else {
+      // Redirect to contacts page on other pages
+      router.push('/admin/contacts?filter=new');
+    }
+  };
+
+  const markAsRead = async (contactId) => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      if (!token) return;
+
+      const response = await fetch('/api/contact/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id: contactId, status: 'read' })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        // Remove from list and update count
+        setNewContacts(prev => prev.filter(c => c._id !== contactId));
+        setNewContactsCount(prev => Math.max(0, prev - 1));
+      }
+    } catch (error) {
+      console.error('Error marking contact as read:', error);
+    }
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showNotificationsDropdown && !event.target.closest('.notifications-dropdown')) {
+        setShowNotificationsDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showNotificationsDropdown]);
+
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('adminUser');
@@ -164,7 +251,7 @@ export default function AdminLayout({ children }) {
                 {/* Logo */}
                 <div className="bg-white rounded-xl p-2 shadow-lg">
                   <img 
-                    src="/images/azalee-patrimoine3.png" 
+                    src={getImagePath("/images/azalee-patrimoine3.webp")}
                     alt="Azalée Patrimoine Logo" 
                     className="w-10 h-10 object-contain"
                     onError={(e) => {
@@ -188,21 +275,122 @@ export default function AdminLayout({ children }) {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                {/* Notifications Icon */}
-                <button
-                  onClick={() => router.push('/admin/contacts?filter=new')}
-                  className="relative flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 text-white"
-                  title="Nouvelles demandes de contact"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                  </svg>
-                  {newContactsCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
-                      {newContactsCount > 9 ? '9+' : newContactsCount}
-                    </span>
+                {/* Notifications Icon with Dropdown */}
+                <div className="relative notifications-dropdown">
+                  <button
+                    onClick={handleNotificationClick}
+                    className="relative flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-300 text-white"
+                    title="Nouvelles demandes de contact"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    {newContactsCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
+                        {newContactsCount > 9 ? '9+' : newContactsCount}
+                      </span>
+                    )}
+                  </button>
+                  
+                  {/* Dropdown (only on CMS page) */}
+                  {isCMSPage && showNotificationsDropdown && (
+                    <div className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border-2 border-[#253F60]/20 dark:border-gray-700 z-50 max-h-[600px] flex flex-col">
+                      {/* Header */}
+                      <div className="bg-gradient-to-r from-[#253F60] to-[#1a2d47] dark:from-gray-800 dark:to-gray-900 p-4 rounded-t-xl border-b border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-lg font-cairo font-bold text-white">
+                            Nouvelles demandes ({newContactsCount})
+                          </h3>
+                          <button
+                            onClick={() => setShowNotificationsDropdown(false)}
+                            className="text-white hover:text-gray-300 transition-colors"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="overflow-y-auto flex-1">
+                        {loadingContacts ? (
+                          <div className="p-8 text-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#253F60] mx-auto mb-4"></div>
+                            <p className="text-gray-500 dark:text-gray-400">Chargement...</p>
+                          </div>
+                        ) : newContacts.length === 0 ? (
+                          <div className="p-8 text-center">
+                            <svg className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p className="text-gray-500 dark:text-gray-400 font-inter">Aucune nouvelle demande</p>
+                          </div>
+                        ) : (
+                          <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                            {newContacts.map((contact) => (
+                              <div
+                                key={contact._id}
+                                className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                              >
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="text-sm font-cairo font-semibold text-[#253F60] dark:text-[#B99066] mb-1 truncate">
+                                      {contact.nom}
+                                    </h4>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-1 truncate">
+                                      📧 {contact.email}
+                                    </p>
+                                    {contact.telephone && (
+                                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                                        📞 {contact.telephone}
+                                      </p>
+                                    )}
+                                    {contact.message && (
+                                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-2 line-clamp-2">
+                                        {contact.message}
+                                      </p>
+                                    )}
+                                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                                      {new Date(contact.createdAt).toLocaleDateString('fr-FR', {
+                                        day: 'numeric',
+                                        month: 'short',
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                      })}
+                                    </p>
+                                  </div>
+                                  <button
+                                    onClick={() => markAsRead(contact._id)}
+                                    className="px-3 py-1 bg-gradient-to-r from-[#B99066] to-[#A67C52] text-white text-xs font-semibold rounded-lg hover:from-[#A67C52] hover:to-[#8F6B42] transition-all duration-300 flex-shrink-0"
+                                    title="Marquer comme lu"
+                                  >
+                                    Lu
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Footer */}
+                      {newContacts.length > 0 && (
+                        <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-b-xl">
+                          <button
+                            onClick={() => {
+                              setShowNotificationsDropdown(false);
+                              router.push('/admin/contacts?filter=new');
+                            }}
+                            className="w-full px-4 py-2 bg-gradient-to-r from-[#253F60] to-[#1a2d47] text-white rounded-lg hover:from-[#1a2d47] hover:to-[#253F60] transition-all duration-300 font-cairo font-semibold text-sm"
+                          >
+                            Voir toutes les demandes →
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   )}
-                </button>
+                </div>
                 {/* Dark Mode Toggle */}
                 <button
                   onClick={toggleDarkMode}
@@ -260,6 +448,9 @@ export default function AdminLayout({ children }) {
             </div>
           </div>
         </nav>
+        
+        {/* Breadcrumb */}
+        <AdminBreadcrumb />
         
         {/* Main Content */}
         <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
